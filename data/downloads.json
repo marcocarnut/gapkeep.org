@@ -1,34 +1,86 @@
 {
-  "_comment": "The SD card images on the download page. Fill in each image's fields when a release is published (size in bytes, sha256 in hex, date as YYYY-MM-DD, url of the file on the GitHub release); an image without file, sha256 and url is shown as coming soon. Then run tools/build.py.",
+  "_comment": "The SD card images on the download page, from a release made by GapKeep's tools/make_release.sh. Per language: the image (gapkeep-<version>-<lang>.img.zip) and the card's files (gapkeep-<version>-<lang>.zip); for the release: SHA256SUMS and RELEASE.txt. Fill in each field when a release is published (sizes in bytes, sha256 in hex, date as YYYY-MM-DD, URLs of the files on the GitHub release); an image without file, sha256 and url is shown as coming soon. Then run tools/build.py.",
   "releases_url": "https://github.com/marcocarnut/GapKeep/releases",
+  "sums_url": null,
+  "release_txt_url": null,
   "images": [
     {
       "code": "EN",
-      "name": {"en": "English", "pt-BR": "Inglês"},
-      "about": {"en": "GapKeep, starting in English.", "pt-BR": "O GapKeep, iniciando em inglês."},
-      "file": null, "size": null, "sha256": null, "version": null, "commit": null, "date": null, "url": null
+      "name": {
+        "en": "English",
+        "pt-BR": "Inglês"
+      },
+      "about": {
+        "en": "GapKeep, starting in English.",
+        "pt-BR": "O GapKeep, iniciando em inglês."
+      },
+      "file": null,
+      "size": null,
+      "sha256": null,
+      "version": null,
+      "commit": null,
+      "date": null,
+      "url": null,
+      "files_zip": null,
+      "files_zip_sha256": null,
+      "files_zip_url": null
     },
     {
       "code": "PT-BR",
-      "name": {"en": "Brazilian Portuguese", "pt-BR": "Português (Brasil)"},
-      "about": {"en": "GapKeep, starting in Brazilian Portuguese, with the Brazilian ABNT2 keyboard layout.", "pt-BR": "O GapKeep, iniciando em português do Brasil, com o teclado no layout ABNT2."},
-      "file": null, "size": null, "sha256": null, "version": null, "commit": null, "date": null, "url": null
+      "name": {
+        "en": "Brazilian Portuguese",
+        "pt-BR": "Português (Brasil)"
+      },
+      "about": {
+        "en": "GapKeep, starting in Brazilian Portuguese, with the Brazilian ABNT2 keyboard layout.",
+        "pt-BR": "O GapKeep, iniciando em português do Brasil, com o teclado no layout ABNT2."
+      },
+      "file": null,
+      "size": null,
+      "sha256": null,
+      "version": null,
+      "commit": null,
+      "date": null,
+      "url": null,
+      "files_zip": null,
+      "files_zip_sha256": null,
+      "files_zip_url": null
     }
   ],
   "strings": {
     "en": {
-      "fields": {"file": "File", "size": "Size", "sha256": "SHA-256", "version": "Version", "commit": "Commit", "date": "Released"},
+      "fields": {
+        "file": "Image",
+        "size": "Size",
+        "sha256": "SHA-256",
+        "version": "Version",
+        "commit": "Commit",
+        "date": "Released",
+        "files_zip": "Card files (.zip)"
+      },
       "soon": "coming soon",
       "soon_button": "Coming soon",
       "get": "Download from GitHub",
-      "all_releases": "All releases, with their hashes, on GitHub →"
+      "all_releases": "All releases, with their hashes, on GitHub →",
+      "get_files": "The card's files (.zip)",
+      "sums": "SHA256SUMS"
     },
     "pt-BR": {
-      "fields": {"file": "Arquivo", "size": "Tamanho", "sha256": "SHA-256", "version": "Versão", "commit": "Commit", "date": "Publicada em"},
+      "fields": {
+        "file": "Imagem",
+        "size": "Tamanho",
+        "sha256": "SHA-256",
+        "version": "Versão",
+        "commit": "Commit",
+        "date": "Publicada em",
+        "files_zip": "Arquivos do cartão (.zip)"
+      },
       "soon": "em breve",
       "soon_button": "Em breve",
       "get": "Baixar do GitHub",
-      "all_releases": "Todas as versões, com seus hashes, no GitHub →"
+      "all_releases": "Todas as versões, com seus hashes, no GitHub →",
+      "get_files": "Arquivos do cartão (.zip)",
+      "sums": "SHA256SUMS"
     }
   }
 }

@@ -594,3 +594,16 @@ html:not(.js) .scroll-btns { display: none; }
 .roundtrip .callout { margin-top: 1rem; }
 .rt-cta { margin: 1.2rem 0 0; }
 @media (max-width: 900px) { .rt-cols { grid-template-columns: 1fr; } }
+
+/* download tutorial */
+.os-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: .8rem; margin: 1rem 0 .4rem; }
+.os-grid section { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: .9rem 1rem; }
+.os-grid h3, .method h3 { font-size: 1.02rem; color: var(--text); margin: 0 0 .5rem; }
+.os-grid pre { margin: .3rem 0; font-size: .8rem; padding: .6rem .7rem; }
+.os-grid p { font-size: .9rem; margin: .4rem 0 0; }
+.note { font-size: .88rem; color: var(--faint) !important; }
+.method { border-left: 3px solid var(--teal); padding: .2rem 0 .2rem 1.1rem; margin: 1.4rem 0; }
+.method ol, .method ul { padding-left: 1.2rem; }
+.method li { margin-bottom: .45rem; }
+.method .callout { margin: .8rem 0 0; }
+@media (max-width: 900px) { .os-grid { grid-template-columns: 1fr; } }

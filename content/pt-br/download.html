@@ -1,8 +1,8 @@
-<!--meta {"title": "Baixar", "description": "As imagens do GapKeep para cartão SD, em inglês e em português do Brasil: como gravar num cartão, conferir o SHA-256 e verificar que o que roda é o que foi publicado."} -->
+<!--meta {"title": "Baixar", "description": "As imagens do GapKeep para cartão SD, em inglês e em português do Brasil, e como colocar uma num cartão microSD: Raspberry Pi Imager, balenaEtcher, ferramentas do Linux ou só copiando arquivos; como conferir o download e o que roda."} -->
 <div class="wrap page-head">
   <p class="eyebrow">Baixar</p>
   <h1>Imagens para cartão SD</h1>
-  <p class="lede">Duas imagens, prontas para gravar num cartão microSD para o Raspberry Pi Zero v1.3. A única diferença é o idioma em que o GapKeep inicia; dá para trocar um pelo outro no aplicativo Configurações (até desligar) ou no arquivo <code>gapkeep.txt</code> do cartão.</p>
+  <p class="lede">Duas imagens para o Raspberry Pi Zero v1.3, prontas pra ir num cartão microSD. A única diferença é o idioma em que o GapKeep inicia (a de português do Brasil também já vem com o teclado no layout ABNT2); dá pra trocar no aplicativo Configurações, até desligar, ou no arquivo <code>gapkeep.txt</code> do cartão.</p>
 </div>
 
 <div class="wrap">
@@ -16,37 +16,92 @@
 
   <ol class="steps-doc prose">
     <li>
+      <h2>O que vem numa versão</h2>
+      <p>Cada versão no GitHub traz, para cada idioma (<code>en</code> ou <code>pt-BR</code>):</p>
+      <ul>
+        <li><code>gapkeep-&lt;versão&gt;-&lt;idioma&gt;.img.zip</code>: <strong>a imagem</strong>, pra gravar no cartão com uma das ferramentas abaixo.</li>
+        <li><code>gapkeep-&lt;versão&gt;-&lt;idioma&gt;.zip</code>: <strong>os arquivos do cartão</strong>, pro jeito mais simples ainda: copiar tudo para um cartão FAT32.</li>
+      </ul>
+      <p>E, para a versão inteira, o <code>SHA256SUMS</code> (o hash de cada arquivo) e o <code>RELEASE.txt</code> (o commit do GapKeep, e os hashes do kernel e dos aplicativos que o lançador mostra).</p>
+    </li>
+    <li>
       <h2>Confira o download</h2>
-      <p>Compare o SHA-256 do arquivo com o publicado na página da versão (e no seu arquivo <code>SHA256SUMS</code>) e nesta página. Eles têm de ser idênticos, caractere por caractere.</p>
-      <div class="tabs-os">
-        <h3>Linux</h3>
-<pre><code>sha256sum gapkeep-*.img*</code></pre>
-        <h3>macOS</h3>
-<pre><code>shasum -a 256 gapkeep-*.img*</code></pre>
-        <h3>Windows (PowerShell)</h3>
-<pre><code>Get-FileHash .\gapkeep-*.img* -Algorithm SHA256</code></pre>
+      <p>Antes de gravar qualquer coisa, confira se o arquivo é o publicado: calcule o SHA-256 dele e compare com o <code>SHA256SUMS</code> da versão no GitHub. Têm de ser idênticos, caractere por caractere.</p>
+      <div class="os-grid">
+        <section><h3>Windows</h3>
+<pre><code>certutil -hashfile gapkeep-1.0-pt-BR.img.zip SHA256</code></pre>
+          <p>ou, no PowerShell:</p>
+<pre><code>Get-FileHash .\gapkeep-1.0-pt-BR.img.zip</code></pre></section>
+        <section><h3>macOS</h3>
+<pre><code>shasum -a 256 gapkeep-1.0-pt-BR.img.zip</code></pre></section>
+        <section><h3>Linux</h3>
+<pre><code>sha256sum -c --ignore-missing SHA256SUMS</code></pre>
+          <p>na pasta com o download e o <code>SHA256SUMS</code>: a resposta deve ser <code>OK</code> (ou <code>SUCESSO</code>, com o sistema em português).</p></section>
       </div>
+      <p class="note">(<code>1.0</code> representa a versão que você baixou.)</p>
     </li>
     <li>
       <h2>Grave no cartão</h2>
-      <p>O jeito mais simples é o <a href="https://www.raspberrypi.com/software/">Raspberry Pi Imager</a>: escolha <strong>Use custom</strong> como sistema operacional, selecione a imagem e depois o cartão. Pule as opções de personalização: o GapKeep não usa Wi-Fi nem contas de usuário. Qualquer programa que grave imagens de disco serve (balenaEtcher, Discos do GNOME).</p>
-      <p>No Linux ou no macOS, o <code>dd</code> também resolve. Antes, descubra o nome do dispositivo do cartão (<code>lsblk</code> no Linux, <code>diskutil list</code> no macOS): gravar no dispositivo errado destrói o que estiver nele.</p>
-<pre><code>sudo dd if=gapkeep-pt-BR.img of=/dev/sdX bs=4M conv=fsync status=progress</code></pre>
-      <p>Depois, coloque o cartão no Zero e ligue a tela, o teclado (porta <strong>USB</strong>) e a alimentação (porta <strong>PWR</strong>). O lançador aparece em segundos (uns 12 desde que você liga, quase tudo do firmware do próprio Pi); a partir daí, o cartão pode ser retirado.</p>
+      <p>Escolha um dos jeitos. Gravar uma imagem apaga tudo o que estiver no cartão.</p>
+      <div class="method">
+        <h3>O mais fácil, no Windows, no macOS e no Linux: Raspberry Pi Imager</h3>
+        <p>A ferramenta oficial e gratuita da Raspberry Pi: <a href="https://www.raspberrypi.com/software/">raspberrypi.com/software</a>.</p>
+        <ol>
+          <li>Em Choose OS (escolher o sistema), vá em <strong>Use custom</strong> e escolha o <code>.img.zip</code> que você baixou (não precisa descompactar).</li>
+          <li>Em Choose storage (armazenamento), escolha o seu cartão microSD.</li>
+          <li>Grave. Se ele oferecer personalizar o sistema (Wi-Fi, nome de usuário e afins), pule: essas opções não valem para o GapKeep.</li>
+        </ol>
+      </div>
+      <div class="method">
+        <h3>Também nos três: balenaEtcher</h3>
+        <p>Gratuito, em <a href="https://etcher.balena.io/">etcher.balena.io</a>.</p>
+        <ol>
+          <li><strong>Flash from file</strong>, e escolha o <code>.img.zip</code>.</li>
+          <li><strong>Select target</strong>: o seu cartão microSD.</li>
+          <li><strong>Flash!</strong> Ele confere o cartão depois de gravar.</li>
+        </ol>
+      </div>
+      <div class="method">
+        <h3>No Linux, sem instalar nada</h3>
+        <ul>
+          <li><strong>GNOME Disks</strong> ("Discos" na maioria das distribuições): descompacte a imagem, selecione o cartão à esquerda e, no menu, <strong>Restaurar imagem de disco…</strong>, escolhendo o <code>.img</code>.</li>
+          <li><strong>Linux Mint</strong>: o <strong>Gravador de imagem USB</strong> (mintstick) grava um <code>.img</code> descompactado no cartão.</li>
+          <li><strong>Para quem já tem prática: <code>dd</code>.</strong> Descompacte, descubra o nome do dispositivo do cartão e grave:
+<pre><code>unzip gapkeep-1.0-pt-BR.img.zip
+lsblk                      # ache o cartão: /dev/sdX ou /dev/mmcblk0
+sudo dd if=gapkeep-1.0-pt-BR.img of=/dev/sdX bs=4M conv=fsync status=progress</code></pre>
+            <div class="callout red"><p><strong>Confira o nome do dispositivo duas vezes.</strong>O <code>dd</code> sobrescreve o que você mandar, sem perguntar: se apontar para o disco do computador em vez do cartão, lá se vai o disco. Compare o tamanho que o <code>lsblk</code> mostra com o do seu cartão, e desmonte as partições do cartão antes.</p></div>
+          </li>
+        </ul>
+      </div>
+      <div class="method">
+        <h3>No macOS</h3>
+        <p>Raspberry Pi Imager ou balenaEtcher, como acima.</p>
+      </div>
+      <div class="method">
+        <h3>Mais simples ainda: copie os arquivos</h3>
+        <p>O cartão do GapKeep é só um punhado de arquivos num cartão FAT32, então dá pra dispensar a imagem:</p>
+        <ol>
+          <li>Formate o cartão em <strong>FAT32</strong>. Cartões acima de 32 GB vêm formatados em exFAT, e também precisam ir para FAT32. O Raspberry Pi Imager faz isso (Choose OS → <strong>Erase</strong>, que formata em FAT32), ou o utilitário de disco do seu sistema.</li>
+          <li>Descompacte o <code>gapkeep-&lt;versão&gt;-&lt;idioma&gt;.zip</code> e copie tudo o que tem dentro para a raiz do cartão.</li>
+          <li>Ejete o cartão direitinho antes de tirar.</li>
+        </ol>
+      </div>
+    </li>
+    <li>
+      <h2>A primeira vez</h2>
+      <p>Coloque o cartão no Zero, ligue a tela (mini-HDMI) e o teclado (na porta marcada <strong>USB</strong>, pelo adaptador OTG) e, por último, a alimentação (na porta marcada <strong>PWR</strong>). Primeiro aparece a tela colorida do próprio Pi; uns 12 segundos depois de ligar, quase tudo isso do firmware do Pi, o lançador está na tela. A partir daí, o cartão pode ser retirado e guardado em outro lugar.</p>
     </li>
     <li>
       <h2>Confira o que roda</h2>
       <!-- DRAFT: verify after security fixes -->
-      <p>Um download conferido só prova que o arquivo é o publicado. O GapKeep também deixa você conferir o que ele executa, na própria tela:</p>
+      <p>Um download conferido prova que o arquivo é o publicado. O GapKeep também deixa você conferir o que ele está executando, na própria tela, comparando com o <code>RELEASE.txt</code>:</p>
       <ul>
-        <li><strong>O hash do kernel:</strong> no lançador, aperte <kbd>i</kbd> para ver as informações do sistema, com o SHA-256 do código do kernel em execução.</li>
-        <li><strong>O hash de cada aplicativo:</strong> no rodapé do lançador, para o aplicativo selecionado. Ele cobre todos os arquivos do aplicativo, ou seja, cada linha de código que ele executa.</li>
-        <li><strong>Compilações reproduzíveis:</strong> com o compilador fixado, o mesmo commit gera o mesmo <code>kernel.img</code>, byte a byte, onde quer que seja compilado. Qualquer pessoa pode recompilar uma versão e comparar (<code>tools/check_reproducible.sh</code>; veja <a href="docs/readme.html#building">Building</a>, em inglês).</li>
+        <li><strong>O kernel:</strong> aperte <kbd>i</kbd> no lançador para ver as informações do sistema, com o SHA-256 do kernel em execução.</li>
+        <li><strong>Cada aplicativo:</strong> o SHA-256 dele aparece no rodapé do lançador quando o seu bloco está selecionado. Ele cobre todos os arquivos do aplicativo, ou seja, cada linha de código que ele executa.</li>
+        <li><strong>Compilações reproduzíveis:</strong> com o compilador fixado, o mesmo commit gera o mesmo <code>kernel.img</code>, byte a byte, onde quer que seja compilado; qualquer pessoa pode recompilar uma versão e comparar (<code>tools/check_reproducible.sh</code>; veja <a href="docs/readme.html#building">Building</a>, em inglês).</li>
       </ul>
-    </li>
-    <li>
-      <h2>Onde os hashes são publicados</h2>
-      <p>Junto com cada <a href="https://github.com/marcocarnut/GapKeep/releases">versão no GitHub</a>: o SHA-256 das imagens e, para comparar com a sua tela, os hashes do kernel e dos aplicativos que elas contêm. Esta página repete os hashes das imagens; se um dia os dois forem diferentes, não confie em nenhum, e <a href="docs/security.html">avise a gente</a>.</p>
+      <p>Se algum hash for diferente do publicado, não use esse cartão, e por favor <a href="docs/security.html">avise a gente</a>.</p>
     </li>
   </ol>
 </div>

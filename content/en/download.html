@@ -1,8 +1,8 @@
-<!--meta {"title": "Download", "description": "GapKeep's SD card images, in English and Brazilian Portuguese: how to write one to a card, check its SHA-256, and check that what runs is what was published."} -->
+<!--meta {"title": "Download", "description": "GapKeep's SD card images, in English and Brazilian Portuguese, and how to put one on a microSD card: Raspberry Pi Imager, balenaEtcher, Linux tools or plain file copying; checking the download and what runs."} -->
 <div class="wrap page-head">
   <p class="eyebrow">Download</p>
   <h1>SD card images</h1>
-  <p class="lede">Two images, ready to write to a microSD card for a Raspberry Pi Zero v1.3. They differ only in the language GapKeep starts in; either can be switched to the other in the Settings app (until power-off) or in <code>gapkeep.txt</code> on the card.</p>
+  <p class="lede">Two images for a Raspberry Pi Zero v1.3, ready to put on a microSD card. They differ only in the language GapKeep starts in (the Brazilian Portuguese one also uses the ABNT2 keyboard layout); either can be changed in the Settings app, until power-off, or in <code>gapkeep.txt</code> on the card.</p>
 </div>
 
 <div class="wrap">
@@ -16,37 +16,92 @@
 
   <ol class="steps-doc prose">
     <li>
+      <h2>What's in a release</h2>
+      <p>Each release on GitHub has, for each language (<code>en</code> or <code>pt-BR</code>):</p>
+      <ul>
+        <li><code>gapkeep-&lt;version&gt;-&lt;lang&gt;.img.zip</code>: <strong>the image</strong>, to write to a card with one of the tools below.</li>
+        <li><code>gapkeep-&lt;version&gt;-&lt;lang&gt;.zip</code>: <strong>the card's files</strong>, for the even simpler way: copying them onto a FAT32 card.</li>
+      </ul>
+      <p>And, for the whole release, <code>SHA256SUMS</code> (the hash of every file) and <code>RELEASE.txt</code> (the GapKeep commit, and the kernel and app hashes the launcher shows).</p>
+    </li>
+    <li>
       <h2>Check the download</h2>
-      <p>Compare the file's SHA-256 with the one published on the release page (and in its <code>SHA256SUMS</code> file) and on this page. They must be identical, every character.</p>
-      <div class="tabs-os">
-        <h3>Linux</h3>
-<pre><code>sha256sum gapkeep-*.img*</code></pre>
-        <h3>macOS</h3>
-<pre><code>shasum -a 256 gapkeep-*.img*</code></pre>
-        <h3>Windows (PowerShell)</h3>
-<pre><code>Get-FileHash .\gapkeep-*.img* -Algorithm SHA256</code></pre>
+      <p>Before writing anything, check that the file is the one published: compute its SHA-256 and compare it with <code>SHA256SUMS</code> on the GitHub release. They must be identical, every character.</p>
+      <div class="os-grid">
+        <section><h3>Windows</h3>
+<pre><code>certutil -hashfile gapkeep-1.0-en.img.zip SHA256</code></pre>
+          <p>or, in PowerShell:</p>
+<pre><code>Get-FileHash .\gapkeep-1.0-en.img.zip</code></pre></section>
+        <section><h3>macOS</h3>
+<pre><code>shasum -a 256 gapkeep-1.0-en.img.zip</code></pre></section>
+        <section><h3>Linux</h3>
+<pre><code>sha256sum -c --ignore-missing SHA256SUMS</code></pre>
+          <p>in the folder with the download and <code>SHA256SUMS</code>: it should say <code>OK</code>.</p></section>
+      </div>
+      <p class="note">(<code>1.0</code> stands for the version you downloaded.)</p>
+    </li>
+    <li>
+      <h2>Write it to the card</h2>
+      <p>Pick one way. Writing an image erases everything on the card.</p>
+      <div class="method">
+        <h3>The easiest, on Windows, macOS and Linux: Raspberry Pi Imager</h3>
+        <p>The official, free tool from Raspberry Pi: <a href="https://www.raspberrypi.com/software/">raspberrypi.com/software</a>.</p>
+        <ol>
+          <li>Choose OS → <strong>Use custom</strong>, and pick the <code>.img.zip</code> you downloaded (no need to unzip it).</li>
+          <li>Choose storage: your microSD card.</li>
+          <li>Write. If it offers to customise the OS (Wi-Fi, user name and so on), skip it: those settings don't apply to GapKeep.</li>
+        </ol>
+      </div>
+      <div class="method">
+        <h3>Also on all three: balenaEtcher</h3>
+        <p>Free, from <a href="https://etcher.balena.io/">etcher.balena.io</a>.</p>
+        <ol>
+          <li><strong>Flash from file</strong>, and pick the <code>.img.zip</code>.</li>
+          <li><strong>Select target</strong>: your microSD card.</li>
+          <li><strong>Flash!</strong> It checks the card after writing.</li>
+        </ol>
+      </div>
+      <div class="method">
+        <h3>On Linux, with nothing to install</h3>
+        <ul>
+          <li><strong>GNOME Disks</strong> ("Disks" in most distributions): unzip the image, select the card on the left, then, in the menu, <strong>Restore Disk Image…</strong> and pick the <code>.img</code>.</li>
+          <li><strong>Linux Mint</strong>: its <strong>USB Image Writer</strong> (mintstick) writes an unzipped <code>.img</code> to the card.</li>
+          <li><strong>For the experienced: <code>dd</code>.</strong> Unzip, find the card's device name, and write:
+<pre><code>unzip gapkeep-1.0-en.img.zip
+lsblk                      # find the card: /dev/sdX or /dev/mmcblk0
+sudo dd if=gapkeep-1.0-en.img of=/dev/sdX bs=4M conv=fsync status=progress</code></pre>
+            <div class="callout red"><p><strong>Check the device name twice.</strong><code>dd</code> overwrites whatever you point it at, without asking: give it your computer's disk instead of the card and that disk is gone. Compare the size <code>lsblk</code> shows with your card's, and unmount the card's partitions first.</p></div>
+          </li>
+        </ul>
+      </div>
+      <div class="method">
+        <h3>On macOS</h3>
+        <p>Raspberry Pi Imager or balenaEtcher, as above.</p>
+      </div>
+      <div class="method">
+        <h3>Even simpler: copy the files</h3>
+        <p>GapKeep's card is just files on a FAT32 card, so you can skip the image altogether:</p>
+        <ol>
+          <li>Format the card as <strong>FAT32</strong>. Cards over 32 GB come formatted as exFAT, and need FAT32 too. Raspberry Pi Imager can do it (Choose OS → <strong>Erase</strong>, which formats as FAT32), or your system's disk utility.</li>
+          <li>Unzip <code>gapkeep-&lt;version&gt;-&lt;lang&gt;.zip</code> and copy everything in it to the top of the card.</li>
+          <li>Eject the card properly before taking it out.</li>
+        </ol>
       </div>
     </li>
     <li>
-      <h2>Write it to a card</h2>
-      <p>The simplest way is <a href="https://www.raspberrypi.com/software/">Raspberry Pi Imager</a>: choose <strong>Use custom</strong> as the operating system, pick the image, then the card. Skip its customisation settings: GapKeep has no use for Wi-Fi or user accounts. Any tool that writes disk images works (balenaEtcher, GNOME Disks).</p>
-      <p>On Linux or macOS, <code>dd</code> does it too. Find the card's device name first (<code>lsblk</code> on Linux, <code>diskutil list</code> on macOS): writing to the wrong device destroys what is on it.</p>
-<pre><code>sudo dd if=gapkeep-en.img of=/dev/sdX bs=4M conv=fsync status=progress</code></pre>
-      <p>Then put the card in the Zero, connect the screen, the keyboard (port <strong>USB</strong>) and power (port <strong>PWR</strong>). The launcher is up in seconds (about 12 from power-on, most of them the Pi's own firmware); from then on, the card can be taken out.</p>
+      <h2>First boot</h2>
+      <p>Put the card in the Zero, connect the screen (mini-HDMI) and the keyboard (the port marked <strong>USB</strong>, through the OTG adapter), then power (the port marked <strong>PWR</strong>). You'll see the Pi's rainbow screen first; about 12 seconds after power-on, most of it the Pi's own firmware, the launcher is up. From then on, the card can be taken out and kept somewhere else.</p>
     </li>
     <li>
       <h2>Check what runs</h2>
       <!-- DRAFT: verify after security fixes -->
-      <p>A checked download only proves the file is the one published. GapKeep also lets you check what it runs, on its own screen:</p>
+      <p>A checked download proves the file is the one published. GapKeep also lets you check what it is running, on its own screen, against <code>RELEASE.txt</code>:</p>
       <ul>
-        <li><strong>The kernel's hash:</strong> in the launcher, press <kbd>i</kbd> for the system information, with the SHA-256 of the running kernel's code.</li>
-        <li><strong>Each app's hash:</strong> at the bottom of the launcher, for the selected app. It covers every file of the app, so every line of code it runs.</li>
-        <li><strong>Reproducible builds:</strong> with the pinned compiler, the same commit gives the same <code>kernel.img</code>, byte for byte, wherever it is built. Anyone can rebuild a release and compare (<code>tools/check_reproducible.sh</code>; see <a href="docs/readme.html#building">Building</a>).</li>
+        <li><strong>The kernel:</strong> press <kbd>i</kbd> in the launcher for the system information, with the SHA-256 of the running kernel.</li>
+        <li><strong>Each app:</strong> its SHA-256 is at the bottom of the launcher when its tile is selected. It covers every file of the app, so every line of code it runs.</li>
+        <li><strong>Reproducible builds:</strong> with the pinned compiler, the same commit gives the same <code>kernel.img</code>, byte for byte, wherever it is built, so anyone can rebuild a release and compare (<code>tools/check_reproducible.sh</code>; see <a href="docs/readme.html#building">Building</a>).</li>
       </ul>
-    </li>
-    <li>
-      <h2>Where the hashes are published</h2>
-      <p>With each <a href="https://github.com/marcocarnut/GapKeep/releases">release on GitHub</a>: the images' SHA-256 and, to compare with your screen, the hashes of the kernel and of the apps they hold. This page repeats the images' hashes; if the two ever differ, trust neither, and <a href="docs/security.html">tell us</a>.</p>
+      <p>If a hash ever differs from the published one, don't use that card, and please <a href="docs/security.html">tell us</a>.</p>
     </li>
   </ol>
 </div>

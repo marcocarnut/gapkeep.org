@@ -298,7 +298,7 @@ def downloads_html(lang):
     for img in data['images']:
         ready = all(img.get(k) for k in ('file', 'sha256', 'url'))
         rows = []
-        for key in ('file', 'size', 'sha256', 'version', 'commit', 'date'):
+        for key in ('file', 'size', 'sha256', 'files_zip', 'version', 'commit', 'date'):
             val = img.get(key)
             label = t['fields'][key]
             if not val:
@@ -314,6 +314,8 @@ def downloads_html(lang):
             rows.append('<dt>%s</dt><dd>%s</dd>' % (esc(label), shown))
         if ready:
             button = '<a class="btn btn-primary" href="%s">%s</a>' % (esc(img['url']), esc(t['get']))
+            if img.get('files_zip_url'):
+                button += ' <a class="btn" href="%s">%s</a>' % (esc(img['files_zip_url']), esc(t['get_files']))
         else:
             button = '<span class="btn btn-disabled" aria-disabled="true">%s</span>' % esc(t['soon_button'])
         cards.append('''<article class="dl-card%s">
@@ -325,8 +327,10 @@ def downloads_html(lang):
 </article>''' % ('' if ready else ' is-soon', esc(img['code']), esc(img['name'][lang]), esc(img['about'][lang]),
                  ''.join(rows), button))
     releases = data.get('releases_url') or GITHUB + '/releases'
-    return '<div class="dl-grid">%s</div>\n<p class="dl-all"><a href="%s">%s</a></p>' % (
-        '\n'.join(cards), esc(releases), esc(t['all_releases']))
+    extra = ''.join(' · <a href="%s">%s</a>' % (esc(data[k]), esc(lbl)) for k, lbl in
+                    (('sums_url', 'SHA256SUMS'), ('release_txt_url', 'RELEASE.txt')) if data.get(k))
+    return '<div class="dl-grid">%s</div>\n<p class="dl-all"><a href="%s">%s</a>%s</p>' % (
+        '\n'.join(cards), esc(releases), esc(t['all_releases']), extra)
 
 
 def fill(text, lang, extra=None):
