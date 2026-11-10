@@ -114,7 +114,6 @@
 
 <section class="facts" aria-label="O GapKeep em números">
   <ul class="wrap">
-    <!-- DRAFT: verify after security fixes (card never written). Boot times measured by the user on a Pi Zero, 2026-11. -->
     <li><strong>~3<span> s</span><a href="#boot-note" class="fn" aria-label="Nota sobre o tempo de inicialização">*</a></strong><p>do início do GapKeep até o lançador</p></li>
     <li><strong>0 <span>rádios</span></strong><p>o Pi Zero simples não tem Wi-Fi nem Bluetooth</p></li>
     <li><strong>0 <span>bytes</span></strong><p>gravados no cartão SD, nunca</p></li>
@@ -139,13 +138,11 @@
             <article class="card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></div>
         <h3>Amnésico: nada fica salvo</h3>
-        <!-- DRAFT: verify after security fixes -->
-        <p>O GapKeep nunca grava no cartão SD. O que um aplicativo guarda é apagado quando ele fecha, e tudo some ao desligar.</p>
+        <p>O GapKeep nunca grava no cartão SD. A memória que um aplicativo libera é apagada; o que ele guarda durante a sessão fica só na RAM; e tudo some ao desligar.</p>
       </article>
       <article class="card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M10 7v3M13 7v3"/><path d="M3 17l3-3M3 14l3 3" /></svg></div>
         <h3>O cartão pode sair</h3>
-        <!-- DRAFT: verify after security fixes -->
         <p>O cartão SD é lido uma vez só, ao ligar. Com o lançador na tela, você pode tirar o cartão e guardá-lo em outro lugar; tudo continua funcionando até desligar.</p>
       </article>
       <article class="card amber">
@@ -225,15 +222,13 @@
           <p class="rt-tag">Offline · GapKeep</p>
           <h4>Guarda as chaves, mostra a verdade</h4>
           <ul>
-            <!-- DRAFT: verify after security fixes -->
             <li>As chaves nunca saem dele, e são esquecidas depois de assinar.</li>
-            <!-- DRAFT: verify after security fixes -->
-            <li>Mostra o que você está assinando de fato, lido da própria transação: valores, destinos, troco e taxa, diga a carteira o que disser.</li>
+            <li>Destinos, valores enviados e troco (depois que uma chave comprova) vêm da própria transação, diga a carteira o que disser. Já os valores das moedas gastas, e portanto a taxa, são a palavra da carteira, a menos que ela inclua as transações anteriores: o GapKeep avisa, em âmbar, e lembra até desligar quanto assinou para cada moeda, recusando a mesma moeda com outro valor.</li>
           </ul>
         </article>
       </div>
       <div class="callout">
-        <p><strong>O que uma carteira ainda pode errar.</strong>Uma carteira web adulterada não consegue roubar através do Assinador: ela não muda o que você vê antes de assinar. Mas pode mostrar um endereço de recebimento errado, e o servidor com que ela conversa fica sabendo dos seus endereços, o que custa um pouco de privacidade (com um servidor seu, nada). <!-- DRAFT: verify what GapKeep can show today --> Antes de passar adiante um endereço de recebimento, confira no GapKeep.</p>
+        <p><strong>O que uma carteira ainda pode errar.</strong>Uma carteira web adulterada não consegue roubar através do Assinador: ela não muda o que você vê antes de assinar. Mas pode mostrar um endereço de recebimento errado, e o servidor com que ela conversa fica sabendo dos seus endereços, o que custa um pouco de privacidade (com um servidor seu, nada). Antes de passar um adiante, gere o mesmo endereço no GapKeep com o <code>btc</code> do REPL (a GapWallet mostra o caminho de cada endereço) e compare caractere por caractere.</p>
       </div>
       <p class="cta rt-cta"><a class="btn btn-teal" href="https://gapwallet.org/">Abrir a GapWallet</a><a class="btn" href="https://github.com/marcocarnut/GapWallet">Código-fonte</a></p>
     </div>
@@ -276,8 +271,7 @@
       <div class="feature-text">
         <p class="kicker">Código que se confere</p>
         <h3>O que roda tem um hash, e o hash está na tela.</h3>
-        <!-- DRAFT: verify after security fixes -->
-        <p>O lançador mostra o SHA-256 de cada aplicativo, e ele cobre cada linha de JavaScript que o aplicativo executa: aplicativos nunca compartilham código em tempo de execução. O kernel mostra o hash do seu próprio código. As compilações do GapKeep são reproduzíveis: o mesmo commit gera o mesmo kernel, byte a byte, onde quer que seja compilado. Assim, os hashes na sua tela podem ser comparados com os publicados.</p>
+        <p>O lançador mostra o SHA-256 de cada aplicativo, e ele cobre cada linha de JavaScript que o aplicativo executa: aplicativos nunca compartilham código em tempo de execução. O kernel mostra o SHA-256 do seu <code>kernel.img</code> inteiro. As compilações do GapKeep são reproduzíveis: o mesmo commit gera o mesmo kernel, byte a byte, onde quer que seja compilado. Assim, os hashes na sua tela podem ser comparados com os publicados. São os hashes de um kernel legítimo: um kernel adulterado pode mostrar o hash que quiser, então um cartão em que você não confia se confere num computador confiável (veja <a href="#security">Segurança</a>).</p>
         <p><a href="docs/architecture.html#security-model">O modelo de segurança, em detalhe (em inglês)</a></p>
       </div>
       <figure class="shot"><img src="/img/shots/pt-BR/launcher.png" width="640" height="480" loading="lazy" alt="O lançador com o dice39 selecionado; embaixo: dice39 0.1.0, cartão SD, apps/dice39, e o seu SHA-256."><figcaption>O SHA-256 de cada aplicativo, no rodapé do lançador.</figcaption></figure>
@@ -291,7 +285,6 @@
       <div class="feature-text reveal">
         <p class="eyebrow"><span class="num">03</span>Amnésico de propósito</p>
         <h2 id="amnesiac-title">Suas chaves não moram aqui. Só estão de passagem.</h2>
-        <!-- DRAFT: verify after security fixes -->
         <p class="lede">O GapKeep não armazena chave nenhuma, nem criptografada. As chaves ficam em outro lugar: no papel, como palavras da frase-semente, ou divididas em partições codex32 guardadas em lugares diferentes, onde nenhuma partição sozinha é a chave. Quando uma tarefa precisa de uma, você traz as partições, digitadas ou mostradas à câmera. O GapKeep as recombina na memória, faz a tarefa e as esquece.</p>
       </div>
       <figure class="shot reveal"><img src="/img/shots/pt-BR/signer-shares.png" width="640" height="480" loading="lazy" alt="A página de partições codex32 do Assinador: duas partições digitadas, cada uma conferida (partição A e partição C, identificador ZGSQ, limiar 2), e o campo da frase-senha."><figcaption>Duas partições codex32, digitadas como estão escritas no papel.</figcaption></figure>
@@ -302,7 +295,6 @@
       <li><strong>Faça a tarefa</strong><span>Assinar uma transação, mostrar uma chave pública, recuperar as palavras.</span></li>
       <li><strong>Esqueça</strong><span>As chaves são apagadas; a memória liberada é zerada. Ao desligar, não sobra nada.</span></li>
     </ol>
-    <!-- DRAFT: verify after security fixes -->
     <div class="callout teal reveal">
       <p><strong>Perdeu o aparelho? Não perdeu nada.</strong>Um GapKeep desligado não guarda chave nenhuma: pode ser perdido, roubado ou examinado sem revelar uma. O que você precisa proteger é algo que dá para ver e contar: suas partições, no papel.</p>
     </div>
@@ -458,38 +450,26 @@
       <h2 id="sec-title">Para que ele foi feito, e o que ele não resolve.</h2>
       <p class="lede">O objetivo do GapKeep é uma máquina em que segredos são criados e manipulados sem nenhuma saída além do que uma pessoa lê na tela. Ele é novo e ainda não foi auditado por pessoas: leia isto como intenção de projeto, e confira.</p>
     </div>
-    <!-- DRAFT: verify after security fixes. Every claim in this section. -->
     <div class="sec-grid reveal">
       <article class="card">
         <h3>O que foi projetado</h3>
         <ul class="checks">
-          <!-- DRAFT: verify after security fixes -->
           <li><strong>Sem rede, sem rádio.</strong> O Pi Zero não tem hardware de rádio, e o GapKeep não tem pilha de rede.</li>
-          <!-- DRAFT: verify after security fixes -->
           <li><strong>Pouco a atacar.</strong> Os drivers USB se resumem a hubs, teclados e mouses; as versões de produção não têm driver de porta serial.</li>
-          <!-- DRAFT: verify after security fixes -->
           <li><strong>Um cartão só de leitura.</strong> Lido uma vez, ao ligar, por um driver FAT compilado sem o código de escrita; nunca gravado.</li>
-          <!-- DRAFT: verify after security fixes -->
           <li><strong>Um decodificador de QR reforçado.</strong> Testado à exaustão com códigos danificados e forjados (fuzzing); os aplicativos recebem o texto decodificado, nunca as imagens.</li>
-          <!-- DRAFT: verify after security fixes -->
           <li><strong>Proteção de memória.</strong> O código é só de leitura e é a única memória executável; canários e guarda de pilha; a memória liberada é zerada.</li>
-          <!-- DRAFT: verify after security fixes -->
           <li><strong>Compilações verificáveis.</strong> Reproduzíveis, com compilador e firmware fixados; o kernel e cada aplicativo mostram os seus hashes.</li>
         </ul>
       </article>
       <article class="card">
         <h3>Contra o que ele não protege</h3>
         <ul class="checks x">
-          <!-- DRAFT: verify after security fixes -->
-          <li><strong>Um cartão trocado.</strong> Quem puder gravar o cartão SD pode substituir o kernel e os aplicativos. Compare os hashes da tela com os publicados.</li>
-          <!-- DRAFT: verify after security fixes -->
+          <li><strong>Um cartão trocado.</strong> Quem puder gravar o cartão SD pode substituir o kernel e os aplicativos, e um kernel adulterado pode mostrar o hash que quiser. Então confira o próprio cartão num computador confiável (<code>sha256sum</code> contra o <code>SHA256SUMS</code> da versão, e <code>tools/bundle_apps.py --hash</code> para os aplicativos), ou use uma versão selada (sealed) que você mesmo compilou ou conferiu.</li>
           <li><strong>Ataques físicos ao aparelho ligado.</strong> O Pi Zero não criptografa a memória: sondar a RAM ou o barramento com ele ligado está fora do escopo.</li>
-          <!-- DRAFT: verify after security fixes -->
           <li><strong>O firmware de boot fechado do Pi,</strong> do qual todo sistema no Pi depende. Ele é fixado por hash.</li>
-          <!-- DRAFT: verify after security fixes -->
           <li><strong>Ataques em código nativo de um aplicativo contra outro.</strong> Os aplicativos rodam em ambientes JavaScript separados, mas no mesmo espaço de endereçamento.</li>
           <li><strong>O que qualquer um pode ver.</strong> O que está na tela pode ser visto por quem, ou por qualquer câmera que, consiga ver a tela.</li>
-          <!-- DRAFT: verify after security fixes -->
           <li><strong>Versões de teste e o simulador.</strong> Versões de teste registram log na porta serial, de propósito; nenhum dos dois serve para segredos de verdade.</li>
         </ul>
       </article>

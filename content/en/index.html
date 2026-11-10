@@ -36,7 +36,6 @@
 
 <section class="facts" aria-label="GapKeep in numbers">
   <ul class="wrap">
-    <!-- DRAFT: verify after security fixes (card never written). Boot times measured by the user on a Pi Zero, 2026-11. -->
     <li><strong>~3<span> s</span><a href="#boot-note" class="fn" aria-label="Note on boot time">*</a></strong><p>from GapKeep's start to the launcher</p></li>
     <li><strong>0 <span>radios</span></strong><p>the plain Pi Zero has no Wi-Fi or Bluetooth at all</p></li>
     <li><strong>0 <span>bytes</span></strong><p>written to the SD card, ever</p></li>
@@ -61,13 +60,11 @@
             <article class="card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></div>
         <h3>Amnesiac: nothing is saved</h3>
-        <!-- DRAFT: verify after security fixes -->
-        <p>GapKeep never writes to its SD card. What an app holds is wiped when it closes, and everything is gone at power-off.</p>
+        <p>GapKeep never writes to its SD card. Memory an app frees is wiped; what it keeps for the session is held in RAM only; and everything is gone at power-off.</p>
       </article>
       <article class="card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M10 7v3M13 7v3"/><path d="M3 17l3-3M3 14l3 3" /></svg></div>
         <h3>The card can come out</h3>
-        <!-- DRAFT: verify after security fixes -->
         <p>The SD card is read once, at boot. Once the launcher is up, you can take the card out and keep it elsewhere; everything keeps working until power-off.</p>
       </article>
       <article class="card amber">
@@ -147,15 +144,13 @@
           <p class="rt-tag">Offline · GapKeep</p>
           <h4>Holds the keys, shows the truth</h4>
           <ul>
-            <!-- DRAFT: verify after security fixes -->
             <li>The keys never leave it, and are forgotten after signing.</li>
-            <!-- DRAFT: verify after security fixes -->
-            <li>It shows what you actually sign, read from the transaction itself: amounts, destinations, change and fee, whatever the wallet claims.</li>
+            <li>Destinations, amounts sent and change (once a key proves it) come from the transaction itself, whatever the wallet claims. The amounts of the coins spent, and so the fee, are the wallet's word unless it includes their previous transactions: GapKeep says so, in amber, and remembers until power-off what it signed for each coin, refusing the same coin with a different amount.</li>
           </ul>
         </article>
       </div>
       <div class="callout">
-        <p><strong>What a wallet can still get wrong.</strong>A tampered web wallet can't steal through the Signer: it can't change what you see before you sign. But it could show you a wrong receive address, and the server it talks to learns your addresses, which costs you some privacy (your own server costs none). <!-- DRAFT: verify what GapKeep can show today --> Before giving out a receive address, check it on GapKeep.</p>
+        <p><strong>What a wallet can still get wrong.</strong>A tampered web wallet can't steal through the Signer: it can't change what you see before you sign. But it could show you a wrong receive address, and the server it talks to learns your addresses, which costs you some privacy (your own server costs none). Before giving one out, derive it on GapKeep with the REPL's <code>btc</code> (GapWallet shows each address's path) and compare every character.</p>
       </div>
       <p class="cta rt-cta"><a class="btn btn-teal" href="https://gapwallet.org/">Open GapWallet</a><a class="btn" href="https://github.com/marcocarnut/GapWallet">Source</a></p>
     </div>
@@ -198,8 +193,7 @@
       <div class="feature-text">
         <p class="kicker">Code you can check</p>
         <h3>What runs has a hash, and the hash is on the screen.</h3>
-        <!-- DRAFT: verify after security fixes -->
-        <p>The launcher shows the SHA-256 of every app, and it covers every line of JavaScript the app runs: apps never share code at run time. The kernel shows the hash of its own code. GapKeep's builds are reproducible: the same commit gives the same kernel, byte for byte, wherever it is built. So the hashes on your screen can be compared with published ones.</p>
+        <p>The launcher shows the SHA-256 of every app, and it covers every line of JavaScript the app runs: apps never share code at run time. The kernel shows the SHA-256 of its whole <code>kernel.img</code>. GapKeep's builds are reproducible: the same commit gives the same kernel, byte for byte, wherever it is built. So the hashes on your screen can be compared with published ones. They are a genuine kernel's hashes: a tampered kernel can show any hash, so a card you don't trust is checked on a trusted computer (see <a href="#security">Security</a>).</p>
         <p><a href="docs/architecture.html#security-model">The security model, in detail</a></p>
       </div>
       <figure class="shot"><img src="{{shot:launcher}}" width="640" height="480" loading="lazy" alt="The launcher with dice39 selected; at the bottom: dice39 0.1.0, SD card, apps/dice39, and its SHA-256."><figcaption>Each app's SHA-256, at the bottom of the launcher.</figcaption></figure>
@@ -213,7 +207,6 @@
       <div class="feature-text reveal">
         <p class="eyebrow"><span class="num">03</span>Amnesiac by design</p>
         <h2 id="amnesiac-title">Your keys don't live here. They visit.</h2>
-        <!-- DRAFT: verify after security fixes -->
         <p class="lede">GapKeep stores no key, encrypted or otherwise. Keys live elsewhere: on paper, as seed words, or split into codex32 shares kept in different places, where no single share is the key. When a task needs one, you bring the shares in, typed or shown to the camera. GapKeep recombines them in memory, does the task, and forgets them.</p>
       </div>
       <figure class="shot reveal"><img src="{{shot:signer-shares}}" width="640" height="480" loading="lazy" alt="The Signer's codex32 shares page: two shares typed, each checked (share A and share C, identifier ZGSQ, threshold 2, 16-byte seed), and a passphrase field."><figcaption>Two codex32 shares, typed as they are written on paper.</figcaption></figure>
@@ -224,7 +217,6 @@
       <li><strong>Do the task</strong><span>Sign a transaction, show a public key, recover the words.</span></li>
       <li><strong>Forget</strong><span>Keys are wiped; freed memory is zeroed. At power-off nothing is left.</span></li>
     </ol>
-    <!-- DRAFT: verify after security fixes -->
     <div class="callout teal reveal">
       <p><strong>Lose it, and nothing is lost.</strong>A switched-off GapKeep holds no key: it can be lost, stolen or inspected without revealing one. What you must keep safe is something you can see and count: your shares, on paper.</p>
     </div>
@@ -347,38 +339,26 @@
       <h2 id="sec-title">What it is built to do, and what it can't.</h2>
       <p class="lede">GapKeep's goal is a machine on which secrets are created and handled with no way out but what a person reads off the screen. It is new and has not been audited by people yet: read this as design intent, and check it.</p>
     </div>
-    <!-- DRAFT: verify after security fixes. Every claim in this section. -->
     <div class="sec-grid reveal">
       <article class="card">
         <h3>Designed in</h3>
         <ul class="checks">
-          <!-- DRAFT: verify after security fixes -->
           <li><strong>No network, no radio.</strong> The Pi Zero has no radio hardware, and GapKeep has no network stack.</li>
-          <!-- DRAFT: verify after security fixes -->
           <li><strong>Little to attack.</strong> The USB drivers are cut down to hubs, keyboards and mice; production builds have no serial port driver.</li>
-          <!-- DRAFT: verify after security fixes -->
           <li><strong>A read-only card.</strong> Read once at boot, by a FAT driver built without its write code; never written.</li>
-          <!-- DRAFT: verify after security fixes -->
           <li><strong>A hardened QR decoder.</strong> Fuzzed with damaged and crafted codes; apps get the decoded text, never the pictures.</li>
-          <!-- DRAFT: verify after security fixes -->
           <li><strong>Memory protection.</strong> Code is read-only and the only executable memory; stack canaries and a stack guard; freed memory is zeroed.</li>
-          <!-- DRAFT: verify after security fixes -->
           <li><strong>Checkable builds.</strong> Reproducible, with a pinned compiler and firmware; the kernel and every app show their hashes.</li>
         </ul>
       </article>
       <article class="card">
         <h3>Not protected against</h3>
         <ul class="checks x">
-          <!-- DRAFT: verify after security fixes -->
-          <li><strong>A swapped card.</strong> Whoever can write the SD card can replace the kernel and the apps. Compare the hashes on the screen with published ones.</li>
-          <!-- DRAFT: verify after security fixes -->
+          <li><strong>A swapped card.</strong> Whoever can write the SD card can replace the kernel and the apps, and a tampered kernel can show any hash. So check the card itself on a trusted computer (<code>sha256sum</code> against the release's <code>SHA256SUMS</code>, and <code>tools/bundle_apps.py --hash</code> for apps), or use a sealed build you made or checked.</li>
           <li><strong>Physical attacks on a running device.</strong> A Pi Zero has no memory encryption: probing its RAM or bus while it runs is out of scope.</li>
-          <!-- DRAFT: verify after security fixes -->
           <li><strong>The Pi's closed boot firmware,</strong> which every system on the Pi depends on. It is pinned by hash.</li>
-          <!-- DRAFT: verify after security fixes -->
           <li><strong>Native-code exploits between apps.</strong> Apps run in separate JavaScript runtimes, but share one address space.</li>
           <li><strong>What anyone can see.</strong> Whatever is on the screen can be seen by whoever, or whatever camera, can see the screen.</li>
-          <!-- DRAFT: verify after security fixes -->
           <li><strong>Test builds and the simulator.</strong> Test builds log to the serial port by design; neither is for real secrets.</li>
         </ul>
       </article>

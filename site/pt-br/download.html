@@ -155,13 +155,13 @@ sudo dd if=gapkeep-1.0-pt-BR.img of=/dev/sdX bs=4M conv=fsync status=progress</c
     </li>
     <li>
       <h2>Confira o que roda</h2>
-      <!-- DRAFT: verify after security fixes -->
       <p>Um download conferido prova que o arquivo é o publicado. O GapKeep também deixa você conferir o que ele está executando, na própria tela, comparando com o <code>RELEASE.txt</code>:</p>
       <ul>
-        <li><strong>O kernel:</strong> aperte <kbd>i</kbd> no lançador para ver as informações do sistema, com o SHA-256 do kernel em execução.</li>
+        <li><strong>O kernel:</strong> aperte <kbd>i</kbd> no lançador para ver as informações do sistema, com o SHA-256 do <code>kernel.img</code> (o mesmo que <code>sha256sum kernel.img</code>).</li>
         <li><strong>Cada aplicativo:</strong> o SHA-256 dele aparece no rodapé do lançador quando o seu bloco está selecionado. Ele cobre todos os arquivos do aplicativo, ou seja, cada linha de código que ele executa.</li>
-        <li><strong>Compilações reproduzíveis:</strong> com o compilador fixado, o mesmo commit gera o mesmo <code>kernel.img</code>, byte a byte, onde quer que seja compilado; qualquer pessoa pode recompilar uma versão e comparar (<code>tools/check_reproducible.sh</code>; veja <a href="docs/readme.html#building">Building</a>, em inglês).</li>
+        <li><strong>Compilações reproduzíveis:</strong> com o compilador fixado, o mesmo commit gera o mesmo <code>kernel.img</code>, byte a byte, onde quer que seja compilado; qualquer pessoa pode recompilar uma versão e comparar (<code>tools/check_reproducible.sh</code>; veja <a href="docs/readme.html#building">Building</a>, em inglês). As próprias imagens da versão também são reproduzíveis: <code>tools/check_reproducible.sh --release</code>.</li>
       </ul>
+      <p>Esses são os hashes de um kernel legítimo: um kernel adulterado pode mostrar o hash que quiser. Para conferir um cartão em que você não confia, calcule os hashes dos arquivos dele num computador confiável.</p>
       <p>Se algum hash for diferente do publicado, não use esse cartão, e por favor <a href="docs/security.html">avise a gente</a>.</p>
     </li>
   </ol>
