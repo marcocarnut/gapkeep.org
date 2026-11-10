@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="same-origin">
+<title>Authenticator · GapKeep</title>
+<meta name="description" content="Authenticator: GapKeep documentation">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1d1c23">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="canonical" href="https://gapkeep.org/docs/apps/totp.html">
+<link rel="alternate" hreflang="en" href="https://gapkeep.org/docs/apps/totp.html">
+<link rel="alternate" hreflang="pt-BR" href="https://gapkeep.org/pt-br/docs/apps/totp.html">
+<link rel="alternate" hreflang="x-default" href="https://gapkeep.org/docs/apps/totp.html">
+<meta property="og:title" content="Authenticator · GapKeep">
+<meta property="og:description" content="Authenticator: GapKeep documentation">
+<meta property="og:image" content="https://gapkeep.org/img/og.png">
+<meta property="og:url" content="https://gapkeep.org/docs/apps/totp.html">
+<script src="/js/lang.js?v=9238942da1"></script>
+<link rel="preload" href="/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/site.css?v=050b20402d">
+
+<script src="/js/site.js?v=00484c1c07" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Skip to the content</a>
+<header class="top" id="top">
+  <div class="top-in">
+    <a class="brand" href="/" aria-label="GapKeep home"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a>
+    <nav class="nav" aria-label="Main">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-list"><span class="bars" aria-hidden="true"></span><span class="sr">Menu</span></button>
+      <ul id="nav-list">
+<li><a href="/#why">Why</a></li>
+<li><a href="/#verify">See it</a></li>
+<li><a href="/#apps">Apps</a></li>
+<li><a href="/#hardware">Hardware</a></li>
+<li><a href="/#developers">Developers</a></li>
+<li><a href="/docs/">Docs</a></li>
+<li><a href="/download.html">Download</a></li>
+      </ul>
+    </nav>
+    <div class="langs" role="group" aria-label="Language"><a href="/docs/apps/totp.html" hreflang="en" lang="en" data-lang="en" title="English" aria-current="true"><span aria-hidden="true">EN</span><span class="sr">English</span></a><a href="/pt-br/docs/apps/totp.html" hreflang="pt-BR" lang="pt-BR" data-lang="pt-BR" title="Português (Brasil)"><span aria-hidden="true">PT</span><span class="sr">Português (Brasil)</span></a></div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap docs-layout">
+<aside class="doc-side" aria-label="All documents">
+<details class="doc-toc"><summary>All documents</summary>
+<p><a href="/docs/">Documentation</a></p>
+<h2>Start here</h2><ul><li><a href="/docs/readme.html" data-page="readme.html">GapKeep</a></li><li><a href="/docs/apps.html" data-page="apps.html">Writing GapKeep apps</a></li><li><a href="/docs/agents.html" data-page="agents.html">Writing GapKeep apps: a guide for coding agents</a></li></ul>
+<h2>Guides</h2><ul><li><a href="/docs/simulator.html" data-page="simulator.html">The simulator</a></li><li><a href="/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/docs/camera.html" data-page="camera.html">The camera and QR codes</a></li><li><a href="/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/docs/rig.html" data-page="rig.html">The hardware test rig</a></li></ul>
+<h2>Reference and design</h2><ul><li><a href="/docs/api.html" data-page="api.html">GapKeep JavaScript API reference</a></li><li><a href="/docs/architecture.html" data-page="architecture.html">GapKeep architecture</a></li><li><a href="/docs/design.html" data-page="design.html">GapKeep&#x27;s design decisions</a></li><li><a href="/docs/experimental.html" data-page="experimental.html">Experimental features</a></li></ul>
+<h2>Apps</h2><ul><li><a href="/docs/apps/signer.html" data-page="apps/signer.html">Signer</a></li><li><a href="/docs/apps/dice39.html" data-page="apps/dice39.html">dice39 on GapKeep</a></li><li><a href="/docs/apps/codex32.html" data-page="apps/codex32.html">codex32</a></li><li><a href="/docs/apps/totp.html" data-page="apps/totp.html" aria-current="page">Authenticator</a></li></ul>
+<h2>The project</h2><ul><li><a href="/docs/security.html" data-page="security.html">Security</a></li><li><a href="/docs/contributing.html" data-page="contributing.html">Contributing to GapKeep</a></li><li><a href="/docs/agents-gapkeep.html" data-page="agents-gapkeep.html">Notes for coding agents</a></li></ul>
+<h2>More</h2><ul><li><a href="/docs/camera/spec.html" data-page="camera/spec.html">Pi Camera Module v2.1 (IMX219) on the Pi Zero v1.3: functional specification</a></li><li><a href="/docs/camera/implementation.html" data-page="camera/implementation.html">Pi Camera driver: implementation record</a></li><li><a href="/docs/camera/provenance.html" data-page="camera/provenance.html">Provenance of docs/camera/SPEC.md (clean-room record)</a></li><li><a href="/docs/i18n/pt-br.html" data-page="i18n/pt-br.html">Glossary: Brazilian Portuguese (pt-BR)</a></li><li><a href="/docs/lib-js.html" data-page="lib-js.html">JavaScript libraries for apps</a></li></ul>
+</details>
+</aside>
+<article class="doc" lang="en">
+
+<div class="doc-body">
+<h1 id="authenticator">Authenticator</h1>
+<p>Time-based one-time codes (TOTP, <a href="https://www.rfc-editor.org/rfc/rfc6238" rel="noopener">RFC 6238</a>),
+the six- or eight-digit codes that Google Authenticator, Aegis and the like
+show for two-factor sign-in, on an air-gapped Pi Zero.</p>
+<ul>
+<li><strong>Add an account</strong> by showing its QR code to the camera (&quot;Scan QR code&quot;),
+or by typing its key (&quot;Type a key&quot;): Base32, with an issuer and an account
+name, and the algorithm, digits and period if the service uses other
+than the usual SHA1, 6 and 30 s.</li>
+<li><strong>Read the codes</strong>: each account shows its issuer and name, the current
+code grouped for reading (<code>123 456</code>, <code>1234 5678</code>), and the seconds left
+until the next one. Enter on an account shows its settings and a key
+fingerprint, and can remove it.</li>
+<li><strong>Forget all</strong> clears every account.</li>
+</ul>
+<p>Everything works from the keyboard: Tab between the buttons and the
+accounts, Enter to use them, Escape to leave the scanner or the form.</p>
+<h2 id="the-clock"><a class="anchor" href="#the-clock" aria-hidden="true" tabindex="-1">#</a>The clock</h2>
+<p>TOTP codes are computed from the time (UTC: the time zone doesn't matter).
+A Pi Zero has no battery-backed clock: after each boot the time must be
+set, in the Clock app. Until it is, the Authenticator shows no codes (they
+would be wrong) and says so. It shows the time it uses (UTC) at the top
+right: compare it with a watch. A clock that is more than a few seconds
+off gives codes that services refuse near the end of each period.</p>
+<h2 id="formats"><a class="anchor" href="#formats" aria-hidden="true" tabindex="-1">#</a>Formats</h2>
+<p><strong><code>otpauth://totp/LABEL?secret=...</code></strong>, Google's
+<a href="https://github.com/google/google-authenticator/wiki/Key-Uri-Format" rel="noopener">Key Uri Format</a>,
+what sign-up pages show:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Part</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LABEL</code></td>
+<td><code>Issuer:account</code> or <code>account</code>, %-encoded; spaces after the colon are ignored.</td>
+</tr>
+<tr>
+<td><code>secret</code></td>
+<td>The key, Base32 (RFC 4648): case-insensitive, padding optional, spaces ignored. Required.</td>
+</tr>
+<tr>
+<td><code>issuer</code></td>
+<td>Wins over the label's prefix when both are given. <code>+</code> is a space here (as Android reads it), but a <code>+</code> in the label stays a plus (<code>alice+work@example.com</code>).</td>
+</tr>
+<tr>
+<td><code>algorithm</code></td>
+<td><code>SHA1</code> (default), <code>SHA256</code> or <code>SHA512</code>.</td>
+</tr>
+<tr>
+<td><code>digits</code></td>
+<td><code>6</code> (default) or <code>8</code>.</td>
+</tr>
+<tr>
+<td><code>period</code></td>
+<td>Seconds, 1 to 86400 (default 30).</td>
+</tr>
+</tbody>
+</table></div>
+<p>Other parameters (<code>image</code>, ...) are ignored. Refused, with the reason on
+screen: <code>otpauth://hotp/</code> (counter-based codes), a missing or broken secret,
+other algorithms or digit counts, a parameter given twice, broken
+%-escapes.</p>
+<p><strong><code>otpauth-migration://offline?data=...</code></strong>, Google Authenticator's
+&quot;Transfer accounts&quot; export: Base64 of a protocol buffer holding several
+accounts, split over several QR codes when there are many. Show the parts in
+any order: the app says which are still missing, and skips accounts it has
+already. The export has no period (always 30 s); HOTP and MD5 accounts in it
+are skipped, with a note. Google doesn't document the format; the field
+numbers are those of the reverse-engineered
+<a href="https://github.com/dim13/otpauth/blob/master/migration/migration.proto" rel="noopener"><code>migration.proto</code> of dim13/otpauth</a>,
+which the other open decoders agree with. The decoder (<code>lib/parse.js</code>) is
+written by hand, with every length checked against the data.</p>
+<p>Typed keys must be at least 16 Base32 characters (80 bits): fewer is almost
+always a key typed in part. A length no whole number of bytes gives (1, 3 or
+6 characters past a multiple of 8) is refused as a typo; bits left over after
+the last whole byte are ignored, as other authenticators do.</p>
+<h2 id="security-notes"><a class="anchor" href="#security-notes" aria-hidden="true" tabindex="-1">#</a>Security notes</h2>
+<ul>
+<li><strong>Nothing is written to the card.</strong> GapKeep never writes to the SD card.
+The accounts are kept in RAM, in the app's session store
+(<a href="../api.html#gksession"><code>gk:session</code></a>): they are still there when
+you come back after using other apps, and gone when you switch off. No
+other app can read them. <strong>Your QR codes (or keys) are the backup</strong>: keep
+them, on paper, somewhere safe. Anyone who has them can make your codes.</li>
+<li>Each account's key is kept (in the app, and in the session store, to
+outlive the app), with a fingerprint (SHA-256 of the settings and key, cut
+to 64 bits, shown in the account's details) to recognise the same key
+scanned twice. Remove and Forget all overwrite the key, in the app and in
+the session store; switching off forgets everything.</li>
+<li><strong>The log never holds a key or a code.</strong> It goes to the serial port in
+test builds. For the tests, each code is logged as a tag: the first 64
+bits of an HMAC of the code under the account's own key, which only
+someone holding the key can check (a plain hash of a 6-digit code would
+give the code away: there are only a million to try). Messages about
+refused codes never quote the key.</li>
+<li>The camera's picture never reaches the app: it gets the QR code's text
+only (<a href="../camera.html">CAMERA.md</a>).</li>
+<li>Codes are on screen while the app is open: leave it when you are done.</li>
+</ul>
+<h2 id="how-it-works"><a class="anchor" href="#how-it-works" aria-hidden="true" tabindex="-1">#</a>How it works</h2>
+<ul>
+<li><code>lib/hotp.js</code>: HOTP (RFC 4226) and TOTP (RFC 6238), on gk:crypto's HMAC
+(native: SHA-1, SHA-256 and SHA-512 in the kernel).</li>
+<li><code>lib/parse.js</code>: Base32, Base64, UTF-8, the two URI formats and the
+protocol buffer.</li>
+<li><code>lib/selftest.js</code>: the RFC 4226 HOTP vectors, the RFC 6238 TOTP vectors
+for all three hashes, HMAC with keys longer than a block (RFC 2202, RFC
+4231), the RFC 4648 Base32 vectors, and the parsers on good and bad
+input. It runs at start, after the first screen is up, in small steps, and logs
+<code>totp selftest: N passed, 0 failed</code>; if anything fails, no codes are
+shown. Under Node, with Node's HMAC:
+<code>node --experimental-default-type=module tests/totp/run_node.mjs</code>.</li>
+<li><code>main.js</code>: the screens, and the accounts saved to the session store
+after each change (restored at start). <code>gk:clock</code>'s <code>every(1, ...)</code> ticks on each
+second: it moves the countdowns, and computes an account's code only when
+its period turns; when the clock is set or changed, every code is
+recomputed at once.</li>
+</ul>
+<p>Tests: <code>tests/totp.txt</code> (simulator, test build), with
+<code>tests/apps/clockset</code> setting the clock to an instant where RFC 6238's
+vectors apply; <code>tests/totp/make_migration.py</code> makes the export QR codes.</p>
+
+</div>
+<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/main/apps/totp/README.md"><code>apps/totp/README.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb/apps/totp/README.md">3e6af247a0b7</a></p>
+</article>
+</div>
+</main>
+<footer class="foot">
+  <div class="foot-in">
+    <p class="foot-brand"><a href="/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a><span>A tiny bare-metal OS for air-gapped apps.</span></p>
+    <p class="foot-links"><a href="/docs/">Documentation</a> · <a href="/download.html">Download</a> · <a href="/ide/">Browser IDE</a> · <a href="https://github.com/marcocarnut/GapKeep">Source on GitHub</a> · <a href="/docs/security.html">Security</a> · <a href="/docs/contributing.html">Contributing</a></p>
+    <p class="foot-privacy">No trackers, no analytics, no cookies, no third-party requests: this site loads nothing from anywhere else, in the spirit of GapKeep.</p>
+    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb"><code>3e6af247a0b7</code></a>.</p>
+  </div>
+</footer>
+</body>
+</html>

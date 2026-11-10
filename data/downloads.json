@@ -1,0 +1,34 @@
+{
+  "_comment": "The SD card images on the download page. Fill in each image's fields when a release is published (size in bytes, sha256 in hex, date as YYYY-MM-DD, url of the file on the GitHub release); an image without file, sha256 and url is shown as coming soon. Then run tools/build.py.",
+  "releases_url": "https://github.com/marcocarnut/GapKeep/releases",
+  "images": [
+    {
+      "code": "EN",
+      "name": {"en": "English", "pt-BR": "Inglês"},
+      "about": {"en": "GapKeep, starting in English.", "pt-BR": "O GapKeep, iniciando em inglês."},
+      "file": null, "size": null, "sha256": null, "version": null, "commit": null, "date": null, "url": null
+    },
+    {
+      "code": "PT-BR",
+      "name": {"en": "Brazilian Portuguese", "pt-BR": "Português (Brasil)"},
+      "about": {"en": "GapKeep, starting in Brazilian Portuguese.", "pt-BR": "O GapKeep, iniciando em português do Brasil."},
+      "file": null, "size": null, "sha256": null, "version": null, "commit": null, "date": null, "url": null
+    }
+  ],
+  "strings": {
+    "en": {
+      "fields": {"file": "File", "size": "Size", "sha256": "SHA-256", "version": "Version", "commit": "Commit", "date": "Released"},
+      "soon": "coming soon",
+      "soon_button": "Coming soon",
+      "get": "Download from GitHub",
+      "all_releases": "All releases, with their hashes, on GitHub →"
+    },
+    "pt-BR": {
+      "fields": {"file": "Arquivo", "size": "Tamanho", "sha256": "SHA-256", "version": "Versão", "commit": "Commit", "date": "Publicada em"},
+      "soon": "em breve",
+      "soon_button": "Em breve",
+      "get": "Baixar do GitHub",
+      "all_releases": "Todas as versões, com seus hashes, no GitHub →"
+    }
+  }
+}

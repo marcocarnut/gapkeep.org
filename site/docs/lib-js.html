@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="same-origin">
+<title>JavaScript libraries for apps · GapKeep</title>
+<meta name="description" content="JavaScript libraries for apps: GapKeep documentation">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1d1c23">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="canonical" href="https://gapkeep.org/docs/lib-js.html">
+<link rel="alternate" hreflang="en" href="https://gapkeep.org/docs/lib-js.html">
+<link rel="alternate" hreflang="pt-BR" href="https://gapkeep.org/pt-br/docs/lib-js.html">
+<link rel="alternate" hreflang="x-default" href="https://gapkeep.org/docs/lib-js.html">
+<meta property="og:title" content="JavaScript libraries for apps · GapKeep">
+<meta property="og:description" content="JavaScript libraries for apps: GapKeep documentation">
+<meta property="og:image" content="https://gapkeep.org/img/og.png">
+<meta property="og:url" content="https://gapkeep.org/docs/lib-js.html">
+<script src="/js/lang.js?v=9238942da1"></script>
+<link rel="preload" href="/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/site.css?v=050b20402d">
+
+<script src="/js/site.js?v=00484c1c07" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Skip to the content</a>
+<header class="top" id="top">
+  <div class="top-in">
+    <a class="brand" href="/" aria-label="GapKeep home"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a>
+    <nav class="nav" aria-label="Main">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-list"><span class="bars" aria-hidden="true"></span><span class="sr">Menu</span></button>
+      <ul id="nav-list">
+<li><a href="/#why">Why</a></li>
+<li><a href="/#verify">See it</a></li>
+<li><a href="/#apps">Apps</a></li>
+<li><a href="/#hardware">Hardware</a></li>
+<li><a href="/#developers">Developers</a></li>
+<li><a href="/docs/">Docs</a></li>
+<li><a href="/download.html">Download</a></li>
+      </ul>
+    </nav>
+    <div class="langs" role="group" aria-label="Language"><a href="/docs/lib-js.html" hreflang="en" lang="en" data-lang="en" title="English" aria-current="true"><span aria-hidden="true">EN</span><span class="sr">English</span></a><a href="/pt-br/docs/lib-js.html" hreflang="pt-BR" lang="pt-BR" data-lang="pt-BR" title="Português (Brasil)"><span aria-hidden="true">PT</span><span class="sr">Português (Brasil)</span></a></div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap docs-layout">
+<aside class="doc-side" aria-label="All documents">
+<details class="doc-toc"><summary>All documents</summary>
+<p><a href="/docs/">Documentation</a></p>
+<h2>Start here</h2><ul><li><a href="/docs/readme.html" data-page="readme.html">GapKeep</a></li><li><a href="/docs/apps.html" data-page="apps.html">Writing GapKeep apps</a></li><li><a href="/docs/agents.html" data-page="agents.html">Writing GapKeep apps: a guide for coding agents</a></li></ul>
+<h2>Guides</h2><ul><li><a href="/docs/simulator.html" data-page="simulator.html">The simulator</a></li><li><a href="/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/docs/camera.html" data-page="camera.html">The camera and QR codes</a></li><li><a href="/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/docs/rig.html" data-page="rig.html">The hardware test rig</a></li></ul>
+<h2>Reference and design</h2><ul><li><a href="/docs/api.html" data-page="api.html">GapKeep JavaScript API reference</a></li><li><a href="/docs/architecture.html" data-page="architecture.html">GapKeep architecture</a></li><li><a href="/docs/design.html" data-page="design.html">GapKeep&#x27;s design decisions</a></li><li><a href="/docs/experimental.html" data-page="experimental.html">Experimental features</a></li></ul>
+<h2>Apps</h2><ul><li><a href="/docs/apps/signer.html" data-page="apps/signer.html">Signer</a></li><li><a href="/docs/apps/dice39.html" data-page="apps/dice39.html">dice39 on GapKeep</a></li><li><a href="/docs/apps/codex32.html" data-page="apps/codex32.html">codex32</a></li><li><a href="/docs/apps/totp.html" data-page="apps/totp.html">Authenticator</a></li></ul>
+<h2>The project</h2><ul><li><a href="/docs/security.html" data-page="security.html">Security</a></li><li><a href="/docs/contributing.html" data-page="contributing.html">Contributing to GapKeep</a></li><li><a href="/docs/agents-gapkeep.html" data-page="agents-gapkeep.html">Notes for coding agents</a></li></ul>
+<h2>More</h2><ul><li><a href="/docs/camera/spec.html" data-page="camera/spec.html">Pi Camera Module v2.1 (IMX219) on the Pi Zero v1.3: functional specification</a></li><li><a href="/docs/camera/implementation.html" data-page="camera/implementation.html">Pi Camera driver: implementation record</a></li><li><a href="/docs/camera/provenance.html" data-page="camera/provenance.html">Provenance of docs/camera/SPEC.md (clean-room record)</a></li><li><a href="/docs/i18n/pt-br.html" data-page="i18n/pt-br.html">Glossary: Brazilian Portuguese (pt-BR)</a></li><li><a href="/docs/lib-js.html" data-page="lib-js.html" aria-current="page">JavaScript libraries for apps</a></li></ul>
+</details>
+</aside>
+<article class="doc" lang="en">
+
+<div class="doc-body">
+<h1 id="javascript-libraries-for-apps">JavaScript libraries for apps</h1>
+<p>Libraries written for no app in particular. Apps import only their own files
+(docs/APPS.md), so an app that uses one carries a copy, made byte for byte by
+<code>tools/share_libs.py</code> (add the copy to its <code>COPIES</code>); the copies are never
+edited by hand. Each library is pure JavaScript with no dependencies: it runs
+in GapKeep's QuickJS, in Node and in browsers, and other projects copy it
+the same way, with its commit and SHA-256 (GapWallet, a companion web
+wallet, not yet published, does).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Library</th>
+<th>What</th>
+<th>Tests</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bbqr.js</code></td>
+<td>BBQr: a file as a series of QR codes, as Coldcard and Sparrow use for PSBTs; with its own deflate (1 KiB window) and inflate</td>
+<td><code>tests/bbqr/run_node.mjs</code>, <code>tests/bbqr/check_capacity.py</code> (run by <code>tools/run_sim_tests.sh</code>)</td>
+</tr>
+<tr>
+<td><code>bitcoin/</code></td>
+<td>The Bitcoin protocol: BIP-39 (<code>bip39.js</code>, with <code>../vendor/wordlist.js</code>), BIP-32 (<code>bip32.js</code>), output descriptors (<code>descriptor.js</code>), sighashes and PSBT signing (<code>sighash.js</code>, <code>sign.js</code>, <code>multisig.js</code>, <code>combine.js</code>), private keys (<code>keys.js</code>), and <code>psbt/</code>: bytes, Base58/Base43 and Bech32, scripts and addresses, transactions, PSBTs (BIP-174, 370, 371) and their analysis. The cryptography (<code>gk:crypto</code>'s functions) is given with <code>crypto.js</code>'s <code>setCrypto()</code>. Errors and texts for people are <code>text.js</code> Messages: English, with the key and params for the app to translate. Copies go to an app's <code>lib/</code> (<code>psbt/</code> inside it), the wordlist to its <code>vendor/</code></td>
+<td><code>tests/psbt/run_node.mjs</code>, <code>tests/signer/run_node.mjs</code></td>
+</tr>
+<tr>
+<td><code>bitcoin/btc.js</code></td>
+<td><code>btc</code>: a short, chainable layer over <code>bitcoin/</code> for calculations (the REPL's <code>btc</code>): <code>btc.words(&quot;abandon … about&quot;).derive(&quot;m/84'/0'/0'/0/0&quot;).address()</code>; keys from BIP-39 words, seeds, xpubs and xprvs (SLIP-132 versions too), WIF and public keys; addresses of the four types, xpub/xprv/WIF out, fingerprints, account descriptors, amounts. <code>btc.help()</code> lists it</td>
+<td><code>tests/btc/run_node.mjs</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><code>vendor/wordlist.js</code> is the BIP-39 English wordlist as dice39 has it (its
+home is <code>apps/codex32/vendor/</code>, extracted from dice39 by
+<code>tools/extract_codex32.py</code>), here so that <code>bitcoin/bip39.js</code> finds it.</p>
+
+</div>
+<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/main/lib/js/README.md"><code>lib/js/README.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb/lib/js/README.md">3e6af247a0b7</a></p>
+</article>
+</div>
+</main>
+<footer class="foot">
+  <div class="foot-in">
+    <p class="foot-brand"><a href="/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a><span>A tiny bare-metal OS for air-gapped apps.</span></p>
+    <p class="foot-links"><a href="/docs/">Documentation</a> · <a href="/download.html">Download</a> · <a href="/ide/">Browser IDE</a> · <a href="https://github.com/marcocarnut/GapKeep">Source on GitHub</a> · <a href="/docs/security.html">Security</a> · <a href="/docs/contributing.html">Contributing</a></p>
+    <p class="foot-privacy">No trackers, no analytics, no cookies, no third-party requests: this site loads nothing from anywhere else, in the spirit of GapKeep.</p>
+    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb"><code>3e6af247a0b7</code></a>.</p>
+  </div>
+</footer>
+</body>
+</html>

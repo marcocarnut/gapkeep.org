@@ -1,0 +1,2127 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="same-origin">
+<title>Pi Camera Module v2.1 (IMX219) on the Pi Zero v1.3: functional specification · GapKeep</title>
+<meta name="description" content="Pi Camera Module v2.1 (IMX219) on the Pi Zero v1.3: functional specification: GapKeep documentation">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1d1c23">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="canonical" href="https://gapkeep.org/pt-br/docs/camera/spec.html">
+<link rel="alternate" hreflang="en" href="https://gapkeep.org/docs/camera/spec.html">
+<link rel="alternate" hreflang="pt-BR" href="https://gapkeep.org/pt-br/docs/camera/spec.html">
+<link rel="alternate" hreflang="x-default" href="https://gapkeep.org/docs/camera/spec.html">
+<meta property="og:title" content="Pi Camera Module v2.1 (IMX219) on the Pi Zero v1.3: functional specification · GapKeep">
+<meta property="og:description" content="Pi Camera Module v2.1 (IMX219) on the Pi Zero v1.3: functional specification: GapKeep documentation">
+<meta property="og:image" content="https://gapkeep.org/img/og.png">
+<meta property="og:url" content="https://gapkeep.org/pt-br/docs/camera/spec.html">
+<script src="/js/lang.js?v=9238942da1"></script>
+<link rel="preload" href="/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/site.css?v=050b20402d">
+
+<script src="/js/site.js?v=00484c1c07" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="top" id="top">
+  <div class="top-in">
+    <a class="brand" href="/pt-br/" aria-label="Página inicial do GapKeep"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a>
+    <nav class="nav" aria-label="Main">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-list"><span class="bars" aria-hidden="true"></span><span class="sr">Menu</span></button>
+      <ul id="nav-list">
+<li><a href="/pt-br/#why">Por quê</a></li>
+<li><a href="/pt-br/#verify">Veja</a></li>
+<li><a href="/pt-br/#apps">Aplicativos</a></li>
+<li><a href="/pt-br/#hardware">Hardware</a></li>
+<li><a href="/pt-br/#developers">Desenvolvedores</a></li>
+<li><a href="/pt-br/docs/">Documentação</a></li>
+<li><a href="/pt-br/download.html">Baixar</a></li>
+      </ul>
+    </nav>
+    <div class="langs" role="group" aria-label="Idioma"><a href="/docs/camera/spec.html" hreflang="en" lang="en" data-lang="en" title="English"><span aria-hidden="true">EN</span><span class="sr">English</span></a><a href="/pt-br/docs/camera/spec.html" hreflang="pt-BR" lang="pt-BR" data-lang="pt-BR" title="Português (Brasil)" aria-current="true"><span aria-hidden="true">PT</span><span class="sr">Português (Brasil)</span></a></div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap docs-layout">
+<aside class="doc-side" aria-label="Todos os documentos">
+<details class="doc-toc"><summary>Todos os documentos</summary>
+<p><a href="/pt-br/docs/">Documentação</a></p>
+<h2>Comece aqui</h2><ul><li><a href="/pt-br/docs/readme.html" data-page="readme.html">GapKeep</a></li><li><a href="/pt-br/docs/apps.html" data-page="apps.html">Writing GapKeep apps</a></li><li><a href="/pt-br/docs/agents.html" data-page="agents.html">Writing GapKeep apps: a guide for coding agents</a></li></ul>
+<h2>Guias</h2><ul><li><a href="/pt-br/docs/simulator.html" data-page="simulator.html">The simulator</a></li><li><a href="/pt-br/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/pt-br/docs/camera.html" data-page="camera.html">The camera and QR codes</a></li><li><a href="/pt-br/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/pt-br/docs/rig.html" data-page="rig.html">The hardware test rig</a></li></ul>
+<h2>Referência e projeto</h2><ul><li><a href="/pt-br/docs/api.html" data-page="api.html">GapKeep JavaScript API reference</a></li><li><a href="/pt-br/docs/architecture.html" data-page="architecture.html">GapKeep architecture</a></li><li><a href="/pt-br/docs/design.html" data-page="design.html">GapKeep&#x27;s design decisions</a></li><li><a href="/pt-br/docs/experimental.html" data-page="experimental.html">Experimental features</a></li></ul>
+<h2>Aplicativos</h2><ul><li><a href="/pt-br/docs/apps/signer.html" data-page="apps/signer.html">Signer</a></li><li><a href="/pt-br/docs/apps/dice39.html" data-page="apps/dice39.html">dice39 on GapKeep</a></li><li><a href="/pt-br/docs/apps/codex32.html" data-page="apps/codex32.html">codex32</a></li><li><a href="/pt-br/docs/apps/totp.html" data-page="apps/totp.html">Authenticator</a></li></ul>
+<h2>O projeto</h2><ul><li><a href="/pt-br/docs/security.html" data-page="security.html">Security</a></li><li><a href="/pt-br/docs/contributing.html" data-page="contributing.html">Contributing to GapKeep</a></li><li><a href="/pt-br/docs/agents-gapkeep.html" data-page="agents-gapkeep.html">Notes for coding agents</a></li></ul>
+<h2>Mais</h2><ul><li><a href="/pt-br/docs/camera/spec.html" data-page="camera/spec.html" aria-current="page">Pi Camera Module v2.1 (IMX219) on the Pi Zero v1.3: functional specification</a></li><li><a href="/pt-br/docs/camera/implementation.html" data-page="camera/implementation.html">Pi Camera driver: implementation record</a></li><li><a href="/pt-br/docs/camera/provenance.html" data-page="camera/provenance.html">Provenance of docs/camera/SPEC.md (clean-room record)</a></li><li><a href="/pt-br/docs/i18n/pt-br.html" data-page="i18n/pt-br.html">Glossary: Brazilian Portuguese (pt-BR)</a></li><li><a href="/pt-br/docs/lib-js.html" data-page="lib-js.html">JavaScript libraries for apps</a></li></ul>
+</details>
+</aside>
+<article class="doc" lang="en">
+<p class="doc-note" lang="pt-BR">Por enquanto, a documentação existe só em inglês. O texto abaixo é o original; traduções são bem-vindas.</p>
+<div class="doc-body">
+<h1 id="pi-camera-module-v21-imx219-on-the-pi-zero-v13-functional-specification">Pi Camera Module v2.1 (IMX219) on the Pi Zero v1.3: functional specification</h1>
+<p>This document states the facts needed to write, in C++ on Circle, a driver that
+powers the Raspberry Pi Camera Module v2.1, configures its Sony IMX219 sensor,
+receives frames through the BCM2835's CSI-2 receiver (&quot;Unicam&quot;, instance 1) into
+memory, and stops cleanly. It contains facts only (addresses, bit positions,
+values, orderings, timings) and no code. Where each fact comes from is recorded
+in <a href="provenance.html">PROVENANCE.md</a>. The tags in square brackets say how much a
+fact can be trusted:</p>
+<ul>
+<li><strong>[DS]</strong>: documented in a public datasheet or schematic (Sony IMX219 datasheet,
+Raspberry Pi schematics, BCM2835 ARM Peripherals).</li>
+<li><strong>[RPI]</strong>: published by Raspberry Pi as configuration data (dt-blob.dts, Linux
+device trees, firmware headers).</li>
+<li><strong>[GPL-FACT]</strong>: found only in GPL-2.0 driver sources (Linux <code>bcm2835-unicam.c</code>,
+<code>vc4-regs-unicam.h</code>, <code>imx219.c</code>, or rsta2/libcamera), with no public document;
+restated here as bare facts. Expect less certainty about meaning.</li>
+<li><strong>[CIRCLE]</strong>: available in the Circle tree vendored in this repository (GPLv3,
+the same licence as GapKeep), so it can be used directly.</li>
+<li><strong>[UNCERTAIN]</strong>: inferred; check on hardware.</li>
+</ul>
+<p>All addresses are ARM physical addresses on the BCM2835 (peripheral base
+0x20000000), unless written as a VideoCore bus address (0x7Exxxxxx for
+peripherals, or 0x4xxxxxxx / 0xCxxxxxxx for SDRAM).</p>
+<hr />
+<h2 id="1-recommended-mode"><a class="anchor" href="#1-recommended-mode" aria-hidden="true" tabindex="-1">#</a>1. Recommended mode</h2>
+<p><strong>640 x 480, RAW8, 2 CSI-2 data lanes, 2x2 analogue (&quot;special&quot;) binning of a
+centred 1280 x 960 crop, about 30 frame/s.</strong></p>
+<p>Why:</p>
+<ul>
+<li>It is a mode the Raspberry Pi firmware itself uses (its &quot;mode 7&quot;). Its window
+and binning values were captured from the firmware's I2C traffic, so they are
+proven on this hardware [GPL-FACT]. The PLL, lane and link settings are those
+used for every 2-lane IMX219 mode on the Pi [GPL-FACT], and they match the
+datasheet's 2-lane clock example (912 Mbit/s per lane) [DS].</li>
+<li>RAW8 gives one byte per pixel and needs no unpacking. Unicam writes the
+pixels as they arrive, so a line is 640 bytes and a frame is 307 200 bytes.
+The QR decoder needs 8-bit grey, so 10 bits buys nothing. RAW8 is a plain
+sensor output format, data type 0x2A, CSI_DATA_FORMAT 0x0808 [DS]. Linux
+offers it for this mode with the same binning [GPL-FACT].</li>
+<li>Averaging each 2x2 Bayer block gives a 320 x 240 grey image, the size of the
+default scanner preview (docs/CAMERA.md), at very low CPU cost.</li>
+<li>The trade-off: the field of view is the central 1280 x 960 of the
+3280 x 2464 array, about 39 % of the width. That is a modest zoom: QR codes
+fill more pixels, but must be held more squarely in front of the lens. A
+full-field alternative (1640 x 1232 binned, then 2x2 averaged to 820 x 616
+grey) costs about 6.6 times the memory bandwidth and CPU per frame. It is
+listed in section 6.7 as an option.</li>
+</ul>
+<p>RAW10 is the fallback if RAW8 misbehaves. Section 6.6 lists the differences:
+CSI_DATA_FORMAT 0x0A0A, OPPXCK_DIV 10, data type 0x2B, packed 5 bytes per 4
+pixels.</p>
+<hr />
+<h2 id="2-board-facts-pi-zero-v13-and-camera-module-v21"><a class="anchor" href="#2-board-facts-pi-zero-v13-and-camera-module-v21" aria-hidden="true" tabindex="-1">#</a>2. Board facts (Pi Zero v1.3 and Camera Module v2.1)</h2>
+<h3 id="21-pins"><a class="anchor" href="#21-pins" aria-hidden="true" tabindex="-1">#</a>2.1 Pins</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>BCM2835 GPIO</th>
+<th>Setting</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Camera power enable (&quot;CAM_GPIO0&quot;, &quot;CAMERA_0_SHUTDOWN&quot;)</td>
+<td><strong>GPIO 41</strong></td>
+<td>output; high = camera powered</td>
+<td>dt-blob <code>pins_pi0</code>: <code>pin@p41</code> &quot;Camera shutdown&quot;, <code>CAMERA_0_SHUTDOWN = 41</code> [RPI]; Linux <code>bcm2708-rpi-zero.dts</code>: <code>cam1_reg</code> uses GPIO 41, active high; GPIO line name &quot;CAM_GPIO0&quot; [RPI]</td>
+</tr>
+<tr>
+<td>Camera LED (&quot;CAM_GPIO1&quot;, &quot;CAMERA_0_LED&quot;)</td>
+<td><strong>GPIO 32</strong></td>
+<td>output, pull-down; high = on</td>
+<td>dt-blob <code>pin@p32</code> &quot;Camera LED&quot;, <code>CAMERA_0_LED = 32</code> [RPI]; line name &quot;CAM_GPIO1&quot; [RPI]</td>
+</tr>
+<tr>
+<td>Sensor I2C SDA</td>
+<td><strong>GPIO 28</strong></td>
+<td>ALT0 = SDA0 (BSC0), pull-up</td>
+<td>dt-blob <code>CAMERA_0_SDA_PIN = 28</code>, <code>CAMERA_0_I2C_PORT = 0</code> [RPI]; BCM2835 ARM Peripherals table 6-31: GPIO28 ALT0 = SDA0 [DS]</td>
+</tr>
+<tr>
+<td>Sensor I2C SCL</td>
+<td><strong>GPIO 29</strong></td>
+<td>ALT0 = SCL0 (BSC0), pull-up</td>
+<td>dt-blob <code>CAMERA_0_SCL_PIN = 29</code> [RPI]; GPIO29 ALT0 = SCL0 [DS]</td>
+</tr>
+<tr>
+<td>CSI-2 port</td>
+<td>Unicam instance 1 (&quot;CAM1&quot;, &quot;csi1&quot;)</td>
+<td>2 data lanes + clock lane</td>
+<td>dt-blob <code>CAMERA_0_UNICAM_PORT = 1</code> [RPI]; <code>bcm283x-rpi-csi1-2lane.dtsi</code>: <code>brcm,num-data-lanes = 2</code> [RPI]</td>
+</tr>
+</tbody>
+</table></div>
+<p>Notes:</p>
+<ul>
+<li>The firmware's default state for GPIO 41 and 32 is output, inactive (low). The
+camera is therefore unpowered at boot [RPI].</li>
+<li>GPIO 28/29 and GPIO 0/1 (the HAT ID EEPROM pins on the header) can <strong>both</strong> be
+routed to BSC0 with ALT0. Linux switches between them with a pin multiplexer
+(<code>i2c0mux</code>, pinctrl states <code>i2c0_gpio0</code> / <code>i2c0_gpio28</code>) [RPI]. Only one pair
+may be in ALT0 at a time. Otherwise both pin pairs drive the same controller.</li>
+<li>Circle: <code>CI2CMaster</code> device 0, configuration 1 selects GPIO 28/29 ALT0 with
+pull-ups [CIRCLE]. rsta2/libcamera uses exactly I2C 0 configuration 1, power
+GPIO 41 and LED GPIO 32 for the &quot;Zero (v1.3 only)&quot; [GPL-FACT].</li>
+<li>BSC0 is at 0x20205000 (bus 0x7E205000) [DS].</li>
+<li>The Zero's camera connector has 22 pins (0.5 mm pitch) and the camera has
+15 (1 mm): a Zero-specific adapter cable is needed. The Zero v1.2 has no
+camera connector at all. On the Zero's connector, CAM_GPIO0 is pin 17,
+CAM_GPIO1 pin 18, SCL0 pin 20 and SDA0 pin 21 (Pi Zero reduced schematic)
+[DS].</li>
+</ul>
+<h3 id="22-the-camera-module-v21-board-raspberry-pi-schematic-raspberry-pi-camera-v21-rev-21-2018-ds"><a class="anchor" href="#22-the-camera-module-v21-board-raspberry-pi-schematic-raspberry-pi-camera-v21-rev-21-2018-ds" aria-hidden="true" tabindex="-1">#</a>2.2 The Camera Module v2.1 board (Raspberry Pi schematic &quot;Raspberry Pi Camera V2.1&quot;, rev 2.1, 2018) [DS]</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Connector pin (15-way)</th>
+<th>Signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2/3, 5/6, 8/9</td>
+<td>CSI data lane 0 N/P, data lane 1 N/P, clock N/P</td>
+</tr>
+<tr>
+<td>11</td>
+<td>ENABLE: drives the enable inputs of all three regulators (1.8 V AP7331-18, 2.8 V AP7331-28, 1.2 V PAM2301)</td>
+</tr>
+<tr>
+<td>12</td>
+<td>not connected</td>
+</tr>
+<tr>
+<td>13/14</td>
+<td>SCL/SDA, level-shifted (DMG1024UV) to the sensor's 1.8 V I2C</td>
+</tr>
+<tr>
+<td>15</td>
+<td>3.3 V</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>The sensor's clock (INCK/MCLK) is a <strong>24 MHz oscillator on the module</strong>,
+powered from the 1.8 V rail with its output enable tied high. The Pi provides
+no clock.</li>
+<li>The sensor's XCLR (/PWDN) pin appears tied to the 1.8 V rail. Asserting
+ENABLE (GPIO 41) therefore powers the rails, starts the oscillator and
+releases reset, all at once. The tie is read from the schematic drawing
+[UNCERTAIN in detail, but it has no consequence for the driver].</li>
+<li><strong>The v2.1 module has no LED</strong>: pin 12 (CAM_GPIO1 / GPIO 32) is unconnected.
+Driving GPIO 32 is harmless, and it lights the LED of a Camera Module v1.
+camera.h's &quot;the LED goes on&quot; will not be visible with a v2.</li>
+<li>An <strong>ATSHA204A</strong> authentication chip shares the I2C bus, on the 3.3 V side.
+Its usual 7-bit address is 0x64 (Microchip default) [UNCERTAIN]. Ignore it.</li>
+<li>Linux describes the module as <code>rotation = &lt;180&gt;</code> [RPI]. The sensor is
+mounted so that its native readout is upside down relative to the module's
+&quot;up&quot;. See section 4.8.</li>
+</ul>
+<h3 id="23-sensor-i2c"><a class="anchor" href="#23-sensor-i2c" aria-hidden="true" tabindex="-1">#</a>2.3 Sensor I2C</h3>
+<ul>
+<li>7-bit slave address <strong>0x10</strong> (datasheet Fig. 10: address bits [7:1] =
+0010000) [DS]; Linux DT <code>imx219@10</code> [RPI].</li>
+<li>Registers use 16-bit addresses (sent MSB first) and 8-bit data. Writes
+auto-increment, so a 16-bit register is written as a 4-byte transfer: address
+high, address low, value high, value low [DS].</li>
+<li>Reads: a write of the 2-byte address, then a read. The datasheet describes a
+&quot;dummy write&quot; of the index followed by a read, and says the index is retained
+between transfers. A STOP between the write and the read is therefore
+acceptable, and a repeated start is not required [DS]. Reads auto-increment.</li>
+<li>The interface is CCI, compatible with I2C fast mode / fast mode plus [DS]:
+100 kHz and 400 kHz both work. The level shifter's 2.2 kOhm pull-ups favour
+400 kHz or less.</li>
+</ul>
+<hr />
+<h2 id="3-power-clocks-and-firmware"><a class="anchor" href="#3-power-clocks-and-firmware" aria-hidden="true" tabindex="-1">#</a>3. Power, clocks and firmware</h2>
+<h3 id="31-firmware"><a class="anchor" href="#31-firmware" aria-hidden="true" tabindex="-1">#</a>3.1 Firmware</h3>
+<ul>
+<li>The SD card boots <code>start.elf</code> (not <code>start_x.elf</code>). GapKeep's config.txt does
+not set <code>start_x</code>, <code>camera_auto_detect</code> or <code>gpu_mem</code> for the camera. The GPU
+firmware therefore does not drive the camera or I2C0, and the ARM owns both.
+Keep it that way: with <code>start_x.elf</code> the GPU's own camera stack may access
+I2C0 and Unicam [RPI, general knowledge].</li>
+</ul>
+<h3 id="32-mailbox-property-tags-channel-8"><a class="anchor" href="#32-mailbox-property-tags-channel-8" aria-hidden="true" tabindex="-1">#</a>3.2 Mailbox property tags (channel 8)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Purpose</th>
+<th>Tag</th>
+<th>Request</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Power the Unicam1 domain on/off</td>
+<td><strong>0x00038030</strong> SET_DOMAIN_STATE</td>
+<td>u32 domain = <strong>14</strong>, u32 state (1 on, 0 off)</td>
+<td>Linux DT index RPI_POWER_DOMAIN_UNICAM1 = 13, and the firmware domain number is the DT index + 1 = 14 [GPL-FACT, RPI]; Circle names it <code>DOMAIN_ID_UNICAM1 = 14</code> and <code>PROPTAG_SET_DOMAIN_STATE</code> [CIRCLE]. rsta2/libcamera issues this tag before using Unicam [GPL-FACT]. Not in the public mailbox wiki.</td>
+</tr>
+<tr>
+<td>Read the VPU (&quot;core&quot;) clock</td>
+<td>0x00030002 GET_CLOCK_RATE</td>
+<td>clock id <strong>4</strong> (CORE)</td>
+<td>[DS: mailbox wiki]</td>
+</tr>
+<tr>
+<td>Raise the VPU clock if needed</td>
+<td>0x00038002 SET_CLOCK_RATE</td>
+<td>clock id 4, rate in Hz, skip-turbo u32</td>
+<td>[DS: mailbox wiki]</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Linux requires the VPU clock to be <strong>at least 250 MHz</strong> while Unicam streams
+(<code>MIN_VPU_CLOCK_RATE</code>) [GPL-FACT]. On the Pi Zero the firmware's default
+core_freq is 400 MHz and core_freq_min is 250 MHz [general knowledge,
+UNCERTAIN], so no change is normally needed. Read it once and log it.</li>
+<li>Whether old firmware supports tag 0x00038030 is unknown [UNCERTAIN]. A
+practical check that the block is powered and clocked: after power-on, and
+before writing anything, UNICAM_ANA should read its reset value <strong>0x00000777</strong>
+and UNICAM_CLK should read <strong>0x00000002</strong> (section 5.2). All-zero reads suggest
+the block is unpowered.</li>
+</ul>
+<h3 id="33-cam1-clock-the-unicam-lp-clock-clock-manager"><a class="anchor" href="#33-cam1-clock-the-unicam-lp-clock-clock-manager" aria-hidden="true" tabindex="-1">#</a>3.3 CAM1 clock (the Unicam &quot;lp&quot; clock), Clock Manager</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Register</th>
+<th>ARM address</th>
+<th>Bus address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CM_CAM1CTL</td>
+<td>0x20101048</td>
+<td>0x7E101048</td>
+</tr>
+<tr>
+<td>CM_CAM1DIV</td>
+<td>0x2010104C</td>
+<td>0x7E10104C</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>The layout is the same as the documented general-purpose clocks (BCM2835 ARM
+Peripherals 6.3) [DS for GP clocks; CAM1 offsets: Linux clk-bcm2835 and
+Circle <code>ARM_CM_CAM1CTL/DIV</code> [GPL-FACT, CIRCLE]]:
+<ul>
+<li>CTL: password 0x5A in bits 31:24, MASH 10:9, BUSY 7, KILL 5, ENAB 4,
+SRC 3:0.</li>
+<li>DIV: password 0x5A in bits 31:24, DIVI 23:12, DIVF 11:0.</li>
+</ul>
+</li>
+<li>For CAM1, Linux declares only <strong>4 integer bits</strong> and <strong>8 fraction bits</strong> in the
+divider [GPL-FACT]. Use an integer divider of at most 15.</li>
+<li>Required rate: <strong>100 MHz</strong> (Linux sets the lp clock to 100 MHz before
+streaming) [GPL-FACT]. Source <strong>6 = PLLD_PER, 500 MHz on Pi 1/Zero</strong>, DIVI = 5,
+DIVF = 0, MASH 0 [DS for the source numbering; CIRCLE gives PLLD = 500 MHz].</li>
+<li>Circle: <code>CGPIOClock (GPIOClockCAM1 /* = 9 */, GPIOClockSourcePLLD)</code> with
+<code>Start (5, 0, 0)</code>, or <code>StartRate (100000000)</code>, does exactly this
+(control register at CM base + 9 x 8 = 0x48) [CIRCLE]. rsta2/libcamera calls
+<code>StartRate(100 MHz)</code> on Pi 1-3 [GPL-FACT].</li>
+<li>Stop it on shutdown: clear ENAB, then wait for BUSY to clear.</li>
+</ul>
+<h3 id="34-csi-lane-clock-gate"><a class="anchor" href="#34-csi-lane-clock-gate" aria-hidden="true" tabindex="-1">#</a>3.4 CSI lane clock gate</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Register</th>
+<th>ARM address</th>
+<th>Bus address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CAM1 lane clock gate (&quot;clk_gate_base&quot; of csi1)</td>
+<td><strong>0x20802004</strong></td>
+<td>0x7E802004</td>
+</tr>
+</tbody>
+</table></div>
+<p>(CAM0's gate is at 0x7E802000 [RPI].) This register is not documented
+publicly; all facts here are [GPL-FACT]:</p>
+<ul>
+<li>Every write carries the password <strong>0x5A000000</strong> OR'ed with the value.</li>
+<li>The value is a 2-bit field per lane, clock lane in bits 1:0, then data lane 0
+in bits 3:2, data lane 1 in bits 5:4, and so on. Each enabled lane's field
+is 01.</li>
+<li><strong>Clock lane + 2 data lanes: write 0x5A000015.</strong> Disable all: write
+0x5A000000.</li>
+</ul>
+<h3 id="35-interrupt"><a class="anchor" href="#35-interrupt" aria-hidden="true" tabindex="-1">#</a>3.5 Interrupt</h3>
+<ul>
+<li>Unicam1 raises GPU (VideoCore) peripheral interrupt <strong>39</strong> (bank 2, bit 7).
+Linux DT: <code>interrupts = &lt;2 7&gt;</code> [RPI]. Circle: <code>ARM_IRQ_CAM1</code>, and
+<code>ARM_FIQ_CAM1 = 39</code> [CIRCLE].</li>
+<li>The line is level-like: it stays asserted until the status bits are cleared
+in UNICAM_STA and UNICAM_ISTA (write-1-to-clear, section 5.4).</li>
+</ul>
+<hr />
+<h2 id="4-the-imx219-sensor"><a class="anchor" href="#4-the-imx219-sensor" aria-hidden="true" tabindex="-1">#</a>4. The IMX219 sensor</h2>
+<h3 id="41-identity-and-constants"><a class="anchor" href="#41-identity-and-constants" aria-hidden="true" tabindex="-1">#</a>4.1 Identity and constants</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MODEL_ID, 0x0000-0x0001 (read only)</td>
+<td><strong>0x02, 0x19</strong> (0x0219)</td>
+<td>[DS]</td>
+</tr>
+<tr>
+<td>INCK on the module</td>
+<td>24 MHz (allowed 6-27 MHz)</td>
+<td>[DS]</td>
+</tr>
+<tr>
+<td>Active array</td>
+<td>3280 x 2464 (effective 3296 x 2480; active area starts 8 pixels in from the effective edges)</td>
+<td>[DS]</td>
+</tr>
+<tr>
+<td>ADC</td>
+<td>10 bits; black level clamped to <strong>64</strong> (RAW10) / <strong>16</strong> (RAW8)</td>
+<td>[DS]</td>
+</tr>
+<tr>
+<td>Max data rate</td>
+<td>912 Mbit/s per lane in 2-lane mode</td>
+<td>[DS]</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="42-power-up-and-standby-datasheet-section-8-ds"><a class="anchor" href="#42-power-up-and-standby-datasheet-section-8-ds" aria-hidden="true" tabindex="-1">#</a>4.2 Power-up and standby (datasheet section 8) [DS]</h3>
+<ul>
+<li>Supplies may rise in any order. XCLR must go high only after all supplies are
+up (t3 &gt;= 0.5 us). On the v2.1 module all of this follows from GPIO 41
+(section 2.2).</li>
+<li>The internal reset releases within t4 &lt;= 200 us after supplies and XCLR. The
+sensor must not leave software standby until <strong>t5 &gt;= 6 ms</strong> after XCLR rises
+(and t6 &lt;= 32 000 INCK clocks, 1.33 ms at 24 MHz, for silicon init). Linux
+waits <strong>6.2 ms</strong> after power-on before touching the sensor [GPL-FACT]. Allow
+more for the module's regulators: 10-20 ms after setting GPIO 41 is a safe
+start [UNCERTAIN margin].</li>
+<li>After streaming starts, data begins after 1.2 ms + exposure time (t9). D-PHY
+power-up and init take t7 about 1 ms and t8 about 100 us.</li>
+<li><strong>mode_select 0x0100</strong>: 0 = software standby, 1 = streaming. software_reset
+0x0103 bit 0 exists. Linux does not use it [GPL-FACT], and neither should we
+unless needed [UNCERTAIN: no wait time is documented].</li>
+<li>Stop: write 0x0100 = 0. If the write lands between frame start and frame end,
+the current frame is completed first and the sensor then enters standby. If
+it lands in frame blanking, standby is immediate. Allow one frame time before
+removing power [DS]. Optional fast standby: 0x0106 = 1, then 0x0100 = 0, and
+standby follows after the current line [DS].</li>
+<li>Power-off: XCLR may fall immediately after standby, and supplies may fall in
+any order [DS]. In practice: standby, wait one frame, GPIO 41 low.</li>
+<li><strong>Lane state quirk:</strong> the sensor does not drive its CSI lanes to LP-11 after
+power-up until streaming has been started once. Linux therefore starts
+streaming (0x0100 = 1), waits about 100 us and goes back to standby
+(0x0100 = 0, then about 100 us) right after detecting the chip, before Unicam
+is started [GPL-FACT]. Do the same, or Unicam may not synchronise to the
+first frame.</li>
+</ul>
+<h3 id="43-register-write-list-for-the-recommended-mode"><a class="anchor" href="#43-register-write-list-for-the-recommended-mode" aria-hidden="true" tabindex="-1">#</a>4.3 Register write list for the recommended mode</h3>
+<p>Write in this order. The datasheet's own order is: PLL parameters, basic
+(operation-critical) settings, readout mode, MIPI parameters, then
+mode_select = 1 [DS]. The order below is the one Linux uses, which also works
+[GPL-FACT]. All registers in the 0x01xx group are &quot;frame bank A&quot; registers,
+latched at vertical sync [DS]. Multi-byte values are MSB at the lower address.</p>
+<p><strong>A. Standby and access to manufacturer registers</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Address</th>
+<th>Value</th>
+<th>Meaning</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x0100</td>
+<td>0x00</td>
+<td>mode_select = software standby</td>
+<td>[DS]</td>
+</tr>
+<tr>
+<td>0x30EB</td>
+<td>0x05</td>
+<td>access sequence step 1 of 6 for the 0x3000-0x5FFF area</td>
+<td>[DS] (table 11)</td>
+</tr>
+<tr>
+<td>0x30EB</td>
+<td>0x0C</td>
+<td>step 2</td>
+<td>[DS]</td>
+</tr>
+<tr>
+<td>0x300A</td>
+<td>0xFF</td>
+<td>step 3</td>
+<td>[DS]</td>
+</tr>
+<tr>
+<td>0x300B</td>
+<td>0xFF</td>
+<td>step 4</td>
+<td>[DS]</td>
+</tr>
+<tr>
+<td>0x30EB</td>
+<td>0x05</td>
+<td>step 5</td>
+<td>[DS]</td>
+</tr>
+<tr>
+<td>0x30EB</td>
+<td>0x09</td>
+<td>step 6</td>
+<td>[DS]</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>B. Undocumented &quot;required&quot; values</strong> (not in the datasheet). They are part of
+every Raspberry Pi mode, recorded from the Pi firmware's I2C traffic, and the
+same values appear in MediaTek's IMX219 reference settings. They are thought to
+be Sony's recommended analogue tuning. Meaning unknown [GPL-FACT]:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Address</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x455E</td>
+<td>0x00</td>
+</tr>
+<tr>
+<td>0x471E</td>
+<td>0x4B</td>
+</tr>
+<tr>
+<td>0x4767</td>
+<td>0x0F</td>
+</tr>
+<tr>
+<td>0x4750</td>
+<td>0x14</td>
+</tr>
+<tr>
+<td>0x4540</td>
+<td>0x00</td>
+</tr>
+<tr>
+<td>0x47B4</td>
+<td>0x14</td>
+</tr>
+<tr>
+<td>0x4713</td>
+<td>0x30</td>
+</tr>
+<tr>
+<td>0x478B</td>
+<td>0x10</td>
+</tr>
+<tr>
+<td>0x478F</td>
+<td>0x10</td>
+</tr>
+<tr>
+<td>0x4793</td>
+<td>0x10</td>
+</tr>
+<tr>
+<td>0x4797</td>
+<td>0x0E</td>
+</tr>
+<tr>
+<td>0x479B</td>
+<td>0x0E</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>C. Output and clocks</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Address</th>
+<th>Value</th>
+<th>Register</th>
+<th>Meaning</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x0114</td>
+<td>0x01</td>
+<td>CSI_LANE_MODE</td>
+<td>2 lanes (3 = 4 lanes, the default). Set before leaving standby</td>
+<td>[DS]</td>
+</tr>
+<tr>
+<td>0x0128</td>
+<td>0x00</td>
+<td>DPHY_CTRL</td>
+<td>D-PHY timing automatic (default 1 = manual)</td>
+<td>[DS], value [GPL-FACT]</td>
+</tr>
+<tr>
+<td>0x012A-0x012B</td>
+<td>0x18, 0x00</td>
+<td>EXCK_FREQ</td>
+<td>INCK = 24 MHz (integer MHz in the high byte, fraction/256 in the low byte)</td>
+<td>[DS]</td>
+</tr>
+<tr>
+<td>0x0301</td>
+<td>0x05</td>
+<td>VTPXCK_DIV</td>
+<td>video timing pixel clock divider 5</td>
+<td>[DS reg], value [GPL-FACT]</td>
+</tr>
+<tr>
+<td>0x0303</td>
+<td>0x01</td>
+<td>VTSYCK_DIV</td>
+<td>1</td>
+<td>[DS]</td>
+</tr>
+<tr>
+<td>0x0304</td>
+<td>0x03</td>
+<td>PREPLLCK_VT_DIV</td>
+<td>3, for INCK 24-27 MHz (auto-set from EXCK_FREQ anyway)</td>
+<td>[DS]</td>
+</tr>
+<tr>
+<td>0x0305</td>
+<td>0x03</td>
+<td>PREPLLCK_OP_DIV</td>
+<td>3</td>
+<td>[DS]</td>
+</tr>
+<tr>
+<td>0x0306-0x0307</td>
+<td>0x00, 0x39</td>
+<td>PLL_VT_MPY</td>
+<td>57: 24 MHz / 3 x 57 = 456 MHz</td>
+<td>[DS reg], value [GPL-FACT]</td>
+</tr>
+<tr>
+<td>0x030B</td>
+<td>0x01</td>
+<td>OPSYCK_DIV</td>
+<td>1</td>
+<td>[DS]</td>
+</tr>
+<tr>
+<td>0x030C-0x030D</td>
+<td>0x00, 0x72</td>
+<td>PLL_OP_MPY</td>
+<td>114: 24 / 3 x 114 = 912 MHz = 912 Mbit/s per lane</td>
+<td>[DS reg], value [GPL-FACT]</td>
+</tr>
+<tr>
+<td>0x0309</td>
+<td><strong>0x08</strong></td>
+<td>OPPXCK_DIV</td>
+<td>8 for RAW8 (10 for RAW10)</td>
+<td>[DS]</td>
+</tr>
+<tr>
+<td>0x018C-0x018D</td>
+<td><strong>0x08, 0x08</strong></td>
+<td>CSI_DATA_FORMAT_A</td>
+<td>RAW8 (0x0A0A = RAW10; 0x0A08 = 10-to-8 compressed &quot;COMP8&quot;, not wanted)</td>
+<td>[DS]</td>
+</tr>
+</tbody>
+</table></div>
+<p>Resulting rates: VT pixel clock 456 / 5 = 91.2 MHz. The pixel rate is 2 x
+91.2 = <strong>182.4 Mpixel/s</strong> (the datasheet's line-time formula has a factor 2:
+time per line = line_length_pck / (2 x pix clock)). The CSI-2 link frequency
+(DDR clock lane) is <strong>456 MHz</strong>, which is 912 Mbit/s per lane [DS, GPL-FACT].
+The datasheet's own 2-lane example lists vt_pix_clk_div = 10 for the same
+182.4 Mpixel/s. Raspberry Pi uses 5 and that is proven, so use 5. The
+discrepancy is [UNCERTAIN] and probably a datasheet error.</p>
+<p><strong>D. Readout window, binning, orientation</strong> (values for this mode [GPL-FACT];
+register meanings [DS])</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Address</th>
+<th>Value</th>
+<th>Register</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x0162-0x0163</td>
+<td>0x0D, 0x78</td>
+<td>LINE_LENGTH_A</td>
+<td>3448 pixel clocks per line (see 4.5)</td>
+</tr>
+<tr>
+<td>0x0164-0x0165</td>
+<td>0x03, 0xE8</td>
+<td>X_ADD_STA_A</td>
+<td>x start 1000</td>
+</tr>
+<tr>
+<td>0x0166-0x0167</td>
+<td>0x08, 0xE7</td>
+<td>X_ADD_END_A</td>
+<td>x end 2279 (1280 wide)</td>
+</tr>
+<tr>
+<td>0x0168-0x0169</td>
+<td>0x02, 0xF0</td>
+<td>Y_ADD_STA_A</td>
+<td>y start 752</td>
+</tr>
+<tr>
+<td>0x016A-0x016B</td>
+<td>0x06, 0xAF</td>
+<td>Y_ADD_END_A</td>
+<td>y end 1711 (960 tall)</td>
+</tr>
+<tr>
+<td>0x016C-0x016D</td>
+<td>0x02, 0x80</td>
+<td>x_output_size</td>
+<td>640</td>
+</tr>
+<tr>
+<td>0x016E-0x016F</td>
+<td>0x01, 0xE0</td>
+<td>y_output_size</td>
+<td>480</td>
+</tr>
+<tr>
+<td>0x0170</td>
+<td>0x01</td>
+<td>X_ODD_INC_A</td>
+<td>1 (no subsampling)</td>
+</tr>
+<tr>
+<td>0x0171</td>
+<td>0x01</td>
+<td>Y_ODD_INC_A</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0x0172</td>
+<td>0x03</td>
+<td>IMG_ORIENTATION_A</td>
+<td>bit 0 = horizontal mirror, bit 1 = vertical flip; see 4.8</td>
+</tr>
+<tr>
+<td>0x0174</td>
+<td>0x03</td>
+<td>BINNING_MODE_H_A</td>
+<td>0 none, 1 x2, 2 x4, <strong>3 = x2 analogue (&quot;special&quot;)</strong></td>
+</tr>
+<tr>
+<td>0x0175</td>
+<td>0x03</td>
+<td>BINNING_MODE_V_A</td>
+<td>same encoding</td>
+</tr>
+<tr>
+<td>0x0624-0x0625</td>
+<td>0x06, 0x68</td>
+<td>TP_WINDOW_WIDTH</td>
+<td>1640: the test-pattern window, as the firmware sets it for this mode</td>
+</tr>
+<tr>
+<td>0x0626-0x0627</td>
+<td>0x04, 0xD0</td>
+<td>TP_WINDOW_HEIGHT</td>
+<td>1232</td>
+</tr>
+</tbody>
+</table></div>
+<p>(0x0176/0x0177, BINNING_CAL_MODE: 0 = average (default), 1 = sum. Leave at
+default [DS].) The crop is centred: (1000 + 2279) / 2 = 1640 and
+(752 + 1711) / 2 = 1232 approximately, matching the 3280 x 2464 array centre.</p>
+<p><strong>E. Frame length, exposure, gains, test pattern</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Address</th>
+<th>Value</th>
+<th>Register</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x0160-0x0161</td>
+<td>0x06, 0xE3</td>
+<td>FRM_LENGTH_A</td>
+<td>1763: about 30 frame/s (see 4.5)</td>
+</tr>
+<tr>
+<td>0x015A-0x015B</td>
+<td>e.g. 0x03, 0x20</td>
+<td>COARSE_INTEGRATION_TIME_A</td>
+<td>exposure in line units, 1 .. FRM_LENGTH_A - 4 (800 shown, about 15 ms)</td>
+</tr>
+<tr>
+<td>0x0157</td>
+<td>0x00</td>
+<td>ANA_GAIN_GLOBAL_A</td>
+<td>analogue gain code 0..232 (see 4.6)</td>
+</tr>
+<tr>
+<td>0x0158-0x0159</td>
+<td>0x01, 0x00</td>
+<td>DIG_GAIN_GLOBAL_A</td>
+<td>digital gain 1.0 (see 4.6)</td>
+</tr>
+<tr>
+<td>0x0600-0x0601</td>
+<td>0x00, 0x00 (or 0x00, 0x02)</td>
+<td>test_pattern_mode</td>
+<td>0 = off, 2 = 100 % colour bars (see 4.7)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>F. Start</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Address</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x0100</td>
+<td>0x01</td>
+<td>streaming</td>
+</tr>
+</tbody>
+</table></div>
+<p>Start Unicam (section 5.3) <strong>before</strong> writing 0x0100 = 1, as Linux does
+[GPL-FACT].</p>
+<h3 id="44-csi-2-output-ds"><a class="anchor" href="#44-csi-2-output-ds" aria-hidden="true" tabindex="-1">#</a>4.4 CSI-2 output [DS]</h3>
+<ul>
+<li>Short packets: Frame Start data type 0x00, Frame End 0x01. Long packets:
+<strong>RAW8 data type 0x2A</strong>, <strong>RAW10 0x2B</strong>, <strong>embedded data 0x12</strong>. The virtual
+channel is set by CSI_CH_ID (0x0110, default 0). Use VC 0.</li>
+<li>The sensor sends <strong>two embedded-data lines</strong> (DT 0x12) after Frame Start,
+before the image lines. They hold register values in a tagged format. Unicam
+filters by data type (section 5.3), so with only DT 0x2A selected they are
+not written to the image buffer.</li>
+<li>Between lines and frames the lanes go to LP-11. The clock lane stops in
+blanking: the IMX219's clock is <strong>non-continuous</strong>. Linux DT says
+<code>clock-noncontinuous</code> [RPI], and rsta2/libcamera comments &quot;non-continous
+clock&quot; [GPL-FACT]. This decides the Unicam lane settings in section 5.3.</li>
+<li>Lanes on the module: connector D0 is the sensor's MD0 and D1 is MD1 [DS].
+Linux DT: clock lane 0, data lanes 1 and 2 [RPI]. No lane swapping is needed.</li>
+</ul>
+<h3 id="45-frame-timing"><a class="anchor" href="#45-frame-timing" aria-hidden="true" tabindex="-1">#</a>4.5 Frame timing</h3>
+<ul>
+<li>Time per line = LINE_LENGTH_A / 182.4 MHz = 3448 / 182.4e6 = <strong>18.90 us</strong>
+[DS formula, values GPL-FACT].</li>
+<li>Frame period = FRM_LENGTH_A x line time. With FRM_LENGTH_A = 1763:
+33.33 ms, <strong>30.0 frame/s</strong>.</li>
+<li>In analogue binning mode (BINNING_MODE = 3), the datasheet says
+FRM_LENGTH_A counts in <strong>units of 2 lines</strong> [DS]. Linux models this as a
+doubled pixel rate (364.8 Mpixel/s) and halves the values it writes to
+FRM_LENGTH_A and COARSE_INTEGRATION_TIME_A [GPL-FACT]. The two descriptions
+agree when one register unit is taken as LINE_LENGTH_A / 182.4 MHz of real
+time. An older Raspberry Pi driver wrote 1763 for this mode and called it
+30 frame/s; current ones write about 853-881 and call it 60 frame/s
+[GPL-FACT]. Both fit the rule above. <strong>Verify by timing frame-start
+interrupts.</strong> If the measured rate is 15 frame/s, halve FRM_LENGTH_A.</li>
+<li>Mainline Linux raises the minimum LINE_LENGTH_A to <strong>3560 (0x0DE8)</strong> in
+analogue binning, because 3448 &quot;can cause artefacts with RAW10&quot; (the ADC
+works on two lines together) [GPL-FACT]. With RAW8, 3448 is what the Pi
+firmware used. If artefacts (horizontal banding) appear, use 3560 and
+FRM_LENGTH_A 1708 for 30.0 frame/s (line time 19.52 us).</li>
+<li>The exposure must stay at most FRM_LENGTH_A - 4. If it is larger, the frame
+stretches to exposure + 4 lines [DS].</li>
+<li>Changes to gain and exposure take effect at the next or the following frame
+without blanking glitches. Changes to binning, vertical flip, vertical window
+or subsampling cause a longer &quot;no data&quot; gap [DS]. Set those only in standby.</li>
+</ul>
+<h3 id="46-exposure-and-gain-ds"><a class="anchor" href="#46-exposure-and-gain-ds" aria-hidden="true" tabindex="-1">#</a>4.6 Exposure and gain [DS]</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Register</th>
+<th>Range</th>
+<th>Law</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exposure (coarse integration time)</td>
+<td>0x015A-0x015B (16 bits)</td>
+<td>1 .. FRM_LENGTH_A - 4 (Linux uses minimum 4)</td>
+<td>T = coarse x line time + fine offset. fine_integration_time (0x0388-0x0389, read only) = 500 pixel clocks, and the offset is fine / 2 pixel-clock periods (negligible)</td>
+</tr>
+<tr>
+<td>Analogue gain</td>
+<td>0x0157 (8 bits)</td>
+<td><strong>0 .. 232</strong></td>
+<td>gain = 256 / (256 - code): 0 = 1.0x, 128 = 2.0x, 192 = 4.0x, 224 = 8.0x, 232 = 10.67x</td>
+</tr>
+<tr>
+<td>Digital gain</td>
+<td>0x0158 (bits 3:0) + 0x0159</td>
+<td><strong>0x0100 .. 0x0FFF</strong></td>
+<td>4.8 fixed point: gain = high byte + low byte / 256, 1.0x .. 15.996x</td>
+</tr>
+</tbody>
+</table></div>
+<p>Use analogue gain before digital gain: digital gain only scales, and coarsens,
+the numbers. Write each 16-bit value in one auto-incrementing I2C transfer so
+that the two bytes are latched at the same V-sync.</p>
+<h3 id="47-test-patterns-ds"><a class="anchor" href="#47-test-patterns-ds" aria-hidden="true" tabindex="-1">#</a>4.7 Test patterns [DS]</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Address</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x0600-0x0601</td>
+<td>test_pattern_mode: 0 none, <strong>1 solid colour</strong>, <strong>2 100 % colour bars</strong>, 3 fade-to-grey colour bars, 4 PN9, 5 16-split colour bars, 6 inverted 16-split, <strong>7 column counter</strong>, 8 inverted column counter, 9 PN31</td>
+</tr>
+<tr>
+<td>0x0602-0x0603</td>
+<td>test_data_red (10 bits)</td>
+</tr>
+<tr>
+<td>0x0604-0x0605</td>
+<td>test_data_greenR</td>
+</tr>
+<tr>
+<td>0x0606-0x0607</td>
+<td>test_data_blue</td>
+</tr>
+<tr>
+<td>0x0608-0x0609</td>
+<td>test_data_greenB</td>
+</tr>
+<tr>
+<td>0x0620-0x0627</td>
+<td>test-pattern window x/y offset, width, height</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>The pattern generator sits after the analogue chain and <strong>before digital gain
+and black-level adjust</strong> (datasheet section 6 data-flow figure). Keep digital
+gain at 1.0x when checking exact values.</li>
+<li>The pattern can be switched on and off while streaming. Registers may be set
+in any order [DS].</li>
+<li>Colour bars appear as vertical bands of constant value. In grey they show as
+about 8 bands of different brightness. The exact colour order is drawn in the
+datasheet figure but not given as text [UNCERTAIN].</li>
+<li>For exact verification of the data path, two patterns are better:
+<ul>
+<li>Solid colour (mode 1) with all four test_data values set to the same
+10-bit value V. In RAW8 every pixel should then be V &gt;&gt; 2, possibly offset
+by the black-level stage [UNCERTAIN].</li>
+<li>The column counter (mode 7), which shows byte order and line stride errors
+immediately.</li>
+</ul>
+</li>
+</ul>
+<h3 id="48-orientation-and-bayer-order"><a class="anchor" href="#48-orientation-and-bayer-order" aria-hidden="true" tabindex="-1">#</a>4.8 Orientation and Bayer order</h3>
+<ul>
+<li>IMG_ORIENTATION_A 0x0172: bit 0 = horizontal mirror, bit 1 = vertical flip
+[DS]. Set it in standby. The vertical flip causes a no-data gap if changed
+while streaming [DS].</li>
+<li>The module is mounted rotated by 180 degrees (Linux DT <code>rotation = &lt;180&gt;</code>
+[RPI]). An upright image therefore needs <strong>both</strong> flips: <strong>0x0172 = 0x03</strong>
+[UNCERTAIN: confirm with a real scene]. A 180 degree rotation does not stop
+QR decoding, but a single mirror does (quirc needs an explicit flip), so
+never set only one bit.</li>
+<li>Bayer order of the first pixel of the image for this window [GPL-FACT, from
+Linux's format table]:</li>
+</ul>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>0x0172</th>
+<th>Order</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x00</td>
+<td>RGGB</td>
+</tr>
+<tr>
+<td>0x01 (H mirror)</td>
+<td>GRBG</td>
+</tr>
+<tr>
+<td>0x02 (V flip)</td>
+<td>GBRG</td>
+</tr>
+<tr>
+<td>0x03 (both)</td>
+<td><strong>BGGR</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>The 2x2 average used for grey (section 6) does not depend on the order.</p>
+<hr />
+<h2 id="5-unicam-csi-2-receiver-instance-1"><a class="anchor" href="#5-unicam-csi-2-receiver-instance-1" aria-hidden="true" tabindex="-1">#</a>5. Unicam (CSI-2 receiver), instance 1</h2>
+<h3 id="51-base-and-access"><a class="anchor" href="#51-base-and-access" aria-hidden="true" tabindex="-1">#</a>5.1 Base and access</h3>
+<ul>
+<li>Unicam1 registers: <strong>0x20801000-0x208017FF</strong> (bus 0x7E801000, size 0x800).
+Unicam0 is at 0x7E800000 [RPI].</li>
+<li>32-bit registers. Use read-modify-write where noted.</li>
+<li>No public Broadcom documentation exists. The register <strong>offsets and reset
+values</strong> are corroborated by an independent register list (&quot;rpi-internal-
+registers&quot;, Region CAM1), which names them CAM1_CAMCTL, CAM1_CAMSTA and so
+on. The <strong>bit fields</strong> come only from Linux's <code>vc4-regs-unicam.h</code>, which says
+they were taken from Broadcom's code drops for the BCM21553 and the
+Rhea/Hawaii/Java Android kernels [GPL-FACT]. Meanings in the tables below
+that go beyond the bit name are inferred [UNCERTAIN].</li>
+</ul>
+<h3 id="52-register-map"><a class="anchor" href="#52-register-map" aria-hidden="true" tabindex="-1">#</a>5.2 Register map</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Offset</th>
+<th>Name</th>
+<th>Reset value [list]</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x000</td>
+<td>CTRL</td>
+<td>0x00000000</td>
+<td>receiver control</td>
+</tr>
+<tr>
+<td>0x004</td>
+<td>STA</td>
+<td>0</td>
+<td>receiver status, write 1 to clear</td>
+</tr>
+<tr>
+<td>0x008</td>
+<td>ANA</td>
+<td><strong>0x00000777</strong></td>
+<td>analogue (D-PHY) control</td>
+</tr>
+<tr>
+<td>0x00C</td>
+<td>PRI</td>
+<td>0</td>
+<td>AXI bus priority / QoS</td>
+</tr>
+<tr>
+<td>0x010</td>
+<td>CLK</td>
+<td><strong>0x00000002</strong></td>
+<td>clock lane control</td>
+</tr>
+<tr>
+<td>0x014</td>
+<td>CLT</td>
+<td>0</td>
+<td>clock lane timing</td>
+</tr>
+<tr>
+<td>0x018</td>
+<td>DAT0</td>
+<td>0x00000002</td>
+<td>data lane 0 control</td>
+</tr>
+<tr>
+<td>0x01C</td>
+<td>DAT1</td>
+<td>0x00000002</td>
+<td>data lane 1 control</td>
+</tr>
+<tr>
+<td>0x020</td>
+<td>DAT2</td>
+<td>0x00000002</td>
+<td>data lane 2 (only on 4-lane-capable instances)</td>
+</tr>
+<tr>
+<td>0x024</td>
+<td>DAT3</td>
+<td>0x00000002</td>
+<td>data lane 3</td>
+</tr>
+<tr>
+<td>0x028</td>
+<td>DLT</td>
+<td>0</td>
+<td>data lane timing</td>
+</tr>
+<tr>
+<td>0x02C</td>
+<td>CMP0</td>
+<td>0</td>
+<td>packet compare 0</td>
+</tr>
+<tr>
+<td>0x030</td>
+<td>CMP1</td>
+<td>0</td>
+<td>packet compare 1</td>
+</tr>
+<tr>
+<td>0x034</td>
+<td>CAP0</td>
+<td>0</td>
+<td>captured packet 0</td>
+</tr>
+<tr>
+<td>0x038</td>
+<td>CAP1</td>
+<td>0</td>
+<td>captured packet 1</td>
+</tr>
+<tr>
+<td>0x0F0-0x0FC</td>
+<td>DBG0-3</td>
+<td>0</td>
+<td>debug</td>
+</tr>
+<tr>
+<td>0x100</td>
+<td>ICTL</td>
+<td>0</td>
+<td>image control</td>
+</tr>
+<tr>
+<td>0x104</td>
+<td>ISTA</td>
+<td>0</td>
+<td>image status, write 1 to clear</td>
+</tr>
+<tr>
+<td>0x108</td>
+<td>IDI0</td>
+<td>0</td>
+<td>image data identifiers (VC/DT) 0</td>
+</tr>
+<tr>
+<td>0x10C</td>
+<td>IPIPE</td>
+<td>0</td>
+<td>image pipeline (unpack/pack)</td>
+</tr>
+<tr>
+<td>0x110</td>
+<td>IBSA0</td>
+<td>0</td>
+<td>image buffer start address 0 (bus address)</td>
+</tr>
+<tr>
+<td>0x114</td>
+<td>IBEA0</td>
+<td>0</td>
+<td>image buffer end address 0 (bus address)</td>
+</tr>
+<tr>
+<td>0x118</td>
+<td>IBLS</td>
+<td>0</td>
+<td>image buffer line stride (bytes)</td>
+</tr>
+<tr>
+<td>0x11C</td>
+<td>IBWP</td>
+<td>0</td>
+<td>image buffer write pointer (read: current DMA address)</td>
+</tr>
+<tr>
+<td>0x120</td>
+<td>IHWIN</td>
+<td>0</td>
+<td>horizontal window (0 = off)</td>
+</tr>
+<tr>
+<td>0x124</td>
+<td>IHSTA</td>
+<td>0</td>
+<td>horizontal status</td>
+</tr>
+<tr>
+<td>0x128</td>
+<td>IVWIN</td>
+<td>0</td>
+<td>vertical window (0 = off)</td>
+</tr>
+<tr>
+<td>0x12C</td>
+<td>IVSTA</td>
+<td>0</td>
+<td>vertical status</td>
+</tr>
+<tr>
+<td>0x130</td>
+<td>ICC</td>
+<td>0</td>
+<td>image compression control (DPCM)</td>
+</tr>
+<tr>
+<td>0x134</td>
+<td>ICS</td>
+<td>0</td>
+<td>image compression status</td>
+</tr>
+<tr>
+<td>0x138</td>
+<td>IDC</td>
+<td>0</td>
+<td>image data control</td>
+</tr>
+<tr>
+<td>0x13C</td>
+<td>IDPO</td>
+<td>0</td>
+<td>image data pixel offset</td>
+</tr>
+<tr>
+<td>0x140</td>
+<td>IDCA</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>0x144</td>
+<td>IDCD</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>0x148</td>
+<td>IDS</td>
+<td>0</td>
+<td>image data status</td>
+</tr>
+<tr>
+<td>0x200</td>
+<td>DCS</td>
+<td>0</td>
+<td>embedded (&quot;data&quot;) channel control and status</td>
+</tr>
+<tr>
+<td>0x204</td>
+<td>DBSA0</td>
+<td>0</td>
+<td>data buffer start 0</td>
+</tr>
+<tr>
+<td>0x208</td>
+<td>DBEA0</td>
+<td>0</td>
+<td>data buffer end 0</td>
+</tr>
+<tr>
+<td>0x20C</td>
+<td>DBWP</td>
+<td>0</td>
+<td>data buffer write pointer</td>
+</tr>
+<tr>
+<td>0x300</td>
+<td>DBCTL</td>
+<td>0</td>
+<td>double-buffer control</td>
+</tr>
+<tr>
+<td>0x304</td>
+<td>IBSA1</td>
+<td>0</td>
+<td>image buffer start 1 (double-buffer mode)</td>
+</tr>
+<tr>
+<td>0x308</td>
+<td>IBEA1</td>
+<td>0</td>
+<td>image buffer end 1</td>
+</tr>
+<tr>
+<td>0x30C</td>
+<td>IDI1</td>
+<td>0</td>
+<td>image data identifiers 1</td>
+</tr>
+<tr>
+<td>0x310</td>
+<td>DBSA1</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>0x314</td>
+<td>DBEA1</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>0x400</td>
+<td>MISC</td>
+<td>0</td>
+<td>miscellaneous</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Bit fields</strong> [GPL-FACT]:</p>
+<p>CTRL (0x000)</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>CPE</td>
+<td>peripheral enable</td>
+</tr>
+<tr>
+<td>1</td>
+<td>MEM</td>
+<td>set at initialisation, presumably &quot;output to memory&quot; [UNCERTAIN]</td>
+</tr>
+<tr>
+<td>2</td>
+<td>CPR</td>
+<td>peripheral reset (pulse 1 then 0)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>CPM</td>
+<td>mode: 0 = CSI-2, 1 = CCP2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>SOE</td>
+<td>stop output engine (1 = stop)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>DCM</td>
+<td>data clock mode, CCP2 only: 0 strobe, 1 data. 0 for CSI-2</td>
+</tr>
+<tr>
+<td>6</td>
+<td>SLS</td>
+<td>(unused)</td>
+</tr>
+<tr>
+<td>11:8</td>
+<td>PFT</td>
+<td>packet framer timeout</td>
+</tr>
+<tr>
+<td>20:12</td>
+<td>OET</td>
+<td>output engine timeout</td>
+</tr>
+</tbody>
+</table></div>
+<p>STA (0x004), write 1 to clear. The names are from the header and the
+expansions are guesses [UNCERTAIN]:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Bit</th>
+<th>Name</th>
+<th>Bit</th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>SYN (synchronised)</td>
+<td>13</td>
+<td>PS (packet status)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>CS (clock status)</td>
+<td>14</td>
+<td><strong>IS</strong> (image status: an ISTA bit is set)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>SBE (single-bit ECC error, corrected)</td>
+<td>15</td>
+<td><strong>PI0</strong> (packet compare 0 matched)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>PBE (packet/multi-bit ECC error)</td>
+<td>16</td>
+<td>PI1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>HOE (header overflow error)</td>
+<td>17</td>
+<td>FSI_S (frame start, mirror)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>PLE (packet length error)</td>
+<td>18</td>
+<td>FEI_S (frame end, mirror)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>SSC (sync short-packet error)</td>
+<td>19</td>
+<td>LCI_S (line count, mirror)</td>
+</tr>
+<tr>
+<td>7</td>
+<td>CRCE (CRC error)</td>
+<td>20</td>
+<td>BUF0_RDY</td>
+</tr>
+<tr>
+<td>8</td>
+<td>OES (output engine stopped)</td>
+<td>21</td>
+<td>BUF0_NO</td>
+</tr>
+<tr>
+<td>9</td>
+<td>IFO (input FIFO overflow)</td>
+<td>22</td>
+<td>BUF1_RDY</td>
+</tr>
+<tr>
+<td>10</td>
+<td>OFO (output FIFO overflow)</td>
+<td>23</td>
+<td>BUF1_NO</td>
+</tr>
+<tr>
+<td>11</td>
+<td>BFO (buffer overflow)</td>
+<td>24</td>
+<td>DI</td>
+</tr>
+<tr>
+<td>12</td>
+<td>DL (data lane...)</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>The &quot;clear all&quot; mask Linux writes at start is bits 2, 3, 4, 5, 6, 7, 9, 10, 12,
+13, 15, 16 = <strong>0x0001B6FC</strong>.</p>
+<p>ANA (0x008)</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>APD</td>
+<td>analogue power down (reset 1)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>BPD</td>
+<td>bias power down (reset 1)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>AR</td>
+<td>analogue reset (reset 1)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>DDL</td>
+<td>disable data lanes (1 = disabled)</td>
+</tr>
+<tr>
+<td>7:4</td>
+<td>CTATADJ</td>
+<td>(reset 7)</td>
+</tr>
+<tr>
+<td>11:8</td>
+<td>PTATADJ</td>
+<td>(reset 7)</td>
+</tr>
+</tbody>
+</table></div>
+<p>PRI (0x00C): bit 0 PE (panic enable?), bits 2:1 PT (panic threshold?), bits
+7:4 NP (normal priority?), bits 11:8 PP (panic priority?), bits 15:12 BS
+(burst size?), bits 17:16 BL (burst length?). Expansions [UNCERTAIN].</p>
+<p>CLK (0x010): bit 0 CLE (clock lane enable), 1 CLPD (power down, reset 1),
+2 CLLPE (low-power receiver enable), 3 CLHSE (high-speed enable), 4 CLTRE
+(termination enable), 8:5 CLAC, 29 CLSTE (status/error).</p>
+<p>CLT (0x014): bits 7:0 CLT1 = tclk_term_en, bits 15:8 CLT2 = tclk_settle.</p>
+<p>DAT0..3 (0x018..0x024): bit 0 DLE (lane enable), 1 DLPD (power down, reset 1),
+2 DLLPE, 3 DLHSE, 4 DLTRE, 5 DLSM (sync matching?), 28 DLFO (FIFO overflow),
+29 DLSTE.</p>
+<p>DLT (0x028): bits 7:0 DLT1 = td_term_en, 15:8 DLT2 = ths_settle, 23:16 DLT3 =
+trx_enable.</p>
+<p>CMP0/1 (0x02C/0x030): bit 31 PCE (compare enable), 9 GI (generate interrupt),
+8 CPH (capture header into CAPn), 7:6 PCVC (virtual channel), 5:0 PCDT (data
+type).</p>
+<p>ICTL (0x100)</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>FSIE</td>
+<td>frame-start interrupt enable</td>
+</tr>
+<tr>
+<td>1</td>
+<td>FEIE</td>
+<td>frame-end interrupt enable</td>
+</tr>
+<tr>
+<td>2</td>
+<td>IBOB</td>
+<td>image buffer overflow behaviour (set by Linux; presumably &quot;don't wrap / stop at end address&quot;) [UNCERTAIN]</td>
+</tr>
+<tr>
+<td>3</td>
+<td>FCM</td>
+<td>frame capture mode</td>
+</tr>
+<tr>
+<td>4</td>
+<td>TFC</td>
+<td>trigger frame capture</td>
+</tr>
+<tr>
+<td>6:5</td>
+<td>LIP</td>
+<td>load image pointers (write 1 to load IBSA0/IBEA0 now)</td>
+</tr>
+<tr>
+<td>28:16</td>
+<td>LCIE</td>
+<td>line-count interrupt every N lines (0 = off)</td>
+</tr>
+</tbody>
+</table></div>
+<p>ISTA (0x104), write 1 to clear: bit 0 FSI (frame start), 1 FEI (frame end),
+2 LCI (line count).</p>
+<p>IDI0/IDI1 (0x108/0x30C): four 8-bit identifiers ID0 7:0, ID1 15:8, ID2 23:16,
+ID3 31:24. In CSI-2 mode each is (VC &lt;&lt; 6) | DT. Packets whose VC/DT match go
+to the image buffer.</p>
+<p>IPIPE (0x10C)</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Bits</th>
+<th>Name</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2:0</td>
+<td>PUM (unpack)</td>
+<td>0 none, 1 unpack6, 2 unpack7, 3 unpack8, 4 unpack10, 5 unpack12, 6 unpack14, 7 unpack16</td>
+</tr>
+<tr>
+<td>6:3</td>
+<td>DDM</td>
+<td>(decode/DPCM mode)</td>
+</tr>
+<tr>
+<td>9:7</td>
+<td>PPM (pack)</td>
+<td>0 none, 1 pack8, 2 pack10, 3 pack12, 4 pack14, 5 pack16</td>
+</tr>
+<tr>
+<td>11:10</td>
+<td>DEM</td>
+<td></td>
+</tr>
+<tr>
+<td>14:12</td>
+<td>DEBL</td>
+<td></td>
+</tr>
+<tr>
+<td>16:15</td>
+<td>ICM</td>
+<td></td>
+</tr>
+<tr>
+<td>17</td>
+<td>IDM</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>ICC (0x130): ICFL 4:0, ICFH 9:5, ICST 12:10, ICLT 15:13, ICLL 31:16 (DPCM
+compression; leave 0).</p>
+<p>DCS (0x200): bit 0 DIE, 1 DIM, 3 DBOB, 4 FDE, 5 LDP (load data pointers),
+15:8 EDL (embedded data lines). Leave 0, so embedded data is not captured.</p>
+<p>DBCTL (0x300): bit 0 DBEN (double-buffer enable), 1 BUF0_IE, 2 BUF1_IE. Not
+used by Linux. Leave 0.</p>
+<p>MISC (0x400): bit 6 FL0, bit 9 FL1. Linux sets both before enabling, with no
+stated meaning [GPL-FACT, UNCERTAIN].</p>
+<h3 id="53-bring-up-sequence-csi-2-2-lanes-non-continuous-clock-raw8"><a class="anchor" href="#53-bring-up-sequence-csi-2-2-lanes-non-continuous-clock-raw8" aria-hidden="true" tabindex="-1">#</a>5.3 Bring-up sequence (CSI-2, 2 lanes, non-continuous clock, RAW8)</h3>
+<p>Preconditions: Unicam1 power domain on, CAM1 clock running at 100 MHz, VPU
+clock at least 250 MHz, sensor powered and configured but in standby with its
+lanes in LP-11 (section 4.2). The values are those Linux writes [GPL-FACT].
+The resulting register values are worked out in the right-hand column.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+<th>Resulting value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Lane clock gate: enable clock lane + 2 data lanes</td>
+<td>0x20802004 = 0x5A000015</td>
+</tr>
+<tr>
+<td>2</td>
+<td>CTRL = MEM only</td>
+<td>CTRL = 0x00000002</td>
+</tr>
+<tr>
+<td>3</td>
+<td>ANA = AR with CTATADJ = 7, PTATADJ = 7 (analogue on, held in reset)</td>
+<td>ANA = 0x00000774</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Wait 1-2 ms</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Clear ANA.AR</td>
+<td>ANA = 0x00000770</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Pulse CTRL.CPR: set, then clear</td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td>Clear CTRL.CPE</td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td>CTRL read-modify-write: CPM = 0 (CSI-2), DCM = 0, PFT = 0xF, OET = 128</td>
+<td>CTRL = 0x00080F02</td>
+</tr>
+<tr>
+<td>9</td>
+<td>IHWIN = 0, IVWIN = 0 (no windowing)</td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>PRI read-modify-write: BL = 0, BS = 0, PP = 0xE, NP = 8, PT = 2, PE = 1</td>
+<td>PRI = 0x00000E85</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Clear ANA.DDL (enable data lanes)</td>
+<td>ANA = 0x00000770</td>
+</tr>
+<tr>
+<td>12</td>
+<td>ICTL = FSIE + FEIE + IBOB, LCIE = N (Linux: max(height / 4, 128); 128 for 480 lines)</td>
+<td>ICTL = 0x00800007</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Clear status: STA = 0x0001B6FC, ISTA = 0x00000007</td>
+<td></td>
+</tr>
+<tr>
+<td>14</td>
+<td>CLT: tclk_term_en = 2, tclk_settle = 6</td>
+<td>CLT = 0x00000602</td>
+</tr>
+<tr>
+<td>15</td>
+<td>DLT: td_term_en = 2, ths_settle = 6, trx_enable = 0</td>
+<td>DLT = 0x00000602</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Clear CTRL.SOE</td>
+<td></td>
+</tr>
+<tr>
+<td>17</td>
+<td>CMP0: PCE = 1, GI = 1, CPH = 1, PCVC = 0, PCDT = 0x01 (Frame End short packet). Linux: &quot;required to avoid missing frame ends&quot;</td>
+<td>CMP0 = 0x80000301</td>
+</tr>
+<tr>
+<td>18</td>
+<td>CLK = CLE + CLLPE (for a non-continuous clock, <strong>not</strong> CLHSE/CLTRE)</td>
+<td>CLK = 0x00000005</td>
+</tr>
+<tr>
+<td>19</td>
+<td>DAT0 = DLE + DLLPE (non-continuous: not DLHSE/DLTRE); DAT1 = same</td>
+<td>DAT0 = DAT1 = 0x00000005</td>
+</tr>
+<tr>
+<td>20</td>
+<td>DAT2/DAT3: Linux writes them only when the DT allows more than 2 lanes. On the Zero (2 lanes) leave them alone</td>
+<td></td>
+</tr>
+<tr>
+<td>21</td>
+<td>IBLS = line stride in bytes</td>
+<td>640</td>
+</tr>
+<tr>
+<td>22</td>
+<td>IBSA0 = bus address of the first buffer; IBEA0 = IBSA0 + stride x height (end is exclusive)</td>
+<td></td>
+</tr>
+<tr>
+<td>23</td>
+<td>IPIPE: PUM = 0, PPM = 0 (store as received)</td>
+<td>IPIPE = 0</td>
+</tr>
+<tr>
+<td>24</td>
+<td>IDI0 = (VC 0 &lt;&lt; 6) | 0x2A</td>
+<td>IDI0 = 0x0000002A</td>
+</tr>
+<tr>
+<td>25</td>
+<td>MISC read-modify-write: set FL0 (bit 6) and FL1 (bit 9)</td>
+<td>MISC |= 0x240</td>
+</tr>
+<tr>
+<td>26</td>
+<td>Set CTRL.CPE</td>
+<td>CTRL = 0x00080F03</td>
+</tr>
+<tr>
+<td>27</td>
+<td>ICTL.LIP = 1: load the image pointers</td>
+<td>ICTL = 0x00800027</td>
+</tr>
+<tr>
+<td>28</td>
+<td>Sensor: 0x0100 = 1 (streaming)</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>About the timing values: CLT and DLT are counts of an internal clock, most
+likely the 100 MHz CAM1 clock (10 ns units) [UNCERTAIN]. With values 2 and 6,
+Linux and the Pi capture every IMX219 mode at 912 Mbit/s per lane [GPL-FACT].</p>
+<h3 id="54-frames-interrupts-and-buffer-switching-gpl-fact-behaviour-inferred-from-linuxs-interrupt-handling"><a class="anchor" href="#54-frames-interrupts-and-buffer-switching-gpl-fact-behaviour-inferred-from-linuxs-interrupt-handling" aria-hidden="true" tabindex="-1">#</a>5.4 Frames, interrupts and buffer switching [GPL-FACT, behaviour inferred from Linux's interrupt handling]</h3>
+<ul>
+<li>On each interrupt: read STA and write the value back (clears it). Read ISTA
+and write it back. If neither STA.IS nor STA.PI0 is set, there is nothing to
+do.</li>
+<li><strong>Frame end</strong> = ISTA.FEI <strong>or</strong> STA.PI0 (the packet-compare match on the FE
+short packet). <strong>Frame start</strong> = ISTA.FSI.</li>
+<li><strong>The buffer address is latched at frame start.</strong> IBSA0/IBEA0 act as
+&quot;next frame&quot; registers: whatever they hold when a frame starts is where that
+frame is written. LIP forces a load at start-up.</li>
+<li>Therefore program the <em>next</em> buffer <strong>after</strong> a frame start (and, as a
+fallback, on a line-count interrupt), never at frame end. Linux says the
+hardware may not take the new address if a new frame has already started
+[GPL-FACT].</li>
+<li>If FE and FS arrive in one interrupt, handle FE first.</li>
+<li>A frame is complete at FE, in the buffer that was latched at the preceding FS.</li>
+<li>The receiver cannot be paused while the sensor streams. When no free buffer is
+available at FS, Linux points IBSA0/IBEA0 at a <strong>dummy buffer</strong> with
+end = start (size 0), so the hardware keeps writing into a harmless place
+[GPL-FACT; exactly how the hardware behaves at end = start is UNCERTAIN, so
+give the dummy buffer one page of real memory]. A simpler scheme for us:
+three buffers in rotation (being written, being latched next, owned by the
+consumer). If the consumer still holds a buffer, reprogram the same &quot;next&quot;
+buffer, which drops that frame.</li>
+<li>Line-count interrupts (LCIE) arrive every N lines. They are not needed for
+correctness. LCIE = 0 turns them off [UNCERTAIN], or ignore them.</li>
+<li>IBWP reads the current write address: (IBWP - IBSA) / stride = lines written
+so far.</li>
+<li>Error indications worth logging (not clearing as errors): STA.IFO, OFO and
+BFO (FIFO overflows: bus or VPU clock too slow), SBE/PBE/CRCE/PLE (link
+errors: timing settle values or signal integrity).</li>
+</ul>
+<h3 id="55-alignment-and-memory"><a class="anchor" href="#55-alignment-and-memory" aria-hidden="true" tabindex="-1">#</a>5.5 Alignment and memory</h3>
+<ul>
+<li>Line stride (IBLS): Linux rounds bytes-per-line up to a multiple of <strong>32</strong>
+[GPL-FACT]. 640 already is.</li>
+<li>Start addresses: use at least 32-byte (cache-line) alignment. Page (4 KiB)
+alignment is what Linux's allocator gives [GPL-FACT for Linux usage; the
+hardware minimum is UNCERTAIN, at least 16 bytes].</li>
+<li>IBSA/IBEA are <strong>VideoCore bus addresses</strong>. On the Pi 1/Zero with the GPU L2
+cache enabled for the ARM (Circle's default), SDRAM is seen by devices at the
+<strong>0x40000000</strong> alias. Circle's <code>BUS_ADDRESS()</code> produces the right alias for
+the build configuration [CIRCLE].</li>
+<li>Frame size RAW8 640 x 480 = 307 200 bytes (300 KiB). Three buffers take about
+900 KiB.</li>
+<li>Bandwidth: 640 x 480 x 30 = 9.2 MB/s, trivial for the bus.</li>
+</ul>
+<h3 id="56-stop-sequence-gpl-fact"><a class="anchor" href="#56-stop-sequence-gpl-fact" aria-hidden="true" tabindex="-1">#</a>5.6 Stop sequence [GPL-FACT]</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Sensor: 0x0100 = 0 (standby). The current frame completes, if one was in progress</td>
+</tr>
+<tr>
+<td>2</td>
+<td>ANA.DDL = 1 (disable data lanes)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>CTRL.SOE = 1 (stop output engine)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>DAT0 = 0, DAT1 = 0 (and DAT2/DAT3 = 0 on 4-lane instances)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Pulse CTRL.CPR: set, wait 50-100 us, clear</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Clear CTRL.CPE</td>
+</tr>
+<tr>
+<td>7</td>
+<td>DCS = 0</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Lane clock gate 0x20802004 = 0x5A000000</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Disable the IRQ; stop the CAM1 clock; release any VPU clock request; domain 14 off (optional)</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Wait one frame time after step 1, then GPIO 41 low (camera off), GPIO 32 low</td>
+</tr>
+</tbody>
+</table></div>
+<p>Only after step 6 may the frame buffers be freed or reused for other data.</p>
+<hr />
+<h2 id="6-data-format-and-grey-conversion"><a class="anchor" href="#6-data-format-and-grey-conversion" aria-hidden="true" tabindex="-1">#</a>6. Data format and grey conversion</h2>
+<h3 id="61-raw8-in-memory"><a class="anchor" href="#61-raw8-in-memory" aria-hidden="true" tabindex="-1">#</a>6.1 RAW8 in memory</h3>
+<ul>
+<li>One byte per pixel, pixels in sensor order left to right, lines top to
+bottom, each line starting at IBSA + line x IBLS. With 640 pixels and stride
+640 there is no padding.</li>
+<li>Values are the top 8 bits of the 10-bit ADC result after digital gain, with
+the black level at <strong>16</strong> [DS].</li>
+</ul>
+<h3 id="62-raw10-in-memory-the-fallback-ipipe--0"><a class="anchor" href="#62-raw10-in-memory-the-fallback-ipipe--0" aria-hidden="true" tabindex="-1">#</a>6.2 RAW10 in memory (the fallback; IPIPE = 0)</h3>
+<ul>
+<li>MIPI CSI-2 RAW10 packing: every <strong>5 bytes hold 4 pixels</strong>. Bytes 0-3 are
+bits 9:2 of pixels 0-3. Byte 4 holds the 2 low bits: pixel 0 in bits 1:0,
+pixel 1 in bits 3:2, pixel 2 in bits 5:4, pixel 3 in bits 7:6 [MIPI CSI-2
+RAW10 definition, public in V4L2 documentation of the packed 10-bit Bayer
+formats].</li>
+<li>A 640-pixel line is 800 bytes (a multiple of 32). For 8-bit grey, ignoring
+every fifth byte is enough.</li>
+<li>The black level is 64 (in 10-bit units) [DS].</li>
+<li>Alternatively, Unicam can expand to 16 bits per pixel: IPIPE PUM = 4
+(unpack10), PPM = 5 (pack16). The line is then 2 x width bytes [GPL-FACT].</li>
+</ul>
+<h3 id="63-bayer-to-grey"><a class="anchor" href="#63-bayer-to-grey" aria-hidden="true" tabindex="-1">#</a>6.3 Bayer to grey</h3>
+<ul>
+<li>The image is a Bayer mosaic, 2 x 2 tiles of one red, two green, one blue
+(section 4.8 gives the order). For one grey pixel per tile, take the
+<strong>average of the four values</strong> (sum &gt;&gt; 2). That is roughly luminance and
+independent of the order, so flips do not need special cases. A
+640 x 480 RAW8 frame becomes <strong>320 x 240 grey</strong>.</li>
+<li>Optional: subtract the black level (16 in RAW8), clamping at 0, and stretch,
+so that black reads as 0.</li>
+<li>A more luma-like weighting (for example R x 0.3, G x 0.59, B x 0.11) needs
+the Bayer order and gains nothing for QR codes. Under strongly coloured light
+the plain average is the more robust choice.</li>
+<li>Read the buffer only after FE and after the cache maintenance in section 8.</li>
+</ul>
+<h3 id="64-colour-bars-through-this-path"><a class="anchor" href="#64-colour-bars-through-this-path" aria-hidden="true" tabindex="-1">#</a>6.4 Colour bars through this path</h3>
+<p>In grey, bars appear as vertical bands of constant value 320 / 8 = 40 pixels
+wide, if the pattern spans the whole output [UNCERTAIN: the TP_WINDOW
+registers are set to 1640 x 1232 for this mode].</p>
+<h3 id="65-embedded-data"><a class="anchor" href="#65-embedded-data" aria-hidden="true" tabindex="-1">#</a>6.5 Embedded data</h3>
+<p>Not captured: IDI0 selects only DT 0x2A, and DCS = 0.</p>
+<h3 id="66-raw10-differences-in-brief"><a class="anchor" href="#66-raw10-differences-in-brief" aria-hidden="true" tabindex="-1">#</a>6.6 RAW10 differences in brief</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>RAW8</th>
+<th>RAW10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x018C-0x018D</td>
+<td>0x08, 0x08</td>
+<td>0x0A, 0x0A</td>
+</tr>
+<tr>
+<td>0x0309</td>
+<td>0x08</td>
+<td>0x0A</td>
+</tr>
+<tr>
+<td>IDI0 data type</td>
+<td>0x2A</td>
+<td>0x2B</td>
+</tr>
+<tr>
+<td>Stride for 640 pixels</td>
+<td>640</td>
+<td>800 (packed) or 1280 (unpack10 + pack16)</td>
+</tr>
+<tr>
+<td>Black level</td>
+<td>16</td>
+<td>64</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="67-other-modes-for-reference-values-gpl-fact"><a class="anchor" href="#67-other-modes-for-reference-values-gpl-fact" aria-hidden="true" tabindex="-1">#</a>6.7 Other modes (for reference, values [GPL-FACT])</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>X start-end</th>
+<th>Y start-end</th>
+<th>Output</th>
+<th>Binning 0x0174/0x0175</th>
+<th>Typical FRM_LENGTH_A</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Full field, binned</td>
+<td>0-3279</td>
+<td>0-2463</td>
+<td>1640 x 1232</td>
+<td>0x01 (x2, RAW10) or 0x03 (analogue, RAW8 in Linux)</td>
+<td>1763 (30 frame/s)</td>
+</tr>
+<tr>
+<td>1080p crop</td>
+<td>680-2599</td>
+<td>692-1771</td>
+<td>1920 x 1080</td>
+<td>0x00</td>
+<td>1763</td>
+</tr>
+<tr>
+<td>Full resolution</td>
+<td>0-3279</td>
+<td>0-2463</td>
+<td>3280 x 2464</td>
+<td>0x00</td>
+<td>3526 (15 frame/s)</td>
+</tr>
+</tbody>
+</table></div>
+<p>The datasheet also lists x4 binning (BINNING_MODE = 2, &quot;digital&quot;), which would
+give 820 x 616 over the full field. No Raspberry Pi software uses it, so it is
+untested on this board [UNCERTAIN].</p>
+<hr />
+<h2 id="7-auto-exposure-the-sensor-has-none"><a class="anchor" href="#7-auto-exposure-the-sensor-has-none" aria-hidden="true" tabindex="-1">#</a>7. Auto-exposure (the sensor has none)</h2>
+<p>Controls: exposure lines E (1 .. FRM_LENGTH_A - 4), analogue gain code A
+(0..232, gain 256 / (256 - A)), digital gain D (1.0..16). Total brightness is
+roughly proportional to E x gainA x gainD, minus the black level. New values
+take effect one or two frames after they are written [DS], so measure, change,
+and then skip two frames before measuring again.</p>
+<p>Suggested algorithm, in prose:</p>
+<ol>
+<li><strong>Measure</strong> on the grey image you already compute: the mean over a central
+region (for example the middle half), excluding the black level, plus a
+bright-percentile estimate (for example the 95th percentile from a
+64-bucket histogram) to catch clipping. Sub-sampling every 4th pixel is
+plenty.</li>
+<li><strong>Target</strong>: mean grey about 0.4-0.5 of full scale. If more than about 2 % of
+pixels are at 255, lower the target. QR codes need contrast, not
+brightness, so slight underexposure is better than clipping.</li>
+<li><strong>Correct</strong> the total exposure product by target / measured, limited per
+step (for example between x0.5 and x2) and damped (move about half-way in
+log terms) to avoid oscillation. Treat a measurement of almost nothing as
+&quot;multiply by 2&quot;.</li>
+<li><strong>Distribute</strong> the product in this order:
+<ul>
+<li>Exposure time first, up to a motion-blur cap. A handheld code wants
+10-15 ms, about 530-800 lines at 18.9 us.</li>
+<li>Then analogue gain up to about 8x (code 224).</li>
+<li>Then exposure up to the frame limit.</li>
+<li>Digital gain last.</li>
+<li>Going darker, reduce in the reverse order.</li>
+</ul>
+</li>
+<li><strong>Write</strong> exposure and gains right after a frame-end interrupt (in frame
+blanking), each 16-bit value in one I2C transfer, so that all values are
+latched at the same V-sync.</li>
+<li>Optionally, in very dark scenes, lengthen FRM_LENGTH_A (lower frame rate) to
+allow longer exposures. FRM_LENGTH_A may change while streaming because it
+is a frame-bank register, but changes take effect with a delay.</li>
+</ol>
+<p>Start values: E = 800 lines, A = 0, D = 1.0. Convergence then takes a few
+frames.</p>
+<hr />
+<h2 id="8-known-pitfalls"><a class="anchor" href="#8-known-pitfalls" aria-hidden="true" tabindex="-1">#</a>8. Known pitfalls</h2>
+<ol>
+<li><strong>Cache coherency (ARM1176, 32-byte L1 lines).</strong> Unicam writes SDRAM behind
+the CPU's data cache.
+<ul>
+<li>Align buffers to 32 bytes and size them in whole cache lines.</li>
+<li>Before handing a buffer to Unicam, clean and invalidate its range. Then
+never write it from the CPU while Unicam may.</li>
+<li>After FE, before reading, invalidate its range again (Circle's
+<code>CleanAndInvalidateDataCacheRange</code> is the available primitive on the
+Pi 1 [CIRCLE]). Reading a buffer with no dirty lines makes this safe.</li>
+<li>Alternatively, use non-cached (coherent) memory, which is slow for the
+CPU's 2x2 pass. Circle's coherent region is small and shared, so cached
+buffers with maintenance are preferable.</li>
+<li>Use DataSyncBarrier/DataMemBarrier around register writes that publish
+buffer addresses.</li>
+</ul>
+</li>
+<li><strong>Bus addresses.</strong> IBSA/IBEA take VideoCore bus addresses, not ARM
+physical addresses: use Circle's <code>BUS_ADDRESS()</code>.</li>
+<li><strong>LP-11 at start-up.</strong> The IMX219 does not enter LP-11 until it has
+streamed once. Do the stream-on/stream-off toggle after power-up
+(section 4.2), or the receiver may not sync.</li>
+<li><strong>Non-continuous clock.</strong> Do not enable HS termination (CLHSE/CLTRE,
+DLHSE/DLTRE) for this sensor. Linux enables those only for
+continuous-clock sensors [GPL-FACT].</li>
+<li><strong>Missing frame ends.</strong> Without the CMP0 packet-compare on the FE short
+packet, frame-end interrupts can be missed [GPL-FACT]. Treat STA.PI0 as a
+frame end.</li>
+<li><strong>Buffer switch timing.</strong> Program the next address after FS, not at FE. A
+new address written too late is silently not used for the following frame.</li>
+<li><strong>Never leave Unicam without a valid buffer</strong> while the sensor streams. It
+cannot be paused and will write wherever IBSA points.</li>
+<li><strong>Stop order.</strong> Stop the sensor first, then Unicam (section 5.6). Do not
+free buffers before CPE is cleared.</li>
+<li><strong>VPU clock.</strong> Below 250 MHz, Unicam's FIFOs may overflow (STA.IFO/OFO)
+[GPL-FACT].</li>
+<li><strong>I2C pin mux.</strong> Do not leave GPIO 0/1 in ALT0 while using GPIO 28/29 for
+BSC0.</li>
+<li><strong>Wrong firmware.</strong> <code>start_x.elf</code>, or <code>camera_auto_detect=1</code> / <code>start_x=1</code>
+in config.txt, lets the GPU firmware talk to the camera.</li>
+<li><strong>Power-up time.</strong> Talking to the sensor sooner than about 6 ms after
+GPIO 41 rises fails (NAKs, or a chip ID of 0).</li>
+<li><strong>16-bit register tearing.</strong> Write MSB and LSB in one transfer. Values
+straddling a V-sync give a one-frame glitch.</li>
+<li><strong>Orientation.</strong> Set 0x0172 before streaming. A single mirror makes QR
+codes unreadable.</li>
+<li><strong>Hardware variants.</strong> Some third-party &quot;v2&quot; modules (clones) differ: other
+oscillators, an LED on pin 12. The chip-ID check (0x0219) catches
+non-IMX219 modules, such as a v1 (OV5647, address 0x36) or a v3 (IMX708,
+unsupported).</li>
+<li><strong>Unpowered block.</strong> If register reads return 0 instead of the reset values
+(ANA 0x777, CLK 0x2), the power domain or clock is off.</li>
+</ol>
+<hr />
+<h2 id="9-main-uncertainties"><a class="anchor" href="#9-main-uncertainties" aria-hidden="true" tabindex="-1">#</a>9. Main uncertainties</h2>
+<ul>
+<li>Meanings of several Unicam bits (MEM, IBOB, MISC FL0/FL1, the PRI fields,
+the units of the CLT/DLT timing values). The values to write are known
+[GPL-FACT]; the reasons are not.</li>
+<li>The real frame rate for a given FRM_LENGTH_A in analogue-binned mode
+(30 vs 60 frame/s for 1763 lines; section 4.5). Measure it.</li>
+<li>Whether tag 0x00038030 is needed or supported on the firmware in use.
+Detect with the reset-value check.</li>
+<li>Which flip makes the image upright on a real module (expected 0x03).</li>
+<li>The test-pattern window registers in this mode (copied from the firmware
+trace) and the exact bar order.</li>
+<li>The 12 undocumented 0x4xxx register values: required by convention, with
+unknown effect.</li>
+</ul>
+
+</div>
+<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/main/docs/camera/SPEC.md"><code>docs/camera/SPEC.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb/docs/camera/SPEC.md">3e6af247a0b7</a></p>
+</article>
+</div>
+</main>
+<footer class="foot">
+  <div class="foot-in">
+    <p class="foot-brand"><a href="/pt-br/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a><span>Um sistema operacional mínimo, bare-metal, para aplicativos air-gapped.</span></p>
+    <p class="foot-links"><a href="/pt-br/docs/">Documentação</a> · <a href="/pt-br/download.html">Baixar</a> · <a href="/ide/">IDE no navegador</a> · <a href="https://github.com/marcocarnut/GapKeep">Código no GitHub</a> · <a href="/pt-br/docs/security.html">Segurança</a> · <a href="/pt-br/docs/contributing.html">Como contribuir</a></p>
+    <p class="foot-privacy">Sem rastreadores, sem analytics, sem cookies, sem requisições a terceiros: este site não carrega nada de nenhum outro lugar, no espírito do GapKeep.</p>
+    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb"><code>3e6af247a0b7</code></a>.</p>
+  </div>
+</footer>
+</body>
+</html>

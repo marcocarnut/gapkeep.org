@@ -1,0 +1,58 @@
+# dice39: dice codes and words, the entropy pad, the phrase, a codex32 split
+# (from GapKeep's tests/dice39.txt)
+expect Keyboard attached 60
+expect launcher ready 60
+moveto 100% 100%
+tile dice39
+expect dice39 selftest: \d+ passed, 0 failed 60
+wait 1
+shot dice39-start
+key ret
+wait 1
+type a1112
+key ret
+type b1112
+key ret
+type aban
+key ret
+type zoo
+key ret
+type a3526
+key ret
+type t6543
+key ret
+type legal
+key ret
+type winner
+key ret
+type thank
+key ret
+type year
+key ret
+type wave
+key ret
+type sausage
+key ret
+wait 1
+shot dice39-entry
+key ret
+key spc spc spc spc spc spc spc spc spc spc spc spc spc spc spc
+key spc spc spc spc spc spc spc spc spc spc spc spc spc spc spc
+key q w e r t y u i o p a s d f g h
+expect dice39: entropy pad full 20
+wait 1
+shot dice39-pad
+key tab
+key ret
+expect dice39: verbatim check ok 30
+wait 1
+shot dice39-words
+key tab
+key ret
+wait 1
+key tab
+key tab
+key ret
+expect dice39: split 2 of 3 10
+wait 1
+shot dice39-share

@@ -1,0 +1,52 @@
+<!--meta {"title": "Download", "description": "GapKeep's SD card images, in English and Brazilian Portuguese: how to write one to a card, check its SHA-256, and check that what runs is what was published."} -->
+<div class="wrap page-head">
+  <p class="eyebrow">Download</p>
+  <h1>SD card images</h1>
+  <p class="lede">Two images, ready to write to a microSD card for a Raspberry Pi Zero v1.3. They differ only in the language GapKeep starts in; either can be switched to the other in the Settings app (until power-off) or in <code>gapkeep.txt</code> on the card.</p>
+</div>
+
+<div class="wrap">
+  <div class="callout">
+    <p><strong>Not published yet.</strong>The first images will be attached to a <a href="https://github.com/marcocarnut/GapKeep/releases">GitHub release</a>, with their hashes, and listed here. Until then you can <a href="docs/readme.html#running-on-a-pi-zero">build a card from source</a>, or <a href="/ide/">try GapKeep in your browser</a>.</p>
+  </div>
+  <h2 class="sr">The images</h2>
+  <div class="dl-wrap">
+{{downloads}}
+  </div>
+
+  <ol class="steps-doc prose">
+    <li>
+      <h2>Check the download</h2>
+      <p>Compare the file's SHA-256 with the one published on the release page (and in its <code>SHA256SUMS</code> file) and on this page. They must be identical, every character.</p>
+      <div class="tabs-os">
+        <h3>Linux</h3>
+<pre><code>sha256sum gapkeep-*.img*</code></pre>
+        <h3>macOS</h3>
+<pre><code>shasum -a 256 gapkeep-*.img*</code></pre>
+        <h3>Windows (PowerShell)</h3>
+<pre><code>Get-FileHash .\gapkeep-*.img* -Algorithm SHA256</code></pre>
+      </div>
+    </li>
+    <li>
+      <h2>Write it to a card</h2>
+      <p>The simplest way is <a href="https://www.raspberrypi.com/software/">Raspberry Pi Imager</a>: choose <strong>Use custom</strong> as the operating system, pick the image, then the card. Skip its customisation settings: GapKeep has no use for Wi-Fi or user accounts. Any tool that writes disk images works (balenaEtcher, GNOME Disks).</p>
+      <p>On Linux or macOS, <code>dd</code> does it too. Find the card's device name first (<code>lsblk</code> on Linux, <code>diskutil list</code> on macOS): writing to the wrong device destroys what is on it.</p>
+<pre><code>sudo dd if=gapkeep-en.img of=/dev/sdX bs=4M conv=fsync status=progress</code></pre>
+      <p>Then put the card in the Zero, connect the screen, the keyboard (port <strong>USB</strong>) and power (port <strong>PWR</strong>). The launcher is up in about two seconds; from then on, the card can be taken out.</p>
+    </li>
+    <li>
+      <h2>Check what runs</h2>
+      <!-- DRAFT: verify after security fixes -->
+      <p>A checked download only proves the file is the one published. GapKeep also lets you check what it runs, on its own screen:</p>
+      <ul>
+        <li><strong>The kernel's hash:</strong> in the launcher, press <kbd>i</kbd> for the system information, with the SHA-256 of the running kernel's code.</li>
+        <li><strong>Each app's hash:</strong> at the bottom of the launcher, for the selected app. It covers every file of the app, so every line of code it runs.</li>
+        <li><strong>Reproducible builds:</strong> with the pinned compiler, the same commit gives the same <code>kernel.img</code>, byte for byte, wherever it is built. Anyone can rebuild a release and compare (<code>tools/check_reproducible.sh</code>; see <a href="docs/readme.html#building">Building</a>).</li>
+      </ul>
+    </li>
+    <li>
+      <h2>Where the hashes are published</h2>
+      <p>With each <a href="https://github.com/marcocarnut/GapKeep/releases">release on GitHub</a>: the images' SHA-256 and, to compare with your screen, the hashes of the kernel and of the apps they hold. This page repeats the images' hashes; if the two ever differ, trust neither, and <a href="docs/security.html">tell us</a>.</p>
+    </li>
+  </ol>
+</div>

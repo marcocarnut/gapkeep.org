@@ -1,0 +1,10 @@
+{
+  "name": "GapKeep",
+  "short_name": "GapKeep",
+  "description": "A tiny bare-metal OS for air-gapped apps.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#1d1c23",
+  "theme_color": "#1d1c23",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

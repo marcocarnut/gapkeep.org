@@ -1,0 +1,12 @@
+# The QR scanner: a code shown to the (synthetic) camera, decoded by
+# GapKeep's own decoder
+expect Keyboard attached 60
+expect launcher ready 60
+moveto 100% 100%
+tile qrscan
+expect qrscan ready
+en: camera qr In the eighties, all computers were air-gapped.
+pt-BR: camera qr Nos anos 80, todo computador era air-gapped.
+expect qrscan: code 1 20
+wait 0.5
+shot qrscan

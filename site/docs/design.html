@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="same-origin">
+<title>GapKeep&#x27;s design decisions</title>
+<meta name="description" content="GapKeep&#x27;s design decisions: GapKeep documentation">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1d1c23">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="canonical" href="https://gapkeep.org/docs/design.html">
+<link rel="alternate" hreflang="en" href="https://gapkeep.org/docs/design.html">
+<link rel="alternate" hreflang="pt-BR" href="https://gapkeep.org/pt-br/docs/design.html">
+<link rel="alternate" hreflang="x-default" href="https://gapkeep.org/docs/design.html">
+<meta property="og:title" content="GapKeep&#x27;s design decisions">
+<meta property="og:description" content="GapKeep&#x27;s design decisions: GapKeep documentation">
+<meta property="og:image" content="https://gapkeep.org/img/og.png">
+<meta property="og:url" content="https://gapkeep.org/docs/design.html">
+<script src="/js/lang.js?v=9238942da1"></script>
+<link rel="preload" href="/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/site.css?v=050b20402d">
+
+<script src="/js/site.js?v=00484c1c07" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Skip to the content</a>
+<header class="top" id="top">
+  <div class="top-in">
+    <a class="brand" href="/" aria-label="GapKeep home"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a>
+    <nav class="nav" aria-label="Main">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-list"><span class="bars" aria-hidden="true"></span><span class="sr">Menu</span></button>
+      <ul id="nav-list">
+<li><a href="/#why">Why</a></li>
+<li><a href="/#verify">See it</a></li>
+<li><a href="/#apps">Apps</a></li>
+<li><a href="/#hardware">Hardware</a></li>
+<li><a href="/#developers">Developers</a></li>
+<li><a href="/docs/">Docs</a></li>
+<li><a href="/download.html">Download</a></li>
+      </ul>
+    </nav>
+    <div class="langs" role="group" aria-label="Language"><a href="/docs/design.html" hreflang="en" lang="en" data-lang="en" title="English" aria-current="true"><span aria-hidden="true">EN</span><span class="sr">English</span></a><a href="/pt-br/docs/design.html" hreflang="pt-BR" lang="pt-BR" data-lang="pt-BR" title="Português (Brasil)"><span aria-hidden="true">PT</span><span class="sr">Português (Brasil)</span></a></div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap docs-layout">
+<aside class="doc-side" aria-label="All documents">
+<details class="doc-toc"><summary>All documents</summary>
+<p><a href="/docs/">Documentation</a></p>
+<h2>Start here</h2><ul><li><a href="/docs/readme.html" data-page="readme.html">GapKeep</a></li><li><a href="/docs/apps.html" data-page="apps.html">Writing GapKeep apps</a></li><li><a href="/docs/agents.html" data-page="agents.html">Writing GapKeep apps: a guide for coding agents</a></li></ul>
+<h2>Guides</h2><ul><li><a href="/docs/simulator.html" data-page="simulator.html">The simulator</a></li><li><a href="/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/docs/camera.html" data-page="camera.html">The camera and QR codes</a></li><li><a href="/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/docs/rig.html" data-page="rig.html">The hardware test rig</a></li></ul>
+<h2>Reference and design</h2><ul><li><a href="/docs/api.html" data-page="api.html">GapKeep JavaScript API reference</a></li><li><a href="/docs/architecture.html" data-page="architecture.html">GapKeep architecture</a></li><li><a href="/docs/design.html" data-page="design.html" aria-current="page">GapKeep&#x27;s design decisions</a></li><li><a href="/docs/experimental.html" data-page="experimental.html">Experimental features</a></li></ul>
+<h2>Apps</h2><ul><li><a href="/docs/apps/signer.html" data-page="apps/signer.html">Signer</a></li><li><a href="/docs/apps/dice39.html" data-page="apps/dice39.html">dice39 on GapKeep</a></li><li><a href="/docs/apps/codex32.html" data-page="apps/codex32.html">codex32</a></li><li><a href="/docs/apps/totp.html" data-page="apps/totp.html">Authenticator</a></li></ul>
+<h2>The project</h2><ul><li><a href="/docs/security.html" data-page="security.html">Security</a></li><li><a href="/docs/contributing.html" data-page="contributing.html">Contributing to GapKeep</a></li><li><a href="/docs/agents-gapkeep.html" data-page="agents-gapkeep.html">Notes for coding agents</a></li></ul>
+<h2>More</h2><ul><li><a href="/docs/camera/spec.html" data-page="camera/spec.html">Pi Camera Module v2.1 (IMX219) on the Pi Zero v1.3: functional specification</a></li><li><a href="/docs/camera/implementation.html" data-page="camera/implementation.html">Pi Camera driver: implementation record</a></li><li><a href="/docs/camera/provenance.html" data-page="camera/provenance.html">Provenance of docs/camera/SPEC.md (clean-room record)</a></li><li><a href="/docs/i18n/pt-br.html" data-page="i18n/pt-br.html">Glossary: Brazilian Portuguese (pt-BR)</a></li><li><a href="/docs/lib-js.html" data-page="lib-js.html">JavaScript libraries for apps</a></li></ul>
+</details>
+</aside>
+<article class="doc" lang="en">
+
+<div class="doc-body">
+<h1 id="gapkeeps-design-decisions">GapKeep's design decisions</h1>
+<p>The decisions that shape GapKeep, and why they were made. How the pieces
+work is in <a href="architecture.html">ARCHITECTURE.md</a>; how to write an app, in
+<a href="apps.html">APPS.md</a>. A change to one of these decisions belongs here too,
+with its reason.</p>
+<h2 id="keys-are-not-stored"><a class="anchor" href="#keys-are-not-stored" aria-hidden="true" tabindex="-1">#</a>Keys are not stored</h2>
+<p>GapKeep keeps nothing. A key is not stored on the device, encrypted or
+otherwise: it exists elsewhere, usually on paper, as shares (for example
+<a href="https://github.com/bitcoin/bips/blob/master/bip-0093.mediawiki" rel="noopener">codex32</a>
+shares, which dice39 makes) or as seed words. When a task needs it, the
+person brings the shares in, typed or shown to the camera as QR codes; they
+are recombined in memory, used for that task, and forgotten: freed memory is
+zeroed, and an app's memory is all freed when it exits.</p>
+<p><strong>Why:</strong> a device that holds a key must be guarded for as long as the key
+is worth anything; a device that holds none can be lost, stolen or
+inspected and reveals nothing. Shares on paper can be kept in different
+places, and no single one of them is the key. What a person must keep safe
+is then something they can see and count.</p>
+<h2 id="nothing-leaves-but-the-screen"><a class="anchor" href="#nothing-leaves-but-the-screen" aria-hidden="true" tabindex="-1">#</a>Nothing leaves but the screen</h2>
+<ul>
+<li><strong>The SD card is read-only.</strong> GapKeep reads it once at boot, for the apps
+and <code>gapkeep.txt</code>, through a FAT driver built without its write code, and
+never writes it. Settings changed while running last until power-off. A
+sealed build has no SD card code at all.</li>
+<li><strong>Production builds never read the serial port.</strong> They have no serial
+driver: the UART is never set up and its pins are inputs. Test builds log
+to it and take test commands from it, by design, so tests can drive real
+hardware; no app logs a secret, since a test build's log leaves the
+device.</li>
+<li><strong>No network, no radio.</strong> The plain Pi Zero has none, and GapKeep has no
+network stack. The USB drivers are cut down to hubs, keyboards and mice.</li>
+</ul>
+<p><strong>Why:</strong> an air gap is only as good as its narrowest channel. Everything
+that leaves the device does so on the screen, as text a person reads or as
+QR codes another device's camera reads, where the person can see it go.</p>
+<h2 id="apps"><a class="anchor" href="#apps" aria-hidden="true" tabindex="-1">#</a>Apps</h2>
+<h3 id="one-app-at-a-time-each-in-its-own-runtime"><a class="anchor" href="#one-app-at-a-time-each-in-its-own-runtime" aria-hidden="true" tabindex="-1">#</a>One app at a time, each in its own runtime</h3>
+<p>Each app runs in a QuickJS runtime of its own, and only one runs at a time.
+Apps cannot reach each other's objects, files or session stores. An app
+reaches the system only through the <code>gk:*</code> modules, and some of those only
+with a permission named in its manifest.</p>
+<h3 id="the-app-hash-covers-all-the-code-an-app-runs"><a class="anchor" href="#the-app-hash-covers-all-the-code-an-app-runs" aria-hidden="true" tabindex="-1">#</a>The app hash covers all the code an app runs</h3>
+<p>The launcher shows the SHA-256 of each app, to compare with the hash
+published for it (<a href="apps.html#app-hashes">APPS.md</a>). That hash covers every
+file of the app, so it covers every line of JavaScript the app runs: a
+published hash says exactly what code will handle your keys.</p>
+<p>That is why <strong>apps never share code at run time.</strong> An app imports only its
+own files. If apps could import each other's modules, or libraries from a
+common folder, an app's hash would no longer say what it runs: a change to
+the shared code would change what every app using it does, while their
+hashes stayed the same. So an app that builds on another's library carries
+a copy of it. <code>tools/share_libs.py</code> makes the copies byte for byte from the
+library's one home (an app, or <code>lib/js/</code>), and the tests check that no copy
+differs from its home. The cost is a few duplicated kilobytes on the card;
+the gain is that one hash pins one app's whole behaviour.</p>
+<h3 id="data-is-shared-by-name"><a class="anchor" href="#data-is-shared-by-name" aria-hidden="true" tabindex="-1">#</a>Data is shared by name</h3>
+<p>Data is different from code, and is shared between apps by name, with
+<code>gk:data</code> (<a href="apps.html#data-files">APPS.md</a>). A data folder is a folder on the
+card, <code>data/&lt;name&gt;/</code>, read-only like everything else there: public keys
+for a PGP app, say, put there when the card was prepared. An app lists the
+folders it reads in its manifest (for example <code>&quot;data&quot;: [&quot;pgp&quot;]</code>), so what
+it can read is known before it starts, and is covered by its hash. Data is
+outside the app hash: the same app can work on different data, and data
+can be updated without changing the hash of the app that reads it.</p>
+<p><strong>Why the difference:</strong> code decides what happens to a secret; data is only
+read. An app's hash must pin its code, and be the same on every card so
+people can compare it with a published one; data is different on every
+card, so no published hash could cover it. An app has to treat data the way
+it treats anything typed or scanned: as input to check, never as something
+to run. Sharing data by name avoids carrying a copy of a large data set in
+every app that reads it, without weakening what the app hash promises.</p>
+<p><strong>The price</strong> is that whoever can change the card can change the data (swap
+Bob's key for theirs), as they could change the apps. The defence is to
+show it: the launcher shows each data folder's hash beside the app's
+(<code>tools/bundle_apps.py --data-hash</code> computes it on a computer), and apps
+show what matters at the moment it matters (a key's fingerprint before
+encrypting to it). A folder is read whole, hashed and kept in memory on
+first use, so what an app reads is what was hashed, even if the card were
+swapped while it runs.</p>
+<h3 id="suites-group-apps-nothing-more"><a class="anchor" href="#suites-group-apps-nothing-more" aria-hidden="true" tabindex="-1">#</a>Suites group apps, nothing more</h3>
+<p>Suites group apps in the launcher: a set of apps that belong together, one
+tile (<code>apps/&lt;suite&gt;/suite.json</code>, <a href="apps.html#suites">APPS.md</a>). A suite is
+grouping only. Each app in it stays self-contained, with its own files,
+its own hash and its own runtime, for the same reasons as above: the
+suite's apps share no code, only data folders, each listing those it
+reads (a suite gives no implicit access to a folder named after it, so the
+manifest always says everything an app can read).</p>
+<h2 id="languages"><a class="anchor" href="#languages" aria-hidden="true" tabindex="-1">#</a>Languages</h2>
+<ul>
+<li><strong>Translations are loaded at run time</strong>, from each app's
+<code>lang/&lt;language&gt;.json</code>. One card image serves every language; the
+language is chosen in <code>gapkeep.txt</code> (or the Settings app, until
+power-off). Catalogs are JSON, parsed as data, never as code; they are
+files of the app, so its hash covers them.</li>
+<li><strong>The English text is the key</strong>, written where it is used:
+<code>t(&quot;Sign this transaction?&quot;)</code>. Code stays readable, a missing
+translation shows the English, and the tools find keys in the code.</li>
+<li><strong>Values are always parameters</strong>, never part of a translated text:
+amounts, addresses, keys and seed words go in as <code>{name}</code>. A translation
+whose placeholders differ from its key's, or that holds control
+characters, is refused and the English is shown; labels show text as
+text, not as markup. A translation can reword a sentence but cannot
+change what it shows.</li>
+<li><strong>Dates and times are ISO 8601 with a space:</strong> <code>2026-11-08 14:03:05</code>,
+the same in every language. No month names and no other orders: one form
+that cannot be misread.</li>
+<li><strong>Numbers are formatted by GapKeep itself</strong> (QuickJS has no <code>Intl</code>), the
+same on every build. Bitcoin amounts go from integer satoshis to text and
+back without floating point, and text that could be read two ways
+(<code>1.000</code>) is refused rather than guessed.</li>
+<li>Western scripts first. Asian scripts wait until someone needs them: their
+fonts are megabytes.</li>
+</ul>
+<p>The reference is <a href="apps.html#languages">APPS.md</a> and <a href="api.html">API.md</a>
+(<code>gk:i18n</code>); the Brazilian Portuguese glossary is <a href="i18n/pt-br.html">i18n/pt-BR.md</a>.</p>
+<h2 id="bitcoin"><a class="anchor" href="#bitcoin" aria-hidden="true" tabindex="-1">#</a>Bitcoin</h2>
+<p>GapKeep is a general offline computer, and Bitcoin is one of its uses: the
+dice39 app makes or imports a key and splits it into codex32 shares, and
+the Signer signs transactions that an online wallet prepared (Electrum, or
+GapWallet, a companion web wallet not yet published). Transactions travel
+between the two only as QR codes.</p>
+<ul>
+<li><strong>The transaction first, then the keys.</strong> The Signer reads the PSBT and
+shows what it does before any secret is in memory, and forgets the keys
+after signing unless asked to keep them for the next transaction.</li>
+<li><strong>Change is a claim until checked.</strong> An output a PSBT calls change is
+shown as claimed until a loaded key derives it at a path the wallet
+watches; otherwise it is counted as sent, and one a key refutes needs
+&quot;Sign anyway&quot;. A multisig change output must be provably the same wallet
+as the inputs.</li>
+<li><strong>Merging is BIP-174's Combiner:</strong> copies of the same unsigned
+transaction combine, conflicts are refused, different transactions are
+never combined.</li>
+<li><strong>Keys come as</strong> codex32 shares, BIP-39 words, an xprv or a WIF; for each,
+the Signer says what it can sign.</li>
+<li><strong>Public keys leave as output descriptors</strong> with their origin
+(<code>wpkh([fingerprint/84h/0h/0h]xpub…/&lt;0;1&gt;/*)</code>), one account at a time;
+a zpub too, for Electrum. A master xpub can't stand in: account paths
+are hardened.</li>
+<li><strong>QR transport:</strong> a single Base43 code when it fits (Electrum reads it),
+otherwise BBQr, the multi-part format Coldcard and Sparrow use, simpler
+than UR. Colour QR codes stay experimental and out of this.</li>
+<li><strong>PSBTs must carry their origins:</strong> every input and change output its
+BIP-32 derivation with the master fingerprint; segwit inputs their
+previous transaction too, by default, which closes the segwit v0 fee
+attack.</li>
+</ul>
+
+</div>
+<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/main/docs/DESIGN.md"><code>docs/DESIGN.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb/docs/DESIGN.md">3e6af247a0b7</a></p>
+</article>
+</div>
+</main>
+<footer class="foot">
+  <div class="foot-in">
+    <p class="foot-brand"><a href="/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a><span>A tiny bare-metal OS for air-gapped apps.</span></p>
+    <p class="foot-links"><a href="/docs/">Documentation</a> · <a href="/download.html">Download</a> · <a href="/ide/">Browser IDE</a> · <a href="https://github.com/marcocarnut/GapKeep">Source on GitHub</a> · <a href="/docs/security.html">Security</a> · <a href="/docs/contributing.html">Contributing</a></p>
+    <p class="foot-privacy">No trackers, no analytics, no cookies, no third-party requests: this site loads nothing from anywhere else, in the spirit of GapKeep.</p>
+    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb"><code>3e6af247a0b7</code></a>.</p>
+  </div>
+</footer>
+</body>
+</html>

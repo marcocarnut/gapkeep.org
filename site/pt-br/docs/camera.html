@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="same-origin">
+<title>The camera and QR codes · GapKeep</title>
+<meta name="description" content="The camera and QR codes: GapKeep documentation">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1d1c23">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="canonical" href="https://gapkeep.org/pt-br/docs/camera.html">
+<link rel="alternate" hreflang="en" href="https://gapkeep.org/docs/camera.html">
+<link rel="alternate" hreflang="pt-BR" href="https://gapkeep.org/pt-br/docs/camera.html">
+<link rel="alternate" hreflang="x-default" href="https://gapkeep.org/docs/camera.html">
+<meta property="og:title" content="The camera and QR codes · GapKeep">
+<meta property="og:description" content="The camera and QR codes: GapKeep documentation">
+<meta property="og:image" content="https://gapkeep.org/img/og.png">
+<meta property="og:url" content="https://gapkeep.org/pt-br/docs/camera.html">
+<script src="/js/lang.js?v=9238942da1"></script>
+<link rel="preload" href="/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/site.css?v=050b20402d">
+
+<script src="/js/site.js?v=00484c1c07" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="top" id="top">
+  <div class="top-in">
+    <a class="brand" href="/pt-br/" aria-label="Página inicial do GapKeep"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a>
+    <nav class="nav" aria-label="Main">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-list"><span class="bars" aria-hidden="true"></span><span class="sr">Menu</span></button>
+      <ul id="nav-list">
+<li><a href="/pt-br/#why">Por quê</a></li>
+<li><a href="/pt-br/#verify">Veja</a></li>
+<li><a href="/pt-br/#apps">Aplicativos</a></li>
+<li><a href="/pt-br/#hardware">Hardware</a></li>
+<li><a href="/pt-br/#developers">Desenvolvedores</a></li>
+<li><a href="/pt-br/docs/">Documentação</a></li>
+<li><a href="/pt-br/download.html">Baixar</a></li>
+      </ul>
+    </nav>
+    <div class="langs" role="group" aria-label="Idioma"><a href="/docs/camera.html" hreflang="en" lang="en" data-lang="en" title="English"><span aria-hidden="true">EN</span><span class="sr">English</span></a><a href="/pt-br/docs/camera.html" hreflang="pt-BR" lang="pt-BR" data-lang="pt-BR" title="Português (Brasil)" aria-current="true"><span aria-hidden="true">PT</span><span class="sr">Português (Brasil)</span></a></div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap docs-layout">
+<aside class="doc-side" aria-label="Todos os documentos">
+<details class="doc-toc"><summary>Todos os documentos</summary>
+<p><a href="/pt-br/docs/">Documentação</a></p>
+<h2>Comece aqui</h2><ul><li><a href="/pt-br/docs/readme.html" data-page="readme.html">GapKeep</a></li><li><a href="/pt-br/docs/apps.html" data-page="apps.html">Writing GapKeep apps</a></li><li><a href="/pt-br/docs/agents.html" data-page="agents.html">Writing GapKeep apps: a guide for coding agents</a></li></ul>
+<h2>Guias</h2><ul><li><a href="/pt-br/docs/simulator.html" data-page="simulator.html">The simulator</a></li><li><a href="/pt-br/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/pt-br/docs/camera.html" data-page="camera.html" aria-current="page">The camera and QR codes</a></li><li><a href="/pt-br/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/pt-br/docs/rig.html" data-page="rig.html">The hardware test rig</a></li></ul>
+<h2>Referência e projeto</h2><ul><li><a href="/pt-br/docs/api.html" data-page="api.html">GapKeep JavaScript API reference</a></li><li><a href="/pt-br/docs/architecture.html" data-page="architecture.html">GapKeep architecture</a></li><li><a href="/pt-br/docs/design.html" data-page="design.html">GapKeep&#x27;s design decisions</a></li><li><a href="/pt-br/docs/experimental.html" data-page="experimental.html">Experimental features</a></li></ul>
+<h2>Aplicativos</h2><ul><li><a href="/pt-br/docs/apps/signer.html" data-page="apps/signer.html">Signer</a></li><li><a href="/pt-br/docs/apps/dice39.html" data-page="apps/dice39.html">dice39 on GapKeep</a></li><li><a href="/pt-br/docs/apps/codex32.html" data-page="apps/codex32.html">codex32</a></li><li><a href="/pt-br/docs/apps/totp.html" data-page="apps/totp.html">Authenticator</a></li></ul>
+<h2>O projeto</h2><ul><li><a href="/pt-br/docs/security.html" data-page="security.html">Security</a></li><li><a href="/pt-br/docs/contributing.html" data-page="contributing.html">Contributing to GapKeep</a></li><li><a href="/pt-br/docs/agents-gapkeep.html" data-page="agents-gapkeep.html">Notes for coding agents</a></li></ul>
+<h2>Mais</h2><ul><li><a href="/pt-br/docs/camera/spec.html" data-page="camera/spec.html">Pi Camera Module v2.1 (IMX219) on the Pi Zero v1.3: functional specification</a></li><li><a href="/pt-br/docs/camera/implementation.html" data-page="camera/implementation.html">Pi Camera driver: implementation record</a></li><li><a href="/pt-br/docs/camera/provenance.html" data-page="camera/provenance.html">Provenance of docs/camera/SPEC.md (clean-room record)</a></li><li><a href="/pt-br/docs/i18n/pt-br.html" data-page="i18n/pt-br.html">Glossary: Brazilian Portuguese (pt-BR)</a></li><li><a href="/pt-br/docs/lib-js.html" data-page="lib-js.html">JavaScript libraries for apps</a></li></ul>
+</details>
+</aside>
+<article class="doc" lang="en">
+<p class="doc-note" lang="pt-BR">Por enquanto, a documentação existe só em inglês. O texto abaixo é o original; traduções são bem-vindas.</p>
+<div class="doc-body">
+<h1 id="the-camera-and-qr-codes">The camera and QR codes</h1>
+<p>GapKeep can read data off QR codes with a camera: the one way in for data
+other than the keyboard. Apps use one widget, <code>ui.Scanner</code>: they say what
+to look for, and get what the kernel found, nothing else:</p>
+<pre><code class="language-js">import * as ui from &quot;gk:ui&quot;;
+
+const scanner = new ui.Scanner({
+  detect: [&quot;qr&quot;],                          // what to look for
+  width: 320, height: 240,                 // where the camera's view shows
+  onDetect: ({ kind, bytes, text }) =&gt; { ... },  // kind &quot;qr&quot;; text: null unless UTF-8
+  onError: ({ reason }) =&gt; { ... },        // &quot;no camera&quot;, ...
+});
+scanner.stop();                            // so do delete() and the app ending
+</code></pre>
+<p>The manifest must ask for it: <code>&quot;permissions&quot;: [&quot;camera&quot;]</code>. The details are in
+<a href="api.html#scanner">API.md</a>; <code>apps/qrscan</code> is a complete example.</p>
+<h2 id="detectors"><a class="anchor" href="#detectors" aria-hidden="true" tabindex="-1">#</a>Detectors</h2>
+<p><code>detect</code> lists the detectors to run on each frame, by <strong>what they
+recognise</strong>, not by the library that does it:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Finds</th>
+<th>Event fields</th>
+<th>Engine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&quot;qr&quot;</code></td>
+<td>QR codes</td>
+<td><code>bytes</code>, <code>text</code></td>
+<td><a href="https://github.com/zxing-cpp/zxing-cpp" rel="noopener">zxing-cpp</a>'s QR code reader (<a href="#the-qr-decoder">below</a>)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Naming detectors after what they find (<code>&quot;qr&quot;</code>, not <code>&quot;zxing&quot;</code>) lets the
+engine change (a faster decoder, a fix) without changing any app. New
+detectors (ArUco markers for a dice scanner, say) come in under new names,
+with their own fields in the <code>&quot;detect&quot;</code> event, tagged by <code>kind</code>. An unknown
+name throws, listing the detectors the system has, so an app can tell
+whether it runs on a system that has what it needs.</p>
+<h2 id="why-apps-never-see-the-picture"><a class="anchor" href="#why-apps-never-see-the-picture" aria-hidden="true" tabindex="-1">#</a>Why apps never see the picture</h2>
+<p>The kernel turns the camera on, draws its view in the widget, and runs the
+detectors. JavaScript gets their results, and only when something was found:</p>
+<ul>
+<li><strong>Security.</strong> An app can't record what the camera sees (a room, a face, a
+screen nearby), so it can't show it or encode it into anything it displays.
+There is no API that returns pixels: not from the scanner, not from the
+screen.</li>
+<li><strong>Performance.</strong> The Pi Zero's single core runs the detectors in C;
+frames never cross into the JavaScript engine.</li>
+<li><strong>One place to get right.</strong> Image decoding is where parsers of untrusted
+input go wrong. It lives in a few C libraries, fuzzed (below), not in
+every app.</li>
+</ul>
+<h2 id="how-a-scan-works"><a class="anchor" href="#how-a-scan-works" aria-hidden="true" tabindex="-1">#</a>How a scan works</h2>
+<pre><code>camera (camera.h) -&gt; greyscale frames -&gt; CGkScanner (scanner.cpp) -&gt; onDetect({ kind, ... })
+                                           |  preview, drawn by the widget
+                                           |  detectors: &quot;qr&quot; = zxing-cpp (qrdecode.cpp)
+</code></pre>
+<ul>
+<li><strong>Frames</strong> are 8-bit greyscale. The QR decoder needs nothing more, and a
+sensor's raw data turns into grey cheaply.</li>
+<li><strong>Decoding</strong> takes at most half the time: a decode that took <em>D</em> waits <em>D</em>
+before the next, so the screen and the keyboard stay responsive on the
+Zero.</li>
+<li><strong>Reports.</strong> A code is reported when it differs from the last one, or when
+it comes back after 2 s out of sight, or after <code>start()</code>. An app reading
+an animated code (several parts, shown in turn) gets each part once each
+time it comes round, and puts them together itself: that is data, not
+pixels.</li>
+<li><strong>The field</strong> (<code>field</code> on the scanner) is what part of the camera's view
+the frames show. <code>&quot;center&quot;</code>, the default: the middle at full detail,
+640×480 grey (on the Pi camera the unbinned centre of the sensor, about
+26° across: about 19 cm wide at 40 cm). <code>&quot;full&quot;</code>: all of the camera's
+view, with less detail per degree (on the Pi, 820×616 grey over about
+62°), so a code must take up more of the picture to be read. The
+measurements behind the default are in
+<a href="camera/implementation.html">camera/IMPLEMENTATION.md</a>. The simulator and
+the IDE do the same with pictures and webcam frames: the middle 640×480
+pixel for pixel, or the whole picture averaged down to fit 640×480.</li>
+<li><strong>The view</strong> is the frame scaled to fit the widget (320×240 unless set), in
+grey, with a green outline around the code just read.</li>
+<li><strong>One scanner at a time</strong> has the camera; another gets the error &quot;the
+camera is in use by another scanner&quot;.</li>
+<li><strong>Logs</strong> never contain what a code holds: it may be a secret, and test
+builds log to the serial port. <code>apps/qrscan</code> logs lengths and the start of
+the SHA-256.</li>
+</ul>
+<h2 id="the-qr-decoder"><a class="anchor" href="#the-qr-decoder" aria-hidden="true" tabindex="-1">#</a>The QR decoder</h2>
+<p>The <code>&quot;qr&quot;</code> detector is zxing-cpp's QR code reader
+(<code>third_party/zxing-cpp</code>, called by <code>src/runtime/qrdecode.cpp</code>). It
+replaced <a href="https://github.com/dlbeer/quirc" rel="noopener">quirc</a>, which read far fewer
+codes: on BoofCV's QR code benchmark images scaled down to 320 px, zxing-cpp found a code in 211 of 536 images and quirc
+in 122 (at 640 px: 349 and 216), and it was faster too.</p>
+<ul>
+<li>
+<p><strong>What it reads:</strong> QR codes (model 2, the ones printed and shown today),
+any way up, mirrored, and light on dark. Not the old model 1, micro or
+rectangular (rMQR) codes, and none of zxing-cpp's other symbologies:
+they are not built (<code>lib/zxing/Version.h</code>, <code>lib/zxing/zxing.mk</code>).</p>
+</li>
+<li>
+<p><strong>What apps get:</strong> the payload's bytes as encoded in the code, without
+character set conversion or ECI processing (zxing-cpp's <code>bytes()</code>, not
+<code>text()</code>); <code>text</code> is those bytes when they are UTF-8. The corners of
+the code are in the frame's pixels.</p>
+</li>
+<li>
+<p><strong>Settings</strong>, chosen by measurement for the Pi camera's 320x240 frames on
+the Zero's 1 GHz ARM1176, which has no NEON, and where most frames show no
+code at all (host timings, per frame, synthetic camera, -O2):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>640x480, no code</th>
+<th>640x480, 14-byte code</th>
+<th>320x240, no code</th>
+<th>320x240, 14 bytes</th>
+<th>320x240, 1000 bytes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>quirc (before)</td>
+<td>3.7 ms</td>
+<td>2.2 ms</td>
+<td>0.70 ms</td>
+<td>1.6 ms</td>
+<td>not read</td>
+</tr>
+<tr>
+<td>zxing-cpp, as set</td>
+<td>2.0 ms</td>
+<td>1.2 ms</td>
+<td>0.36 ms</td>
+<td>0.30 ms</td>
+<td>1.2 ms</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>&quot;try harder&quot; off: on BoofCV's images it read no more codes at 320 px
+(one more of 536 at 640 px) and took 11% (at 640 px, 26%) longer;</li>
+<li>&quot;try invert&quot; on: light-on-dark codes (screens in dark mode) for 20%
+more time on frames without a code;</li>
+<li>downscaling only above 500 px: 320x240 frames are never scaled down;
+640x480 frames are also searched at a third of their size, which reads
+8% more codes;</li>
+<li>the local-average binariser (zxing-cpp's default), at most as many
+codes as the scanner asks for (one).</li>
+</ul>
+<p>The Zero's own timings are in the scanner's log (<code>scanner: ... ms each on average</code>) and come from the rig.</p>
+</li>
+<li>
+<p><strong>Safety.</strong> zxing-cpp is C++20 and throws exceptions; the kernel has no
+exception runtime. GapKeep's patches (<code>patches/zxing-cpp/</code>) make the QR
+payload decoder report malformed data as an error instead of throwing
+(a code is just not read), and turn every other throw into a call to
+<code>ZXing::Fatal()</code>, which stops the system with a message in the log, as a
+failed assertion does (so do the C++ library's own checks,
+<code>lib/zxing/cxxrt.cpp</code>). Those are internal errors, not reactions to input:
+the fuzzer (below) counts reaching one as a bug, and finds none.</p>
+</li>
+<li>
+<p><strong>Licence:</strong> Apache-2.0, which combines with GapKeep's GPLv3. zxing-cpp has
+no NOTICE file. Its source stays as published, in the submodule; GapKeep's
+changes are the patch files, each saying what it changes and why. Copies of
+the kernel carry zxing-cpp's licence: <code>tools/make_sdcard.sh</code> puts it on the
+card as <code>LICENCE.zxing-cpp</code>.</p>
+</li>
+</ul>
+<h3 id="how-it-is-built"><a class="anchor" href="#how-it-is-built" aria-hidden="true" tabindex="-1">#</a>How it is built</h3>
+<ul>
+<li><strong>Pinned</strong> to zxing-cpp commit <code>390c4bd</code> (3 November 2026, library version
+3.1.1), not the v3.1.1 tag (29 July 2026): the 103 commits since include
+fixes for input it could get from a camera, a heap overflow on very wide
+images (<code>ca5314e</code>) and a hang in the finder pattern search (<code>a17fd9d</code>). It
+is also what was measured.</li>
+<li><strong>Patches</strong> (<code>patches/zxing-cpp/</code>, applied by <code>tools/apply_patches.sh</code>):
+<ol>
+<li>the QR payload decoder without exceptions: <code>BitSource</code> keeps a sticky
+error, and the decoder stops at the first one (worth sending upstream:
+upstream's unit and black box tests give the same results);</li>
+<li>builds without exceptions or <code>thread_local</code> (<code>ZX_THROW</code>, and
+<code>ZX_THREAD_LOCAL</code> settable; one core, so GapKeep makes it <code>static</code>);</li>
+<li>and 4. fixes for what the fuzzer found: no alignment pattern search
+around a point far outside the image (a float-to-int conversion of a
+huge value: undefined behaviour), and no line through two equal
+alignment pattern positions (a failed assertion: on the Pi, a stop
+caused by a crafted code). Worth sending upstream too;</li>
+<li>the corrected data codewords kept as an extra of the result, for the
+experimental colour layer (<code>lib/colorqr</code>,
+<a href="experimental.html">EXPERIMENTAL.md</a>).</li>
+</ol>
+</li>
+<li><strong>The kernel:</strong> <code>lib/zxing/Makefile</code>, C++20 and the C++ library's headers
+for those files only, Circle's ARM1176 flags. What it needs of the C++
+library that is not in headers comes from <code>lib/zxing/cxxrt.cpp</code> and two
+small, self-contained objects of the toolchain's <code>libstdc++.a</code> (<code>tree.o</code>,
+<code>list.o</code>), not from <code>libstdc++.a</code> itself, which would bring the exception
+runtime. Only what <code>GkDecodeQR</code> reaches is kept (<code>ld -r --gc-sections</code>):
+about 195 KiB of code, against quirc's 20 KiB; the production kernel grew
+from 1985 to 2161 KiB.</li>
+<li><strong>The simulator</strong> (<code>sim/Makefile</code>, native and WebAssembly) and the fuzzer
+(<code>tools/fuzz_qr.sh</code>) build the same files with the same settings.</li>
+<li>Without the submodule, builds say &quot;this build has no QR decoder&quot;.</li>
+</ul>
+<h2 id="status"><a class="anchor" href="#status" aria-hidden="true" tabindex="-1">#</a>Status</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Piece</th>
+<th>State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ui.Scanner</code>, scanning, preview, permission</td>
+<td>Done, in the runtime (Pi and simulator).</td>
+</tr>
+<tr>
+<td>QR decoder</td>
+<td><a href="https://github.com/zxing-cpp/zxing-cpp" rel="noopener">zxing-cpp</a>'s QR code reader (Apache-2.0), <code>third_party/zxing-cpp</code>, pinned, with GapKeep's patches in <code>patches/zxing-cpp/</code> (<a href="#the-qr-decoder">The QR decoder</a>). Fuzzed; timed on the host; the Zero's timings still to be taken on the rig. It replaced quirc, which read fewer codes.</td>
+</tr>
+<tr>
+<td>Simulated camera</td>
+<td>Done: the simulator, the IDE (QR codes from text, pictures, the webcam) and test kernels (<code>#camera</code> on the serial line).</td>
+</tr>
+<tr>
+<td>Pi Camera driver</td>
+<td>Camera Module v2.1 (IMX219) on the Zero v1.3: <code>src/camera/</code>, kernel only. Checked on the rig: frames, colour bars, automatic exposure, and a printed code read within a second.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The builds (<code>sim/Makefile</code>, <code>src/Makefile</code> with <code>lib/zxing/Makefile</code>, and
+<code>tools/fuzz_qr.sh</code>) apply <code>patches/zxing-cpp/</code> (<code>tools/apply_patches.sh</code>) and
+use the decoder when the submodule is checked out.</p>
+<h3 id="the-pi-camera"><a class="anchor" href="#the-pi-camera" aria-hidden="true" tabindex="-1">#</a>The Pi Camera</h3>
+<p><code>src/camera/</code> drives the Raspberry Pi Camera Module v2.1 (Sony IMX219) on
+the Pi Zero v1.3's camera connector (with the Zero's narrower cable),
+without the GPU's camera firmware. It was written clean-room, from the
+specification in <a href="camera/spec.html">camera/SPEC.md</a>, not from other drivers'
+code (whose licence, GPL-2.0 only, doesn't combine with GapKeep's GPLv3).
+<a href="camera/implementation.html">camera/IMPLEMENTATION.md</a> records the decisions
+and the measurements.</p>
+<ul>
+<li><strong>The mode:</strong> &quot;detail&quot;: the centre 1280x960 of the sensor, not binned,
+as RAW8 on two CSI-2 lanes at 30 frame/s. The average of each 2x2 Bayer
+tile gives a <strong>640x480 grey frame</strong>. The view is the central 39 % of the
+sensor's width, about 26 degrees: 19 cm wide at 40 cm, 28 cm at 60 cm.
+A code must be held in front of the lens, but it gets twice the pixels
+of the binned modes.</li>
+<li><strong>Exposure:</strong> the sensor has no automatic exposure, so the kernel sets
+exposure time, analogue gain and digital gain from the picture's
+brightness. Exposure comes first, up to 13 ms against motion blur.</li>
+<li><strong>Power:</strong> the module is powered only while a scanner runs. At boot,
+production builds power it for about 20 ms to read the sensor's chip ID,
+and register the camera if it is there. Otherwise scanners report
+&quot;no camera&quot;.</li>
+<li><strong>Errors:</strong> &quot;no camera&quot;, &quot;no frames from the camera&quot; (nothing for 1 s),
+&quot;the camera does not answer&quot; (I2C), &quot;the camera receiver does not start&quot;.</li>
+<li><strong>Logs:</strong> the probe (chip ID), the mode, the frame rate measured from the
+receiver's interrupts, the frame counts at stop, exposure changes (at
+most every 2 s) and receiver errors. Never image data.</li>
+</ul>
+<p>Camera Modules 1 (OV5647) and 3 (IMX708) and the HQ camera are not
+supported: the probe finds no IMX219 and reports no camera.</p>
+<h4 id="why-detail-the-modes-measured"><a class="anchor" href="#why-detail-the-modes-measured" aria-hidden="true" tabindex="-1">#</a>Why &quot;detail&quot;: the modes measured</h4>
+<p>Resolution matters as much as the decoder, so the default was chosen by
+measurement. On the rig, a printed code (&quot;Hello ZeroGap!&quot;, a small code)
+hangs in front of the camera, and each mode ran twice on the Zero with
+quirc. Each run: start the scanner, 15 s of scanning, 3 s of colour bars
+(the code out of sight), then 12 s more.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Sensor window, binning</th>
+<th>Grey</th>
+<th>View (of the width)</th>
+<th>Grey per frame</th>
+<th>Decode per frame</th>
+<th>Code side</th>
+<th>Decodes that found it</th>
+<th>First read after start</th>
+<th>Read again after bars off</th>
+<th>DMA buffers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>centre</code> (A)</td>
+<td>1280x960, binned</td>
+<td>320x240</td>
+<td>39 %</td>
+<td>2.5 ms</td>
+<td>13-52 ms</td>
+<td>62 px</td>
+<td>7 % / 0 %</td>
+<td>4.8 s / never</td>
+<td>5.9 s / never</td>
+<td>1.2 MB</td>
+</tr>
+<tr>
+<td><code>full</code> (B)</td>
+<td>3280x2464, binned</td>
+<td>820x616</td>
+<td>100 %</td>
+<td>16.7 ms</td>
+<td>60-92 ms</td>
+<td>(62 px)</td>
+<td>0 % / 0 %</td>
+<td>never</td>
+<td>never</td>
+<td>7.8 MB</td>
+</tr>
+<tr>
+<td><strong><code>detail</code> (C)</strong></td>
+<td>1280x960, not binned</td>
+<td>640x480</td>
+<td>39 %</td>
+<td>10.1 ms</td>
+<td>64-68 ms</td>
+<td>126 px</td>
+<td><strong>51 % / 47 %</strong></td>
+<td><strong>0.67 s / 0.68 s</strong></td>
+<td><strong>0.17 s / 0.33 s</strong></td>
+<td>4.7 MB</td>
+</tr>
+<tr>
+<td><code>wide</code> (D)</td>
+<td>2560x1920, binned</td>
+<td>640x480</td>
+<td>78 %</td>
+<td>10.1 ms</td>
+<td>29-60 ms</td>
+<td>(62 px)</td>
+<td>0 % / 0 %</td>
+<td>never</td>
+<td>never</td>
+<td>4.7 MB</td>
+</tr>
+<tr>
+<td><code>mid</code></td>
+<td>1640x1232, not binned</td>
+<td>820x616</td>
+<td>50 %</td>
+<td>16.7 ms</td>
+<td>75-87 ms</td>
+<td>126 px</td>
+<td>35 % / 47 %</td>
+<td>0.77 s / 0.85 s</td>
+<td>0.33 s / 0.21 s</td>
+<td>7.8 MB</td>
+</tr>
+</tbody>
+</table></div>
+<p>All modes ran at 30.0 frame/s. &quot;Decode per frame&quot; is quirc's average (the
+maximum was 95-134 ms). Under 15 ms means no code was in the picture
+(quirc gives up early). The scanner decodes at most half the time, so
+about half the frames are decoded. The code side in parentheses is what
+the binned modes' scale implies: they found no code to measure.</p>
+<ul>
+<li><strong>The binned modes see too little of a small code.</strong> The full field and
+the 2560-wide window cover more of the room, but at the same detail per
+degree as <code>centre</code>: 2-3 pixels per module, softened by the analogue
+binning. <code>centre</code> found the code on 7-10 % of decodes in two of its
+three runs, taking 5-7 s; <code>full</code> and <code>wide</code> never found it.</li>
+<li><strong>The unbinned modes read it at once.</strong> At twice the detail (5-6
+pixels per module), <code>detail</code> and <code>mid</code> found it on about half the
+decodes. Each read it 0.7-1.2 s after the scanner started, and in
+0.2-0.3 s once it came back into view.</li>
+<li><strong><code>detail</code> over <code>mid</code>:</strong> the same detail, so the same success. <code>mid</code>'s
+view is 28 % wider, but it costs about 30 % more CPU per frame (17 ms of grey
+conversion and 75-87 ms of decoding, against 10 and 64-68 ms) and
+7.8 MB of buffers instead of 4.7. On the Zero's single core, the
+narrower view keeps the screen more responsive. For a paper code at
+30-50 cm or a phone at arm's length, the code is held in front of the
+lens anyway.</li>
+</ul>
+<p>The other modes stay available in test builds: <code>#camera mode centre</code>,
+<code>full</code>, <code>wide</code> or <code>mid</code> (below). The measurements are from quirc; another
+decoder would shift the decode times, but not the pixels a code gets.</p>
+<h2 id="testing-with-and-without-a-camera"><a class="anchor" href="#testing-with-and-without-a-camera" aria-hidden="true" tabindex="-1">#</a>Testing with and without a camera</h2>
+<p>The <strong>synthetic camera</strong> (<code>src/runtime/synthcam.cpp</code>) films an empty scene,
+a QR code made from bytes (slightly turned, blurred at the edges, with
+noise), a picture, or frames pushed by the host. The scanner and decoder
+are the same code as with a real camera.</p>
+<ul>
+<li>
+<p><strong>Simulator</strong> (stdin, and in scenarios): <code>camera qr &lt;text&gt;</code>,
+<code>camera qrhex &lt;hex&gt;</code>, <code>camera picture &lt;file.pgm|.ppm&gt;</code>, <code>camera scene</code>,
+<code>camera none</code>. See <a href="simulator.html#the-camera">SIMULATOR.md</a>.</p>
+</li>
+<li>
+<p><strong>IDE:</strong> the Camera bar under the screen: a code from text (one per line
+for an animated code), a picture, your webcam, or no camera. See
+<a href="ide.html#the-camera">IDE.md</a>.</p>
+</li>
+<li>
+<p><strong>Test kernels</strong> (<code>tools/build.sh qemu TEST=1</code> or <code>pi TEST=1</code>: QEMU and the rig): the synthetic camera,
+driven by <code>#camera qr &lt;text&gt;</code>, <code>#camera scene</code> and <code>#camera none</code> on the
+serial line. On the rig this times the decoder on a real Zero, without a
+camera module. Test kernels on a Zero with a camera module can switch to
+it:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>#camera pi</code></td>
+<td>the Pi Camera, if the probe finds one (logs <code>picamera: IMX219 found (model 0219)</code> and <code>camera: pi</code>)</td>
+</tr>
+<tr>
+<td><code>#camera grey</code></td>
+<td>the running Pi Camera's last grey frame, over the serial line, for aiming it (<code>tools/rig/camview.py</code>)</td>
+</tr>
+<tr>
+<td><code>#camera synth</code></td>
+<td>back to the synthetic camera (so do <code>qr</code>, <code>scene</code> and <code>none</code>)</td>
+</tr>
+<tr>
+<td><code>#camera pattern &lt;n&gt;</code></td>
+<td>the sensor's test pattern: 0 off, 1 solid colour, 2 colour bars, 7 column counter, ...</td>
+</tr>
+<tr>
+<td><code>#camera mode &lt;name&gt;</code></td>
+<td>the Pi Camera's mode, from the next start: <code>detail</code> (default), <code>centre</code>, <code>full</code>, <code>wide</code>, <code>mid</code> (see above)</td>
+</tr>
+</tbody>
+</table></div>
+<p>A switch applies from the next scanner start: a running scanner keeps the
+camera it started with. In grey, the colour bars are five bands: white,
+yellow and cyan, green and magenta, red and blue, black.</p>
+</li>
+<li>
+<p><strong>Scenarios:</strong> <code>camera qr &lt;text&gt;</code> works on all three (<code>tools/qemu_harness.py</code>
+sends it the right way). <code>tests/qrscan.txt</code> reads codes with <code>apps/qrscan</code>.
+<code>tests/picamera.txt</code> runs on the rig only (its <code># Rig only</code> line makes
+the QEMU and simulator runners skip it): the real camera, colour bars
+in a serial screenshot, then a printed code in front of the lens.</p>
+</li>
+<li>
+<p><strong>Fuzzing:</strong> <code>tools/fuzz_qr.sh [rounds] [seed]</code> feeds the decoder
+thousands of images under AddressSanitizer and UBSan (with float-to-int
+overflow checks), built as the kernel builds it (C++20, no exceptions), so
+that a fatal error is a finding too: noise, real codes damaged in random
+ways and cropped, fields of finder patterns, odd sizes, and crafted codes:
+correct error correction around random bit streams or random segments
+(modes, counts, ECI designators, FNC1, structured append, valid or not),
+drawn at random sizes and angles, mirrored, inverted, damaged, as an
+attacker could print them, so that they reach the payload decoder (about
+40% do). Some rounds call zxing-cpp's QR decoder on module matrices and its
+payload decoder on bytes directly, for every symbol type and version
+(<code>tests/fuzz/fuzz_qr.cpp</code>).</p>
+</li>
+</ul>
+
+</div>
+<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/main/docs/CAMERA.md"><code>docs/CAMERA.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb/docs/CAMERA.md">3e6af247a0b7</a></p>
+</article>
+</div>
+</main>
+<footer class="foot">
+  <div class="foot-in">
+    <p class="foot-brand"><a href="/pt-br/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a><span>Um sistema operacional mínimo, bare-metal, para aplicativos air-gapped.</span></p>
+    <p class="foot-links"><a href="/pt-br/docs/">Documentação</a> · <a href="/pt-br/download.html">Baixar</a> · <a href="/ide/">IDE no navegador</a> · <a href="https://github.com/marcocarnut/GapKeep">Código no GitHub</a> · <a href="/pt-br/docs/security.html">Segurança</a> · <a href="/pt-br/docs/contributing.html">Como contribuir</a></p>
+    <p class="foot-privacy">Sem rastreadores, sem analytics, sem cookies, sem requisições a terceiros: este site não carrega nada de nenhum outro lugar, no espírito do GapKeep.</p>
+    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb"><code>3e6af247a0b7</code></a>.</p>
+  </div>
+</footer>
+</body>
+</html>

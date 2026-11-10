@@ -1,0 +1,34 @@
+<svg class="pizero" viewBox="-20 -10 690 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Raspberry Pi Zero v1.3 (drawing)">
+  <!-- A stylised Raspberry Pi Zero v1.3 (65 x 30 mm, 10 units a mm). No radio, no antenna. -->
+  <rect class="pz-board" x="0" y="0" width="650" height="300" rx="30"/>
+  <g class="pz-hole">
+    <circle cx="35" cy="35" r="17"/><circle cx="615" cy="35" r="17"/>
+    <circle cx="35" cy="265" r="17"/><circle cx="615" cy="265" r="17"/>
+  </g>
+  <g class="pz-gpio">
+    <path d="M85 22h482v52h-482z"/>
+  </g>
+  <g class="pz-pins">
+    <!-- 2 x 20 GPIO holes -->
+    <path d="M98 36h4v4h-4zM123.4 36h4v4h-4zM148.8 36h4v4h-4zM174.2 36h4v4h-4zM199.6 36h4v4h-4zM225 36h4v4h-4zM250.4 36h4v4h-4zM275.8 36h4v4h-4zM301.2 36h4v4h-4zM326.6 36h4v4h-4zM352 36h4v4h-4zM377.4 36h4v4h-4zM402.8 36h4v4h-4zM428.2 36h4v4h-4zM453.6 36h4v4h-4zM479 36h4v4h-4zM504.4 36h4v4h-4zM529.8 36h4v4h-4zM555.2 36h4v4h-4zM98 56h4v4h-4zM123.4 56h4v4h-4zM148.8 56h4v4h-4zM174.2 56h4v4h-4zM199.6 56h4v4h-4zM225 56h4v4h-4zM250.4 56h4v4h-4zM275.8 56h4v4h-4zM301.2 56h4v4h-4zM326.6 56h4v4h-4zM352 56h4v4h-4zM377.4 56h4v4h-4zM402.8 56h4v4h-4zM428.2 56h4v4h-4zM453.6 56h4v4h-4zM479 56h4v4h-4zM504.4 56h4v4h-4zM529.8 56h4v4h-4zM555.2 56h4v4h-4z"/>
+  </g>
+  <!-- the SoC and its memory -->
+  <rect class="pz-chip" x="250" y="105" width="120" height="120" rx="6"/>
+  <circle class="pz-dot" cx="266" cy="121" r="4"/>
+  <!-- traces -->
+  <path class="pz-trace" d="M370 165h70l20 20h70M370 145h90l18-18h60M250 165h-70l-25 25h-60M310 225v25l-20 20M330 225v40M190 120l40 0M310 105v-25"/>
+  <!-- microSD slot, left edge -->
+  <rect class="pz-port" x="-12" y="95" width="90" height="115" rx="6"/>
+  <rect class="pz-sd" x="-18" y="108" width="40" height="89" rx="3"/>
+  <!-- mini-HDMI, USB, PWR on the bottom edge -->
+  <rect class="pz-port" x="85" y="242" width="112" height="66" rx="8"/>
+  <rect class="pz-port" x="405" y="252" width="80" height="54" rx="8"/>
+  <rect class="pz-port" x="510" y="252" width="80" height="54" rx="8"/>
+  <!-- camera connector, right edge -->
+  <rect class="pz-cam" x="610" y="95" width="34" height="115" rx="4"/>
+  <g class="pz-label">
+    <text x="141" y="232" text-anchor="middle">HDMI</text>
+    <text x="445" y="242" text-anchor="middle">USB</text>
+    <text x="550" y="242" text-anchor="middle">PWR</text>
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+{
+  "id": "signer",
+  "name": "Signer",
+  "version": "0.2.0",
+  "description": "Shows what a Bitcoin transaction does, then signs it.",
+  "icon": "ok",
+  "permissions": ["camera"]
+}

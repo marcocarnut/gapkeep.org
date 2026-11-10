@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="same-origin">
+<title>The simulator · GapKeep</title>
+<meta name="description" content="The simulator: GapKeep documentation">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1d1c23">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="canonical" href="https://gapkeep.org/pt-br/docs/simulator.html">
+<link rel="alternate" hreflang="en" href="https://gapkeep.org/docs/simulator.html">
+<link rel="alternate" hreflang="pt-BR" href="https://gapkeep.org/pt-br/docs/simulator.html">
+<link rel="alternate" hreflang="x-default" href="https://gapkeep.org/docs/simulator.html">
+<meta property="og:title" content="The simulator · GapKeep">
+<meta property="og:description" content="The simulator: GapKeep documentation">
+<meta property="og:image" content="https://gapkeep.org/img/og.png">
+<meta property="og:url" content="https://gapkeep.org/pt-br/docs/simulator.html">
+<script src="/js/lang.js?v=9238942da1"></script>
+<link rel="preload" href="/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/site.css?v=050b20402d">
+
+<script src="/js/site.js?v=00484c1c07" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="top" id="top">
+  <div class="top-in">
+    <a class="brand" href="/pt-br/" aria-label="Página inicial do GapKeep"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a>
+    <nav class="nav" aria-label="Main">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-list"><span class="bars" aria-hidden="true"></span><span class="sr">Menu</span></button>
+      <ul id="nav-list">
+<li><a href="/pt-br/#why">Por quê</a></li>
+<li><a href="/pt-br/#verify">Veja</a></li>
+<li><a href="/pt-br/#apps">Aplicativos</a></li>
+<li><a href="/pt-br/#hardware">Hardware</a></li>
+<li><a href="/pt-br/#developers">Desenvolvedores</a></li>
+<li><a href="/pt-br/docs/">Documentação</a></li>
+<li><a href="/pt-br/download.html">Baixar</a></li>
+      </ul>
+    </nav>
+    <div class="langs" role="group" aria-label="Idioma"><a href="/docs/simulator.html" hreflang="en" lang="en" data-lang="en" title="English"><span aria-hidden="true">EN</span><span class="sr">English</span></a><a href="/pt-br/docs/simulator.html" hreflang="pt-BR" lang="pt-BR" data-lang="pt-BR" title="Português (Brasil)" aria-current="true"><span aria-hidden="true">PT</span><span class="sr">Português (Brasil)</span></a></div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap docs-layout">
+<aside class="doc-side" aria-label="Todos os documentos">
+<details class="doc-toc"><summary>Todos os documentos</summary>
+<p><a href="/pt-br/docs/">Documentação</a></p>
+<h2>Comece aqui</h2><ul><li><a href="/pt-br/docs/readme.html" data-page="readme.html">GapKeep</a></li><li><a href="/pt-br/docs/apps.html" data-page="apps.html">Writing GapKeep apps</a></li><li><a href="/pt-br/docs/agents.html" data-page="agents.html">Writing GapKeep apps: a guide for coding agents</a></li></ul>
+<h2>Guias</h2><ul><li><a href="/pt-br/docs/simulator.html" data-page="simulator.html" aria-current="page">The simulator</a></li><li><a href="/pt-br/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/pt-br/docs/camera.html" data-page="camera.html">The camera and QR codes</a></li><li><a href="/pt-br/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/pt-br/docs/rig.html" data-page="rig.html">The hardware test rig</a></li></ul>
+<h2>Referência e projeto</h2><ul><li><a href="/pt-br/docs/api.html" data-page="api.html">GapKeep JavaScript API reference</a></li><li><a href="/pt-br/docs/architecture.html" data-page="architecture.html">GapKeep architecture</a></li><li><a href="/pt-br/docs/design.html" data-page="design.html">GapKeep&#x27;s design decisions</a></li><li><a href="/pt-br/docs/experimental.html" data-page="experimental.html">Experimental features</a></li></ul>
+<h2>Aplicativos</h2><ul><li><a href="/pt-br/docs/apps/signer.html" data-page="apps/signer.html">Signer</a></li><li><a href="/pt-br/docs/apps/dice39.html" data-page="apps/dice39.html">dice39 on GapKeep</a></li><li><a href="/pt-br/docs/apps/codex32.html" data-page="apps/codex32.html">codex32</a></li><li><a href="/pt-br/docs/apps/totp.html" data-page="apps/totp.html">Authenticator</a></li></ul>
+<h2>O projeto</h2><ul><li><a href="/pt-br/docs/security.html" data-page="security.html">Security</a></li><li><a href="/pt-br/docs/contributing.html" data-page="contributing.html">Contributing to GapKeep</a></li><li><a href="/pt-br/docs/agents-gapkeep.html" data-page="agents-gapkeep.html">Notes for coding agents</a></li></ul>
+<h2>Mais</h2><ul><li><a href="/pt-br/docs/camera/spec.html" data-page="camera/spec.html">Pi Camera Module v2.1 (IMX219) on the Pi Zero v1.3: functional specification</a></li><li><a href="/pt-br/docs/camera/implementation.html" data-page="camera/implementation.html">Pi Camera driver: implementation record</a></li><li><a href="/pt-br/docs/camera/provenance.html" data-page="camera/provenance.html">Provenance of docs/camera/SPEC.md (clean-room record)</a></li><li><a href="/pt-br/docs/i18n/pt-br.html" data-page="i18n/pt-br.html">Glossary: Brazilian Portuguese (pt-BR)</a></li><li><a href="/pt-br/docs/lib-js.html" data-page="lib-js.html">JavaScript libraries for apps</a></li></ul>
+</details>
+</aside>
+<article class="doc" lang="en">
+<p class="doc-note" lang="pt-BR">Por enquanto, a documentação existe só em inglês. O texto abaixo é o original; traduções são bem-vindas.</p>
+<div class="doc-body">
+<h1 id="the-simulator">The simulator</h1>
+<p><code>sim/</code> runs GapKeep on a development machine: the same runtime as on the Pi
+(<code>src/runtime</code>, the keyboard device, LVGL, QuickJS), compiled for the host,
+with a folder standing in for the SD card. Apps behave as on the device:
+same widgets, fonts, focus rings, checks on the card's apps, hashes, error
+messages and limits. Screenshots match QEMU's pixel for pixel.</p>
+<p>It comes in two forms:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>Build</th>
+<th>For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sim/build/gksim</code></td>
+<td><code>make -C sim</code> (needs gcc)</td>
+<td>Scripts, tests and agents: runs an app, takes commands on stdin, writes PNG screenshots.</td>
+</tr>
+<tr>
+<td><code>sim/build/web/gksim.{js,wasm}</code></td>
+<td><code>make -C sim web</code> (needs <a href="https://emscripten.org" rel="noopener">Emscripten</a>, e.g. <code>source ~/emsdk/emsdk_env.sh</code>)</td>
+<td>The browser IDE (<a href="ide.html">IDE.md</a>), through <code>sim/web/gapkeep.js</code>.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Add <code>TEST=1</code> for the test app set (<code>gksim-test</code>: every app in <code>apps/</code> and
+<code>tests/apps/</code> built in), as with the kernel.</p>
+<h2 id="running-an-app"><a class="anchor" href="#running-an-app" aria-hidden="true" tabindex="-1">#</a>Running an app</h2>
+<pre><code class="language-sh">tools/gksim apps/hello                               # run; the log on stdout
+tools/gksim --for 3 --shot /tmp/hello.png apps/hello # run 3 s, screenshot, exit
+tools/gksim --size 1824x984 path/to/myapp            # another screen size
+tools/gksim --lang pt-BR apps/clock                  # another language (or qps)
+tools/gksim --data ~/keys/pgp apps/myapp             # with data/pgp on the card (gk:data)
+tools/gksim path/to/card/apps/mysuite                # a suite (suite.json): starts on the launcher
+</code></pre>
+<p><code>tools/gksim</code> builds the simulator if needed, copies the app folders onto a
+temporary card and starts the first one. While it runs, it reads commands
+on stdin, one per line:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>key &lt;name&gt;</code></td>
+<td>Press and release a key. Names as QEMU's: <code>a</code>, <code>shift-a</code>, <code>ctrl-c</code>, <code>ret</code>, <code>tab</code>, <code>shift-tab</code>, <code>spc</code>, <code>backspace</code>, <code>esc</code>, <code>up</code>, <code>down</code>, <code>left</code>, <code>right</code>, <code>home</code>, <code>end</code>, <code>delete</code>, <code>f1</code>, <code>minus</code>, <code>dot</code>, ..., and <code>meta_l</code> (the Windows key: back to the launcher).</td>
+</tr>
+<tr>
+<td><code>keydown &lt;name&gt;</code>, <code>keyup</code></td>
+<td>Hold a key (it auto-repeats after 400 ms, every 80 ms, as on the device), release it.</td>
+</tr>
+<tr>
+<td><code>pointer &lt;x&gt; &lt;y&gt; &lt;0|1&gt;</code></td>
+<td>The mouse at (x, y), left button up or down.</td>
+</tr>
+<tr>
+<td><code>wheel &lt;notches&gt;</code></td>
+<td>The mouse wheel where the pointer is: &gt; 0 scrolls down, &lt; 0 up, three lines a notch. In the browser, the wheel over the screen.</td>
+</tr>
+<tr>
+<td><code>shot &lt;file.png&gt;</code></td>
+<td>Screenshot; answers <code>#shot &lt;file.png&gt;</code>.</td>
+</tr>
+<tr>
+<td><code>launch [&lt;id&gt;]</code></td>
+<td>Start that app, or the launcher.</td>
+</tr>
+<tr>
+<td><code>camera &lt;what&gt;</code></td>
+<td>What the camera films: see <a href="#the-camera">The camera</a>.</td>
+</tr>
+<tr>
+<td><code>language &lt;tag&gt;</code></td>
+<td>The language of the apps started from now on (<code>pt-BR</code>, <code>qps</code>, <code>en</code>), as the Settings app sets it.</td>
+</tr>
+<tr>
+<td><code>keyboard &lt;layout&gt;</code></td>
+<td>The keyboard layout (<code>us</code>, <code>br-abnt2</code>), as <code>keyboard</code> in <code>gapkeep.txt</code> or the Settings app sets it.</td>
+</tr>
+<tr>
+<td><code>quit</code></td>
+<td>Exit.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Answers to commands start with <code>#</code>; everything else on stdout is the log,
+formatted as on the device's serial port (<code>00:00:01.23 app:hello: ...</code>).</p>
+<p><code>sim/build/gksim</code> itself takes <code>--card DIR</code> (DIR plays the SD card: apps in
+<code>DIR/apps</code>, data folders in <code>DIR/data</code>), <code>--builtin DIR</code> (below), <code>--app ID</code>, <code>--size WxH</code>, <code>--lang TAG</code> (the
+language, over the card's <code>gapkeep.txt</code>; <code>qps</code> is the pseudo-language of
+<a href="apps.html#languages">APPS.md</a>),
+<code>--for SECONDS</code> and <code>--shot FILE</code>.</p>
+<h2 id="the-camera"><a class="anchor" href="#the-camera" aria-hidden="true" tabindex="-1">#</a>The camera</h2>
+<p>The simulator has a camera that films what you tell it, for apps with
+<code>ui.Scanner</code> (<a href="camera.html">CAMERA.md</a>). The decoder is the real one.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Command</th>
+<th>The camera films</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>camera qr &lt;text&gt;</code></td>
+<td>A QR code of the text (UTF-8), a little turned, with noise.</td>
+</tr>
+<tr>
+<td><code>camera qrhex &lt;hex&gt;</code></td>
+<td>A QR code of these bytes.</td>
+</tr>
+<tr>
+<td><code>camera picture &lt;file&gt;</code></td>
+<td>A picture: binary PGM (<code>P5</code>) or PPM (<code>P6</code>), 8 bits.</td>
+</tr>
+<tr>
+<td><code>camera scene</code></td>
+<td>Nothing in particular (the default).</td>
+</tr>
+<tr>
+<td><code>camera none</code></td>
+<td>There is no camera: scanners report <code>&quot;no camera&quot;</code>.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The log says what changed (<code>camera: a QR code of 14 bytes</code>), never what a
+code holds. Scenarios use the same commands; test kernels in QEMU and on the
+rig take them too.</p>
+<h2 id="working-on-the-launcher"><a class="anchor" href="#working-on-the-launcher" aria-hidden="true" tabindex="-1">#</a>Working on the launcher</h2>
+<p>The launcher is built in: the device refuses a card app with its id. The
+simulator can replace it without rebuilding: with <code>--builtin DIR</code>, a
+folder <code>DIR/launcher</code> replaces the built-in launcher, with its rights, and
+the log says so (<code>appstore: builtin/launcher replaces the built-in launcher (simulator only)</code>). If the folder fails the checks, the log says
+why and the built-in launcher stays. <code>tools/gksim</code> does this for a folder
+named <code>launcher</code>:</p>
+<pre><code class="language-sh">tools/gksim apps/launcher apps/hello     # your launcher, with hello on the card
+</code></pre>
+<p>The Pi has no such folder: there, change <code>apps/launcher</code> and rebuild.</p>
+<h2 id="scenarios"><a class="anchor" href="#scenarios" aria-hidden="true" tabindex="-1">#</a>Scenarios</h2>
+<p>The test scenarios (<code>tests/*.txt</code>, see the top of <code>tools/qemu_harness.py</code>)
+run on the simulator too:</p>
+<pre><code class="language-sh">python3 tools/qemu_harness.py --sim sim/build/gksim --card DIR scenario.txt
+tools/run_sim_tests.sh          # every scenario, plus the API check
+</code></pre>
+<p>A scenario takes seconds instead of the minute QEMU needs to boot. Those
+that use the serial port (<code>send</code>: the memory-protection tests) need QEMU or
+the hardware and are skipped.</p>
+<h2 id="how-fast-is-it-on-a-zero"><a class="anchor" href="#how-fast-is-it-on-a-zero" aria-hidden="true" tabindex="-1">#</a>How fast is it on a Zero?</h2>
+<p>The simulator is far faster than a Pi Zero: code that takes two seconds on
+the Zero finishes before you notice. So it reports how much JavaScript an
+app ran, in a unit that doesn't depend on the machine (QuickJS checks for
+interruption after a fixed amount of work), and what that would take on the
+Zero:</p>
+<pre><code>apphost: Started dice39: modules 4 ms, promise jobs 0 ms, work 1, about 27 ms of JavaScript on a Pi Zero
+apphost: Stopping dice39 (work 68, about 1888 ms of JavaScript on a Pi Zero)
+</code></pre>
+<p>The same app does the same work on both (68 for dice39 above, on the
+simulator and on the hardware). The estimate counts JavaScript only, not
+compiling modules or drawing, and is coarse (a unit is about 27 ms on the
+Zero), but it flags the cases that matter: anything near a second or more
+before the first screen. The device logs the work too, without the estimate.</p>
+<h2 id="differences-from-the-device"><a class="anchor" href="#differences-from-the-device" aria-hidden="true" tabindex="-1">#</a>Differences from the device</h2>
+<ul>
+<li><strong>Speed</strong>, above.</li>
+<li><strong>No serial port</strong>: <code>send</code> in scenarios fails; test-build serial commands
+(<code>#shot</code>, <code>#crash</code>) are unavailable.</li>
+<li><strong>No USB events</strong>: the keyboard and mouse are always there.</li>
+<li><strong>The clock</strong> runs on the host's timer but otherwise as on the device:
+<code>Date</code> counts from 1970 until the Clock app sets it, and <code>gapkeep.txt</code> on
+the card is read at boot (<a href="clock.html">CLOCK.md</a>).</li>
+<li><strong>The camera</strong> is synthetic (above), as in test kernels; the Pi Camera's
+driver is the kernel's (<a href="camera.html#the-pi-camera">CAMERA.md</a>), and
+the IDE can use a webcam instead (<a href="ide.html#the-camera">IDE.md</a>).</li>
+<li><strong>No kernel image</strong>: <code>sys.kernel.build</code> is <code>&quot;simulator&quot;</code> and its <code>hash</code> is
+all zeros.</li>
+<li><strong>Random numbers</strong> come from the host (<code>getentropy</code>), through the same
+health tests as the hardware RNG's.</li>
+<li><strong>No memory protection</strong> (W^X, stack guard): those are the kernel's, not the
+runtime's; QEMU and the hardware test them.</li>
+</ul>
+<h2 id="how-it-is-built"><a class="anchor" href="#how-it-is-built" aria-hidden="true" tabindex="-1">#</a>How it is built</h2>
+<p><code>sim/include/</code> holds stand-ins for the few Circle headers the runtime uses
+(logger, timer, <code>CString</code>, the keyboard device, the RNG), and <code>ff.h</code>: the
+read calls of FatFs on a host folder. <code>sim/src/sim.cpp</code> does what the
+kernel's <code>Initialize</code> and main loop do. <code>kbdindev.cpp</code> runs unchanged: the
+simulated keyboard feeds it HID reports and the strings Circle's keymap
+makes, so key translation, auto-repeat and the Home key are the real code.</p>
+
+</div>
+<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/main/docs/SIMULATOR.md"><code>docs/SIMULATOR.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb/docs/SIMULATOR.md">3e6af247a0b7</a></p>
+</article>
+</div>
+</main>
+<footer class="foot">
+  <div class="foot-in">
+    <p class="foot-brand"><a href="/pt-br/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a><span>Um sistema operacional mínimo, bare-metal, para aplicativos air-gapped.</span></p>
+    <p class="foot-links"><a href="/pt-br/docs/">Documentação</a> · <a href="/pt-br/download.html">Baixar</a> · <a href="/ide/">IDE no navegador</a> · <a href="https://github.com/marcocarnut/GapKeep">Código no GitHub</a> · <a href="/pt-br/docs/security.html">Segurança</a> · <a href="/pt-br/docs/contributing.html">Como contribuir</a></p>
+    <p class="foot-privacy">Sem rastreadores, sem analytics, sem cookies, sem requisições a terceiros: este site não carrega nada de nenhum outro lugar, no espírito do GapKeep.</p>
+    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb"><code>3e6af247a0b7</code></a>.</p>
+  </div>
+</footer>
+</body>
+</html>

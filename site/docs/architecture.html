@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="same-origin">
+<title>GapKeep architecture</title>
+<meta name="description" content="GapKeep architecture: GapKeep documentation">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1d1c23">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="canonical" href="https://gapkeep.org/docs/architecture.html">
+<link rel="alternate" hreflang="en" href="https://gapkeep.org/docs/architecture.html">
+<link rel="alternate" hreflang="pt-BR" href="https://gapkeep.org/pt-br/docs/architecture.html">
+<link rel="alternate" hreflang="x-default" href="https://gapkeep.org/docs/architecture.html">
+<meta property="og:title" content="GapKeep architecture">
+<meta property="og:description" content="GapKeep architecture: GapKeep documentation">
+<meta property="og:image" content="https://gapkeep.org/img/og.png">
+<meta property="og:url" content="https://gapkeep.org/docs/architecture.html">
+<script src="/js/lang.js?v=9238942da1"></script>
+<link rel="preload" href="/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/site.css?v=050b20402d">
+
+<script src="/js/site.js?v=00484c1c07" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Skip to the content</a>
+<header class="top" id="top">
+  <div class="top-in">
+    <a class="brand" href="/" aria-label="GapKeep home"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a>
+    <nav class="nav" aria-label="Main">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-list"><span class="bars" aria-hidden="true"></span><span class="sr">Menu</span></button>
+      <ul id="nav-list">
+<li><a href="/#why">Why</a></li>
+<li><a href="/#verify">See it</a></li>
+<li><a href="/#apps">Apps</a></li>
+<li><a href="/#hardware">Hardware</a></li>
+<li><a href="/#developers">Developers</a></li>
+<li><a href="/docs/">Docs</a></li>
+<li><a href="/download.html">Download</a></li>
+      </ul>
+    </nav>
+    <div class="langs" role="group" aria-label="Language"><a href="/docs/architecture.html" hreflang="en" lang="en" data-lang="en" title="English" aria-current="true"><span aria-hidden="true">EN</span><span class="sr">English</span></a><a href="/pt-br/docs/architecture.html" hreflang="pt-BR" lang="pt-BR" data-lang="pt-BR" title="Português (Brasil)"><span aria-hidden="true">PT</span><span class="sr">Português (Brasil)</span></a></div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap docs-layout">
+<aside class="doc-side" aria-label="All documents">
+<details class="doc-toc"><summary>All documents</summary>
+<p><a href="/docs/">Documentation</a></p>
+<h2>Start here</h2><ul><li><a href="/docs/readme.html" data-page="readme.html">GapKeep</a></li><li><a href="/docs/apps.html" data-page="apps.html">Writing GapKeep apps</a></li><li><a href="/docs/agents.html" data-page="agents.html">Writing GapKeep apps: a guide for coding agents</a></li></ul>
+<h2>Guides</h2><ul><li><a href="/docs/simulator.html" data-page="simulator.html">The simulator</a></li><li><a href="/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/docs/camera.html" data-page="camera.html">The camera and QR codes</a></li><li><a href="/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/docs/rig.html" data-page="rig.html">The hardware test rig</a></li></ul>
+<h2>Reference and design</h2><ul><li><a href="/docs/api.html" data-page="api.html">GapKeep JavaScript API reference</a></li><li><a href="/docs/architecture.html" data-page="architecture.html" aria-current="page">GapKeep architecture</a></li><li><a href="/docs/design.html" data-page="design.html">GapKeep&#x27;s design decisions</a></li><li><a href="/docs/experimental.html" data-page="experimental.html">Experimental features</a></li></ul>
+<h2>Apps</h2><ul><li><a href="/docs/apps/signer.html" data-page="apps/signer.html">Signer</a></li><li><a href="/docs/apps/dice39.html" data-page="apps/dice39.html">dice39 on GapKeep</a></li><li><a href="/docs/apps/codex32.html" data-page="apps/codex32.html">codex32</a></li><li><a href="/docs/apps/totp.html" data-page="apps/totp.html">Authenticator</a></li></ul>
+<h2>The project</h2><ul><li><a href="/docs/security.html" data-page="security.html">Security</a></li><li><a href="/docs/contributing.html" data-page="contributing.html">Contributing to GapKeep</a></li><li><a href="/docs/agents-gapkeep.html" data-page="agents-gapkeep.html">Notes for coding agents</a></li></ul>
+<h2>More</h2><ul><li><a href="/docs/camera/spec.html" data-page="camera/spec.html">Pi Camera Module v2.1 (IMX219) on the Pi Zero v1.3: functional specification</a></li><li><a href="/docs/camera/implementation.html" data-page="camera/implementation.html">Pi Camera driver: implementation record</a></li><li><a href="/docs/camera/provenance.html" data-page="camera/provenance.html">Provenance of docs/camera/SPEC.md (clean-room record)</a></li><li><a href="/docs/i18n/pt-br.html" data-page="i18n/pt-br.html">Glossary: Brazilian Portuguese (pt-BR)</a></li><li><a href="/docs/lib-js.html" data-page="lib-js.html">JavaScript libraries for apps</a></li></ul>
+</details>
+</aside>
+<article class="doc" lang="en">
+
+<div class="doc-body">
+<h1 id="gapkeep-architecture">GapKeep architecture</h1>
+<p>GapKeep is a single-purpose, bare-metal system for the Raspberry Pi Zero
+(BCM2835, one ARM1176 core, 512 MB). It boots straight into a JavaScript app
+runtime with a graphical interface. There is no Linux, no network stack and
+no radio; the SD card is read once at boot, for the apps, and never written.</p>
+<pre><code> ┌──────────────────────────────────────────────────────────────┐
+ │  apps/*            JavaScript apps (launcher, dice39, ...)   │
+ ├──────────────────────────────────────────────────────────────┤
+ │  src/runtime       app host · gk:ui · gk:sys · gk:apps        │
+ │                    QuickJS (third_party/quickjs)              │
+ │                    LVGL (circle/addon/lvgl, lib/lvgl config)  │
+ ├──────────────────────────────────────────────────────────────┤
+ │  src/kernel.cpp    main loop · keyboard → LVGL glue           │
+ │  Circle            USB host + HID, framebuffer, interrupts,   │
+ │                    timers, serial log (circle/, GPLv3)        │
+ ├──────────────────────────────────────────────────────────────┤
+ │  VideoCore firmware: bootcode.bin, start.elf (closed blobs)  │
+ └──────────────────────────────────────────────────────────────┘
+</code></pre>
+<h2 id="boot"><a class="anchor" href="#boot" aria-hidden="true" tabindex="-1">#</a>Boot</h2>
+<ol>
+<li>The GPU's boot ROM loads <code>bootcode.bin</code> from the SD card, which loads
+<code>start.elf</code>. Both are Broadcom's closed firmware; every OS on the Pi
+depends on them.</li>
+<li><code>start.elf</code> sets up HDMI, reads <code>config.txt</code>, and loads <code>kernel.img</code>
+(GapKeep) to 0x8000 on the ARM core.</li>
+<li>Circle's startup code sets up the stack (1 MB), MMU and caches, and calls
+<code>main()</code> → <code>CKernel</code> (<code>src/kernel.cpp</code>).</li>
+<li>The kernel brings up the screen, the serial log, interrupts, the timer and
+USB (keyboard and mouse are found by plug-and-play), reads the apps from
+the SD card (<code>CAppStore</code>), then brings up LVGL, the keyboard input device
+and the app host.</li>
+<li>The app host starts the launcher.</li>
+</ol>
+<h2 id="main-loop"><a class="anchor" href="#main-loop" aria-hidden="true" tabindex="-1">#</a>Main loop</h2>
+<p>Everything runs in one loop on one core; there are no threads:</p>
+<pre><code>loop:
+    USB plug-and-play     (new keyboard or mouse?)
+    keyboard LEDs
+    LVGL                  (read input, run timers, redraw)
+      └─ input events and JS timers call into the running app's JS
+    app host              (promise jobs, deferred widget deletion, app switch)
+</code></pre>
+<p>USB interrupts only queue key presses (<code>CKeyboardIndev</code>) and set the Home
+flag; all JavaScript runs from the main loop.</p>
+<h2 id="the-app-host-srcruntimeapphost"><a class="anchor" href="#the-app-host-srcruntimeapphost" aria-hidden="true" tabindex="-1">#</a>The app host (<code>src/runtime/apphost.*</code>)</h2>
+<p>Runs one app at a time. Starting an app:</p>
+<ol>
+<li>A new <strong>QuickJS runtime</strong> with a 96 MB heap limit, a 512 KB stack limit, a
+module loader and an interrupt handler (watchdog and Home key).</li>
+<li>A new <strong>LVGL screen</strong> and <strong>focus group</strong>; the keyboard is pointed at it.</li>
+<li>The app's entry module is evaluated. It imports <code>gk:*</code> modules (created
+on demand, permission-checked) and its own files (from memory).</li>
+</ol>
+<p>Stopping an app (exit, Home, or launching another) deletes its screen, which
+deletes every widget and releases its JS handlers; then its timers; then its
+JS context and runtime. <code>JS_FreeRuntime</code> asserts that every object was
+freed, so a leak in the runtime shows up as a crash in testing rather than
+slow memory loss.</p>
+<p>Apps come from two places (<code>src/runtime/appstore.*</code>), with the same checks
+and the same description (<code>gk_app_t</code>):</p>
+<ul>
+<li><strong>Built in</strong>, at build time (<code>tools/bundle_apps.py</code> →
+<code>src/generated/apps_bundle.c</code>): the launcher always; every app in sealed
+and test builds.</li>
+<li><strong>The SD card's <code>/apps</code> folder</strong>, read once at boot into memory by
+read-only FatFs (<code>lib/fatfs</code>, configured with <code>FF_FS_READONLY</code>, so no
+write code is even compiled) over Circle's SD driver. Each app is checked
+(manifest, names, UTF-8, size limits) and hashed; refused apps are listed
+in the launcher with the reason. A card app cannot take a built-in app's
+id.</li>
+</ul>
+<p>After boot no code is loaded: apps cannot load code
+other than their own modules, which are already in memory, and the only
+files they read are the card's data folders their manifest names
+(<code>gk:data</code>, read whole and hashed on first use).</p>
+<p>Apps never share code at run time: an app's hash covers every line of
+JavaScript it runs, so one that builds on another's library carries a
+byte-for-byte copy (<code>tools/share_libs.py</code>). Data, unlike code, is
+shared by name: read-only folders on the card (<code>data/&lt;name&gt;/</code>, through
+<code>gk:data</code>), listed in the manifest and outside the app hash. Suites
+(<code>apps/&lt;suite&gt;/suite.json</code>) only group apps in the launcher. The reasons are in
+<a href="design.html#apps">DESIGN.md</a>.</p>
+<h3 id="widgets-srcruntimejs_uicpp"><a class="anchor" href="#widgets-srcruntimejs_uicpp" aria-hidden="true" tabindex="-1">#</a>Widgets (<code>src/runtime/js_ui.cpp</code>)</h3>
+<p>Each widget is a JS object linked to an LVGL object through a <code>TGkNode</code>.
+While the LVGL object exists, the node keeps the JS object alive, so the same
+JS object is returned every time (<code>label.parent === container</code>). LVGL's
+delete event releases it. JS never deletes LVGL objects directly:
+<code>widget.delete()</code> hides the widget and queues it, and the host deletes it
+after event processing. That keeps &quot;a button deletes itself in its click
+handler&quot; safe.</p>
+<p>All properties are described by one table; constructors, <code>set()</code> and the
+per-type property accessors all go through it, with strict validation.</p>
+<p>The wall clock (<code>clock.cpp</code>, <code>gk:clock</code> in <code>js_clock.cpp</code>) is kept by the
+kernel from the system timer, with a trim and a UTC offset; see
+<a href="clock.html">CLOCK.md</a>.</p>
+<p>The session store (<code>session.cpp</code>, <code>gk:session</code> in <code>js_session.cpp</code>) keeps
+values for each app across its runs, in the kernel's heap, until power-off.
+Entries are filed under the app's id and hash; values are serialized by
+QuickJS's object writer (plain data only: no bytecode, no references) and
+copied in and out. Every byte is overwritten before it is freed.</p>
+<p>Languages (<code>i18n.cpp</code>, <code>gk:i18n</code>): the language and number marks are the
+system's (<code>gapkeep.txt</code>, or the Settings app until power-off). When an app
+starts, its catalog (<code>lang/&lt;language&gt;.json</code>, with <code>lang/pt.json</code> under
+<code>lang/pt-BR.json</code>) is parsed with <code>JSON.parse</code>, never evaluated, and each
+translation checked (the same <code>{names}</code> as its key, no control or bidi
+characters); what passes is kept in a null-prototype object. The module
+itself is JavaScript, <code>src/runtime/i18n.js</code>, embedded by
+<code>tools/embed_js.py</code> and compiled when an app imports it; its native half,
+<code>gk:i18n-native</code>, can be imported by it alone. The launcher's catalogs are
+the system's: they translate the module's own messages.</p>
+<p><code>ui.Scanner</code> is driven by <code>scanner.cpp</code> (camera frames, decoding with
+<code>qrdecode.cpp</code>, the preview), polled by an LVGL timer; the camera is an
+interface (<code>camera.h</code>) with a synthetic implementation (<code>synthcam.cpp</code>) for
+the simulator and test builds, and a driver for the Pi Camera Module v2.1
+(<code>src/camera/</code>, kernel only: the sensor over I2C, the CSI-2 receiver, grey
+frames and automatic exposure). See <a href="camera.html">CAMERA.md</a>.</p>
+<h3 id="cryptography-srccrypto"><a class="anchor" href="#cryptography-srccrypto" aria-hidden="true" tabindex="-1">#</a>Cryptography (<code>src/crypto/</code>)</h3>
+<p>SHA-1, SHA-256 and SHA-512 written from FIPS 180-4, and HMAC from RFC 2104
+(<code>hmac.*</code>, generic over the three through <code>gk_hash_t</code>), all plain C that
+also builds on the development machine: <code>tests/native/test_sha256.c</code>, and
+<code>tools/check_hashes.py</code>, which runs every self-test and compares thousands
+of random inputs with Python's <code>hashlib</code>. SHA-256's self-test runs at boot;
+HMAC's test vectors (RFC 2202, RFC 4231, which also check SHA-1 and
+SHA-512) run before their first use, and disable them if they fail. Every
+context and buffer that held key material is overwritten after use. The
+hardware RNG wrapper (<code>hwrng.*</code>) applies NIST SP 800-90B health tests to
+every raw byte and conditions output through SHA-256; see <code>gk:crypto</code> in
+<a href="api.html">API.md</a>.</p>
+<p>RIPEMD-160 (<code>ripemd160.*</code>, from its authors' paper, with HASH160) and
+PBKDF2 (<code>pbkdf2.*</code>, RFC 8018, over <code>gk_hash_t</code>) are checked the same way
+(<code>tools/check_hashes.py</code>). secp256k1 is Bitcoin Core's libsecp256k1
+(<code>third_party/secp256k1</code>, pinned to a release; built by
+<code>lib/secp256k1/secp256k1.mk</code> with the extrakeys and schnorrsig modules and
+a 16 KiB verification table, about 100 KiB of code and tables in all).
+<code>secp.*</code> turns its opaque structures into bytes for <code>gk:crypto</code>: ECDSA
+with RFC 6979 nonces, low S and Bitcoin Core's low-R grinding, BIP-340,
+and the BIP-32 and Taproot tweaks. Its context lives in a static buffer
+(no allocation), is blinded with random bytes, and halts the system on an
+illegal-argument or internal-error callback, which only a bug can reach.
+<code>tools/check_secp.py</code> compares it with an independent pure-Python
+implementation (SEC 1, RFC 6979, BIP-340, BIP-341) on random keys and edge
+cases, runs BIP-340's test vectors, writes the known answers of the
+kernel's self-test (<code>secp_kat.h</code>), and runs the library's own test suite
+built as for the Zero (32-bit arithmetic); that suite also passes compiled
+for ARMv6 under <code>qemu-arm</code>. RIPEMD-160, PBKDF2 and secp256k1 run their
+self-tests before their first use. BIP-32, addresses and transactions are
+left to apps, in JavaScript on these primitives.</p>
+<h3 id="c-runtime"><a class="anchor" href="#c-runtime" aria-hidden="true" tabindex="-1">#</a>C runtime</h3>
+<p>QuickJS is a hosted C program. GapKeep provides only what it needs:</p>
+<ul>
+<li>Circle: <code>malloc</code>/<code>free</code>/<code>realloc</code>, <code>mem*</code>, <code>str*</code> basics.</li>
+<li>newlib (from the toolchain): <code>libm</code> math functions and headers.</li>
+<li><code>src/runtime/libc_shim.c</code>: about 15 small functions (<code>snprintf</code> via LVGL's
+printf, logging <code>fprintf</code>, UTC-only <code>localtime_r</code>, clocks). Small enough
+to read in a few minutes.</li>
+<li><code>lib/quickjs/compat/</code>: a no-op <code>pthread.h</code> (one core, no threads) and an
+<code>inttypes.h</code> fix for Debian's toolchain.</li>
+</ul>
+<p>QuickJS's own OS layer (<code>quickjs-libc.c</code>: files, processes, sockets) is not
+built.</p>
+<p>QuickJS is compiled with <code>-fno-strict-aliasing</code>. On <code>arm-none-eabi</code>,
+<code>uint32_t</code> is <code>unsigned long</code>, and QuickJS passes such variables through
+<code>int *</code> in places; under strict aliasing GCC miscompiled the string
+iterator (<code>for (const ch of &quot;abc&quot;)</code> never ended). QuickJS's own test suite
+(<code>test_language</code>, <code>test_builtin</code>, <code>test_bigint</code>, <code>test_closure</code>,
+<code>test_loop</code>) runs on the target in test builds (<code>tests/qjstests.txt</code>) to
+catch this class of problem.</p>
+<h2 id="security-model"><a class="anchor" href="#security-model" aria-hidden="true" tabindex="-1">#</a>Security model</h2>
+<p>Goal: a machine on which secrets are created and handled without any channel
+for them to leave, other than what a person reads off the screen.</p>
+<p><strong>Attack surface that exists:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Surface</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>USB host controller + HID parsing (Circle)</td>
+<td>The only input from outside. Only the hub, keyboard and mouse (boot protocol) drivers are in the image; every other class driver is left out at build time (<code>EXCLUDE_USB_*</code> in <code>tools/build.sh</code>), including the generic-HID path and its report descriptor parser. Control transfers time out after 3 s (<code>patches/circle/0003</code>), so a device that never answers cannot hang the system.</td>
+</tr>
+<tr>
+<td>Camera (<a href="camera.html">CAMERA.md</a>)</td>
+<td>Input only: pictures of QR codes, from the Pi Camera (IMX219, <code>src/camera/</code>) or, in test builds and the simulator, a synthetic camera. Decoded in the kernel by zxing-cpp's QR code reader (C++20, about 195 KiB, <code>patches/zxing-cpp/</code>), built without exceptions: malformed codes are not read, and what zxing-cpp would throw on an internal error stops the system (a fatal error, as a failed assertion). Fuzzed under AddressSanitizer and UBSan with damaged and crafted codes that reach the payload decoder (<a href="camera.html#the-qr-decoder">CAMERA.md</a>). Apps get the decoded bytes, never pixels, and only with the <code>&quot;camera&quot;</code> permission.</td>
+</tr>
+<tr>
+<td>HDMI output</td>
+<td>Output only. CEC is ignored (<code>hdmi_ignore_cec</code> in <code>config.txt</code>).</td>
+</tr>
+<tr>
+<td>Serial port (GPIO 14/15)</td>
+<td>Production builds for the Pi contain no serial driver: the UART is never set up, its pins are made inputs, and the firmware's is off (<code>enable_uart=0</code>); the log goes nowhere. Test builds log to it and take test commands from it (<code>src/testshot.*</code>).</td>
+</tr>
+<tr>
+<td>SD card</td>
+<td>Read by the firmware at boot, then by GapKeep: once, for <code>/apps</code> and <code>gapkeep.txt</code>, and each data folder (<code>/data/&lt;name&gt;</code>) once, when first used (FAT, read-only driver). Never written. Sealed builds don't contain the SD code.</td>
+</tr>
+<tr>
+<td>VideoCore firmware</td>
+<td>Closed. Shared by every Pi OS; out of our control. Pinned by hash (<code>tools/firmware.sha256</code>).</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Nothing is kept.</strong> GapKeep never writes to the card, and the session
+store (<code>gk:session</code>) is RAM, gone at power-off. So keys are not stored on
+the device: they live elsewhere (on paper, as codex32 shares or seed words),
+come in when needed, by keyboard or as QR codes shown to the camera, are
+recombined in memory for the task (the Signer signs, then forgets them), and
+are wiped when the app is done with them (below). Losing or stealing a
+switched-off GapKeep reveals no key.</p>
+<p><strong>What is absent by design:</strong> network stack, Wi-Fi and Bluetooth (the
+plain Pi Zero has no radio at all), writing to storage, file access for
+apps (but reading the data folders their manifest names, below), code
+loading after boot, a clock you can trust, and any way for apps
+to reach each other (each app's session store is its own).</p>
+<p><strong>Apps on the card</strong> are as trustworthy as the card: whoever can write it
+can replace <code>kernel.img</code> too, so loading apps from it does not move the
+trust boundary. The launcher shows each app's SHA-256, to compare with a
+published one. A sealed build (<code>tools/build.sh pi SEALED=1</code>) removes the SD and FAT code
+from the trusted base.</p>
+<p><strong>Data folders and suites</strong>: code is inside the app hash, data
+(<code>data/&lt;name&gt;/</code>, read with <code>gk:data</code>) is outside it, on purpose: the hash
+must be the same on every card, the data differs per card
+(<a href="design.html#data-is-shared-by-name">DESIGN.md</a> says why). So whoever can
+change the card can change the data, as they can the apps, and the defence
+is the same: the launcher shows each data folder's hash beside the app's,
+and apps show what matters before using it (a key's fingerprint). Apps read
+only the folders their hashed manifest names, never write, and a folder is
+read whole, hashed and kept in memory on first use (<code>appstore.cpp</code>), so
+what an app reads is what was hashed even if the card were swapped while
+running. Nothing in the data is executed; what parses it is FatFs and the
+apps' own JavaScript. Apps in a suite share data this way but never code,
+so each app's hash still covers every line it runs.</p>
+<p><strong>Isolation between apps:</strong> each app has its own JS runtime, so apps cannot
+reach each other's objects. They share an address space (everything runs
+privileged, on one core), so this guards against mistakes and keeps app
+code honest, not against native-code exploits. All native code is part of
+the image and auditable.</p>
+<p><strong>Memory protection</strong> (<code>patches/circle/0004</code>, for the Pi Zero only): the
+kernel is mapped with 4 KB pages, so that</p>
+<ul>
+<li>code is read-only (and the only executable memory),</li>
+<li>constants are read-only,</li>
+<li>data, heap and stacks are not executable,</li>
+<li>the exception vectors become read-only once they are set up,</li>
+<li>the unused memory below the kernel stack is unmapped, so a stack
+overflow faults instead of running into the data below it.</li>
+</ul>
+<p>Every C and C++ file (Circle, LVGL, QuickJS, GapKeep) is compiled with
+<code>-fstack-protector-strong</code>, with the canary taken from the hardware RNG at
+boot (<code>src/runtime/stackguard.cpp</code>). A violation of any of these stops the
+system; <code>tests/memprotect.txt</code> makes each one happen on purpose
+(<code>src/testcrash.cpp</code>, test builds only) and checks that it does.</p>
+<p><strong>Secrets in memory:</strong> both heaps that hold app data zero every block when
+it is freed: the JS heap (<code>apphost.cpp</code>, which also makes <code>realloc</code> move so
+the old block can be zeroed) and LVGL's heap (<code>lv_mem_wipe.c</code>; labels and
+text areas keep copies of what they show). When an app exits, all its
+memory is freed, so seed words do not linger after the app is closed, and
+the screen is redrawn completely. Data still in use is of course in RAM; a
+Pi Zero has no memory encryption.</p>
+<p><strong>Trusted code</strong> is the image (Circle, LVGL, QuickJS, FatFs, <code>src/</code>, the
+built-in apps) and the apps on the card. Builds are reproducible: with the
+pinned compiler (<code>tools/toolchain.sh</code>), the same commit gives the same
+<code>kernel.img</code>, byte for byte, wherever it is built
+(<code>tools/check_reproducible.sh</code>). The running kernel shows the SHA-256 of
+its own code and constants (launcher, key <code>i</code>), which is the SHA-256 of the
+start of <code>kernel.img</code>, so what runs can be checked against a published
+build.</p>
+<h2 id="repository-layout"><a class="anchor" href="#repository-layout" aria-hidden="true" tabindex="-1">#</a>Repository layout</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>apps/</code></td>
+<td>The apps: built in (the launcher, or all in sealed builds) or copied to the card's <code>/apps</code>.</td>
+</tr>
+<tr>
+<td><code>circle/</code></td>
+<td>Circle (submodule) plus the fixes in <code>patches/circle/</code>, applied by <code>tools/build.sh</code>. Its LVGL submodule supplies the LVGL sources.</td>
+</tr>
+<tr>
+<td><code>third_party/quickjs/</code></td>
+<td>QuickJS (submodule, unmodified).</td>
+</tr>
+<tr>
+<td><code>third_party/zxing-cpp/</code></td>
+<td>zxing-cpp, the QR decoder (submodule), plus the fixes in <code>patches/zxing-cpp/</code>.</td>
+</tr>
+<tr>
+<td><code>third_party/secp256k1/</code></td>
+<td>Bitcoin Core's libsecp256k1 (submodule, unmodified).</td>
+</tr>
+<tr>
+<td><code>lib/lvgl/</code></td>
+<td>Builds LVGL with <code>gk_lv_conf.h</code>.</td>
+</tr>
+<tr>
+<td><code>lib/quickjs/</code></td>
+<td>Builds the QuickJS engine; compat headers.</td>
+</tr>
+<tr>
+<td><code>lib/fatfs/</code></td>
+<td>Builds Circle's FatFs read-only (<code>ffconf.h</code>).</td>
+</tr>
+<tr>
+<td><code>lib/zxing/</code>, <code>lib/secp256k1/</code></td>
+<td>Build the QR decoder and libsecp256k1 for the kernel.</td>
+</tr>
+<tr>
+<td><code>lib/colorqr/</code></td>
+<td>The experimental colour QR decoder, vendored (<a href="experimental.html">EXPERIMENTAL.md</a>).</td>
+</tr>
+<tr>
+<td><code>lib/js/</code></td>
+<td>JavaScript libraries that apps carry copies of (<code>tools/share_libs.py</code>).</td>
+</tr>
+<tr>
+<td><code>patches/</code></td>
+<td>GapKeep's changes to Circle and zxing-cpp, applied at build time by <code>tools/apply_patches.sh</code>.</td>
+</tr>
+<tr>
+<td><code>src/</code></td>
+<td>Kernel and runtime. <code>src/generated/</code> is build output. <code>src/runtime/</code> is also compiled into the simulator.</td>
+</tr>
+<tr>
+<td><code>sim/</code></td>
+<td>The simulator (<a href="simulator.html">SIMULATOR.md</a>): stand-ins for the Circle headers the runtime uses, its main loop, and the browser IDE (<code>sim/web/</code>).</td>
+</tr>
+<tr>
+<td><code>tests/</code></td>
+<td>Scenarios (QEMU, simulator, rig); <code>tests/apps/</code> holds test-only apps (test builds, <code>TEST=1</code>); <code>tests/sdcard/</code> the test SD card; <code>tests/native</code>, <code>tests/dice39</code>, <code>tests/signer</code>... host tests (Python, Node).</td>
+</tr>
+<tr>
+<td><code>tools/</code></td>
+<td>Build script, app bundler, QEMU harness, simulator and IDE launchers, test runners; <code>tools/rig/</code> drives the hardware test rig (<a href="rig.html">RIG.md</a>).</td>
+</tr>
+<tr>
+<td><code>docs/</code></td>
+<td>This file, the guides, and the API reference generated from <code>docs/api/gapkeep-api.yaml</code>.</td>
+</tr>
+</tbody>
+</table></div>
+
+</div>
+<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/main/docs/ARCHITECTURE.md"><code>docs/ARCHITECTURE.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb/docs/ARCHITECTURE.md">3e6af247a0b7</a></p>
+</article>
+</div>
+</main>
+<footer class="foot">
+  <div class="foot-in">
+    <p class="foot-brand"><a href="/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a><span>A tiny bare-metal OS for air-gapped apps.</span></p>
+    <p class="foot-links"><a href="/docs/">Documentation</a> · <a href="/download.html">Download</a> · <a href="/ide/">Browser IDE</a> · <a href="https://github.com/marcocarnut/GapKeep">Source on GitHub</a> · <a href="/docs/security.html">Security</a> · <a href="/docs/contributing.html">Contributing</a></p>
+    <p class="foot-privacy">No trackers, no analytics, no cookies, no third-party requests: this site loads nothing from anywhere else, in the spirit of GapKeep.</p>
+    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb"><code>3e6af247a0b7</code></a>.</p>
+  </div>
+</footer>
+</body>
+</html>

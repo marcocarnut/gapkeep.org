@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="same-origin">
+<title>Signer · GapKeep</title>
+<meta name="description" content="Signer: GapKeep documentation">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1d1c23">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="canonical" href="https://gapkeep.org/docs/apps/signer.html">
+<link rel="alternate" hreflang="en" href="https://gapkeep.org/docs/apps/signer.html">
+<link rel="alternate" hreflang="pt-BR" href="https://gapkeep.org/pt-br/docs/apps/signer.html">
+<link rel="alternate" hreflang="x-default" href="https://gapkeep.org/docs/apps/signer.html">
+<meta property="og:title" content="Signer · GapKeep">
+<meta property="og:description" content="Signer: GapKeep documentation">
+<meta property="og:image" content="https://gapkeep.org/img/og.png">
+<meta property="og:url" content="https://gapkeep.org/docs/apps/signer.html">
+<script src="/js/lang.js?v=9238942da1"></script>
+<link rel="preload" href="/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/site.css?v=050b20402d">
+
+<script src="/js/site.js?v=00484c1c07" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Skip to the content</a>
+<header class="top" id="top">
+  <div class="top-in">
+    <a class="brand" href="/" aria-label="GapKeep home"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a>
+    <nav class="nav" aria-label="Main">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-list"><span class="bars" aria-hidden="true"></span><span class="sr">Menu</span></button>
+      <ul id="nav-list">
+<li><a href="/#why">Why</a></li>
+<li><a href="/#verify">See it</a></li>
+<li><a href="/#apps">Apps</a></li>
+<li><a href="/#hardware">Hardware</a></li>
+<li><a href="/#developers">Developers</a></li>
+<li><a href="/docs/">Docs</a></li>
+<li><a href="/download.html">Download</a></li>
+      </ul>
+    </nav>
+    <div class="langs" role="group" aria-label="Language"><a href="/docs/apps/signer.html" hreflang="en" lang="en" data-lang="en" title="English" aria-current="true"><span aria-hidden="true">EN</span><span class="sr">English</span></a><a href="/pt-br/docs/apps/signer.html" hreflang="pt-BR" lang="pt-BR" data-lang="pt-BR" title="Português (Brasil)"><span aria-hidden="true">PT</span><span class="sr">Português (Brasil)</span></a></div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap docs-layout">
+<aside class="doc-side" aria-label="All documents">
+<details class="doc-toc"><summary>All documents</summary>
+<p><a href="/docs/">Documentation</a></p>
+<h2>Start here</h2><ul><li><a href="/docs/readme.html" data-page="readme.html">GapKeep</a></li><li><a href="/docs/apps.html" data-page="apps.html">Writing GapKeep apps</a></li><li><a href="/docs/agents.html" data-page="agents.html">Writing GapKeep apps: a guide for coding agents</a></li></ul>
+<h2>Guides</h2><ul><li><a href="/docs/simulator.html" data-page="simulator.html">The simulator</a></li><li><a href="/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/docs/camera.html" data-page="camera.html">The camera and QR codes</a></li><li><a href="/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/docs/rig.html" data-page="rig.html">The hardware test rig</a></li></ul>
+<h2>Reference and design</h2><ul><li><a href="/docs/api.html" data-page="api.html">GapKeep JavaScript API reference</a></li><li><a href="/docs/architecture.html" data-page="architecture.html">GapKeep architecture</a></li><li><a href="/docs/design.html" data-page="design.html">GapKeep&#x27;s design decisions</a></li><li><a href="/docs/experimental.html" data-page="experimental.html">Experimental features</a></li></ul>
+<h2>Apps</h2><ul><li><a href="/docs/apps/signer.html" data-page="apps/signer.html" aria-current="page">Signer</a></li><li><a href="/docs/apps/dice39.html" data-page="apps/dice39.html">dice39 on GapKeep</a></li><li><a href="/docs/apps/codex32.html" data-page="apps/codex32.html">codex32</a></li><li><a href="/docs/apps/totp.html" data-page="apps/totp.html">Authenticator</a></li></ul>
+<h2>The project</h2><ul><li><a href="/docs/security.html" data-page="security.html">Security</a></li><li><a href="/docs/contributing.html" data-page="contributing.html">Contributing to GapKeep</a></li><li><a href="/docs/agents-gapkeep.html" data-page="agents-gapkeep.html">Notes for coding agents</a></li></ul>
+<h2>More</h2><ul><li><a href="/docs/camera/spec.html" data-page="camera/spec.html">Pi Camera Module v2.1 (IMX219) on the Pi Zero v1.3: functional specification</a></li><li><a href="/docs/camera/implementation.html" data-page="camera/implementation.html">Pi Camera driver: implementation record</a></li><li><a href="/docs/camera/provenance.html" data-page="camera/provenance.html">Provenance of docs/camera/SPEC.md (clean-room record)</a></li><li><a href="/docs/i18n/pt-br.html" data-page="i18n/pt-br.html">Glossary: Brazilian Portuguese (pt-BR)</a></li><li><a href="/docs/lib-js.html" data-page="lib-js.html">JavaScript libraries for apps</a></li></ul>
+</details>
+</aside>
+<article class="doc" lang="en">
+
+<div class="doc-body">
+<h1 id="signer">Signer</h1>
+<p>Shows what a Bitcoin transaction does, then signs it. It takes the
+transaction first, so you see it before any secret is in memory, and gives
+back a QR code Electrum loads, or animated BBQr codes.</p>
+<h2 id="using-it"><a class="anchor" href="#using-it" aria-hidden="true" tabindex="-1">#</a>Using it</h2>
+<ol>
+<li>
+<p><strong>The transaction.</strong> In Electrum, make the transaction, then Export (or
+Share), Show as QR code. Here: Scan a transaction. The summary shows what
+it spends and pays, the fee and warnings. Change is only the PSBT's word
+so far: &quot;Claimed change (not checked yet)&quot;. A finished transaction is
+shown too, with nothing to sign. &quot;Merge a copy&quot; adds another copy of the
+same transaction with other signatures (BIP-174's Combiner).</p>
+</li>
+<li>
+<p><strong>The keys.</strong> Load the keys that sign it, as many as needed:</p>
+<ul>
+<li>codex32 shares, typed or scanned, as many as the threshold. Say what
+they hold: a seed phrase's entropy, as dice39 makes them (the default,
+then the BIP-39 passphrase if any), or a BIP-32 master seed, as BIP-93
+says;</li>
+<li>BIP-39 words, typed or scanned as text, and the passphrase;</li>
+<li>an xprv (or zprv, yprv...), master or an account's;</li>
+<li>a WIF: one key. An uncompressed one spends only legacy (P2PKH) coins.</li>
+</ul>
+<p>For each, the app shows its fingerprint and what it signs (&quot;signs 2 of 3
+inputs&quot;): check the fingerprint against what you know of the wallet. The
+keys stay in the app's memory only.</p>
+</li>
+<li>
+<p><strong>The summary again</strong>, with change decided by the keys, not the PSBT:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Change output</th>
+<th>Shown</th>
+<th>In the totals</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No key loaded yet</td>
+<td>amber, &quot;claimed&quot;</td>
+<td>apart, as claimed</td>
+</tr>
+<tr>
+<td>Proved, in the inputs' account, on chain 1 or 0, near their index</td>
+<td>green</td>
+<td>change</td>
+</tr>
+<tr>
+<td>Ours, at a path the wallet may never scan</td>
+<td>amber, with the path</td>
+<td>sent</td>
+</tr>
+<tr>
+<td>A key refutes it</td>
+<td>red; signing asks first</td>
+<td>sent</td>
+</tr>
+<tr>
+<td>No key loaded can speak for it</td>
+<td>amber</td>
+<td>sent</td>
+</tr>
+</tbody>
+</table></div>
+</li>
+<li>
+<p><strong>Sign.</strong> The result is a finished transaction when every input is
+signed, else a PSBT that needs more signatures. A merged PSBT with every
+signature needs no key at all: &quot;Finish the transaction&quot;. Then &quot;Done,
+forget the keys&quot; (Escape does the same), or &quot;Next transaction (keep
+keys)&quot;. In Electrum: Tools, Load transaction, From QR code, and broadcast.
+A result that fits one QR code is shown as one, in Base43, as Electrum
+reads it, with &quot;Show as BBQr&quot; on offer; one that doesn't is shown as
+animated BBQr codes, all of one version up to 12, at 500 ms each, with
+Pause and Next part. Electrum doesn't read BBQr.</p>
+</li>
+</ol>
+<p><strong>Once: the public key.</strong> &quot;Public key&quot; needs a master key: it shows an account
+of BIP-84, BIP-49, BIP-44 or BIP-86 (account 0, or the number you give) as a
+QR code, with the master fingerprint as text; BIP-48's multisig key
+(m/48'/c'/a'/2') is a cosigner's key expression, or a Zpub for Electrum:</p>
+<ul>
+<li>a descriptor, <code>wpkh([fingerprint/84h/0h/0h]xpub.../&lt;0;1&gt;/*)#checksum</code>, with
+the key's origin, for wallets that take one;</li>
+<li>the zpub (ypub; vpub/upub on testnet), for Electrum: File, New/Restore,
+Standard wallet, Use a master key, and scan it.</li>
+</ul>
+<p>That watch-only wallet makes the transactions. Electrum's PSBTs from it name
+the account's own fingerprint, not the master's, and only account 0 and the
+number on this page are recognised: for another account, set it there before
+signing, each time the app starts. PSBTs with the master fingerprint and the
+full path need nothing of the kind.</p>
+<p>Legacy (P2PKH) coins are signed only with their previous transactions in the
+PSBT. Electrum's QR codes leave those out, so its legacy wallets can't be signed
+for this way; a wallet that sends the whole PSBT can, as animated BBQr when
+it's large. Electrum has no taproot wallets; the library signs BIP-86 key-path
+inputs and exports <code>tr()</code> descriptors, but only the BIP test vectors and the
+simulator exercise that: no taproot wallet has read one yet.</p>
+<p>Never logged: shares, words, the passphrase, keys. The log gets counts,
+sizes, and the hash of a signed transaction (not secret: it is about to be
+broadcast), which <code>tests/signer.txt</code> compares with Electrum's own. Forgetting
+wipes every key's bytes, and the fields that showed a secret are emptied
+before their page goes.</p>
+<h2 id="the-summary"><a class="anchor" href="#the-summary" aria-hidden="true" tabindex="-1">#</a>The summary</h2>
+<ul>
+<li><strong>Totals first</strong>: what is sent to others, the change back to your wallet,
+the fee (and sat/vB), what is spent, and the network.</li>
+<li><strong>Warnings</strong>, red (don't sign), amber (check), blue (to know).</li>
+<li><strong>Outputs</strong>: each address (grouped by four characters, to compare with
+the receiver's) and amount; change as in the table above, with its key path.</li>
+<li><strong>Inputs</strong>: the coin spent, its amount, type, key path and wallet
+fingerprint, and how far it is signed.</li>
+<li><strong>Details</strong>: the transaction ID (when signing can't change it), version,
+locktime, RBF, size.</li>
+</ul>
+<p>Keyboard: Tab and Shift+Tab go through the buttons and the rows, the arrows
+(and Page Up/Down) through the rows; Enter on a row shows all of it (full
+address, script, key paths); Escape leaves the scanner, or goes back to the
+start. &quot;Network&quot; changes the network the addresses are shown for: a PSBT
+doesn't say it, so it is guessed from the key paths (<code>m/84'/1'/...</code> is a
+test network) and xpubs. Testnet and signet addresses are the same; regtest
+must be chosen by hand.</p>
+<h2 id="what-it-reads"><a class="anchor" href="#what-it-reads" aria-hidden="true" tabindex="-1">#</a>What it reads</h2>
+<p>What Electrum's &quot;Load transaction / From QR code&quot; reads (<code>tx_from_any()</code>
+in <code>electrum/transaction.py</code>), in the same order: the text without
+whitespace, as <strong>hex</strong>, else <strong>Base64</strong> if it starts with <code>cHNidP</code>, else
+<strong>Base43</strong> (Electrum's QR form, at most 30000 characters); the bytes are a
+<strong>PSBT</strong> (version 0, BIP-174, or version 2, BIP-370) or a <strong>signed
+transaction</strong> (shown too: no fee, as it doesn't say what its coins were
+worth). Besides that, <strong>BBQr</strong> codes: a series, or one
+(<code>lib/codes.js</code>). Payment requests (<code>bitcoin:</code>), UR codes, and Electrum's
+pre-4.0 format are refused with a message saying so; so is anything
+malformed or truncated, with what is wrong.</p>
+<h2 id="what-it-checks-before-the-keys"><a class="anchor" href="#what-it-checks-before-the-keys" aria-hidden="true" tabindex="-1">#</a>What it checks before the keys</h2>
+<ul>
+<li>The amounts: the input total, outputs, fee (refused as invalid if
+negative; a warning when over 500 sat/vB or 10% of what is spent).</li>
+<li><strong>Claimed change</strong> (the keys decide, later) is an output with a BIP-32 key
+from a wallet (master fingerprint) that also signs the inputs, and whose
+script pays to that key: P2WPKH and P2PKH by RIPEMD-160 (<code>gk:crypto</code>'s <code>ripemd160</code> when the
+system has it; without it the check is skipped and the screen says so),
+P2SH by its redeemScript, P2WSH multisig by its witnessScript. An output
+claiming a wallet key but paying elsewhere is flagged red and counted as
+someone else's. Taproot keys are not checked here (that needs the key
+tweak); once the keys are in, they are (<code>gk:crypto</code>'s
+<code>taprootTweakPublicKey</code>, BIP-86), as all change is.</li>
+<li>Each input's previous transaction against its txid, and against its
+witness UTXO; redeemScripts and witnessScripts against their scripts.</li>
+<li><strong>Electrum's QR codes leave out the previous transactions</strong>
+(<code>convert_all_utxos_to_witness_utxos()</code>, to make the code fit). For
+segwit v0 inputs the amounts are then the PSBT's word: a signature covers
+its own input's amount only, so two signatures of differently-described
+versions can make a transaction with a much larger fee. Shown (blue) when
+there are several inputs. For non-segwit inputs the amount can't be
+checked at all, and a signer needs the previous transaction (amber).</li>
+<li>Inputs with no key origin, inputs from different wallets, non-ALL
+sighash types, dust and OP_RETURN outputs, unmeetable locktimes.</li>
+</ul>
+<p>The size and fee rate are estimated for the signed transaction as Electrum
+does (72-byte signatures): the same vsize as Electrum for every test PSBT.</p>
+<h2 id="speed"><a class="anchor" href="#speed" aria-hidden="true" tabindex="-1">#</a>Speed</h2>
+<p>Electrum's Base43 decoding is quadratic; here it splits the number in
+halves and lets QuickJS's BigInt do the work. In the simulator, decoding
+the largest test code (3823 characters, 2593 bytes, 18 inputs) takes about
+1 ms, encoding it 6 ms and analysing it 2 ms; the simulator estimates a
+Pi Zero at some 40 times that (under half a second for all of it).</p>
+<h2 id="signing-library-lib"><a class="anchor" href="#signing-library-lib" aria-hidden="true" tabindex="-1">#</a>Signing library (<code>lib/</code>)</h2>
+<p>Pure modules, like the PSBT library (<code>lib/psbt/</code>, all but <code>view.js</code>, which
+draws): no <code>gk:*</code> import, so the same files run here and
+under Node (<code>tests/signer/run_node.mjs</code>). Their home is <code>lib/js/bitcoin/</code>
+(<code>lib/js/README.md</code>), the copies here are made by <code>tools/share_libs.py</code>:
+change them there. The signer's own are <code>review.js</code>, <code>codes.js</code>,
+<code>wallet.js</code>, <code>selftest.js</code> and <code>psbt/view.js</code>. The cryptography is given
+once:</p>
+<pre><code class="language-js">import * as crypto from &quot;gk:crypto&quot;;
+import { setCrypto } from &quot;./lib/crypto.js&quot;;
+setCrypto(crypto);          // also gives SHA-256 and RIPEMD-160 to lib/psbt
+</code></pre>
+<h3 id="libbip39js"><a class="anchor" href="#libbip39js" aria-hidden="true" tabindex="-1">#</a><code>lib/bip39.js</code></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mnemonicFromEntropy(entropy)</code></td>
+<td>16, 20, 24, 28 or 32 bytes -&gt; English words.</td>
+</tr>
+<tr>
+<td><code>entropyFromMnemonic(text)</code></td>
+<td>Back, checking the words and the checksum. Any whitespace, either case. <code>Bip39Error</code> names a word's position, never the word.</td>
+</tr>
+<tr>
+<td><code>seedFromMnemonic(mnemonic, passphrase = &quot;&quot;)</code></td>
+<td><code>Uint8Array(64)</code>: PBKDF2-HMAC-SHA512, 2048 rounds, both NFKD (QuickJS has <code>String.prototype.normalize</code>). Doesn't check the words (BIP-39: any text has a seed). About 0.1 s on a Pi Zero.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="libbip32js"><a class="anchor" href="#libbip32js" aria-hidden="true" tabindex="-1">#</a><code>lib/bip32.js</code></h3>
+<p>A node is <code>{ depth, parentFingerprint, childNumber, chainCode, privateKey | null, publicKey }</code>
+(byte arrays; the public key compressed).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fromSeed(seed)</code></td>
+<td>Master node from a 16..64-byte seed (a BIP-93 codex32 secret is one, or a BIP-39 seed).</td>
+</tr>
+<tr>
+<td><code>derive(node, path)</code></td>
+<td><code>&quot;m/84'/0'/0'&quot;</code> (<code>'</code> or <code>h</code>) or <code>[u32]</code>; a new node, intermediate keys wiped.</td>
+</tr>
+<tr>
+<td><code>deriveChild(node, index)</code></td>
+<td>One step.</td>
+</tr>
+<tr>
+<td><code>parsePath(text)</code>, <code>formatPath(path)</code></td>
+<td><code>&quot;m/84h/0'/0'&quot;</code> &lt;-&gt; <code>[0x80000054, ...]</code>, and back as <code>m/84'/0'/0'</code>.</td>
+</tr>
+<tr>
+<td><code>neuter(node)</code>, <code>wipe(node)</code></td>
+<td>The public copy; zeroes a private node's key and chain code.</td>
+</tr>
+<tr>
+<td><code>fingerprint(node)</code>, <code>fingerprintHex(node)</code></td>
+<td>First 4 bytes of HASH160 of the public key.</td>
+</tr>
+<tr>
+<td><code>serializeXpub(node, version)</code></td>
+<td><code>&quot;xpub&quot;</code>, <code>&quot;ypub&quot;</code>, <code>&quot;zpub&quot;</code>, <code>&quot;tpub&quot;</code>, <code>&quot;upub&quot;</code>, <code>&quot;vpub&quot;</code> (SLIP-132).</td>
+</tr>
+<tr>
+<td><code>versionFor(script, network)</code></td>
+<td>The version to export for <code>&quot;p2wpkh&quot;</code>, <code>&quot;p2sh-p2wpkh&quot;</code>, <code>&quot;p2pkh&quot;</code>/<code>&quot;p2tr&quot;</code>.</td>
+</tr>
+<tr>
+<td><code>parseXpub(text)</code></td>
+<td><code>{ node, version, network, script }</code>; refuses private keys and everything BIP-32's test vector 5 lists.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Errors: <code>Bip32Error</code>. Private keys are never serialized.</p>
+<h3 id="libsignjs"><a class="anchor" href="#libsignjs" aria-hidden="true" tabindex="-1">#</a><code>lib/sign.js</code></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>plan(psbt, key, options)</code></td>
+<td>What signing would do, without signing (below).</td>
+</tr>
+<tr>
+<td><code>signPsbt(psbt, key, options)</code></td>
+<td><code>{ psbt, signed: [{ input, path, pubkey }], skipped: [{ input, reason }], plan }</code>. Signs exactly what <code>plan</code> says; <code>psbt</code> is a new, re-parsed PSBT (the one given is left as it was). Adds <code>PSBT_IN_PARTIAL_SIG</code> (DER + sighash byte) or <code>PSBT_IN_TAP_KEY_SIG</code>; each signature is verified first.</td>
+</tr>
+<tr>
+<td><code>planKeys(psbt, keys, options)</code></td>
+<td><code>plan</code> for several keys: <code>{ inputs, outputs, signable, complete, keys: [{ fingerprint, signs }] }</code>. Each output adds <code>claimed</code>, <code>stray</code>, <code>far</code> and <code>unproved</code>. With no keys, it still says which inputs are signed.</td>
+</tr>
+<tr>
+<td><code>signKeys(psbt, keys, options)</code></td>
+<td>Each key in turn: <code>{ psbt, signed, plan }</code>.</td>
+</tr>
+<tr>
+<td><code>partialSigGood(psbt, i, pubkey, signature)</code></td>
+<td>Would the signer accept this signature? <code>null</code>: it can't tell.</td>
+</tr>
+<tr>
+<td><code>verifyChange(psbt, key, options)</code></td>
+<td><code>plan(...).outputs</code>.</td>
+</tr>
+<tr>
+<td><code>finalize(psbt)</code></td>
+<td><code>{ tx, txid, vsize }</code>: the network transaction once every input is signed (<code>SignError</code> naming the first that isn't). Smaller than the PSBT: 592 against 923 Base43 characters for two inputs.</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>psbt</code> comes from <code>parsePsbt()</code>. <code>key</code> is one of:</p>
+<ul>
+<li>a private BIP-32 node at depth 0, a master key;</li>
+<li>a private node deeper down, as an account's xprv. It doesn't know the
+master's fingerprint, so it knows its keys by its own fingerprint or by
+the path and public key the PSBT names: deriving must give that key;</li>
+<li>a single key, <code>{ single: true, privateKey, publicKey }</code>, from <code>keys.js</code>. It
+has no paths: what pays to it is its own.</li>
+</ul>
+<p><code>options</code>:</p>
+<ul>
+<li><code>network</code>: <code>&quot;mainnet&quot;</code>, <code>&quot;testnet&quot;</code> or <code>&quot;regtest&quot;</code>, to flag coin types that don't match.</li>
+<li><code>accounts</code>: account paths whose own fingerprint stands for the master's (Electrum's watch-only wallets, below). Default <code>STANDARD_ACCOUNTS</code>: account 0 of BIP-44, 49, 84 and 86, mainnet and test.</li>
+<li><code>maxIndex</code>: an address index above this is flagged (default 1000000).</li>
+<li><code>aux</code>: taproot's auxiliary randomness, 32 bytes or <code>(input) =&gt; bytes</code>; default fresh random bytes from gk:crypto.</li>
+</ul>
+<p><code>plan()</code> returns</p>
+<pre><code>{ fingerprint: &quot;73c5da0a&quot;, signable, complete,
+  inputs:  [{ index, sign, final, signed, badSignature, mine, type, path: &quot;m/84'/0'/0'/0/3&quot; | null, pubkey (hex) | null,
+              sighash, reason (when not signing) | null, oddities: [string] }],
+  outputs: [{ index, ours, type, path | null, role: &quot;change&quot; | &quot;receive&quot; | null,
+              problem: string | null, oddities: [string] }] }
+</code></pre>
+<p><code>reason</code>, <code>problem</code> and <code>oddities</code> are sentences for people, naming paths
+and positions (never keys). <code>complete</code>: every input would be signed, holds
+a good signature, or is final, so <code>finalize</code> will work after signing.
+<code>signed</code>: it holds a good signature. <code>badSignature</code>: it holds one that doesn't
+verify, or isn't SIGHASH_ALL, which doesn't count. <code>mine</code>: this key has
+something to do with the input.</p>
+<p><strong>An input is signed only if</strong>: it spends P2WPKH, P2SH-P2WPKH, P2TR (BIP-86
+key path, no script tree) or P2PKH; its coin is described (witness UTXO or
+previous transaction, whose txid must match; both must agree; P2PKH needs
+the previous transaction, which Electrum's QR codes leave out; taproot
+needs every input's coin); its sighash type is ALL (taproot: DEFAULT or
+ALL); and one of its derivations has our fingerprint, the key derived at
+its path is the one the PSBT names, and that key is what the coin's script
+pays to (taproot: BIP-86's tweak of it is the output key).</p>
+<p><strong>An uncompressed key</strong> (a WIF) hashes its 65-byte public key. Only P2PKH can
+use one: a segwit script paying to that hash could never be spent, so such a
+coin is refused and such an output isn't ours, whatever the hash says.</p>
+<p><strong>An output is ours</strong> only if deriving its stated path gives the key it
+names and that key's script is the output's script. <code>analyze()</code> (lib/psbt)
+marks outputs &quot;mine&quot; from fingerprints, which anyone can write: show
+<code>plan().outputs</code> instead.</p>
+<p><strong>At home, or stray</strong> (<code>planKeys</code>). Deriving correctly isn't enough: an output
+of ours at a path the wallet never scans is money lost in practice, held to
+ransom by whoever knows the path. An output is at home when, compared with the
+inputs the loaded keys sign or have signed, it is in the same account (the
+path but its last two steps: same purpose, coin type and account), on chain 1
+or 0, and its index is at most <code>CHANGE_GAP</code> (1000) past the inputs' highest.
+The limit counts from the inputs, not from zero, so a wallet with many
+addresses isn't flagged; the price is an amber flag when an old, low-index
+coin pays change far past it, which costs a look, not money. A single key's
+output is at home if that key spends too. Otherwise <code>stray</code> says why.</p>
+<p><strong>Near, or far.</strong> Wallets scan about <code>CHANGE_NEAR</code> (20) addresses ahead, so a
+hostile computer could hide change past that behind a green review. Change at
+home up to <code>CHANGE_NEAR</code> past the inputs' highest index (same account, either
+chain) is green. Past that, <code>far</code> gives its index: it is still change and
+counted as change, but amber, with a note that the wallet finds the coin only
+if it looks that far ahead (gap limit). Past <code>CHANGE_GAP</code> it is stray.</p>
+<p>The Signed page gives the transaction ID, grouped in fours, to compare with what
+the wallet says it broadcast; a partly signed PSBT says it has none yet.</p>
+<p><strong>Multisig</strong> (<code>multisig.js</code>). P2WSH and P2SH-P2WSH m-of-n are signed and
+finalized; only the plain script, with compressed keys, each once. Any other
+witness script is refused. <code>plan().inputs[i].multisig</code> is <code>{ m, n, have, will }</code>:
+signatures good so far, and how many these keys add. An input is <code>signed</code> at m
+good ones; the final witness has exactly m, in the script's order.</p>
+<p>Our key in a change script proves nothing by itself: a hostile computer can
+write 2-of-3 with it and two keys of its own. Nothing is stored here, so the
+others are proved from the PSBT's global xpubs. Change is ours only when
+every input is one wallet (same type, m, n and xpubs), each script's keys and
+xpubs match one to one, the change has exactly that m and n, and its keys share
+one relative path (else it is stray), and each input's keys share one suffix of
+exactly two steps below their xpubs. Change the proved inputs show isn't their
+wallet's is red (<code>problem</code>, <code>notWallet</code>), and counted as sent. Where the proof
+can't be made (no xpubs, inputs not proved, too much to derive) <code>unproved</code> says
+why: amber, and counted as sent. The reasoning is at the top of <code>multisig.js</code>.</p>
+<p>Electrum leaves the xpubs out unless &quot;For hardware device; include xpubs&quot; is
+ticked in the transaction's export menu (desktop), so its multisig change is
+amber by default, with a note saying that. Android has no such option.</p>
+<p><strong>Oddities</strong> (signed anyway, shown to the person): a path that isn't
+m/purpose'/coin'/account'/change/index, a purpose that doesn't match the
+script (84' for P2WPKH...), a coin type for another network, a branch other
+than 0/1, a hardened or very high index, an account other than the inputs',
+change to another script type than the inputs'.</p>
+<h3 id="libcodesjs"><a class="anchor" href="#libcodesjs" aria-hidden="true" tabindex="-1">#</a><code>lib/codes.js</code></h3>
+<p><code>new CodeReader()</code>: <code>read(text, bytes)</code> for each code the camera gives, -&gt;
+<code>{ part: { have, total, added } }</code> or <code>{ payload: { encoding, bytes, kind, chars } }</code>. BBQr series in any order, each part as often as it comes; other
+codes go to <code>readPayload()</code>. <code>DecodeError</code>, for people: a code of another
+series is refused and the series goes on; <code>reset()</code> starts over.
+<code>seriesFor(bytes, kind)</code>: <code>{ version, encoding, parts }</code> to show. <code>lib/bbqr.js</code>
+is a copy of <code>lib/js/bbqr.js</code>.</p>
+<h3 id="libdescriptorjs"><a class="anchor" href="#libdescriptorjs" aria-hidden="true" tabindex="-1">#</a><code>lib/descriptor.js</code></h3>
+<p><code>accountDescriptor({ script, fingerprint, network, account, xpub })</code>: an
+account's BIP-389 descriptor, with its BIP-380 checksum. <code>fingerprint</code> is the
+master's; <code>xpub</code> the plain xpub or tpub of the account. <code>script</code>: <code>&quot;p2wpkh&quot;</code>,
+<code>&quot;p2sh-p2wpkh&quot;</code>, <code>&quot;p2pkh&quot;</code>. <code>descriptorChecksum(text)</code>, <code>checkDescriptor(text)</code>.
+No imports: <code>tools/share_libs.py</code> can copy it anywhere.</p>
+<h3 id="libkeysjs"><a class="anchor" href="#libkeysjs" aria-hidden="true" tabindex="-1">#</a><code>lib/keys.js</code></h3>
+<p><code>parsePrivateKey(text)</code>, by its first letters; <code>parseWif</code>,
+<code>parseExtendedPrivateKey</code>. -&gt; <code>{ key, kind: &quot;wif&quot; | &quot;xprv&quot;, network, script }</code>.
+<code>KeyError</code> for people, never quoting the text.</p>
+<h3 id="libcombinejs"><a class="anchor" href="#libcombinejs" aria-hidden="true" tabindex="-1">#</a><code>lib/combine.js</code></h3>
+<p><code>combine(a, b)</code> -&gt; <code>{ psbt, added, notes: [{ level, text }] }</code>: BIP-174's
+Combiner, for copies of one transaction: same version, same txid, then every
+map's union; <code>CombineError</code> if a key holds two values. Two signatures by one
+key of one input are verified instead: both good, the first stays, with a
+note; only one good, it stays, with a red note; neither, the first stays and
+<code>plan</code> reports it; when it can't tell (a multisig coin), refused.</p>
+<h3 id="libreviewjs"><a class="anchor" href="#libreviewjs" aria-hidden="true" tabindex="-1">#</a><code>lib/review.js</code></h3>
+<p><code>applyPlan(analysis, plan)</code>: what <code>analyze()</code> read as claims, as <code>planKeys</code>
+decided them (the table above). <code>flagSignatures(analysis, plan)</code>: bad
+signatures, with or without keys.</p>
+<h3 id="libsighashjs"><a class="anchor" href="#libsighashjs" aria-hidden="true" tabindex="-1">#</a><code>lib/sighash.js</code></h3>
+<p><code>legacySighash</code>, <code>segwitV0Sighash</code> (BIP-143), <code>taprootSighash</code> and
+<code>taprootSigMsg</code> (BIP-341 key path), for any sighash type (the policy is
+<code>sign.js</code>'s).</p>
+<h3 id="libselftestjs"><a class="anchor" href="#libselftestjs" aria-hidden="true" tabindex="-1">#</a><code>lib/selftest.js</code></h3>
+<p><code>selfTest(crypto)</code> -&gt; <code>{ ok, checks: [{ name, ok, ms }] }</code>: BIP-32 test
+vector 1, a BIP-39 seed to BIP-84's first key, BIP-143's P2SH-P2WPKH
+signature, and a BIP-341 key-path signature, through gk:crypto's
+libsecp256k1. It calls <code>setCrypto(crypto)</code>. About 8 ms in the simulator.</p>
+<h2 id="electrum-and-fingerprints"><a class="anchor" href="#electrum-and-fingerprints" aria-hidden="true" tabindex="-1">#</a>Electrum and fingerprints</h2>
+<p>What Electrum (4.8.3) writes in a PSBT's key derivations:</p>
+<ul>
+<li><strong>A wallet made in Electrum from a BIP-39 seed</strong>:
+the master fingerprint and the full path, <code>73c5da0a</code> <code>m/84'/0'/0'/0/5</code>.</li>
+<li><strong>A watch-only wallet from an xpub/zpub alone</strong>: Electrum doesn't know
+where the key came from, so it writes <strong>the account key's own
+fingerprint</strong> and the path <strong>below</strong> it: <code>fd13aac9</code> <code>m/0/5</code>. (A key at
+depth 0 or 1 would carry its origin, but an account is at depth 3.)</li>
+<li><strong>There is no way to give Electrum the key origin</strong>: its &quot;Use a master
+key&quot; field takes a bare xpub/ypub/zpub only (<code>keystore.is_master_key</code>);
+<code>[73c5da0a/84h/0h/0h]zpub...</code> and descriptors are refused. Only a
+hand-edited wallet file (<code>root_fingerprint</code>, <code>derivation</code>) or a
+hardware-wallet plugin sets it.</li>
+</ul>
+<p>So export the account xpub in the SLIP-132 form for its script type
+(<code>serializeXpub(neuter(derive(master, &quot;m/84'/0'/0'&quot;)), &quot;zpub&quot;)</code>; <code>ypub</code> for
+P2SH-P2WPKH, <code>vpub</code>/<code>upub</code> on testnet: Electrum takes the script type from
+the version). The signer recognises the account's fingerprint (<code>accounts</code>
+option, the standard account-0 paths by default: pass the path you
+exported if it is another one) and rebuilds the full path, then checks the
+key and script as for any input. The tests check this against PSBTs from
+real Electrum watch-only wallets. Electrum 4.8 has no taproot wallets.</p>
+<p>Electrum's QR codes replace each input's previous transaction with the
+output it spends, so its P2PKH inputs can't be signed from a QR code. Electrum loads both what <code>signPsbt</code> gives
+back (the signed PSBT, as <code>electrumQrText(serializePsbt(psbt))</code>) and the
+final transaction (<code>electrumQrText(finalize(psbt).tx)</code>).</p>
+
+</div>
+<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/main/apps/signer/README.md"><code>apps/signer/README.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb/apps/signer/README.md">3e6af247a0b7</a></p>
+</article>
+</div>
+</main>
+<footer class="foot">
+  <div class="foot-in">
+    <p class="foot-brand"><a href="/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a><span>A tiny bare-metal OS for air-gapped apps.</span></p>
+    <p class="foot-links"><a href="/docs/">Documentation</a> · <a href="/download.html">Download</a> · <a href="/ide/">Browser IDE</a> · <a href="https://github.com/marcocarnut/GapKeep">Source on GitHub</a> · <a href="/docs/security.html">Security</a> · <a href="/docs/contributing.html">Contributing</a></p>
+    <p class="foot-privacy">No trackers, no analytics, no cookies, no third-party requests: this site loads nothing from anywhere else, in the spirit of GapKeep.</p>
+    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb"><code>3e6af247a0b7</code></a>.</p>
+  </div>
+</footer>
+</body>
+</html>

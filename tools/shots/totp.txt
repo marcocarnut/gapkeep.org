@@ -1,0 +1,34 @@
+# The clock set by hand (a Pi Zero has no battery-backed clock), then the
+# Authenticator with RFC 6238's well-known example key
+expect Keyboard attached 60
+expect launcher ready 60
+moveto 100% 100%
+tile clock
+expect clock ready
+key tab
+key backspace backspace backspace backspace backspace backspace backspace backspace backspace backspace
+key backspace backspace backspace backspace backspace backspace backspace backspace backspace backspace
+type 2026-11-10 09:41:00
+key ret
+expect clock: set
+wait 1
+shot clock
+key meta_l
+expect launcher ready
+launch totp
+expect totp ready \(clock set\) 10
+key tab
+key ret
+type Example
+key tab
+type alice@example.com
+key tab
+type jbsw y3dp ehpk 3pxp
+key ret
+expect totp: added account 1 5
+key ret
+camera qr otpauth://totp/GapKeep:demo?secret=GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ&issuer=GapKeep
+expect totp: added account 2 20
+camera scene
+wait 1
+shot totp

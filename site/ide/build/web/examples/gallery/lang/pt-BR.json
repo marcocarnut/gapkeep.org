@@ -1,0 +1,36 @@
+{
+  "$language": "pt-BR",
+  "$app": "gallery",
+  "messages": {
+    "Widget Gallery": "Galeria de widgets",
+    "Every gk:ui widget, plus a self-test of the runtime.": "Todos os widgets do gk:ui, e um autoteste do sistema.",
+    "Inputs": "Entradas",
+    "Letters only (accept)": "Só letras (accept)",
+    "Checkbox": "Caixa de seleção",
+    "{n} word": "{n} palavra",
+    "{n} words": "{n} palavras",
+    "Press and drag here": "Pressione e arraste aqui",
+    "Table": "Tabela",
+    "Die": "Dado",
+    "Value": "Valor",
+    "Word": "Palavra",
+    "Markup: <tt>monospaced</tt>, <big>big</big>, <small>small</small>, <u>underlined</u>, <s>struck</s>, <span color='#ffb300'>in colour</span> &amp; &#x20BF;": "Marcação: <tt>monoespaçado</tt>, <big>grande</big>, <small>pequeno</small>, <u>sublinhado</u>, <s>riscado</s>, <span color='#ffb300'>em cor</span> &amp; &#x20BF;",
+    "Data stays text: <tt>{data}</tt>": "Dados continuam texto: <tt>{data}</tt>",
+    "QR": "QR",
+    "Alerts": "Alertas",
+    "No answer yet.": "Nenhuma resposta ainda.",
+    "Ask a question": "Fazer uma pergunta",
+    "Did the self-test pass?": "O autoteste passou?",
+    "Question": "Pergunta",
+    "No": "Não",
+    "Yes": "Sim",
+    "Answer: {choice}": "Resposta: {choice}",
+    "Self-test": "Autoteste",
+    "Running...": "Rodando...",
+    "{passed} passed, {failed} failed": "{passed} passaram, {failed} falharam"
+  },
+  "notes": {
+    "Letters only (accept)": "\"accept\" is the TextArea property it shows: not translated.",
+    "Data stays text: <tt>{data}</tt>": "Markup (docs/APPS.md, \"Markup\"): keep the tags; {data} is shown as text, whatever it holds."
+  }
+}

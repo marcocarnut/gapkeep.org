@@ -1,0 +1,48 @@
+# The Signer: an Electrum PSBT, the transaction first, then the keys
+# (the BIP-39 test phrase "abandon ... about": public, no real funds),
+# then signed. From GapKeep's tests/signer.txt.
+expect Keyboard attached 60
+expect launcher ready 60
+moveto 100% 100%
+tile signer
+expect signer ready 10
+expect signer selftest: 4 passed, 0 failed 30
+wait 0.5
+shot signer-home
+mark
+key ret
+wait 0.3
+mark
+camera qr 24D1-88RR-Z.WXKTJI46L4B:3/95:7CP3QT$3E:3SN+G4E2JB9V2EQ2*-OT-6WI5GK-8XX-I42$8JDY*ER.$/FP35IB+KFKUEY/UR79LODWR1ZOC2NF0MEQCW5X4*+6XXCWGZXXROIYX569TB9NT-QJED3ZFU9N+6YA*UCL2IQGJP8X.*AG25JNGSYA:SG.JYXUJ8+/B8K6*ZM-EV9.ICB1JEWLHYI-PX9I-2SLCTRM$6DQ-8D6M$HI*JO998OW0QV7R1VPSDJM0POA5UX2CM8WV0LTHS:5VGJVXFUHL8Y94S$QI-H:ZV.-J/A-UUV$SWCUTAIO0OS0GYWAPQSLT8D8ZA3F.3T3D31QZF/LGC2L2872O:3UK+3HDMFZCI+M/JKKWW$C-FU261X-MH8Y$9MW5K5TL+8NB/W9C$U68X65JFKJ2*63ZVZYF06O-$-P9KAGCFCE35B4VU6.-.V7ZZX++LWLNIJ/UC-19N/2S7:$BRBSK-61TER08H:T0E:O757V1UKS7N$CX0K::89P35ND63ZP+M70AE*:K:H45X.Z0SL0E7FDEJISIHCZGZ4G$OL/M2.5$GWIUZMSPYUIC.QKBHI-0-LOO
+expect signer: read a PSBT \(base43, 608 characters 15
+expect signer: review: 2 inputs, 0 to sign, 3 outputs 5
+expect signer: change: 1 claimed, 0 checked, 0 stray, 0 unverified, 0 refuted 5
+camera scene
+wait 0.5
+shot signer-review
+key ret
+wait 0.3
+key ret
+wait 0.3
+type ms12zgsqa40sgqvwltnun3f8drxxujvljm648z42my97v2h0
+key ret
+type MS12 ZGSQ CADP 5Q7M V8JL JHZE GN00 LY7V YXSZ CJRW FVJA X6ZD
+key ret
+wait 0.3
+shot signer-shares
+mark
+key ret
+expect signer: key loaded \(bip39, 2 shares\) 30
+wait 0.5
+shot signer-keys
+mark
+key ret
+expect signer: review: 2 inputs, 2 to sign, 3 outputs 5
+expect signer: change: 0 claimed, 1 checked, 0 stray, 0 unverified, 0 refuted 5
+wait 0.5
+shot signer-checked
+mark
+key ret
+expect signer: signed 2 inputs, transaction complete \(SHA-256 dd31fe69d7368962\) 30
+wait 0.5
+shot signer-signed

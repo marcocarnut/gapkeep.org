@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="same-origin">
+<title>Security · GapKeep</title>
+<meta name="description" content="Security: GapKeep documentation">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1d1c23">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="canonical" href="https://gapkeep.org/pt-br/docs/security.html">
+<link rel="alternate" hreflang="en" href="https://gapkeep.org/docs/security.html">
+<link rel="alternate" hreflang="pt-BR" href="https://gapkeep.org/pt-br/docs/security.html">
+<link rel="alternate" hreflang="x-default" href="https://gapkeep.org/docs/security.html">
+<meta property="og:title" content="Security · GapKeep">
+<meta property="og:description" content="Security: GapKeep documentation">
+<meta property="og:image" content="https://gapkeep.org/img/og.png">
+<meta property="og:url" content="https://gapkeep.org/pt-br/docs/security.html">
+<script src="/js/lang.js?v=9238942da1"></script>
+<link rel="preload" href="/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/site.css?v=050b20402d">
+
+<script src="/js/site.js?v=00484c1c07" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="top" id="top">
+  <div class="top-in">
+    <a class="brand" href="/pt-br/" aria-label="Página inicial do GapKeep"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a>
+    <nav class="nav" aria-label="Main">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-list"><span class="bars" aria-hidden="true"></span><span class="sr">Menu</span></button>
+      <ul id="nav-list">
+<li><a href="/pt-br/#why">Por quê</a></li>
+<li><a href="/pt-br/#verify">Veja</a></li>
+<li><a href="/pt-br/#apps">Aplicativos</a></li>
+<li><a href="/pt-br/#hardware">Hardware</a></li>
+<li><a href="/pt-br/#developers">Desenvolvedores</a></li>
+<li><a href="/pt-br/docs/">Documentação</a></li>
+<li><a href="/pt-br/download.html">Baixar</a></li>
+      </ul>
+    </nav>
+    <div class="langs" role="group" aria-label="Idioma"><a href="/docs/security.html" hreflang="en" lang="en" data-lang="en" title="English"><span aria-hidden="true">EN</span><span class="sr">English</span></a><a href="/pt-br/docs/security.html" hreflang="pt-BR" lang="pt-BR" data-lang="pt-BR" title="Português (Brasil)" aria-current="true"><span aria-hidden="true">PT</span><span class="sr">Português (Brasil)</span></a></div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap docs-layout">
+<aside class="doc-side" aria-label="Todos os documentos">
+<details class="doc-toc"><summary>Todos os documentos</summary>
+<p><a href="/pt-br/docs/">Documentação</a></p>
+<h2>Comece aqui</h2><ul><li><a href="/pt-br/docs/readme.html" data-page="readme.html">GapKeep</a></li><li><a href="/pt-br/docs/apps.html" data-page="apps.html">Writing GapKeep apps</a></li><li><a href="/pt-br/docs/agents.html" data-page="agents.html">Writing GapKeep apps: a guide for coding agents</a></li></ul>
+<h2>Guias</h2><ul><li><a href="/pt-br/docs/simulator.html" data-page="simulator.html">The simulator</a></li><li><a href="/pt-br/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/pt-br/docs/camera.html" data-page="camera.html">The camera and QR codes</a></li><li><a href="/pt-br/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/pt-br/docs/rig.html" data-page="rig.html">The hardware test rig</a></li></ul>
+<h2>Referência e projeto</h2><ul><li><a href="/pt-br/docs/api.html" data-page="api.html">GapKeep JavaScript API reference</a></li><li><a href="/pt-br/docs/architecture.html" data-page="architecture.html">GapKeep architecture</a></li><li><a href="/pt-br/docs/design.html" data-page="design.html">GapKeep&#x27;s design decisions</a></li><li><a href="/pt-br/docs/experimental.html" data-page="experimental.html">Experimental features</a></li></ul>
+<h2>Aplicativos</h2><ul><li><a href="/pt-br/docs/apps/signer.html" data-page="apps/signer.html">Signer</a></li><li><a href="/pt-br/docs/apps/dice39.html" data-page="apps/dice39.html">dice39 on GapKeep</a></li><li><a href="/pt-br/docs/apps/codex32.html" data-page="apps/codex32.html">codex32</a></li><li><a href="/pt-br/docs/apps/totp.html" data-page="apps/totp.html">Authenticator</a></li></ul>
+<h2>O projeto</h2><ul><li><a href="/pt-br/docs/security.html" data-page="security.html" aria-current="page">Security</a></li><li><a href="/pt-br/docs/contributing.html" data-page="contributing.html">Contributing to GapKeep</a></li><li><a href="/pt-br/docs/agents-gapkeep.html" data-page="agents-gapkeep.html">Notes for coding agents</a></li></ul>
+<h2>Mais</h2><ul><li><a href="/pt-br/docs/camera/spec.html" data-page="camera/spec.html">Pi Camera Module v2.1 (IMX219) on the Pi Zero v1.3: functional specification</a></li><li><a href="/pt-br/docs/camera/implementation.html" data-page="camera/implementation.html">Pi Camera driver: implementation record</a></li><li><a href="/pt-br/docs/camera/provenance.html" data-page="camera/provenance.html">Provenance of docs/camera/SPEC.md (clean-room record)</a></li><li><a href="/pt-br/docs/i18n/pt-br.html" data-page="i18n/pt-br.html">Glossary: Brazilian Portuguese (pt-BR)</a></li><li><a href="/pt-br/docs/lib-js.html" data-page="lib-js.html">JavaScript libraries for apps</a></li></ul>
+</details>
+</aside>
+<article class="doc" lang="en">
+<p class="doc-note" lang="pt-BR">Por enquanto, a documentação existe só em inglês. O texto abaixo é o original; traduções são bem-vindas.</p>
+<div class="doc-body">
+<h1 id="security">Security</h1>
+<p>GapKeep is meant to handle secrets, so a security problem in it matters more
+than most bugs. Thank you for reporting one.</p>
+<h2 id="reporting-a-vulnerability"><a class="anchor" href="#reporting-a-vulnerability" aria-hidden="true" tabindex="-1">#</a>Reporting a vulnerability</h2>
+<p>Report it privately, through GitHub's private vulnerability reporting: on
+<a href="https://github.com/marcocarnut/GapKeep" rel="noopener">github.com/marcocarnut/GapKeep</a>,
+the <strong>Security</strong> tab, then <strong>Report a vulnerability</strong>. Please never report
+a vulnerability in a public issue, pull request or discussion.</p>
+<p>Say what is affected (the commit or release, and whether it is a production,
+sealed or test build), what an attacker needs (a USB device, a QR code shown
+to the camera, a changed SD card...), and how to reproduce it, if you can.</p>
+<p>You will get a first reply within 7 days. An encrypted email channel will
+come in a later release.</p>
+<h2 id="in-scope"><a class="anchor" href="#in-scope" aria-hidden="true" tabindex="-1">#</a>In scope</h2>
+<ul>
+<li>The kernel (<code>src/</code>) and Circle as GapKeep configures and patches it
+(<code>patches/circle/</code>): USB, keyboard and mouse handling, memory protection.</li>
+<li>The runtime (<code>src/runtime/</code>): the app host, the <code>gk:*</code> modules, the app
+loader and the SD card reader, <code>gapkeep.txt</code>.</li>
+<li>The QR decoder (zxing-cpp as patched in <code>patches/zxing-cpp/</code>, and
+<code>src/runtime/qrdecode.cpp</code>) and the experimental colour QR decoder
+(<code>lib/colorqr</code>).</li>
+<li>The camera driver (<code>src/camera/</code>).</li>
+<li>The apps in <code>apps/</code>, the Signer above all: anything that could sign
+something the person did not see, leak a key or a seed, or show a wrong
+amount, address or change.</li>
+<li>The build: anything that makes a published build differ from what its
+commit says (<code>tools/build.sh</code>, <code>tools/check_reproducible.sh</code>).</li>
+</ul>
+<h2 id="not-a-vulnerability"><a class="anchor" href="#not-a-vulnerability" aria-hidden="true" tabindex="-1">#</a>Not a vulnerability</h2>
+<ul>
+<li><strong>Test builds log to the serial port</strong>, and take commands from it, by
+design: that is how they are tested on QEMU and on real hardware. Never
+use a test build (<code>TEST=1</code>) with real secrets. Production builds have no
+serial driver and never read the serial port. (An app logging a secret,
+in any build, is a bug: please report it.)</li>
+<li>Whoever can write the SD card can replace <code>kernel.img</code> and every app on
+it; the launcher shows each app's hash, and the kernel its own, to be
+compared with published ones (<a href="architecture.html#security-model">docs/ARCHITECTURE.md</a>).</li>
+<li>Physical attacks on a running device (probing its RAM, its bus or its
+power): a Pi Zero has no memory encryption.</li>
+<li>The closed VideoCore firmware, which every Pi system shares.</li>
+<li>The simulator and the browser IDE (<code>sim/</code>): development tools, not meant
+for secrets.</li>
+</ul>
+
+</div>
+<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/main/SECURITY.md"><code>SECURITY.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb/SECURITY.md">3e6af247a0b7</a></p>
+</article>
+</div>
+</main>
+<footer class="foot">
+  <div class="foot-in">
+    <p class="foot-brand"><a href="/pt-br/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a><span>Um sistema operacional mínimo, bare-metal, para aplicativos air-gapped.</span></p>
+    <p class="foot-links"><a href="/pt-br/docs/">Documentação</a> · <a href="/pt-br/download.html">Baixar</a> · <a href="/ide/">IDE no navegador</a> · <a href="https://github.com/marcocarnut/GapKeep">Código no GitHub</a> · <a href="/pt-br/docs/security.html">Segurança</a> · <a href="/pt-br/docs/contributing.html">Como contribuir</a></p>
+    <p class="foot-privacy">Sem rastreadores, sem analytics, sem cookies, sem requisições a terceiros: este site não carrega nada de nenhum outro lugar, no espírito do GapKeep.</p>
+    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb"><code>3e6af247a0b7</code></a>.</p>
+  </div>
+</footer>
+</body>
+</html>

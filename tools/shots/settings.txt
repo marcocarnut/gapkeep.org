@@ -1,0 +1,7 @@
+expect Keyboard attached 60
+expect launcher ready 60
+moveto 100% 100%
+tile settings
+expect settings ready
+wait 1
+shot settings

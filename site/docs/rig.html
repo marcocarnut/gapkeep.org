@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="same-origin">
+<title>The hardware test rig · GapKeep</title>
+<meta name="description" content="The hardware test rig: GapKeep documentation">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1d1c23">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="canonical" href="https://gapkeep.org/docs/rig.html">
+<link rel="alternate" hreflang="en" href="https://gapkeep.org/docs/rig.html">
+<link rel="alternate" hreflang="pt-BR" href="https://gapkeep.org/pt-br/docs/rig.html">
+<link rel="alternate" hreflang="x-default" href="https://gapkeep.org/docs/rig.html">
+<meta property="og:title" content="The hardware test rig · GapKeep">
+<meta property="og:description" content="The hardware test rig: GapKeep documentation">
+<meta property="og:image" content="https://gapkeep.org/img/og.png">
+<meta property="og:url" content="https://gapkeep.org/docs/rig.html">
+<script src="/js/lang.js?v=9238942da1"></script>
+<link rel="preload" href="/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/site.css?v=050b20402d">
+
+<script src="/js/site.js?v=00484c1c07" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Skip to the content</a>
+<header class="top" id="top">
+  <div class="top-in">
+    <a class="brand" href="/" aria-label="GapKeep home"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a>
+    <nav class="nav" aria-label="Main">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-list"><span class="bars" aria-hidden="true"></span><span class="sr">Menu</span></button>
+      <ul id="nav-list">
+<li><a href="/#why">Why</a></li>
+<li><a href="/#verify">See it</a></li>
+<li><a href="/#apps">Apps</a></li>
+<li><a href="/#hardware">Hardware</a></li>
+<li><a href="/#developers">Developers</a></li>
+<li><a href="/docs/">Docs</a></li>
+<li><a href="/download.html">Download</a></li>
+      </ul>
+    </nav>
+    <div class="langs" role="group" aria-label="Language"><a href="/docs/rig.html" hreflang="en" lang="en" data-lang="en" title="English" aria-current="true"><span aria-hidden="true">EN</span><span class="sr">English</span></a><a href="/pt-br/docs/rig.html" hreflang="pt-BR" lang="pt-BR" data-lang="pt-BR" title="Português (Brasil)"><span aria-hidden="true">PT</span><span class="sr">Português (Brasil)</span></a></div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap docs-layout">
+<aside class="doc-side" aria-label="All documents">
+<details class="doc-toc"><summary>All documents</summary>
+<p><a href="/docs/">Documentation</a></p>
+<h2>Start here</h2><ul><li><a href="/docs/readme.html" data-page="readme.html">GapKeep</a></li><li><a href="/docs/apps.html" data-page="apps.html">Writing GapKeep apps</a></li><li><a href="/docs/agents.html" data-page="agents.html">Writing GapKeep apps: a guide for coding agents</a></li></ul>
+<h2>Guides</h2><ul><li><a href="/docs/simulator.html" data-page="simulator.html">The simulator</a></li><li><a href="/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/docs/camera.html" data-page="camera.html">The camera and QR codes</a></li><li><a href="/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/docs/rig.html" data-page="rig.html" aria-current="page">The hardware test rig</a></li></ul>
+<h2>Reference and design</h2><ul><li><a href="/docs/api.html" data-page="api.html">GapKeep JavaScript API reference</a></li><li><a href="/docs/architecture.html" data-page="architecture.html">GapKeep architecture</a></li><li><a href="/docs/design.html" data-page="design.html">GapKeep&#x27;s design decisions</a></li><li><a href="/docs/experimental.html" data-page="experimental.html">Experimental features</a></li></ul>
+<h2>Apps</h2><ul><li><a href="/docs/apps/signer.html" data-page="apps/signer.html">Signer</a></li><li><a href="/docs/apps/dice39.html" data-page="apps/dice39.html">dice39 on GapKeep</a></li><li><a href="/docs/apps/codex32.html" data-page="apps/codex32.html">codex32</a></li><li><a href="/docs/apps/totp.html" data-page="apps/totp.html">Authenticator</a></li></ul>
+<h2>The project</h2><ul><li><a href="/docs/security.html" data-page="security.html">Security</a></li><li><a href="/docs/contributing.html" data-page="contributing.html">Contributing to GapKeep</a></li><li><a href="/docs/agents-gapkeep.html" data-page="agents-gapkeep.html">Notes for coding agents</a></li></ul>
+<h2>More</h2><ul><li><a href="/docs/camera/spec.html" data-page="camera/spec.html">Pi Camera Module v2.1 (IMX219) on the Pi Zero v1.3: functional specification</a></li><li><a href="/docs/camera/implementation.html" data-page="camera/implementation.html">Pi Camera driver: implementation record</a></li><li><a href="/docs/camera/provenance.html" data-page="camera/provenance.html">Provenance of docs/camera/SPEC.md (clean-room record)</a></li><li><a href="/docs/i18n/pt-br.html" data-page="i18n/pt-br.html">Glossary: Brazilian Portuguese (pt-BR)</a></li><li><a href="/docs/lib-js.html" data-page="lib-js.html">JavaScript libraries for apps</a></li></ul>
+</details>
+</aside>
+<article class="doc" lang="en">
+
+<div class="doc-body">
+<h1 id="the-hardware-test-rig">The hardware test rig</h1>
+<p>GapKeep is developed mostly in QEMU, but QEMU is not a Pi Zero. The rig lets
+the same test scenarios run on a real Pi Zero with no person at the keyboard.
+A second Raspberry Pi (here a Pi 5: the rig's Linux host) is wired to the Zero
+and:</p>
+<ul>
+<li>resets it, through its RUN pad;</li>
+<li>sends it kernels over the serial line, to Circle's serial bootloader on the
+Zero's SD card, so the card never changes;</li>
+<li>reads its log and takes screenshots over the same serial line (test builds
+only);</li>
+<li>acts as its USB keyboard and mouse (Linux USB gadget on the Pi 5's USB-C port).</li>
+</ul>
+<h2 id="wiring"><a class="anchor" href="#wiring" aria-hidden="true" tabindex="-1">#</a>Wiring</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Pi 5 (rig)</th>
+<th>Pi Zero</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pin 6, GND</td>
+<td>pin 6, GND</td>
+</tr>
+<tr>
+<td>pin 8, GPIO14 (TXD)</td>
+<td>pin 10, GPIO15 (RXD)</td>
+</tr>
+<tr>
+<td>pin 10, GPIO15 (RXD)</td>
+<td>pin 8, GPIO14 (TXD)</td>
+</tr>
+<tr>
+<td>pin 11, GPIO17</td>
+<td>RUN pad (pulled low to reset; otherwise left floating)</td>
+</tr>
+<tr>
+<td>pin 2, 5 V (optional)</td>
+<td>pin 2, 5 V; then nothing in the Zero's PWR port</td>
+</tr>
+</tbody>
+</table></div>
+<p>USB: from the Pi 5's USB-C port (a USB-C plug to USB-A socket OTG adapter),
+then a data A-to-micro-B cable into the Zero's &quot;USB&quot; port (not &quot;PWR&quot;). Tape
+over the A plug's VBUS contact (pin 1, an outer one) so the two boards'
+5 V supplies never meet. The Zero enumerates the gadget without VBUS, and a
+plain cable is fine (no OTG ID wiring needed).</p>
+<p>The Pi 5 then needs power from elsewhere (here PoE), since its USB-C port is
+busy.</p>
+<h2 id="sd-card"><a class="anchor" href="#sd-card" aria-hidden="true" tabindex="-1">#</a>SD card</h2>
+<p><code>tools/make_sdcard.sh</code> fills <code>sdcard/</code> with the Pi firmware, Circle's serial
+bootloader (921600 baud), a <code>config.txt</code> and the test card's <code>apps</code> folder
+(<code>tests/sdcard</code>); copy all of it to a FAT32 card. This is done once.
+Test kernels sent over serial read that <code>apps</code> folder like a real system;
+<code>tests/sdapps.txt</code> checks it, and runs on the rig only with
+<code>GK_RIG_SDAPPS=1</code> (cards made before the folder existed lack it).</p>
+<h2 id="setting-up-the-rig"><a class="anchor" href="#setting-up-the-rig" aria-hidden="true" tabindex="-1">#</a>Setting up the rig</h2>
+<p>On the Pi 5 (Raspberry Pi OS, bookworm):</p>
+<ul>
+<li><code>/boot/firmware/config.txt</code> gets <code>dtoverlay=uart0-pi5</code> (UART0 on GPIO14/15
+as <code>/dev/ttyAMA0</code>) and <code>dtoverlay=dwc2,dr_mode=peripheral</code> (USB-C as a
+gadget); then reboot.</li>
+<li><code>python3-serial</code> and <code>python3-pil</code> are needed.</li>
+<li>The user running the tools must be in <code>dialout</code> (serial) and <code>gpio</code>
+(<code>pinctrl</code>).</li>
+<li><code>sudo tools/rig/gadget.sh up</code> creates the keyboard and mouse (<code>/dev/hidg0</code>,
+<code>/dev/hidg1</code>). <strong>Do this before resetting the Zero after every rig
+reboot</strong>, or install <code>tools/rig/gapkeep-gadget.service</code> to do it at boot
+(instructions inside). See &quot;Known issues&quot;.</li>
+<li><strong>If the Zero stops finding the keyboard</strong> (its log: <code>dwhci: Control transfer timed out</code>, <code>Cannot get device descriptor</code>; the Pi 5's <code>dmesg</code>
+shows <code>new device is high-speed</code> but no <code>new address</code>), the gadget is
+wedged although its service says active: <code>sudo systemctl restart gapkeep-gadget</code> (or <code>sudo tools/rig/gadget.sh up</code>). Seen once, on
+2026-11-04, after the rig had been up for two days.</li>
+<li><strong>Camera:</strong> a Pi Camera Module v2.1 is plugged into the Zero, looking
+at a printed QR code. <code>tests/picamera.txt</code> (rig only) uses it through
+<code>#camera pi</code> (docs/CAMERA.md). Other scenarios keep the synthetic
+camera, which test kernels start with. In this setup, no QR code was in
+the camera's view on 2026-11-04: it showed the ceiling
+(docs/camera/IMPLEMENTATION.md).</li>
+<li>Test commands on the serial line (<code>#camera ...</code>, <code>#crash ...</code>) are read
+by polling the UART's 16-byte FIFO from the main loop, so <code>gkrig.py</code>
+sends long lines in pieces of 12 bytes, 0.6 s apart.</li>
+</ul>
+<h2 id="using-it"><a class="anchor" href="#using-it" aria-hidden="true" tabindex="-1">#</a>Using it</h2>
+<p>From the development machine, which reaches the rig's Linux host over ssh
+(with a key, so that no password is asked for each copy). Say which host
+with <code>GK_RIG</code> or <code>--rig</code>; there is no default:</p>
+<pre><code class="language-sh">export GK_RIG=user@host                        # the rig's Linux host, as ssh reaches it
+tools/rig/run_hw_tests.sh                      # every scenario in tests/
+tools/rig/run_hw_tests.sh tests/dice39.txt     # one scenario
+tools/rig/run_hw_tests.sh --rig user@otherhost # another rig, this once
+</code></pre>
+<p>This builds a test kernel for the Pi (<code>tools/build.sh pi TEST=1</code>), copies it
+with the rig tools to <code>~/gapkeep-rig</code> on the rig, plays each scenario and
+fetches screenshots and logs. Each scenario starts with a reset and a fresh
+upload (about 33 s).</p>
+<p><strong>Aiming the camera:</strong> <code>tools/rig/camview.py</code> shows the Pi Camera in a window
+on the development machine, a 640x480 grey frame every 3.5 s or so, with lines
+marking the middle. It builds and sends a test kernel and opens the scanner
+(about a minute); <code>--no-flash</code> skips that when the scanner is already open.
+It finds the rig as <code>run_hw_tests.sh</code> does (<code>GK_RIG</code> or <code>--rig</code>).</p>
+<p>On the rig itself, <code>gkrig.py</code> does the individual steps:</p>
+<pre><code class="language-sh">python3 gkrig.py reset                  # reset the Zero
+python3 gkrig.py flash kernel.hex --log 20   # upload, run, print the log for 20 s
+python3 gkrig.py log 10                 # print the serial log for 10 s
+python3 gkrig.py shot screen.png        # screenshot (test builds)
+python3 gkrig.py peek [kernel.hex]      # the camera's grey frames, as PGM on stdout
+python3 gkrig.py run kernel.hex scenario.txt --out DIR
+</code></pre>
+<p>Scenarios are the same files QEMU runs (<code>tests/*.txt</code>, see
+<code>tools/qemu_harness.py</code>). On the rig, <code>shot</code> and <code>serialshot</code> both take the
+screenshot over the serial line. Positions for <code>moveto</code> can be given as a
+percentage of the screen size, because the Zero's screen size depends on the
+monitor (1824x984 on a 1080p monitor with the firmware's default overscan,
+640x480 in QEMU).</p>
+<p>Rig-only scenario commands and serial commands (test builds, <code>src/testshot.h</code>):</p>
+<ul>
+<li><code>serialraw &lt;name&gt;</code>: the Pi camera's next raw frame (RAW8 Bayer, 13 s at
+921600 baud) as <code>&lt;name&gt;.raw</code>, with its size, exposure and gains in
+<code>&lt;name&gt;.raw.json</code>; <code>tests/camraw.txt</code> takes the colour bars and the scene
+in both of the scanner's modes.</li>
+<li><code>send #experimental on</code>: experimental features on, as <code>experimental = yes</code>
+in <code>gapkeep.txt</code> would (the rig's card never changes); the launcher lists
+the experimental apps from its next start (<code>tests/colorqr_hw.txt</code>).</li>
+<li><code>camera picture &lt;name&gt;</code>: one of the colour codes of <code>tests/colorqr</code>, built
+into test kernels, for the synthetic camera.</li>
+</ul>
+<p>After a <code>serialshot</code>, wait a second before the next <code>send</code>: the Zero reads
+no commands while it sends the screenshot.</p>
+<h2 id="how-it-works"><a class="anchor" href="#how-it-works" aria-hidden="true" tabindex="-1">#</a>How it works</h2>
+<ul>
+<li><strong>Reset:</strong> <code>pinctrl set 17 op dl</code>, 100 ms, then <code>pinctrl set 17 ip pn</code>
+(floating again: RUN has its own pull-up on the Zero).</li>
+<li><strong>Upload:</strong> Circle's bootloader (<code>circle/tools/bootloader</code>) announces
+<code>IHEX-F</code>. <code>gkrig.py</code> first sends <code>R</code> (noise during reset can leave the
+bootloader in its error state, which only <code>R</code> leaves), then the kernel as
+the bootloader's binary records (<code>=</code> and the Intel HEX record's bytes: half
+the size of HEX text), waits for <code>#EOF:ok</code> and sends <code>g</code>.</li>
+<li><strong>Log:</strong> the kernel logs at 921600 baud.</li>
+<li><strong>Screenshots:</strong> <code>#shot</code> on the serial line, answered by test builds only
+(<code>src/testshot.*</code>, <code>tools/serialshot.py</code>).</li>
+<li><strong>Keyboard and mouse:</strong> <code>tools/rig/gadget.sh</code> (configfs; boot-protocol
+keyboard with 8-byte reports and a 3-button mouse with relative 8-bit
+X/Y). <code>gkrig.py</code> translates the scenarios' QEMU key names to HID usage
+codes.</li>
+</ul>
+<h2 id="known-issues"><a class="anchor" href="#known-issues" aria-hidden="true" tabindex="-1">#</a>Known issues</h2>
+<ul>
+<li>A USB device that is connected but never answers used to hang Circle's
+USB enumeration, and with it the boot; the rig's USB controller is in that
+state between its driver loading and <code>gadget.sh up</code>. Control transfers
+now time out after 3 s (<code>patches/circle/0003-dwhci-control-transfer-timeout.patch</code>),
+so such a device no longer hangs the boot. The rig still brings the gadget
+up before it resets the Zero, so that the keyboard and mouse are found.</li>
+<li>Circle's mouse driver read uninitialized memory for report items a mouse
+doesn't have (a wheel, typically), which asserted on the first report.
+Fixed in <code>patches/circle/0001-usbmouse-zero-unused-report-items.patch</code>.</li>
+</ul>
+
+</div>
+<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/main/docs/RIG.md"><code>docs/RIG.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb/docs/RIG.md">3e6af247a0b7</a></p>
+</article>
+</div>
+</main>
+<footer class="foot">
+  <div class="foot-in">
+    <p class="foot-brand"><a href="/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a><span>A tiny bare-metal OS for air-gapped apps.</span></p>
+    <p class="foot-links"><a href="/docs/">Documentation</a> · <a href="/download.html">Download</a> · <a href="/ide/">Browser IDE</a> · <a href="https://github.com/marcocarnut/GapKeep">Source on GitHub</a> · <a href="/docs/security.html">Security</a> · <a href="/docs/contributing.html">Contributing</a></p>
+    <p class="foot-privacy">No trackers, no analytics, no cookies, no third-party requests: this site loads nothing from anywhere else, in the spirit of GapKeep.</p>
+    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb"><code>3e6af247a0b7</code></a>.</p>
+  </div>
+</footer>
+</body>
+</html>

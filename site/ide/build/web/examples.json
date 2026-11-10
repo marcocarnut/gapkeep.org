@@ -1,0 +1,146 @@
+{
+ "apps": {
+  "launcher": [
+   "main.js",
+   "manifest.json",
+   "lang/pt-BR.json"
+  ],
+  "settings": [
+   "main.js",
+   "manifest.json",
+   "lang/pt-BR.json"
+  ],
+  "hello": [
+   "main.js",
+   "manifest.json",
+   "lang/pt-BR.json"
+  ],
+  "gallery": [
+   "main.js",
+   "manifest.json",
+   "selftest.js",
+   "lang/pt-BR.json",
+   "lib/util.js"
+  ],
+  "dice39": [
+   "LICENSE-dice39.txt",
+   "README.md",
+   "main.js",
+   "manifest.json",
+   "package.json",
+   "lang/pt-BR.json",
+   "lib/bip32.js",
+   "lib/bip39.js",
+   "lib/crypto.js",
+   "lib/cryptoshim.js",
+   "lib/descriptor.js",
+   "lib/entropypad.js",
+   "lib/pubkey.js",
+   "lib/selftest.js",
+   "lib/strings.js",
+   "lib/psbt/basen.js",
+   "lib/psbt/bytes.js",
+   "lib/psbt/hashes.js",
+   "vendor/bip39core.js",
+   "vendor/codex32.js",
+   "vendor/dice.js",
+   "vendor/wordlist.js"
+  ],
+  "qrscan": [
+   "main.js",
+   "manifest.json",
+   "lang/pt-BR.json"
+  ],
+  "clock": [
+   "main.js",
+   "manifest.json",
+   "lang/pt-BR.json"
+  ],
+  "totp": [
+   "README.md",
+   "main.js",
+   "manifest.json",
+   "lang/pt-BR.json",
+   "lib/hotp.js",
+   "lib/parse.js",
+   "lib/selftest.js"
+  ],
+  "codex32": [
+   "LICENSE-dice39.txt",
+   "README.md",
+   "main.js",
+   "manifest.json",
+   "lang/pt-BR.json",
+   "lib/codex32.js",
+   "lib/cryptoshim.js",
+   "lib/messages.js",
+   "lib/selftest.js",
+   "lib/strings.js",
+   "lib/vectors.js",
+   "vendor/codex32.js",
+   "vendor/recover.js",
+   "vendor/wordlist.js"
+  ],
+  "signer": [
+   "LICENSE-dice39.txt",
+   "README.md",
+   "main.js",
+   "manifest.json",
+   "lang/pt-BR.json",
+   "lib/bbqr.js",
+   "lib/bip32.js",
+   "lib/bip39.js",
+   "lib/codes.js",
+   "lib/codex32.js",
+   "lib/codex32messages.js",
+   "lib/combine.js",
+   "lib/crypto.js",
+   "lib/descriptor.js",
+   "lib/keys.js",
+   "lib/multisig.js",
+   "lib/review.js",
+   "lib/selftest.js",
+   "lib/sighash.js",
+   "lib/sign.js",
+   "lib/text.js",
+   "lib/wallet.js",
+   "lib/psbt/analyze.js",
+   "lib/psbt/basen.js",
+   "lib/psbt/bech32.js",
+   "lib/psbt/bytes.js",
+   "lib/psbt/hashes.js",
+   "lib/psbt/psbt.js",
+   "lib/psbt/script.js",
+   "lib/psbt/transport.js",
+   "lib/psbt/tx.js",
+   "lib/psbt/view.js",
+   "vendor/codex32.js",
+   "vendor/recover.js",
+   "vendor/wordlist.js"
+  ],
+  "repl": [
+   "LICENSE-dice39.txt",
+   "main.js",
+   "manifest.json",
+   "lang/pt-BR.json",
+   "lib/bip32.js",
+   "lib/bip39.js",
+   "lib/btc.js",
+   "lib/crypto.js",
+   "lib/descriptor.js",
+   "lib/keys.js",
+   "lib/text.js",
+   "lib/psbt/basen.js",
+   "lib/psbt/bech32.js",
+   "lib/psbt/bytes.js",
+   "lib/psbt/hashes.js",
+   "lib/psbt/script.js",
+   "vendor/wordlist.js"
+  ],
+  "colorqr": [
+   "main.js",
+   "manifest.json",
+   "lang/pt-BR.json"
+  ]
+ }
+}

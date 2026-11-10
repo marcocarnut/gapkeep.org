@@ -1,0 +1,145 @@
+// What the Signer's screens need from the signing library, in one place:
+// keys (from codex32 shares, seed words, an xprv, a WIF), the public key for
+// Electrum, the plan, signing, the self-test.
+//
+// A loaded key is { node (for sign.js), kind: "seed" | "xprv" | "wif",
+// fingerprint, description, master: can it export an account, network }.
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+import * as crypto from "gk:crypto";
+import { setCrypto } from "./crypto.js";
+import { t } from "./text.js";
+import { ENTROPY_LENGTHS, mnemonicFromEntropy, entropyFromMnemonic, seedFromMnemonic } from "./bip39.js";
+import { fromSeed, derive, neuter, wipe, fingerprintHex, serializeXpub, versionFor } from "./bip32.js";
+import { parsePrivateKey } from "./keys.js";
+import { accountDescriptor, cosignerKey } from "./descriptor.js";
+import { planKeys, signKeys, finalize, STANDARD_ACCOUNTS } from "./sign.js";
+import { serializePsbt } from "./psbt/psbt.js";
+import { selfTest as libSelfTest } from "./selftest.js";
+
+setCrypto(crypto);
+
+// The public keys on offer. (Electrum has no taproot wallets, and its QR codes
+// can't carry a P2PKH transaction to sign: legacy accounts need another wallet.)
+export const EXPORTS = [
+  { id: "p2wpkh", purpose: 84, name: t("Native segwit (BIP-84)") },
+  { id: "p2sh-p2wpkh", purpose: 49, name: t("Nested segwit (BIP-49)") },
+  { id: "p2pkh", purpose: 44, name: t("Legacy (BIP-44)") },
+  { id: "p2tr", purpose: 86, name: t("Taproot (BIP-86)"),
+    note: t("An xpub alone doesn't say it is taproot: give the wallet the descriptor.") },
+  { id: "p2wsh", purpose: 48, name: t("Multisig cosigner (BIP-48)"), below: "/2'" },
+];
+
+const coin = (network) => (network === "mainnet" ? 0 : 1);
+const accountPath = (purpose, network, account) => `m/${purpose}'/${coin(network)}'/${account}'`;
+
+export const MAX_ACCOUNT = 0x7fffffff;
+
+// What sign.js should take for an account's own fingerprint: Electrum's
+// watch-only wallets write it in their PSBTs, as they can't know the master's.
+// Account 0 of each kind always; `account` too.
+export function accountsFor(account) {
+  if (!account) return STANDARD_ACCOUNTS;
+  return [...STANDARD_ACCOUNTS, ...[0, 1].flatMap((c) => [...[84, 49, 86, 44].map((p) => `m/${p}'/${c}'/${account}'`), `m/48'/${c}'/${account}'/2'`])];
+}
+
+const fromSeedBytes = (seed, description) => {
+  try {
+    const node = fromSeed(seed);
+    return { node, kind: "seed", fingerprint: fingerprintHex(node), description, master: true, network: null };
+  } finally {
+    seed.fill(0);
+  }
+};
+
+// What a key came from, for people (a Message: the app translates it)
+const fromWords = (n, passphrase) => (passphrase ? t("a {n}-word seed phrase and a passphrase", { n })
+  : t("a {n}-word seed phrase, no passphrase", { n }));
+
+// A key from a codex32 secret. meaning: "bip39" (dice39's shares: BIP-39
+// entropy, words, then the seed with the passphrase) or "bip32" (BIP-93: the
+// secret is the master seed). The secret is the caller's to wipe.
+export function loadKey(secret, { meaning, passphrase = "" }) {
+  if (meaning !== "bip39") {
+    return fromSeedBytes(Uint8Array.from(secret), t("a {bytes}-byte BIP-32 master seed", { bytes: secret.length }));
+  }
+  if (!ENTROPY_LENGTHS.includes(secret.length)) {
+    const text = t("The shares hold {bytes} bytes: not a seed phrase's entropy (16 to 32 bytes). Maybe they hold a " +
+      "master seed (the other choice).", { bytes: secret.length });
+    throw Object.assign(new RangeError(String(text)), { text });
+  }
+  let mnemonic = mnemonicFromEntropy(secret);
+  const seed = seedFromMnemonic(mnemonic, passphrase);
+  mnemonic = null;
+  return fromSeedBytes(seed, fromWords(secret.length * 3 / 4, passphrase));
+}
+
+// A key from BIP-39 words. Throws Bip39Error (bad word, bad checksum).
+export function loadWords(text, passphrase = "") {
+  const entropy = entropyFromMnemonic(text);
+  const n = entropy.length * 3 / 4;
+  entropy.fill(0);
+  return fromSeedBytes(seedFromMnemonic(text, passphrase), fromWords(n, passphrase));
+}
+
+// A key from an xprv (and SLIP-132's yprv, zprv...) or a WIF. Throws KeyError.
+export function loadPrivate(text) {
+  const { key, kind, network, compressed } = parsePrivateKey(text);
+  if (kind === "wif") {
+    return { node: key, kind, fingerprint: fingerprintHex(key), master: false, network,
+      description: compressed ? t("a single private key (WIF)")
+        : t("a single uncompressed private key (WIF), for legacy coins only") };
+  }
+  const master = key.depth === 0;
+  return { node: key, kind, fingerprint: fingerprintHex(key), master, network,
+    description: master ? t("a master private key (xprv)") : t("an extended private key at depth {depth}", { depth: key.depth }) };
+}
+
+export function wipeKey(key) {
+  if (!key || !key.node) return;
+  wipe(key.node);
+  key.node = null;
+}
+
+// The account's public key: as Electrum takes it ("Use a master key"), and as
+// a descriptor, for wallets that want the key's origin.
+// -> { text, descriptor, path, fingerprint (the account key's: what Electrum
+// calls the wallet's, as it can't know the master's), master (fingerprint) }
+export function exportKey(key, id, network, account = 0) {
+  const x = EXPORTS.find((e) => e.id === id);
+  const path = accountPath(x.purpose, network, account) + (x.below || "");
+  const node = derive(key.node, path);
+  try {
+    const pub = neuter(node);
+    const xpub = serializeXpub(pub, network === "mainnet" ? "xpub" : "tpub");
+    return { text: serializeXpub(pub, versionFor(id, network)), path, fingerprint: fingerprintHex(pub), master: key.fingerprint,
+      descriptor: id === "p2wsh" ? cosignerKey({ fingerprint: key.fingerprint, network, account, xpub })
+        : accountDescriptor({ script: id, fingerprint: key.fingerprint, network, account, xpub }) };
+  } finally {
+    wipe(node);
+  }
+}
+
+const nodes = (keys) => keys.map((k) => k.node);
+
+export const plan = (psbt, keys, options) => planKeys(psbt, nodes(keys), options);
+
+// -> { psbt (bytes), tx (bytes, when every input is signed) | null, txid (hex,
+// as wallets show it) | null, count }
+export function sign(psbt, keys, options) {
+  const r = signKeys(psbt, nodes(keys), options);
+  const final = r.plan.complete ? finalize(r.psbt) : null;
+  return { psbt: serializePsbt(r.psbt), tx: final && final.tx, txid: final && final.txid, count: new Set(r.signed.map((s) => s.input)).size };
+}
+
+// -> { passed, failed: [names] }
+export function selfTest() {
+  let r;
+  try {
+    r = libSelfTest(crypto);
+  } catch (e) {
+    return { passed: 0, failed: [`the self-test stopped: ${e && e.message}`] };
+  }
+  return { passed: r.checks.filter((c) => c.ok).length, failed: r.checks.filter((c) => !c.ok).map((c) => c.name) };
+}

@@ -1,0 +1,17 @@
+# The REPL: JavaScript typed on the device; widgets too
+expect Keyboard attached 60
+expect launcher ready 60
+moveto 100% 100%
+tile repl
+expect repl ready
+type [1, 2, 3].map(x => x * x).reduce((a, b) => a + b)
+key ret
+expect repl: ran \d+ characters: number
+key shift-tab
+key ret
+key down down down down down
+key ret
+key ret
+expect repl: ran \d+ characters: Label widget
+wait 0.5
+shot repl

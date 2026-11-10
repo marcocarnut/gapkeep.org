@@ -1,0 +1,459 @@
+<!--meta {"title": "GapKeep: um sistema operacional mínimo, bare-metal, para aplicativos air-gapped", "description": "O GapKeep transforma um Raspberry Pi Zero, o modelo sem rádio, num computador que liga em uns dois segundos e não guarda nada. Aplicativos em JavaScript; Bitcoin primeiro, e muito mais. Experimente no navegador."} -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <p class="eyebrow"><span class="pill">Software livre · GPLv3 · novo</span></p>
+      <h1 id="hero-title">Gap<b>Keep</b></h1>
+      <p class="tagline">Um sistema operacional mínimo, bare-metal, para aplicativos <em>air&#8209;gapped</em>.</p>
+      <p class="lede">O GapKeep transforma um Raspberry Pi Zero, o modelo simples, sem rádio nenhum, num computador que liga em uns dois segundos, não guarda nada e só deixa os dados atravessarem onde você pode ver. Feito para segredos: chaves de Bitcoin primeiro, e muito mais.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="/ide/">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5Z"/></svg>
+          Experimente agora, sem instalar nada
+        </a>
+        <a class="btn" href="download.html">Baixar</a>
+        <a class="btn" href="https://github.com/marcocarnut/GapKeep">GitHub</a>
+      </div>
+      <p class="cta-note">O runtime de verdade do GapKeep, compilado para WebAssembly, com um editor e os aplicativos de exemplo, no seu navegador. Nada para instalar, nenhuma conta para criar. (A IDE ainda está em inglês.)</p>
+    </div>
+    <!-- PHOTO PLACEHOLDER: troque toda esta <figure> por uma foto de um Pi Zero
+         rodando o GapKeep (ver a versão em inglês, content/en/index.html). -->
+    <figure class="hero-figure" data-placeholder="hero-photo">
+      <div class="monitor">
+        <div class="screen">
+          <img src="{{shot:launcher}}" width="640" height="480" alt="O lançador do GapKeep: blocos para Relógio, codex32, dice39, Galeria de widgets, Leitor de QR code e REPL, com o SHA-256 do aplicativo selecionado embaixo.">
+          <div class="boot" aria-hidden="true"><span>GapKeep</span></div>
+          <div class="glare" aria-hidden="true"></div>
+        </div>
+      </div>
+      {{pizero}}
+      <figcaption>O lançador, do jeito que o GapKeep o desenha (no simulador). A foto do aparelho de verdade vem aí.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="facts" aria-label="O GapKeep em números">
+  <ul class="wrap">
+    <!-- DRAFT: verify after security fixes (boot time, card never written) -->
+    <li><strong>~2<span> s</span></strong><p>de ligar até o lançador na tela</p></li>
+    <li><strong>0 <span>rádios</span></strong><p>o Pi Zero simples não tem Wi-Fi nem Bluetooth</p></li>
+    <li><strong>0 <span>bytes</span></strong><p>gravados no cartão SD, nunca</p></li>
+    <li><strong>1 <span>núcleo</span></strong><p>e 512 MB: um computador de 5 dólares dá conta</p></li>
+  </ul>
+</section>
+
+<section class="section" id="why" aria-labelledby="why-title">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow"><span class="num">01</span>O pequeno é bonito</p>
+      <h2 id="why-title">Um computador pequeno, uma só tarefa: lidar com segredos offline.</h2>
+      <p class="lede">Sem Linux, sem pilha de rede, sem driver para nada além de tela, teclado, mouse e câmera. O GapKeep é um único programa para o Pi Zero, que já inicia direto num runtime JavaScript com interface gráfica. Pequeno o bastante para ser lido, rápido para ligar e feito para que você possa conferir o que está rodando.</p>
+    </div>
+    <div class="cards five reveal">
+      <article class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div>
+        <h3>Liga em uns dois segundos</h3>
+        <p>Ligou, e em cerca de dois segundos o lançador está na tela. Os aplicativos abrem na hora: não há mais nada para carregar.</p>
+      </article>
+      <article class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 9h6v6H9zM9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg></div>
+        <h3>Bom desempenho num computador de 5 dólares</h3>
+        <p>Um núcleo ARM e 512 MB bastam para explicar e assinar uma transação de Bitcoin no próprio aparelho. Derivar uma chave de uma frase-semente leva cerca de um décimo de segundo.</p>
+      </article>
+      <article class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></div>
+        <h3>Amnésico: nada fica salvo</h3>
+        <!-- DRAFT: verify after security fixes -->
+        <p>O GapKeep nunca grava no cartão SD. O que um aplicativo guarda é apagado quando ele fecha, e tudo some ao desligar.</p>
+      </article>
+      <article class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M10 7v3M13 7v3"/><path d="M3 17l3-3M3 14l3 3" /></svg></div>
+        <h3>O cartão pode sair</h3>
+        <!-- DRAFT: verify after security fixes -->
+        <p>O cartão SD é lido uma vez só, ao ligar. Com o lançador na tela, você pode tirar o cartão e guardá-lo em outro lugar; tudo continua funcionando até desligar.</p>
+      </article>
+      <article class="card amber">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+        <h3>Genérico, não só cripto</h3>
+        <p>Aplicativos são pequenos programas em JavaScript. O Bitcoin veio primeiro, mas um autenticador, um relógio e um REPL já vêm junto, e há mais a caminho.</p>
+      </article>
+    </div>
+    <blockquote class="quote reveal">
+      <p>Nos anos 80, <span>todo computador era air&#8209;gapped.</span><i class="cursor" aria-hidden="true"></i></p>
+      <footer>O GapKeep traz um pouco disso de volta, de propósito.</footer>
+    </blockquote>
+  </div>
+</section>
+
+<section class="section alt" id="verify" aria-labelledby="verify-title">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow"><span class="num">02</span>Veja e confira</p>
+      <h2 id="verify-title">O que importa acontece onde você pode ver.</h2>
+      <p class="lede">Segurança que depende de confiar numa caixa-preta é difícil de conferir. O GapKeep prefere mostrar o que faz: de onde vem a aleatoriedade das suas chaves, cada dado que atravessa o air gap e o código que está rodando. Tudo isso pode ser conferido por uma pessoa, com os próprios olhos.</p>
+    </div>
+
+    <figure class="gap-diagram reveal" aria-labelledby="gap-caption">
+      <div class="gap-row">
+        <div class="gap-node">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="9" width="38" height="24" rx="3"/><path d="M17 41h14M24 33v8"/><path d="M14 18c3-4 7-4 10 0s7 4 10 0" stroke-linecap="round"/></svg>
+          <strong>Seu computador online</strong>
+          <span>uma carteira, um site: na rede</span>
+        </div>
+        <div class="gap-mid" aria-hidden="true">
+          <div class="wall"></div>
+          <div class="lane in"><span class="lbl">QR code → câmera</span><i class="packet"></i></div>
+          <div class="lane out"><span class="lbl">tela → QR code</span><i class="packet"></i></div>
+          <span class="wall-label">air gap</span>
+        </div>
+        <div class="gap-node gk">
+          <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M9 2h14q7 0 7 7v14q0 7-7 7H9q-7 0-7-7V9q0-7 7-7Zm1 4.5h12q3.5 0 3.5 3.5v12q0 3.5-3.5 3.5H10q-3.5 0-3.5-3.5V10q0-3.5 3.5-3.5Z"/><rect x="11" y="11" width="10" height="10" rx="2.5" fill="#ffc300"/></svg>
+          <strong>GapKeep</strong>
+          <span>sem rede, sem rádio, sem nada em que grave</span>
+        </div>
+      </div>
+      <div class="gap-foot">
+        <p><strong>Entrada: teclado ou câmera</strong>O que você digita, e QR codes mostrados à câmera.</p>
+        <p><strong>Saída: a tela</strong>Texto que você lê, e QR codes que a câmera de outro aparelho lê.</p>
+        <p><strong>Mais nada</strong>Qualquer celular também lê um QR code: dá para ver exatamente o que atravessou.</p>
+      </div>
+      <figcaption id="gap-caption" class="sr">Os dados só chegam ao GapKeep como QR codes mostrados à câmera, ou digitados; e só saem como o que está na tela.</figcaption>
+    </figure>
+
+    <div class="feature reveal">
+      <div class="feature-text">
+        <p class="kicker">Entropia que se vê</p>
+        <h3>Sua semente vem de dados que você mesmo jogou.</h3>
+        <p>Uma chave só é tão boa quanto a sua aleatoriedade, e a aleatoriedade de um chip ninguém vê. O dice39 gera frases-semente BIP-39 com dados de verdade e uma moeda: você joga, procura a palavra numa tabela impressa e digita. O aparelho completa as palavras que faltam com o seu gerador aleatório de hardware, misturado com os seus próprios toques, e calcula o checksum.</p>
+        <ul class="checks">
+          <li>As palavras que você tirou nos dados são mantidas literalmente, e a tela mostra quais vieram de você e quais do aparelho.</li>
+          <li>O que você digita é conferido na hora, e os prováveis erros são apontados, nunca corrigidos às escondidas.</li>
+          <li>Depois, divida a frase em partições codex32, para guardar em lugares diferentes.</li>
+        </ul>
+      </div>
+      <div class="shot-pair">
+        <figure class="shot"><img src="{{shot:dice39-start}}" width="640" height="480" loading="lazy" alt="A página inicial do dice39: do que você precisa (uma moeda, dados, as tabelas impressas) e como ler os dados."><figcaption>O método, no próprio aparelho.</figcaption></figure>
+        <figure class="shot"><img src="{{shot:dice39-words}}" width="640" height="480" loading="lazy" alt="Uma frase de 24 palavras no dice39: as palavras de 1 a 12 marcadas como suas, literais, e as de 13 a 24 como deste dispositivo."><figcaption>Suas palavras em verde; as do aparelho, em âmbar.</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="feature flip reveal">
+      <div class="feature-text">
+        <p class="kicker">Cada mensagem, às claras</p>
+        <h3>O que atravessa o air gap é um QR code que você pode ler.</h3>
+        <p>Uma transação preparada por uma carteira online chega como QR code. O Assinador mostra o que ela faz antes de qualquer chave entrar na memória: quanto é enviado, para quais endereços, a taxa, e quais saídas só <em>dizem</em> ser o seu troco até uma chave provar. Você assina; o resultado sai como um QR code na tela, que a sua carteira lê de volta.</p>
+        <ul class="checks">
+          <li>Sem cabo, sem arquivo, sem canal escondido: só códigos que você vê, e que pode decodificar com qualquer celular, se quiser conferir.</li>
+          <li>Os endereços aparecem em grupos de quatro caracteres, para comparar com os de quem recebe.</li>
+          <li>Os alertas têm cores: vermelho é não assine; âmbar, confira.</li>
+        </ul>
+      </div>
+      <div class="shot-pair">
+        <figure class="shot"><img src="{{shot:signer-review}}" width="640" height="480" loading="lazy" alt="O resumo de uma transação no Assinador: envia para 2 endereços, troco declarado ainda não conferido, a taxa, um aviso azul sobre valores segwit, e as saídas."><figcaption>Primeiro a transação, depois as chaves.</figcaption></figure>
+        <figure class="shot"><img src="{{shot:signer-signed}}" width="640" height="480" loading="lazy" alt="A transação assinada como um grande QR code, com o ID da transação e os botões Concluir, esquecer as chaves; Próxima; Mostrar como PSBT; Mostrar como BBQr."><figcaption>O resultado assinado, em QR code para a carteira.</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="feature reveal">
+      <div class="feature-text">
+        <p class="kicker">Código que se confere</p>
+        <h3>O que roda tem um hash, e o hash está na tela.</h3>
+        <!-- DRAFT: verify after security fixes -->
+        <p>O lançador mostra o SHA-256 de cada aplicativo, e ele cobre cada linha de JavaScript que o aplicativo executa: aplicativos nunca compartilham código em tempo de execução. O kernel mostra o hash do seu próprio código. As compilações do GapKeep são reproduzíveis: o mesmo commit gera o mesmo kernel, byte a byte, onde quer que seja compilado. Assim, os hashes na sua tela podem ser comparados com os publicados.</p>
+        <p><a href="docs/architecture.html#security-model">O modelo de segurança, em detalhe (em inglês)</a></p>
+      </div>
+      <figure class="shot"><img src="{{shot:launcher}}" width="640" height="480" loading="lazy" alt="O lançador com o dice39 selecionado; embaixo: dice39 0.1.0, cartão SD, apps/dice39, e o seu SHA-256."><figcaption>O SHA-256 de cada aplicativo, no rodapé do lançador.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="amnesiac" aria-labelledby="amnesiac-title">
+  <div class="wrap">
+    <div class="feature">
+      <div class="feature-text reveal">
+        <p class="eyebrow"><span class="num">03</span>Amnésico de propósito</p>
+        <h2 id="amnesiac-title">Suas chaves não moram aqui. Só estão de passagem.</h2>
+        <!-- DRAFT: verify after security fixes -->
+        <p class="lede">O GapKeep não armazena chave nenhuma, nem criptografada. As chaves ficam em outro lugar: no papel, como palavras da frase-semente, ou divididas em partições codex32 guardadas em lugares diferentes, onde nenhuma partição sozinha é a chave. Quando uma tarefa precisa de uma, você traz as partições, digitadas ou mostradas à câmera. O GapKeep as recombina na memória, faz a tarefa e as esquece.</p>
+      </div>
+      <figure class="shot reveal"><img src="{{shot:signer-shares}}" width="640" height="480" loading="lazy" alt="A página de partições codex32 do Assinador: duas partições digitadas, cada uma conferida (partição A e partição C, identificador ZGSQ, limiar 2), e o campo da frase-senha."><figcaption>Duas partições codex32, digitadas como estão escritas no papel.</figcaption></figure>
+    </div>
+    <ol class="steps reveal">
+      <li><strong>Traga as partições</strong><span>Digitadas em grupos de quatro, como no papel, ou lidas pela câmera. Cada uma é conferida enquanto você digita.</span></li>
+      <li><strong>Recombine na memória</strong><span>Partições suficientes refazem a chave, só para esta tarefa.</span></li>
+      <li><strong>Faça a tarefa</strong><span>Assinar uma transação, mostrar uma chave pública, recuperar as palavras.</span></li>
+      <li><strong>Esqueça</strong><span>As chaves são apagadas; a memória liberada é zerada. Ao desligar, não sobra nada.</span></li>
+    </ol>
+    <!-- DRAFT: verify after security fixes -->
+    <div class="callout teal reveal">
+      <p><strong>Perdeu o aparelho? Não perdeu nada.</strong>Um GapKeep desligado não guarda chave nenhuma: pode ser perdido, roubado ou examinado sem revelar uma. O que você precisa proteger é algo que dá para ver e contar: suas partições, no papel.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="apps" aria-labelledby="apps-title">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow"><span class="num">04</span>Aplicativos</p>
+      <h2 id="apps-title">Bitcoin primeiro. Não só Bitcoin.</h2>
+      <p class="lede">Criptomoedas são o primeiro uso do GapKeep, e o mais desenvolvido. Mas um computador que guarda segredos offline serve para muito mais, e os seus aplicativos são programas pequenos que qualquer um pode escrever e ler.</p>
+    </div>
+    <div class="scroller reveal" data-scroller>
+      <div class="track" tabindex="0" role="region" aria-label="Os aplicativos (rola para o lado)">
+        <article class="card"><img src="{{shot:signer-checked}}" width="640" height="480" loading="lazy" alt="O Assinador, com as chaves carregadas: saída de troco comprovada, 2 entradas para assinar."><div class="body"><span class="tag">Bitcoin</span><h3>Assinador</h3><p>Mostra o que uma transação faz, depois a assina. PSBTs vindas dos QR codes do Electrum; chaves de partições codex32, palavras da frase-semente, uma xprv ou uma WIF. Confere o troco antes de chamá-lo de troco.</p></div></article>
+        <article class="card"><img src="{{shot:dice39-share}}" width="640" height="480" loading="lazy" alt="O dice39 dividindo uma frase em partições codex32 2 de 3, cada uma com um botão de QR code."><div class="body"><span class="tag">Bitcoin</span><h3>dice39</h3><p>Frases-semente a partir de dados que você vê, com a aleatoriedade do aparelho misturada. Divida em partições codex32, mostre SeedQR, exporte a chave pública.</p></div></article>
+        <article class="card"><img src="{{shot:codex32-typo}}" width="640" height="480" loading="lazy" alt="O codex32 recusando uma partição com um caractere digitado errado, e dizendo qual é o mais provável."><div class="body"><span class="tag">Bitcoin</span><h3>codex32</h3><p>Recombina partições codex32 na frase. Um caractere digitado errado é detectado, e o aplicativo diz qual deve ser: você confere no papel.</p></div></article>
+        <article class="card"><img src="{{shot:totp}}" width="640" height="480" loading="lazy" alt="O Autenticador mostrando duas contas com códigos de seis dígitos e os segundos restantes."><div class="body"><span class="tag">Além de cripto</span><h3>Autenticador</h3><p>Códigos de verificação em duas etapas (TOTP), como os dos autenticadores de celular. Contas por QR code ou chave digitada; só na memória, até desligar.</p></div></article>
+        <article class="card"><img src="{{shot:clock}}" width="640" height="480" loading="lazy" alt="O aplicativo Relógio: a hora, o fuso (UTC), o campo de hora local e o ajuste."><div class="body"><span class="tag">Além de cripto</span><h3>Relógio</h3><p>O Pi Zero não tem relógio com bateria. Acerte a hora à mão, comparando com uma referência, com fuso e ajuste de desvio.</p></div></article>
+        <article class="card"><img src="{{shot:repl}}" width="640" height="480" loading="lazy" alt="O REPL: JavaScript digitado numa caixa, e o resultado mostrado abaixo como texto formatado."><div class="body"><span class="tag">Além de cripto</span><h3>REPL</h3><p>Digite JavaScript no aparelho e veja o que acontece, widgets inclusive. Uma biblioteca de Bitcoin está à mão, para experimentos.</p></div></article>
+        <article class="card"><img src="{{shot:qrscan}}" width="640" height="480" loading="lazy" alt="O Leitor de QR code mostrando a imagem da câmera com um QR code contornado em verde, e o seu texto abaixo."><div class="body"><span class="tag">Ferramentas</span><h3>Leitor de QR code</h3><p>Mostra o que um QR code contém, lido com o mesmo driver de câmera e o mesmo decodificador que todos os aplicativos usam.</p></div></article>
+        <article class="card"><img src="{{shot:settings}}" width="640" height="480" loading="lazy" alt="O aplicativo Configurações: idioma, formato dos números e layout do teclado."><div class="body"><span class="tag">Sistema</span><h3>Configurações</h3><p>Idioma (inglês ou português do Brasil), formato dos números e layout do teclado, até desligar.</p></div></article>
+        <article class="card soon"><div class="body"><span class="tag">Planejado</span><h3>E depois</h3><p>Um conjunto de aplicativos PGP, com as chaves públicas em pastas de dados no cartão. Quem sabe até um joguinho: um computador tão pequeno também tem que ser divertido. <a href="#developers">Ou o seu aplicativo.</a></p></div></article>
+      </div>
+      <div class="scroll-btns"><button type="button" data-dir="-1" aria-label="Aplicativos anteriores">‹</button><button type="button" data-dir="1" aria-label="Próximos aplicativos">›</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="developers" aria-labelledby="dev-title">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow"><span class="num">05</span>Para desenvolvedores</p>
+      <h2 id="dev-title">Um aplicativo é uma pasta de JavaScript.</h2>
+      <p class="lede">Os aplicativos rodam no QuickJS (JavaScript moderno) e desenham com o LVGL através de um módulo, o <code>gk:ui</code>. Cada um roda sozinho, no seu próprio runtime, e só chega ao sistema pelos módulos <code>gk:*</code> que o seu manifesto permite. Escreva no navegador, rode num simulador, coloque num cartão.</p>
+    </div>
+    <div class="dev-grid">
+      <div>
+      <div class="code-card reveal" lang="en">
+        <div class="bar"><i></i><i></i><i></i><span>apps/hello/main.js</span></div>
+<pre><code><span class="k">import</span> * <span class="k">as</span> ui <span class="k">from</span> <span class="s">"gk:ui"</span>;
+
+<span class="k">const</span> label = <span class="k">new</span> ui.<span class="f">Label</span>({
+  text: <span class="s">"Olá, air gap!"</span>,
+  font: 28,
+});
+<span class="k">new</span> ui.<span class="f">Button</span>({
+  text: <span class="s">"Clique"</span>,
+  onClick: () =&gt; (label.text = <span class="s">"Clicou!"</span>),
+});</code></pre>
+      </div>
+      <figure class="shot dev-shot reveal"><a href="/ide/"><img src="/img/ide.png" width="1440" height="860" loading="lazy" alt="A IDE no navegador: os arquivos do aplicativo hello à esquerda, o código no editor, o GapKeep rodando-o à direita e o log embaixo."></a><figcaption>A IDE rodando o aplicativo hello: os arquivos de um cartão simulado, o editor, a tela do GapKeep e o seu log.</figcaption></figure>
+      </div>
+      <div class="dev-list reveal">
+        <article class="card"><h3>Uma IDE no navegador, sem instalar nada</h3><p>O runtime de verdade compilado para WebAssembly, o editor Monaco com autocompletar para cada módulo <code>gk:*</code>, e uma câmera que filma os QR codes que você digitar, ou a sua webcam.</p></article>
+        <article class="card"><h3>Um simulador, pixel por pixel</h3><p>O mesmo runtime na sua máquina: os mesmos widgets, fontes, verificações e limites. As capturas de tela batem com as do aparelho, pixel por pixel.</p></article>
+        <article class="card"><h3>Os mesmos testes, em todo lugar</h3><p>Um só conjunto de cenários roda no simulador em segundos, no QEMU em minutos, e num Pi Zero de verdade, comandado por uma bancada de testes.</p></article>
+        <article class="card"><h3>Uma única descrição da API</h3><p>A API é descrita uma vez só; a referência e os tipos TypeScript são gerados dela, e um teste a confere com o runtime.</p></article>
+        <article class="card"><h3>Um guia para agentes de IA</h3><p>Escrito para agentes de programação, e igualmente útil para gente: o ciclo de escrever, rodar e olhar, com capturas de tela que um agente consegue ler.</p></article>
+      </div>
+    </div>
+    <div class="ide-banner reveal">
+      <div><h3>Experimente agora, sem instalar nada.</h3><p>Mexa nos aplicativos de exemplo, ou comece o seu, e rode no GapKeep dentro do navegador.</p></div>
+      <div class="cta"><a class="btn btn-primary" href="/ide/">Abrir a IDE</a><a class="btn" href="docs/apps.html">Escrevendo aplicativos</a><a class="btn" href="docs/agents.html">Guia para agentes</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="hardware" aria-labelledby="hw-title">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow"><span class="num">06</span>Hardware</p>
+      <h2 id="hw-title">Do que você precisa.</h2>
+      <p class="lede">Um Raspberry Pi Zero, uma tela e um teclado. Tudo coisa de prateleira.</p>
+    </div>
+    <div class="hw-grid">
+      <figure class="hw-figure reveal">
+        {{pizero}}
+        <ul class="callouts">
+          <li><b>MINI HDMI</b>Para a tela, com cabo ou adaptador mini-HDMI.</li>
+          <li><b>USB</b>O teclado (e o mouse), por um adaptador OTG ou um hub.</li>
+          <li><b>PWR</b>Só alimentação: uma fonte micro-USB.</li>
+          <li><b>CAMERA</b>O Camera Module v2.1, com o cabo mais estreito do Zero.</li>
+          <li><b>MICRO SD</b>O cartão do GapKeep: lido ao ligar, depois pode sair.</li>
+        </ul>
+        <figcaption class="sr">Desenho de um Raspberry Pi Zero v1.3: as portas mini-HDMI, USB e PWR numa borda comprida, o encaixe do microSD numa ponta e o conector da câmera na outra.</figcaption>
+      </figure>
+      <div class="reveal">
+        <p class="hw-sub">O mínimo</p>
+        <ul class="hw-list">
+          <li><span class="n">01</span><div><strong>Raspberry Pi Zero v1.3</strong><span>O Zero simples, sem nada sem fio. Não o Zero W nem o Zero 2 W: esses têm rádio.</span></div></li>
+          <li><span class="n">02</span><div><strong>Um cartão microSD</strong><span>Para a imagem do GapKeep. Ele só é lido, nunca gravado.</span></div></li>
+          <li><span class="n">03</span><div><strong>Uma tela HDMI e um cabo ou adaptador mini-HDMI</strong><span>A saída de vídeo do Zero é mini-HDMI.</span></div></li>
+          <li><span class="n">04</span><div><strong>Um teclado USB com fio, e um adaptador OTG</strong><span>Micro-USB (macho) para USB-A (fêmea), na porta marcada USB, não na PWR.</span></div></li>
+          <li><span class="n">05</span><div><strong>Uma fonte micro-USB</strong><span>Na porta marcada PWR.</span></div></li>
+        </ul>
+        <p class="hw-sub">Recomendado</p>
+        <ul class="hw-list">
+          <li class="opt"><span class="n">+</span><div><strong>Raspberry Pi Camera Module v2.1, com um cabo de câmera para o Zero</strong><span>Altamente recomendado: para os QR codes que entram e saem. O conector de câmera do Zero é mais estreito que o dos outros Pis, então ele precisa do cabo flat próprio do Zero, não do cabo padrão que vem com o módulo. Outros módulos de câmera (1, 3, HQ) e câmeras USB não são suportados por enquanto.</span></div></li>
+          <li class="opt"><span class="n">+</span><div><strong>Um mouse com fio, e um pequeno hub USB</strong><span>O mouse dá conforto, mas não é necessário: todo aplicativo funciona só com o teclado. Um hub liga os dois na única porta USB.</span></div></li>
+        </ul>
+        <div class="callout red">
+          <p><strong>Use teclado e mouse com fio.</strong>Um teclado sem fio põe um rádio de volta no canal mais sensível que existe: tudo o que você digita. Não adianta o computador não ter rádio se o teclado conversa pelo ar.</p>
+        </div>
+        <div class="callout teal">
+          <p><strong>Por que o Pi Zero simples?</strong>Ele não tem hardware de Wi-Fi nem de Bluetooth: o air gap está no hardware, não numa configuração que alguém possa religar. O GapKeep é feito para o Pi Zero v1.3 com 512 MB, e testado nele.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="security" aria-labelledby="sec-title">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow"><span class="num">07</span>Segurança, com franqueza</p>
+      <h2 id="sec-title">Para que ele foi feito, e o que ele não resolve.</h2>
+      <p class="lede">O objetivo do GapKeep é uma máquina em que segredos são criados e manipulados sem nenhuma saída além do que uma pessoa lê na tela. Ele é novo e ainda não foi auditado por pessoas: leia isto como intenção de projeto, e confira.</p>
+    </div>
+    <!-- DRAFT: verify after security fixes. Every claim in this section. -->
+    <div class="sec-grid reveal">
+      <article class="card">
+        <h3>O que foi projetado</h3>
+        <ul class="checks">
+          <!-- DRAFT: verify after security fixes -->
+          <li><strong>Sem rede, sem rádio.</strong> O Pi Zero não tem hardware de rádio, e o GapKeep não tem pilha de rede.</li>
+          <!-- DRAFT: verify after security fixes -->
+          <li><strong>Pouco a atacar.</strong> Os drivers USB se resumem a hubs, teclados e mouses; as versões de produção não têm driver de porta serial.</li>
+          <!-- DRAFT: verify after security fixes -->
+          <li><strong>Um cartão só de leitura.</strong> Lido uma vez, ao ligar, por um driver FAT compilado sem o código de escrita; nunca gravado.</li>
+          <!-- DRAFT: verify after security fixes -->
+          <li><strong>Um decodificador de QR reforçado.</strong> Testado com fuzzing, com códigos danificados e forjados; os aplicativos recebem o texto decodificado, nunca as imagens.</li>
+          <!-- DRAFT: verify after security fixes -->
+          <li><strong>Proteção de memória.</strong> O código é só de leitura e é a única memória executável; canários e guarda de pilha; a memória liberada é zerada.</li>
+          <!-- DRAFT: verify after security fixes -->
+          <li><strong>Compilações verificáveis.</strong> Reproduzíveis, com compilador e firmware fixados; o kernel e cada aplicativo mostram os seus hashes.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Contra o que ele não protege</h3>
+        <ul class="checks x">
+          <!-- DRAFT: verify after security fixes -->
+          <li><strong>Um cartão trocado.</strong> Quem puder gravar o cartão SD pode substituir o kernel e os aplicativos. Compare os hashes da tela com os publicados.</li>
+          <!-- DRAFT: verify after security fixes -->
+          <li><strong>Ataques físicos ao aparelho ligado.</strong> O Pi Zero não criptografa a memória: sondar a RAM ou o barramento com ele ligado está fora do escopo.</li>
+          <!-- DRAFT: verify after security fixes -->
+          <li><strong>O firmware de boot fechado do Pi,</strong> do qual todo sistema no Pi depende. Ele é fixado por hash.</li>
+          <!-- DRAFT: verify after security fixes -->
+          <li><strong>Exploits em código nativo entre aplicativos.</strong> Os aplicativos rodam em runtimes JavaScript separados, mas no mesmo espaço de endereçamento.</li>
+          <li><strong>O que qualquer um pode ver.</strong> O que está na tela pode ser visto por quem, ou por qualquer câmera que, consiga ver a tela.</li>
+          <!-- DRAFT: verify after security fixes -->
+          <li><strong>Versões de teste e o simulador.</strong> Versões de teste registram log na porta serial, de propósito; nenhum dos dois serve para segredos de verdade.</li>
+        </ul>
+      </article>
+    </div>
+    <p class="reveal">Achou um problema? Informe em particular, pelo <a href="https://github.com/marcocarnut/GapKeep/security/advisories/new">relato privado de vulnerabilidades do GitHub</a>, nunca numa issue pública. Mais em <a href="docs/security.html">SECURITY</a> e no <a href="docs/architecture.html#security-model">modelo de segurança</a> (em inglês).</p>
+  </div>
+</section>
+
+<section class="section alt" id="seedsigner" aria-labelledby="ss-title">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow"><span class="num">08</span>E o SeedSigner?</p>
+      <h2 id="ss-title">Se você só quer Bitcoin, o SeedSigner é ótimo.</h2>
+      <!-- To verify before launch: the statements about SeedSigner below. -->
+      <p class="lede">O <a href="https://seedsigner.com">SeedSigner</a> é um assinador de Bitcoin de código aberto já consagrado, também montado com um Raspberry Pi Zero e uma câmera, também air-gapped e sem estado, com uma comunidade que está nessa há anos. Se tudo o que você precisa é de um assinador de Bitcoin, recomendamos o SeedSigner. O GapKeep também deve a ele: o SeedQR, o QR code de frases-semente que o dice39 e o codex32 mostram, é criação do SeedSigner.</p>
+    </div>
+    <div class="reveal">
+      <p>Os dois têm muito em comum, mas o escopo é diferente. O SeedSigner é um assinador de Bitcoin. O GapKeep é uma pequena plataforma para aplicativos air-gapped em geral, pensada também para quem desenvolve; assinar transações de Bitcoin é um dos seus aplicativos.</p>
+      <table class="compare">
+        <thead><tr><th scope="col"><span class="sr">Aspecto</span></th><th scope="col">SeedSigner</th><th scope="col">GapKeep</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Escopo</th><td data-h="SeedSigner">Assinatura de Bitcoin, focada e completa.</td><td data-h="GapKeep">Qualquer aplicativo air-gapped; Bitcoin primeiro, e já um autenticador e mais.</td></tr>
+          <tr><th scope="row">Na mão</th><td data-h="SeedSigner">Uma telinha com joystick e botões, no próprio Pi: portátil.</td><td data-h="GapKeep">Uma tela HDMI e um teclado USB (e mouse): um computador de mesa.</td></tr>
+          <tr><th scope="row">Software</th><td data-h="SeedSigner">Um aplicativo em Python.</td><td data-h="GapKeep">Bare-metal, sem Linux; aplicativos em JavaScript, que qualquer um pode escrever.</td></tr>
+          <tr><th scope="row">Maturidade</th><td data-h="SeedSigner">Anos de uso, funciona com muitas carteiras.</td><td data-h="GapKeep">Novo. Electrum, por enquanto; procuram-se revisores.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq" aria-labelledby="faq-title">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow"><span class="num">09</span>Perguntas</p>
+      <h2 id="faq-title">Perguntas frequentes.</h2>
+    </div>
+    <div class="faq reveal">
+      <details>
+        <summary>Por que não Linux?</summary>
+        <div><p>O Linux é maravilhoso, e enorme: milhões de linhas, com rede, armazenamento, rádios e drivers para milhares de dispositivos, e tudo isso teria de ser confiável ou ser removido. O GapKeep precisa de uma tela, um teclado, um mouse, uma câmera e um cartão que ele só lê. Construído direto sobre o hardware (com o <a href="https://github.com/rsta2/circle">Circle</a>), o sistema inteiro é pequeno o bastante para se entender, liga em uns dois segundos e não tem pilha de rede para tirar: nunca teve.</p></div>
+      </details>
+      <details>
+        <summary>Por que JavaScript?</summary>
+        <div><p>Para que os aplicativos sejam fáceis de escrever, e fáceis de ler. Código que lida com as suas chaves deve poder ser lido pelo maior número possível de pessoas, e muita gente lê JavaScript. O <a href="https://bellard.org/quickjs/">QuickJS</a> é um motor pequeno, com JavaScript moderno; o trabalho pesado e sensível (hashes, HMAC, assinaturas secp256k1) é feito em código nativo, por baixo. O hash de cada aplicativo cobre cada linha de JavaScript que ele executa.</p></div>
+      </details>
+      <details>
+        <summary>Ele foi auditado?</summary>
+        <div><p>Por pessoas, ainda não. Uma revisão independente feita por uma IA já foi concluída, e as correções do que ela encontrou estão em andamento. Revisores humanos são muito bem-vindos: o código está no <a href="https://github.com/marcocarnut/GapKeep">GitHub</a>, e problemas de segurança podem ser relatados em particular (<a href="docs/security.html">SECURITY</a>). Até o GapKeep ter passado por mais olhos, cuidado com o que você confia a ele.</p></div>
+      </details>
+      <details>
+        <summary>Funciona sem a câmera?</summary>
+        <div><p>Quase tudo, sim. Tudo o que entra pode ser digitado: partições codex32, palavras da frase-semente, chaves do autenticador. Os resultados aparecem na tela. Já o Assinador lê as transações como QR codes, então precisa da câmera; por isso ela é altamente recomendada.</p></div>
+      </details>
+      <details>
+        <summary>Quais carteiras funcionam com o Assinador?</summary>
+        <div><p>O <a href="https://electrum.org">Electrum</a>, por enquanto: ele monta a transação e a mostra como QR code, e lê a transação assinada de volta da tela do GapKeep. Para transações grandes demais para um código só, o Assinador mostra QR codes animados no formato BBQr, o formato em várias partes que o Coldcard e o Sparrow usam (o Electrum não lê BBQr). Uma carteira web companheira, a GapWallet, vem aí. Detalhes na <a href="docs/apps/signer.html">documentação do Assinador</a> (em inglês).</p></div>
+      </details>
+      <details>
+        <summary>Posso escrever o meu próprio aplicativo?</summary>
+        <div><p>Pode, e a ideia é essa. Abra a <a href="/ide/">IDE no navegador</a>, parta de um exemplo e rode. Quando estiver pronto, exporte e copie para a pasta <code>apps</code> de um cartão: o lançador mostra o hash dele. Comece por <a href="docs/apps.html">Escrevendo aplicativos</a>; com um agente de IA, pelo <a href="docs/agents.html">guia para agentes</a> (em inglês).</p></div>
+      </details>
+      <details>
+        <summary>Já dá para usar?</summary>
+        <div><p>Ele roda em hardware de verdade, e todos os cenários de teste passam num Pi Zero. Mas é novo: as imagens para cartão SD ainda não foram publicadas (você pode <a href="docs/readme.html#building">montar uma a partir do código</a>), e o código precisa de mais revisão. Experimente, tente quebrar, conte para a gente; por enquanto, deixe o dinheiro de verdade com ferramentas de histórico mais longo.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="giants" aria-labelledby="giants-title">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow"><span class="num">10</span>Agradecimentos</p>
+      <h2 id="giants-title">Estamos sobre ombros de gigantes.</h2>
+      <p class="lede">O GapKeep é pequeno porque outros fizeram as coisas grandes, lindamente, e as deram de presente.</p>
+    </div>
+    <div class="giants reveal">
+      <article class="giant">
+        <h3>QuickJS</h3>
+        <p class="who">de Fabrice Bellard</p>
+        <p>Um motor de JavaScript moderno e completo em meia dúzia de arquivos C: pequeno o bastante para caber num sistema bare-metal, rápido para iniciar e claro o bastante para ser lido. Todo aplicativo do GapKeep roda nele. O mesmo autor também nos deu o QEMU, onde rodam os testes do GapKeep.</p>
+        <p class="links"><a href="https://bellard.org/quickjs/">bellard.org/quickjs</a> · <a href="https://github.com/bellard/quickjs/blob/master/LICENSE">licença MIT</a></p>
+      </article>
+      <article class="giant">
+        <h3>LVGL</h3>
+        <p class="who">a Light and Versatile Graphics Library</p>
+        <p>Cada pixel que o GapKeep desenha: os widgets, as fontes, o realce de foco, a rolagem, num framebuffer puro, sem sistema operacional por baixo. Caprichada, rápida e feita para máquinas pequenas, por uma comunidade generosa.</p>
+        <p class="links"><a href="https://lvgl.io">lvgl.io</a> · <a href="https://github.com/lvgl/lvgl/blob/master/LICENCE.txt">licença MIT</a></p>
+      </article>
+    </div>
+    <ul class="credits reveal">
+      <li><strong><a href="https://github.com/rsta2/circle">Circle</a></strong>, o ambiente C++ bare-metal para Raspberry Pi de Rene Stange: USB, tela, interrupções, temporizadores. O sistema inteiro é construído sobre ele. <span class="lic"><a href="https://github.com/rsta2/circle/blob/master/LICENSE">GPLv3</a></span></li>
+      <li><strong><a href="https://github.com/zxing-cpp/zxing-cpp">zxing-cpp</a></strong>, o decodificador de QR code que lê o que a câmera vê. <span class="lic"><a href="https://github.com/zxing-cpp/zxing-cpp/blob/master/LICENSE">Apache 2.0</a></span></li>
+      <li><strong><a href="https://github.com/bitcoin-core/secp256k1">libsecp256k1</a></strong>, a biblioteca do Bitcoin Core para as assinaturas e as chaves. <span class="lic"><a href="https://github.com/bitcoin-core/secp256k1/blob/master/COPYING">MIT</a></span></li>
+      <li><strong><a href="https://elm-chan.org/fsw/ff/">FatFs</a></strong>, de ChaN, que lê o cartão SD (compilado só para leitura). <span class="lic"><a href="https://elm-chan.org/fsw/ff/doc/appnote.html#license">estilo BSD</a></span></li>
+      <li><strong><a href="https://github.com/JulietaUla/Montserrat">Montserrat</a></strong>, a fonte do GapKeep e deste site. <span class="lic"><a href="https://github.com/JulietaUla/Montserrat/blob/master/OFL.txt">SIL OFL 1.1</a></span></li>
+      <li><strong><a href="https://fontawesome.com">Font Awesome Free</a></strong>, os ícones dos aplicativos do GapKeep. <span class="lic"><a href="https://fontawesome.com/license/free">SIL OFL 1.1 (fontes)</a></span></li>
+      <li><strong><a href="https://www.jetbrains.com/lp/mono/">JetBrains Mono</a></strong>, para códigos, chaves e hashes, no GapKeep e aqui. <span class="lic"><a href="https://github.com/JetBrains/JetBrainsMono/blob/master/OFL.txt">SIL OFL 1.1</a></span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="involved" aria-labelledby="inv-title">
+  <div class="wrap involve">
+    <div class="reveal">
+      <p class="eyebrow"><span class="num">11</span>Participe</p>
+      <h2 id="inv-title">Novo, e procurando companhia.</h2>
+      <p class="lede">O GapKeep é um projeto jovem. Ele roda em hardware de verdade e passa nos seus testes, e precisa de mais olhos e mãos: gente que desenvolva aplicativos, que revise e tente quebrar, e que experimente e diga o que está confuso.</p>
+      <p><a class="btn btn-teal" href="https://github.com/marcocarnut/GapKeep">GapKeep no GitHub</a></p>
+    </div>
+    <ul class="link-list reveal">
+      <li><a href="docs/contributing.html">Como contribuir <span>as regras, e por onde começar</span></a></li>
+      <li><a href="docs/security.html">Relatar uma vulnerabilidade <span>em particular, no GitHub</span></a></li>
+      <li><a href="docs/agents.html">Guia para agentes de IA <span>escrever aplicativos com um agente</span></a></li>
+      <li><a href="docs/design.html">Decisões de projeto <span>o que ele faz e não faz, e por quê</span></a></li>
+      <li><a href="download.html">Baixar <span>imagens para cartão SD: em breve</span></a></li>
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="same-origin">
+<title>Writing GapKeep apps · GapKeep</title>
+<meta name="description" content="Writing GapKeep apps: GapKeep documentation">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1d1c23">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="canonical" href="https://gapkeep.org/pt-br/docs/apps.html">
+<link rel="alternate" hreflang="en" href="https://gapkeep.org/docs/apps.html">
+<link rel="alternate" hreflang="pt-BR" href="https://gapkeep.org/pt-br/docs/apps.html">
+<link rel="alternate" hreflang="x-default" href="https://gapkeep.org/docs/apps.html">
+<meta property="og:title" content="Writing GapKeep apps · GapKeep">
+<meta property="og:description" content="Writing GapKeep apps: GapKeep documentation">
+<meta property="og:image" content="https://gapkeep.org/img/og.png">
+<meta property="og:url" content="https://gapkeep.org/pt-br/docs/apps.html">
+<script src="/js/lang.js?v=9238942da1"></script>
+<link rel="preload" href="/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/site.css?v=050b20402d">
+
+<script src="/js/site.js?v=00484c1c07" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="top" id="top">
+  <div class="top-in">
+    <a class="brand" href="/pt-br/" aria-label="Página inicial do GapKeep"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a>
+    <nav class="nav" aria-label="Main">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-list"><span class="bars" aria-hidden="true"></span><span class="sr">Menu</span></button>
+      <ul id="nav-list">
+<li><a href="/pt-br/#why">Por quê</a></li>
+<li><a href="/pt-br/#verify">Veja</a></li>
+<li><a href="/pt-br/#apps">Aplicativos</a></li>
+<li><a href="/pt-br/#hardware">Hardware</a></li>
+<li><a href="/pt-br/#developers">Desenvolvedores</a></li>
+<li><a href="/pt-br/docs/">Documentação</a></li>
+<li><a href="/pt-br/download.html">Baixar</a></li>
+      </ul>
+    </nav>
+    <div class="langs" role="group" aria-label="Idioma"><a href="/docs/apps.html" hreflang="en" lang="en" data-lang="en" title="English"><span aria-hidden="true">EN</span><span class="sr">English</span></a><a href="/pt-br/docs/apps.html" hreflang="pt-BR" lang="pt-BR" data-lang="pt-BR" title="Português (Brasil)" aria-current="true"><span aria-hidden="true">PT</span><span class="sr">Português (Brasil)</span></a></div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap docs-layout">
+<aside class="doc-side" aria-label="Todos os documentos">
+<details class="doc-toc"><summary>Todos os documentos</summary>
+<p><a href="/pt-br/docs/">Documentação</a></p>
+<h2>Comece aqui</h2><ul><li><a href="/pt-br/docs/readme.html" data-page="readme.html">GapKeep</a></li><li><a href="/pt-br/docs/apps.html" data-page="apps.html" aria-current="page">Writing GapKeep apps</a></li><li><a href="/pt-br/docs/agents.html" data-page="agents.html">Writing GapKeep apps: a guide for coding agents</a></li></ul>
+<h2>Guias</h2><ul><li><a href="/pt-br/docs/simulator.html" data-page="simulator.html">The simulator</a></li><li><a href="/pt-br/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/pt-br/docs/camera.html" data-page="camera.html">The camera and QR codes</a></li><li><a href="/pt-br/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/pt-br/docs/rig.html" data-page="rig.html">The hardware test rig</a></li></ul>
+<h2>Referência e projeto</h2><ul><li><a href="/pt-br/docs/api.html" data-page="api.html">GapKeep JavaScript API reference</a></li><li><a href="/pt-br/docs/architecture.html" data-page="architecture.html">GapKeep architecture</a></li><li><a href="/pt-br/docs/design.html" data-page="design.html">GapKeep&#x27;s design decisions</a></li><li><a href="/pt-br/docs/experimental.html" data-page="experimental.html">Experimental features</a></li></ul>
+<h2>Aplicativos</h2><ul><li><a href="/pt-br/docs/apps/signer.html" data-page="apps/signer.html">Signer</a></li><li><a href="/pt-br/docs/apps/dice39.html" data-page="apps/dice39.html">dice39 on GapKeep</a></li><li><a href="/pt-br/docs/apps/codex32.html" data-page="apps/codex32.html">codex32</a></li><li><a href="/pt-br/docs/apps/totp.html" data-page="apps/totp.html">Authenticator</a></li></ul>
+<h2>O projeto</h2><ul><li><a href="/pt-br/docs/security.html" data-page="security.html">Security</a></li><li><a href="/pt-br/docs/contributing.html" data-page="contributing.html">Contributing to GapKeep</a></li><li><a href="/pt-br/docs/agents-gapkeep.html" data-page="agents-gapkeep.html">Notes for coding agents</a></li></ul>
+<h2>Mais</h2><ul><li><a href="/pt-br/docs/camera/spec.html" data-page="camera/spec.html">Pi Camera Module v2.1 (IMX219) on the Pi Zero v1.3: functional specification</a></li><li><a href="/pt-br/docs/camera/implementation.html" data-page="camera/implementation.html">Pi Camera driver: implementation record</a></li><li><a href="/pt-br/docs/camera/provenance.html" data-page="camera/provenance.html">Provenance of docs/camera/SPEC.md (clean-room record)</a></li><li><a href="/pt-br/docs/i18n/pt-br.html" data-page="i18n/pt-br.html">Glossary: Brazilian Portuguese (pt-BR)</a></li><li><a href="/pt-br/docs/lib-js.html" data-page="lib-js.html">JavaScript libraries for apps</a></li></ul>
+</details>
+</aside>
+<article class="doc" lang="en">
+<p class="doc-note" lang="pt-BR">Por enquanto, a documentação existe só em inglês. O texto abaixo é o original; traduções são bem-vindas.</p>
+<div class="doc-body">
+<h1 id="writing-gapkeep-apps">Writing GapKeep apps</h1>
+<p>A GapKeep app is a small JavaScript program with a manifest, in a folder of
+its own. It is either copied to the <code>apps</code> folder of the SD card or built
+into the system image, shows up in the launcher, and talks to the system only
+through a few documented modules (<code>gk:ui</code>, <code>gk:sys</code>, ...). This guide walks
+through writing one; <a href="api.html">API.md</a> is the full reference.</p>
+<h2 id="what-you-get-and-what-you-dont"><a class="anchor" href="#what-you-get-and-what-you-dont" aria-hidden="true" tabindex="-1">#</a>What you get, and what you don't</h2>
+<ul>
+<li><strong>Modern JavaScript</strong> (ES2023 via <a href="https://bellard.org/quickjs/" rel="noopener">QuickJS</a>):
+modules, classes, async/await, BigInt, typed arrays, destructuring...</li>
+<li><strong>A widget toolkit</strong> (<code>gk:ui</code>) drawn by <a href="https://lvgl.io" rel="noopener">LVGL</a>: labels,
+buttons, text fields, tables, QR codes, tabs, alerts.</li>
+<li><strong>A keyboard and a mouse.</strong> Every widget can be reached with Tab and
+activated with Enter or Space.</li>
+<li><strong>No network, no files, no clock you can trust</strong>, and no way to reach
+other apps. (Apps are read from the card at boot, but an app itself cannot
+read or write files.) That is the point: an app sees only what the person types.</li>
+</ul>
+<h2 id="your-first-app"><a class="anchor" href="#your-first-app" aria-hidden="true" tabindex="-1">#</a>Your first app</h2>
+<p>Create a directory under <code>apps/</code> whose name is the app's id:</p>
+<pre><code>apps/
+  counter/
+    manifest.json
+    main.js
+</code></pre>
+<p><code>manifest.json</code>:</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;counter&quot;,
+  &quot;name&quot;: &quot;Counter&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;Counts clicks.&quot;,
+  &quot;icon&quot;: &quot;plus&quot;
+}
+</code></pre>
+<p><code>main.js</code>:</p>
+<pre><code class="language-js">import * as ui from &quot;gk:ui&quot;;
+
+let count = 0;
+const label = new ui.Label({ text: &quot;0 clicks&quot;, font: 28 });
+
+new ui.Button({
+  text: ui.symbols.plus + &quot; Click&quot;,
+  onClick: () =&gt; {
+    count++;
+    label.text = `${count} clicks`;
+  },
+});
+</code></pre>
+<p>Run it in the emulator, with your app on an SD card image:</p>
+<pre><code class="language-sh">tools/build.sh qemu                                  # the system (launcher only)
+mkdir -p /tmp/card/apps &amp;&amp; cp -r apps/counter /tmp/card/apps/
+tools/make_sd_image.sh /tmp/card.img /tmp/card
+python3 tools/qemu_harness.py --sd /tmp/card.img --interactive
+</code></pre>
+<p>On a real Pi Zero, copy the <code>counter</code> folder into the <code>apps</code> folder of the
+card (see <a href="#installing-apps">Installing apps</a>).</p>
+<p>That's it: no <code>main()</code> or event loop to write. The module's top level runs
+once when the app starts, and everything after that happens in event
+handlers and timers.</p>
+<h2 id="the-manifest"><a class="anchor" href="#the-manifest" aria-hidden="true" tabindex="-1">#</a>The manifest</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Required</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>yes</td>
+<td>Unique id, <code>[a-z0-9-]</code>, must match the directory name.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>yes</td>
+<td>Shown in the launcher.</td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td>yes</td>
+<td>Free-form string, shown in logs.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>no</td>
+<td>One line for the launcher tile.</td>
+</tr>
+<tr>
+<td><code>icon</code></td>
+<td>no</td>
+<td>One of the names in <code>ui.symbols</code> (default <code>&quot;file&quot;</code>), or a picture: see <a href="#picture-icons">Picture icons</a>.</td>
+</tr>
+<tr>
+<td><code>entry</code></td>
+<td>no</td>
+<td>Entry module (default <code>&quot;main.js&quot;</code>).</td>
+</tr>
+<tr>
+<td><code>permissions</code></td>
+<td>no</td>
+<td>Extra rights: <code>&quot;apps&quot;</code> (import <code>gk:apps</code>: list and start apps), <code>&quot;camera&quot;</code> (<code>ui.Scanner</code>, <a href="camera.html">CAMERA.md</a>), <code>&quot;rtc&quot;</code> (setting the clock, <a href="clock.html">CLOCK.md</a>), <code>&quot;settings&quot;</code> (changing the language, number marks and keyboard: <a href="#languages">Languages</a>). E.g. <code>[&quot;camera&quot;]</code>.</td>
+</tr>
+<tr>
+<td><code>hidden</code></td>
+<td>no</td>
+<td><code>true</code>: not listed in the launcher.</td>
+</tr>
+<tr>
+<td><code>experimental</code></td>
+<td>no</td>
+<td><code>true</code>: listed and started only with <code>experimental = yes</code> in the card's <code>gapkeep.txt</code> (<a href="experimental.html">EXPERIMENTAL.md</a>).</td>
+</tr>
+<tr>
+<td><code>data</code></td>
+<td>no</td>
+<td>The card's data folders the app reads with <code>gk:data</code>, e.g. <code>[&quot;pgp&quot;]</code>: at most 8 names, each <code>[a-z0-9-]</code>, at most 32. See <a href="#data-files">Data files</a>.</td>
+</tr>
+</tbody>
+</table></div>
+<p>GapKeep checks every manifest, and refuses an app with unknown keys, a bad
+id, an unknown or malformed icon, an unknown permission, or a missing entry
+module. The build does
+it for built-in apps (<code>tools/bundle_apps.py</code>); for apps on the SD card the
+system does it at boot, and the launcher lists each refused app with the
+reason.</p>
+<h3 id="picture-icons"><a class="anchor" href="#picture-icons" aria-hidden="true" tabindex="-1">#</a>Picture icons</h3>
+<p>Instead of a symbol name, <code>icon</code> can be a picture, which the launcher shows
+on the app's tile:</p>
+<pre><code class="language-json">&quot;icon&quot;: { &quot;width&quot;: 64, &quot;height&quot;: 64, &quot;rgba&quot;: &quot;Dxos/w8aLP8RHS//...&quot; }
+</code></pre>
+<p><code>rgba</code> is base64 (standard alphabet, with padding) of <code>width * height * 4</code>
+bytes: red, green, blue and alpha per pixel, rows top to bottom. 64×64 suits
+the launcher (it scales larger pictures down to that); sides may be 1 to 128
+px. <code>tools/make_icon.py</code> turns a PNG or any other image into this:</p>
+<pre><code>python3 tools/make_icon.py logo.png --manifest apps/myapp/manifest.json
+</code></pre>
+<p>Why not a PNG? GapKeep would need a PNG decoder (zlib and all) to read it,
+on data that comes from the SD card. Plain pixels only need decoding from
+base64 and checking for length, which is easy to get right. The icon is part
+of manifest.json, so the app's hash covers it.</p>
+<p>Only <code>.js</code>, <code>.json</code> and <code>.txt</code> files are part of an app; the rest (a README,
+images) is ignored. Names of those files, and of folders, may use
+<code>A-Z a-z 0-9 . _ -</code>; names starting with <code>.</code> are skipped. Text must be UTF-8.
+Limits: 256 files, 4 MB per file, 16 MB per app, folders 8 levels deep.</p>
+<h2 id="installing-apps"><a class="anchor" href="#installing-apps" aria-hidden="true" tabindex="-1">#</a>Installing apps</h2>
+<p>The card holds the apps in a folder called <code>apps</code>, one folder per app, named
+after its id, laid out exactly like the repository's <code>apps/</code>:</p>
+<pre><code>(card)
+  kernel.img, config.txt, ...
+  apps/
+    dice39/
+      manifest.json
+      main.js
+      lib/...
+    counter/
+      ...
+</code></pre>
+<p><code>tools/make_sdcard.sh --standalone</code> makes such a card, with every app in
+<code>apps/</code>. GapKeep reads the apps once, at boot, into memory, and never writes
+to the card (its FAT driver is compiled read-only). To install or remove an
+app, change the card and restart.</p>
+<p>The launcher lists the built-in apps first, then those from the card, each
+sorted by id. An app on the card cannot replace a built-in one: if its id is
+taken (the launcher's, for instance), it is refused.</p>
+<p>A <strong>sealed</strong> system (<code>tools/make_sdcard.sh --sealed</code>) has every app built
+into <code>kernel.img</code> and no SD card code at all: for a machine that should only
+ever run one set of apps.</p>
+<h2 id="app-hashes"><a class="anchor" href="#app-hashes" aria-hidden="true" tabindex="-1">#</a>App hashes</h2>
+<p>Whoever can change the card can change the apps on it, so the launcher shows
+the SHA-256 of the focused app below the tiles (as <code>sys.app.hash</code> and in
+<code>apps.list()</code>). Compare it with the hash published for the app before you
+open it. It covers exactly what GapKeep loads, so it is the same on any card
+and for the built-in copy:</p>
+<pre><code class="language-sh">python3 tools/bundle_apps.py --hash apps/dice39
+</code></pre>
+<p>It is the SHA-256 of the app's files sorted by path (byte order), each
+contributing its path relative to the app folder (with <code>/</code>), a NUL byte, its
+size in decimal, a NUL byte, and its contents.</p>
+<h2 id="suites"><a class="anchor" href="#suites" aria-hidden="true" tabindex="-1">#</a>Suites</h2>
+<p>A suite is a group of apps that belong together (a PGP suite: one app to
+encrypt, one to sign, one to manage keys), shown in the launcher as one
+tile. It is a folder in <code>apps/</code> with a <code>suite.json</code> instead of a
+<code>manifest.json</code>, holding the apps' folders:</p>
+<pre><code>(card)
+  apps/
+    pgp/
+      suite.json
+      lang/pt-BR.json        optional: the suite's name and description translated
+      pgp-sign/
+        manifest.json
+        main.js
+      pgp-encrypt/
+        ...
+</code></pre>
+<pre><code class="language-json">{ &quot;id&quot;: &quot;pgp&quot;, &quot;name&quot;: &quot;PGP&quot;, &quot;description&quot;: &quot;Sign, encrypt, check.&quot;, &quot;icon&quot;: &quot;envelope&quot; }
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Required</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>yes</td>
+<td><code>[a-z0-9-]</code>, at most 32, the same as the folder name.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>yes</td>
+<td>Shown on the suite's tile.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>no</td>
+<td>One line for the tile.</td>
+</tr>
+<tr>
+<td><code>icon</code></td>
+<td>no</td>
+<td>As an app's: a <code>ui.symbols</code> name (default <code>&quot;file&quot;</code>) or a <a href="#picture-icons">picture</a>.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The launcher shows the suite as one tile; Enter opens it and shows its
+apps, with a <strong>Back</strong> button; Escape or Backspace go back too. When an app
+of the suite exits (or the Windows key is pressed), the launcher opens the
+suite again. The suite's name and description are translated like an app's
+(<a href="#languages">Languages</a>): <code>lang/&lt;language&gt;.json</code> in the suite's folder,
+with <code>&quot;$app&quot;</code> set to the suite's id; <code>python3 tools/i18n.py extract apps/pgp --lang pt-BR</code> writes it, <code>check</code> checks it. The folder <code>lang</code> in a
+suite is its catalogs, never an app.</p>
+<p><strong>Each app stays an app.</strong> It has its own manifest, its own hash, its own
+<code>gk:session</code> store, and imports only its own files: apps in a suite <strong>share
+no code</strong>. That is deliberate: an app's hash covers every line it runs, so
+the hash a person compares means the same with or without the suite, and
+one app of the suite can be checked, replaced or removed without touching
+the others. Code two apps need goes into both. What they can share is
+data: <a href="#data-files">Data files</a>,
+listed in each app's manifest. A suite's apps get no implicit access to a
+folder named after the suite: each lists what it reads.</p>
+<p>App ids are unique on the whole card, suites included: an app whose id is
+already taken (by a built-in app, an app loaded before it, in folder
+order, or a suite) is refused, and the launcher lists it with the reason
+(<code>apps/pgp-sign not loaded: an app with this id was loaded from apps/pgp/pgp-sign</code>). Suites don't nest. <code>apps.list()</code> gives each app's <code>suite</code>
+(its id, or <code>null</code>), <code>apps.suites()</code> the suites. Built-in apps belong to no
+suite. A sealed build has no card, so no suites.</p>
+<h2 id="data-files"><a class="anchor" href="#data-files" aria-hidden="true" tabindex="-1">#</a>Data files</h2>
+<p>Some apps need data the person chose when preparing the card: a PGP app
+needs public keys, and scanning each one as a QR code every time is no
+way to work. Such files go in <code>data/&lt;folder&gt;/</code> at the top of the card,
+beside <code>apps/</code>, and an app reads the folders its manifest lists:</p>
+<pre><code>(card)
+  apps/...
+  data/
+    pgp/
+      alice.asc
+      bob@example.org.pgp
+      keyring/work.gpg
+</code></pre>
+<pre><code class="language-json">{ &quot;id&quot;: &quot;pgp-encrypt&quot;, ..., &quot;data&quot;: [&quot;pgp&quot;] }
+</code></pre>
+<pre><code class="language-js">import * as data from &quot;gk:data&quot;;
+
+const files = data.list(&quot;pgp&quot;);                   // [{ name: &quot;alice.asc&quot;, size: 3112 }, ...]
+const key = data.read(&quot;pgp&quot;, &quot;keyring/work.gpg&quot;); // Uint8Array
+const armored = data.readText(&quot;pgp&quot;, &quot;alice.asc&quot;);
+</code></pre>
+<ul>
+<li>Folder names are like app ids: <code>[a-z0-9-]</code>, at most 32. Files can be of
+any type, binary or text, in sub-folders (<code>list()</code> names them
+<code>&quot;keyring/work.gpg&quot;</code>). File and folder names are printable ASCII
+(<code>alice@example.org key.asc</code> is fine; <code>/</code> and <code>\</code> are not), at most 128
+bytes; names starting with <code>.</code> are skipped (macOS's <code>._x</code> files).</li>
+<li>Read-only: nothing can write to the card. Apps that list the same
+folder share it; no other permission is needed. An app can't read a
+folder it doesn't list, or leave the folder (<code>..</code>, <code>.</code>, a leading <code>/</code> or a
+<code>\</code> in a name are refused).</li>
+<li>A folder is read on first use (when the app or the launcher first asks
+for it), all of it, checked and hashed, and kept in memory until
+power-off: what an app reads is exactly what was hashed. Limits: 4 MB per
+file, 8 MB and 256 files per folder, 8 levels of sub-folders, 32 MB for all
+the folders read since boot. A folder over a limit, or with a bad name in
+it, can't be read at all: <code>list()</code>, <code>read()</code> and <code>hash()</code> throw a
+<code>TypeError</code> saying which file and why, and the launcher shows it.</li>
+<li>A folder that isn't on the card is empty: <code>list()</code> returns <code>[]</code>,
+<code>hash()</code> <code>null</code>. So is every folder without a card, and in a <strong>sealed</strong>
+build, which reads no card.</li>
+<li>The log shows each folder's file count, size and hash when it is read;
+never what the files hold. Don't log it from your app either.</li>
+</ul>
+<p><strong>The data is not part of the app's hash.</strong> The <a href="#app-hashes">app hash</a>
+names the code, and must be the same on every card so people can compare it
+with a published one; the data is different on every card. So whoever can
+change the card can change the data, and swap Bob's key for theirs. The
+launcher shows the hash of each data folder the focused app lists, below
+the app's hash; it is the app hash's scheme over the folder's files, so</p>
+<pre><code class="language-sh">python3 tools/bundle_apps.py --data-hash ~/gapkeep-data/pgp
+</code></pre>
+<p>computes it on a computer, and <code>data.hash(&quot;pgp&quot;)</code> gives it to the app. But
+a folder hash only says the folder is unchanged, not that its contents are
+right. <strong>Show the person what matters, at the moment it matters:</strong> before
+encrypting to a key, its fingerprint (and the name and e-mail it carries),
+for them to compare with one they got from its owner; before trusting a
+list of addresses, the address about to be used. Never act on data from
+the card silently.</p>
+<h3 id="preparing-a-card-with-data"><a class="anchor" href="#preparing-a-card-with-data" aria-hidden="true" tabindex="-1">#</a>Preparing a card with data</h3>
+<p>Make a folder with one sub-folder per data folder, and give it to
+<code>tools/make_sdcard.sh</code>, which copies them to the card's <code>data/</code> and prints
+their hashes:</p>
+<pre><code class="language-sh">mkdir -p ~/gapkeep-data/pgp
+gpg --export --armor alice@example.org &gt; ~/gapkeep-data/pgp/alice.asc
+gpg --export bob@example.org &gt; ~/gapkeep-data/pgp/bob.gpg
+tools/make_sdcard.sh --standalone --data ~/gapkeep-data
+</code></pre>
+<p>Or copy the folders to a card by hand: <code>data/pgp/...</code> at the card's top,
+beside <code>apps/</code>. Write down the hashes it prints (or that
+<code>tools/bundle_apps.py --data-hash</code> prints) to check them on the device's
+launcher later. In the simulator, <code>tools/gksim --data ~/gapkeep-data/pgp apps/myapp</code> puts a folder on its card (a <code>data/</code> folder beside the app's
+folder, or beside the <code>apps/</code> folder holding it, goes too); in the browser
+IDE, <strong>Import</strong> a folder named <code>data</code> (<a href="ide.html">IDE.md</a>).</p>
+<h2 id="laying-out-a-screen"><a class="anchor" href="#laying-out-a-screen" aria-hidden="true" tabindex="-1">#</a>Laying out a screen</h2>
+<p>Widgets go on <code>ui.screen</code> unless you pass a parent first:</p>
+<pre><code class="language-js">const row = new ui.Container({ layout: &quot;row&quot;, gap: 8 });   // on the screen
+new ui.Label(row, { text: &quot;Name&quot; });                        // inside row
+new ui.TextArea(row, { oneLine: true, width: 240 });
+</code></pre>
+<p><code>ui.screen</code> is a column with 16 px padding and 12 px between children, which
+suits most simple apps. Layout uses flexbox semantics: <code>layout</code> (<code>&quot;row&quot;</code>,
+<code>&quot;column&quot;</code>, <code>&quot;row-wrap&quot;</code>, <code>&quot;column-wrap&quot;</code>, <code>&quot;none&quot;</code>), <code>justify</code>,
+<code>alignItems</code>, <code>gap</code>, <code>padding</code>, <code>grow</code>. Sizes are pixels, percentages of the
+parent (<code>&quot;50%&quot;</code>) or <code>&quot;content&quot;</code>.</p>
+<p>Use <strong>Container</strong> for invisible layout boxes and <strong>Panel</strong> for the &quot;card&quot;
+look (background, border, padding).</p>
+<h2 id="markup"><a class="anchor" href="#markup" aria-hidden="true" tabindex="-1">#</a>Markup</h2>
+<p>A Label made with <code>markup: true</code> takes Pango-style markup, for a few
+words in another style:</p>
+<pre><code class="language-js">import { tm } from &quot;gk:i18n&quot;;
+
+new ui.Label({
+  markup: true,
+  width: &quot;100%&quot;,
+  text: tm(&quot;Send &lt;span color='#ffb300'&gt;{amount} BTC&lt;/span&gt; to &lt;tt&gt;{address}&lt;/tt&gt;?&quot;,
+           { amount: formatBtc(sats), address }),
+});
+</code></pre>
+<p>Tags: <code>&lt;b&gt;</code> (bold), <code>&lt;i&gt;</code> (italic), both for bold italic, <code>&lt;tt&gt;</code>
+(monospaced), <code>&lt;big&gt;</code>, <code>&lt;small&gt;</code>, <code>&lt;u&gt;</code>, <code>&lt;s&gt;</code>, and <code>&lt;span&gt;</code> with <code>color</code>,
+<code>size</code> (one of <code>ui.fonts</code>), <code>font_family=&quot;monospace&quot;</code>, <code>weight=&quot;bold&quot;</code>,
+<code>style=&quot;italic&quot;</code>, <code>underline=&quot;single&quot;</code>, <code>strikethrough=&quot;true&quot;</code>. Entities:
+<code>&amp;lt; &amp;gt; &amp;amp; &amp;quot; &amp;apos; &amp;#N; &amp;#xN;</code>. Bold and italic come at every
+size of <code>ui.fonts</code>, on the same line and baseline as the normal text; there
+is no bold or italic monospaced font, so <code>&lt;b&gt;</code> inside <code>&lt;tt&gt;</code> (or in a
+<code>mono</code> label, or <code>&lt;tt&gt;</code> inside <code>&lt;b&gt;</code>) is an error. Anything the parser
+doesn't know throws a <code>TypeError</code> naming the problem and the character
+where it is: markup is never shown half-parsed.</p>
+<p>Bold and italic are drawn from TrueType outlines (LVGL's TinyTTF), not
+from bitmaps: the first label to use a style at a size makes its font
+(logged as <code>fonts: bold 16 px: made</code>), and each glyph is rasterized the
+first time it is drawn and then kept (up to 96 per style and size, about
+25 KB at 16 px). So a style costs nothing until it is used, and its first
+screen is slower than the next: on QEMU, about 10 ms more for a paragraph
+in bold. They lack the bitmap fonts' hinting: at 12
+and 14 px they look a little softer.</p>
+<p><strong>Data is never markup.</strong> A name, an address or a scanned text could hold
+<code>&lt;</code> or <code>&amp;</code>: put it in with <code>ui.escapeMarkup(s)</code>, or through <code>tm()</code> (as <code>t()</code>,
+but every param is escaped). A translation of a key with tags must keep the
+same tags (<code>tools/i18n.py check</code> and the runtime check it), and a key
+without tags stays without, so a translator can't add one either.</p>
+<p><code>markup</code> is set when the Label is created, not later. <code>font</code>, <code>mono</code>,
+<code>color</code> and <code>textAlign</code> work as for any Label; <code>overflow</code> takes <code>&quot;wrap&quot;</code>,
+<code>&quot;clip&quot;</code> or <code>&quot;dots&quot;</code>. A markup label costs more memory than a plain one
+(see <code>sys.memory().ui</code>): use it where the styles matter.</p>
+<h2 id="reacting-to-input"><a class="anchor" href="#reacting-to-input" aria-hidden="true" tabindex="-1">#</a>Reacting to input</h2>
+<p>Pass handlers as <code>on...</code> properties or with <code>widget.on(event, fn)</code>:</p>
+<pre><code class="language-js">const field = new ui.TextArea({
+  oneLine: true,
+  placeholder: &quot;Seed word&quot;,
+  accept: &quot;abcdefghijklmnopqrstuvwxyz&quot;,   // filter keystrokes
+  onChange: (ev) =&gt; console.log(&quot;now:&quot;, ev.value),
+  onSubmit: () =&gt; check(field.text),      // Enter in a one-line field
+});
+</code></pre>
+<p>For keyboard shortcuts, register an app-wide key handler. It sees every key
+before the focused widget; return <code>true</code> to consume it:</p>
+<pre><code class="language-js">ui.onKey((ev) =&gt; {
+  if (ev.ctrl &amp;&amp; ev.key === &quot;n&quot;) { startOver(); return true; }
+  return false;
+});
+</code></pre>
+<p>Characters come as the keyboard layout types them, in UTF-8: <code>gapkeep.txt</code>
+chooses <code>keyboard = us</code> (the default) or <code>br-abnt2</code> (Brazilian, with dead
+keys: ´ then a is á). A TextArea's text and <code>ev.key</code> can hold any letter of
+Latin-1 and Latin Extended-A, which every font size draws. A shortcut is
+best a letter or a named key (<code>&quot;Enter&quot;</code>, <code>&quot;F2&quot;</code>): punctuation moves between
+layouts.</p>
+<h2 id="asking-questions"><a class="anchor" href="#asking-questions" aria-hidden="true" tabindex="-1">#</a>Asking questions</h2>
+<p><code>ui.alert</code> shows a modal message and resolves with the index of the button
+pressed (-1 for Escape):</p>
+<pre><code class="language-js">const choice = await ui.alert(&quot;Erase everything?&quot;, {
+  title: &quot;Start over&quot;,
+  buttons: [&quot;Cancel&quot;, &quot;Erase&quot;],
+});
+if (choice === 1) eraseAll();
+</code></pre>
+<h2 id="languages"><a class="anchor" href="#languages" aria-hidden="true" tabindex="-1">#</a>Languages</h2>
+<p>An app can show its text in the person's language. Write it in English,
+where it is used, through <code>t()</code>: the English is the key. Translators
+follow each language's glossary, <a href="i18n/pt-br.html">i18n/pt-BR.md</a> for
+Brazilian Portuguese, so a term has one name in every app.</p>
+<pre><code class="language-js">import { t, plural, formatBtc } from &quot;gk:i18n&quot;;
+
+new ui.Label({ text: t(&quot;Sign this transaction?&quot;) });
+say(t(&quot;Send {amount} BTC to {address}?&quot;, { amount: formatBtc(sats), address }));
+label.text = plural(count, &quot;{n} code&quot;, &quot;{n} codes&quot;);
+t(&quot;Open&quot;, { $context: &quot;verb&quot; });     // the same English, another meaning
+</code></pre>
+<p>The translations are files of the app, one per language:</p>
+<pre><code>apps/myapp/
+  lang/
+    pt-BR.json
+</code></pre>
+<pre><code class="language-json">{
+  &quot;$language&quot;: &quot;pt-BR&quot;,
+  &quot;$app&quot;: &quot;myapp&quot;,
+  &quot;messages&quot;: {
+    &quot;Sign this transaction?&quot;: &quot;Assinar esta transação?&quot;,
+    &quot;{n} code&quot;: &quot;{n} código&quot;,
+    &quot;{n} codes&quot;: &quot;{n} códigos&quot;,
+    &quot;verb\u0004Open&quot;: &quot;Abrir&quot;
+  },
+  &quot;notes&quot;: {
+    &quot;Sign this transaction?&quot;: &quot;On the review page, before the person confirms.&quot;
+  }
+}
+</code></pre>
+<p><code>notes</code> is for translators; the runtime ignores it. The manifest's <code>name</code>
+and <code>description</code> are keys too: their translations go in the catalog, not
+in manifest.json, and the launcher (<code>gk:apps</code>' <code>list()</code>) and <code>sys.app</code> show
+them in the language, with the same checks (and no line breaks). Leave out
+a name that is a product's (<code>dice39</code>): it stays as it is. <code>tools/i18n.py</code> keeps
+catalogs in step with the code:</p>
+<pre><code class="language-sh">python3 tools/i18n.py extract apps/myapp --lang pt-BR   # adds new keys, empty
+python3 tools/i18n.py check apps/myapp                  # what is missing or wrong
+</code></pre>
+<p><code>check --lang pt-BR</code> also reads the language's glossary,
+<a href="i18n/pt-br.html">docs/i18n/pt-BR.md</a>: the terms every app uses, and words
+to avoid, which it reports as warnings.</p>
+<p>A key with an empty translation shows in English. <code>check</code> lists keys with
+no translation, translations no longer used, and those the runtime would
+refuse; <code>tools/run_sim_tests.sh</code> runs it for every app with a <code>lang/</code>
+folder. Keys must be string literals (or literals joined with <code>+</code>):
+<code>t(variable)</code> works, but <code>check</code> can't see it and says so. Code that can't import
+<code>gk:i18n</code> (a library also run under Node) marks its text with a no-op
+<code>N_(&quot;...&quot;)</code> (<code>const N_ = (s) =&gt; s;</code>), and the app passes it to <code>t()</code>
+later: <code>check</code> finds those keys too (<code>apps/totp/lib/parse.js</code>).</p>
+<p>What a translation may not do (the runtime checks each one when the app
+starts, logs those it refuses and shows the English instead):</p>
+<ul>
+<li><strong>Change the <code>{names}</code>.</strong> A translation has the same set of <code>{names}</code> as
+its key: it can reword &quot;Send {amount} to {address}&quot;, but can't drop the
+amount or add one. So pass everything that matters (amounts, addresses,
+fingerprints, paths, words of a seed) as params, never as part of the
+text.</li>
+<li><strong>Hold control characters</strong>: C0 (line feeds are allowed), C1, and the
+bidi and line controls that could reorder an amount beside them.</li>
+<li><strong>Be markup.</strong> Labels show text as text (LVGL's recolor is never on), so
+a <code>#ff0000</code> is just characters.</li>
+</ul>
+<p>Catalogs are parsed as JSON, never run, and at most 256 KB. They are files
+of the app like any other, so they are part of its <a href="#app-hashes">hash</a>: a
+changed translation changes the hash the launcher shows.</p>
+<p><strong>Numbers, amounts and dates.</strong> <code>formatNumber</code>, <code>formatSats</code> and
+<code>formatBtc</code> write numbers the language's way (<code>1,234.5</code> or <code>1.234,5</code>), and
+<code>parseNumber</code> and <code>parseBtc</code> read them back, refusing what could be read
+two ways (<code>1.000</code>: one, or a thousand?). Amounts are whole satoshis, never
+floating point, and the text carries the unit (<code>&quot;{amount} BTC&quot;</code>), so a
+translation can move it. Dates and times are ISO 8601 with a space in every
+language (<code>formatDateTime</code>: <code>2026-11-08 14:03:05</code>). Files and protocols are
+not written the language's way: the clock app shows <code>+1,5 ppm</code> on screen,
+and <code>clock_trim_ppm = +1.5</code> for <code>gapkeep.txt</code>.</p>
+<p><strong>The language</strong> comes from <code>gapkeep.txt</code> on the card:</p>
+<pre><code>language = pt-BR
+decimal_mark = ,        # if not the language's own; then group_mark too
+group_mark = .          # . or , or nothing (no grouping)
+</code></pre>
+<p>An unknown language is English, with a line in the log. Sealed builds read
+no card: <code>tools/build.sh pi SEALED=1 LANGUAGE=pt-BR</code>. The Settings app changes all of
+these while running, until power-off (an app needs the <code>&quot;settings&quot;</code>
+permission to). Languages fall back from <code>pt-BR</code> to <code>pt</code> (<code>lang/pt.json</code>,
+if the app has one) to English. A language exists if the launcher has a
+catalog for it: the launcher's catalogs (<code>apps/launcher/lang/</code>) also hold
+the system's own text.</p>
+<p>To see an app in another language, or find text that missed <code>t()</code>:</p>
+<pre><code class="language-sh">tools/gksim --lang pt-BR apps/myapp
+tools/gksim --lang qps apps/myapp     # every translated text [Åççéñţéď ·····]
+</code></pre>
+<p><code>qps</code> is a pseudo-language: what went through <code>t()</code> comes out accented,
+about 40% longer and in brackets, so text that didn't stands out, and text
+that a longer translation would cut off shows. <code>apps/clock</code> and
+<code>apps/launcher</code> are examples.</p>
+<h2 id="splitting-code-into-modules"><a class="anchor" href="#splitting-code-into-modules" aria-hidden="true" tabindex="-1">#</a>Splitting code into modules</h2>
+<p>Import your own files with relative paths. Bare names (<code>&quot;lodash&quot;</code>) are
+rejected: there is no package manager and no network to fetch from.</p>
+<pre><code class="language-js">import { wordlist } from &quot;./data/bip39-english.js&quot;;
+import * as checks from &quot;./lib/checks.js&quot;;
+</code></pre>
+<p>Apps never import each other's files: the <a href="#app-hashes">app hash</a> covers
+every line of JavaScript an app runs, which shared code would break. To
+build on another app's library, carry a copy of it, made byte for byte by
+<code>tools/share_libs.py</code> (add it to its <code>COPIES</code>). Data is another matter:
+apps read shared, read-only data folders from
+the card by name (<code>data/&lt;name&gt;/</code>, listed in the manifest, as in <code>&quot;data&quot;: [&quot;pgp&quot;]</code>), outside the app hash, with <code>gk:data</code> (<a href="#data-files">Data files</a>).
+Why: <a href="design.html#apps">DESIGN.md</a>.</p>
+<h2 id="timers-and-async-code"><a class="anchor" href="#timers-and-async-code" aria-hidden="true" tabindex="-1">#</a>Timers and async code</h2>
+<p><code>setTimeout</code>, <code>setInterval</code>, <code>clearTimeout</code>, <code>clearInterval</code>, promises and
+async functions all work. Timers are cancelled when the app exits.</p>
+<h2 id="leaving"><a class="anchor" href="#leaving" aria-hidden="true" tabindex="-1">#</a>Leaving</h2>
+<p>The person can always press the <strong>Windows (Super) key</strong> to return to the
+launcher. An app can leave by itself with <code>sys.exit()</code>. Either way, the app's
+widgets, timers, handlers and memory are freed.</p>
+<h2 id="when-things-go-wrong"><a class="anchor" href="#when-things-go-wrong" aria-hidden="true" tabindex="-1">#</a>When things go wrong</h2>
+<p>Uncaught exceptions and unhandled promise rejections show a red banner with
+the message and stack, and are written to the serial log. The app keeps
+running. Long-running code is stopped after 10 seconds, and each app may use
+up to 96 MB of memory.</p>
+<p><code>console.log</code> (and <code>info</code>, <code>warn</code>, <code>error</code>, <code>debug</code>) write to the serial
+log, prefixed with <code>app:&lt;id&gt;</code>. Objects are printed as JSON.</p>
+<h2 id="trying-it-out"><a class="anchor" href="#trying-it-out" aria-hidden="true" tabindex="-1">#</a>Trying it out</h2>
+<p>The quickest way: the simulator runs your app on your machine, the same
+runtime as on the Pi (<a href="simulator.html">SIMULATOR.md</a>):</p>
+<pre><code class="language-sh">tools/gksim apps/counter                                 # the log on stdout
+tools/gksim --for 2 --shot /tmp/counter.png apps/counter # a screenshot
+</code></pre>
+<p>Or in the browser, with an editor that knows the API: <a href="ide.html">IDE.md</a>.</p>
+<p>It runs much faster than a Pi Zero: watch the &quot;about N ms of JavaScript on
+a Pi Zero&quot; it logs when your app starts and stops.</p>
+<h2 id="testing-in-the-emulator"><a class="anchor" href="#testing-in-the-emulator" aria-hidden="true" tabindex="-1">#</a>Testing in the emulator</h2>
+<p><code>tools/qemu_harness.py</code> boots the image in QEMU and plays a scenario: type,
+press keys, click, take screenshots, and wait for log lines. Put scenarios in
+<code>tests/*.txt</code> and run them all with <code>tools/run_tests.sh</code>, which puts the apps
+in <code>apps/</code> on the emulated SD card. See
+<code>tests/apps_widgets.txt</code> for an example, and the comment at the top of
+<code>tools/qemu_harness.py</code> for the commands. The same scenarios run on the
+simulator in seconds (<code>--sim</code>, and <code>tools/run_sim_tests.sh</code>).</p>
+<p>Logging what your app does (<code>console.log(&quot;submitted&quot;, value)</code>) is what lets a
+scenario check it.</p>
+<h2 id="guidelines-for-air-gapped-apps"><a class="anchor" href="#guidelines-for-air-gapped-apps" aria-hidden="true" tabindex="-1">#</a>Guidelines for air-gapped apps</h2>
+<ul>
+<li><strong>Show your work.</strong> If the app derives something important (a seed, an
+address, a checksum), show the inputs and intermediate steps so a person
+can check them.</li>
+<li><strong>Make transcription errors loud.</strong> Prefer formats with checksums, and
+verify what the person types.</li>
+<li><strong>Keep secrets on screen only as long as needed</strong>, and give the person a
+way to clear them.</li>
+<li><strong>Check the clock before relying on it.</strong> A Pi Zero has no battery-backed
+clock: the Clock app sets it after each boot, and until then <code>Date.now()</code>
+counts from 1970. <code>gk:clock</code>'s <code>status().set</code> says which
+(<a href="clock.html">CLOCK.md</a>).</li>
+<li><strong>Be keyboard-friendly.</strong> Order widgets so Tab follows the natural flow,
+and focus the first input when a screen appears (<code>widget.focus()</code>).</li>
+</ul>
+
+</div>
+<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/main/docs/APPS.md"><code>docs/APPS.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb/docs/APPS.md">3e6af247a0b7</a></p>
+</article>
+</div>
+</main>
+<footer class="foot">
+  <div class="foot-in">
+    <p class="foot-brand"><a href="/pt-br/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a><span>Um sistema operacional mínimo, bare-metal, para aplicativos air-gapped.</span></p>
+    <p class="foot-links"><a href="/pt-br/docs/">Documentação</a> · <a href="/pt-br/download.html">Baixar</a> · <a href="/ide/">IDE no navegador</a> · <a href="https://github.com/marcocarnut/GapKeep">Código no GitHub</a> · <a href="/pt-br/docs/security.html">Segurança</a> · <a href="/pt-br/docs/contributing.html">Como contribuir</a></p>
+    <p class="foot-privacy">Sem rastreadores, sem analytics, sem cookies, sem requisições a terceiros: este site não carrega nada de nenhum outro lugar, no espírito do GapKeep.</p>
+    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb"><code>3e6af247a0b7</code></a>.</p>
+  </div>
+</footer>
+</body>
+</html>

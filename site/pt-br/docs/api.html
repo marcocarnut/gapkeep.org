@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="same-origin">
+<title>GapKeep JavaScript API reference</title>
+<meta name="description" content="GapKeep JavaScript API reference: GapKeep documentation">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1d1c23">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="canonical" href="https://gapkeep.org/pt-br/docs/api.html">
+<link rel="alternate" hreflang="en" href="https://gapkeep.org/docs/api.html">
+<link rel="alternate" hreflang="pt-BR" href="https://gapkeep.org/pt-br/docs/api.html">
+<link rel="alternate" hreflang="x-default" href="https://gapkeep.org/docs/api.html">
+<meta property="og:title" content="GapKeep JavaScript API reference">
+<meta property="og:description" content="GapKeep JavaScript API reference: GapKeep documentation">
+<meta property="og:image" content="https://gapkeep.org/img/og.png">
+<meta property="og:url" content="https://gapkeep.org/pt-br/docs/api.html">
+<script src="/js/lang.js?v=9238942da1"></script>
+<link rel="preload" href="/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/site.css?v=050b20402d">
+
+<script src="/js/site.js?v=00484c1c07" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="top" id="top">
+  <div class="top-in">
+    <a class="brand" href="/pt-br/" aria-label="Página inicial do GapKeep"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a>
+    <nav class="nav" aria-label="Main">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-list"><span class="bars" aria-hidden="true"></span><span class="sr">Menu</span></button>
+      <ul id="nav-list">
+<li><a href="/pt-br/#why">Por quê</a></li>
+<li><a href="/pt-br/#verify">Veja</a></li>
+<li><a href="/pt-br/#apps">Aplicativos</a></li>
+<li><a href="/pt-br/#hardware">Hardware</a></li>
+<li><a href="/pt-br/#developers">Desenvolvedores</a></li>
+<li><a href="/pt-br/docs/">Documentação</a></li>
+<li><a href="/pt-br/download.html">Baixar</a></li>
+      </ul>
+    </nav>
+    <div class="langs" role="group" aria-label="Idioma"><a href="/docs/api.html" hreflang="en" lang="en" data-lang="en" title="English"><span aria-hidden="true">EN</span><span class="sr">English</span></a><a href="/pt-br/docs/api.html" hreflang="pt-BR" lang="pt-BR" data-lang="pt-BR" title="Português (Brasil)" aria-current="true"><span aria-hidden="true">PT</span><span class="sr">Português (Brasil)</span></a></div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap docs-layout">
+<aside class="doc-side" aria-label="Todos os documentos">
+<details class="doc-toc"><summary>Todos os documentos</summary>
+<p><a href="/pt-br/docs/">Documentação</a></p>
+<h2>Comece aqui</h2><ul><li><a href="/pt-br/docs/readme.html" data-page="readme.html">GapKeep</a></li><li><a href="/pt-br/docs/apps.html" data-page="apps.html">Writing GapKeep apps</a></li><li><a href="/pt-br/docs/agents.html" data-page="agents.html">Writing GapKeep apps: a guide for coding agents</a></li></ul>
+<h2>Guias</h2><ul><li><a href="/pt-br/docs/simulator.html" data-page="simulator.html">The simulator</a></li><li><a href="/pt-br/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/pt-br/docs/camera.html" data-page="camera.html">The camera and QR codes</a></li><li><a href="/pt-br/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/pt-br/docs/rig.html" data-page="rig.html">The hardware test rig</a></li></ul>
+<h2>Referência e projeto</h2><ul><li><a href="/pt-br/docs/api.html" data-page="api.html" aria-current="page">GapKeep JavaScript API reference</a></li><li><a href="/pt-br/docs/architecture.html" data-page="architecture.html">GapKeep architecture</a></li><li><a href="/pt-br/docs/design.html" data-page="design.html">GapKeep&#x27;s design decisions</a></li><li><a href="/pt-br/docs/experimental.html" data-page="experimental.html">Experimental features</a></li></ul>
+<h2>Aplicativos</h2><ul><li><a href="/pt-br/docs/apps/signer.html" data-page="apps/signer.html">Signer</a></li><li><a href="/pt-br/docs/apps/dice39.html" data-page="apps/dice39.html">dice39 on GapKeep</a></li><li><a href="/pt-br/docs/apps/codex32.html" data-page="apps/codex32.html">codex32</a></li><li><a href="/pt-br/docs/apps/totp.html" data-page="apps/totp.html">Authenticator</a></li></ul>
+<h2>O projeto</h2><ul><li><a href="/pt-br/docs/security.html" data-page="security.html">Security</a></li><li><a href="/pt-br/docs/contributing.html" data-page="contributing.html">Contributing to GapKeep</a></li><li><a href="/pt-br/docs/agents-gapkeep.html" data-page="agents-gapkeep.html">Notes for coding agents</a></li></ul>
+<h2>Mais</h2><ul><li><a href="/pt-br/docs/camera/spec.html" data-page="camera/spec.html">Pi Camera Module v2.1 (IMX219) on the Pi Zero v1.3: functional specification</a></li><li><a href="/pt-br/docs/camera/implementation.html" data-page="camera/implementation.html">Pi Camera driver: implementation record</a></li><li><a href="/pt-br/docs/camera/provenance.html" data-page="camera/provenance.html">Provenance of docs/camera/SPEC.md (clean-room record)</a></li><li><a href="/pt-br/docs/i18n/pt-br.html" data-page="i18n/pt-br.html">Glossary: Brazilian Portuguese (pt-BR)</a></li><li><a href="/pt-br/docs/lib-js.html" data-page="lib-js.html">JavaScript libraries for apps</a></li></ul>
+</details>
+</aside>
+<article class="doc" lang="en">
+<p class="doc-note" lang="pt-BR">Por enquanto, a documentação existe só em inglês. O texto abaixo é o original; traduções são bem-vindas.</p>
+<div class="doc-body">
+<h1 id="gapkeep-javascript-api-reference">GapKeep JavaScript API reference</h1>
+<p>&lt;!-- Generated by tools/gen_api.py from docs/api/gapkeep-api.yaml - edit that, not this. --&gt;</p>
+<p>Apps are ES modules running on QuickJS. They reach the system through the
+modules below, imported by name:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Available to</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#gkui"><code>gk:ui</code></a></td>
+<td>every app</td>
+<td>Widgets, layout, input, alerts</td>
+</tr>
+<tr>
+<td><a href="#gksys"><code>gk:sys</code></a></td>
+<td>every app</td>
+<td>App info, versions, uptime, memory, exit</td>
+</tr>
+<tr>
+<td><a href="#gkcrypto"><code>gk:crypto</code></a></td>
+<td>every app</td>
+<td>Hashes, HMAC, PBKDF2, secp256k1 (ECDSA, Schnorr, BIP-32 and Taproot tweaks), hardware random bytes</td>
+</tr>
+<tr>
+<td><a href="#gkclock"><code>gk:clock</code></a></td>
+<td>every app (setting it: <code>&quot;rtc&quot;</code>)</td>
+<td>The wall clock, alarms on its marks</td>
+</tr>
+<tr>
+<td><a href="#gksession"><code>gk:session</code></a></td>
+<td>every app</td>
+<td>Values kept across the app's runs, in RAM, until power-off</td>
+</tr>
+<tr>
+<td><a href="#gki18n"><code>gk:i18n</code></a></td>
+<td>every app (changing the settings: <code>&quot;settings&quot;</code>)</td>
+<td>Translations, numbers, amounts and dates in the person's language</td>
+</tr>
+<tr>
+<td><a href="#gkdata"><code>gk:data</code></a></td>
+<td>every app (only the folders its manifest lists in <code>&quot;data&quot;</code>)</td>
+<td>Read-only files from the card's data folders, shared by name</td>
+</tr>
+<tr>
+<td><a href="#gkapps"><code>gk:apps</code></a></td>
+<td>apps with the <code>&quot;apps&quot;</code> permission</td>
+<td>List and launch apps (the launcher)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Plus the <a href="#globals">globals</a> <code>console</code>, <code>setTimeout</code>, <code>setInterval</code>,
+<code>clearTimeout</code> and <code>clearInterval</code>, and the standard JavaScript library
+(ES2023).</p>
+<p>An app's own modules are imported with relative paths (<code>&quot;./lib/x.js&quot;</code>).
+Paths are resolved inside the app's directory; <code>..</code> cannot leave it.</p>
+<hr />
+<h2 id="gkui"><a class="anchor" href="#gkui" aria-hidden="true" tabindex="-1">#</a>gk:ui</h2>
+<pre><code class="language-js">import * as ui from &quot;gk:ui&quot;;
+</code></pre>
+<h3 id="exports"><a class="anchor" href="#exports" aria-hidden="true" tabindex="-1">#</a>Exports</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Widget</code></td>
+<td>class</td>
+<td>Base class of all widgets. Not constructible; use for <code>instanceof</code>.</td>
+</tr>
+<tr>
+<td><code>Container</code>, <code>Panel</code>, <code>Label</code>, <code>Button</code>, <code>TextArea</code>, <code>Checkbox</code>, <code>Switch</code>, <code>Dropdown</code>, <code>Slider</code>, <code>Bar</code>, <code>Table</code>, <code>QRCode</code>, <code>Image</code>, <code>Scanner</code>, <code>TabView</code></td>
+<td>classes</td>
+<td><a href="#widgets">Widgets</a></td>
+</tr>
+<tr>
+<td><code>screen</code></td>
+<td>Container</td>
+<td>The app's root widget. A column with 16 px padding and 12 px gap.</td>
+</tr>
+<tr>
+<td><code>width</code>, <code>height</code></td>
+<td>number</td>
+<td>Display size in pixels.</td>
+</tr>
+<tr>
+<td><code>fonts</code></td>
+<td>number[]</td>
+<td>Available font sizes: 12, 14, 16, 18, 20, 22, 24, 28, 32, 40. Every size has Montserrat's Basic Latin, Latin-1 and Latin Extended-A letters, the dashes, quotes, bullet and ellipsis (– — ‘ ’ “ ” • …), € and ₿, and the <code>ui.symbols</code> icons. Other characters are drawn as an empty box.</td>
+</tr>
+<tr>
+<td><code>monoFonts</code></td>
+<td>number[]</td>
+<td>Sizes of the monospaced font (<code>mono: true</code>): 12, 14, 16, 18, 20, 24, 28. Basic Latin and Latin-1 in JetBrains Mono; other characters (icons, Latin Extended-A, € and ₿) from the normal font of the same size.</td>
+</tr>
+<tr>
+<td><code>symbols</code></td>
+<td>object</td>
+<td>Icon glyphs usable in any text, e.g. <code>ui.symbols.ok</code>. <a href="#symbols">List</a>.</td>
+</tr>
+<tr>
+<td><code>alert(message, options?)</code></td>
+<td>function</td>
+<td>Modal message. <a href="#uialert">Details</a>.</td>
+</tr>
+<tr>
+<td><code>onKey(handler)</code></td>
+<td>function</td>
+<td>App-wide key handler. <a href="#uionkey">Details</a>.</td>
+</tr>
+<tr>
+<td><code>theme(options)</code></td>
+<td>function</td>
+<td>Change colors. <a href="#uitheme">Details</a>.</td>
+</tr>
+<tr>
+<td><code>escapeMarkup(text)</code></td>
+<td>function</td>
+<td>The text, for a Label with <code>markup: true</code>, shown as it is: <code>&amp;</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&quot;</code> and <code>'</code> as entities. Use it for anything not written by the app (a name, an address, a scanned code), or use <code>gk:i18n</code>'s <code>tm()</code>.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="creating-widgets"><a class="anchor" href="#creating-widgets" aria-hidden="true" tabindex="-1">#</a>Creating widgets</h3>
+<pre><code class="language-js">new ui.Label(props?)            // child of ui.screen
+new ui.Label(parent, props?)    // child of another widget
+</code></pre>
+<p><code>props</code> is an object of <a href="#common-properties">properties</a> and
+<a href="#events">event handlers</a>. Unknown property names and invalid values throw a
+<code>TypeError</code> naming the problem, both here and in <code>set()</code>, so typos don't
+fail silently.</p>
+<p>Widgets can be subclassed:</p>
+<pre><code class="language-js">class Title extends ui.Label {
+  constructor(parent, text) {
+    super(parent, { text, font: 28 });
+  }
+}
+</code></pre>
+<h3 id="widget-methods-and-properties-all-widgets"><a class="anchor" href="#widget-methods-and-properties-all-widgets" aria-hidden="true" tabindex="-1">#</a>Widget methods and properties (all widgets)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>set(props)</code></td>
+<td>Apply several properties. Returns the widget (chainable).</td>
+</tr>
+<tr>
+<td><code>on(event, fn)</code></td>
+<td>Set the handler for an event (replaces any previous one). Chainable.</td>
+</tr>
+<tr>
+<td><code>off(event)</code></td>
+<td>Remove the handler. Chainable.</td>
+</tr>
+<tr>
+<td><code>focus()</code></td>
+<td>Give keyboard focus to the widget (if it is focusable).</td>
+</tr>
+<tr>
+<td><code>delete()</code></td>
+<td>Remove the widget and its children. Safe inside the widget's own handlers. Calling it twice is harmless.</td>
+</tr>
+<tr>
+<td><code>clear()</code></td>
+<td>Delete all children. Chainable.</td>
+</tr>
+<tr>
+<td><code>scrollIntoView()</code></td>
+<td>Scroll the parents so the widget is visible.</td>
+</tr>
+<tr>
+<td><code>parent</code></td>
+<td>Parent widget (read-only), <code>null</code> for the screen.</td>
+</tr>
+<tr>
+<td><code>children</code></td>
+<td>Array of child widgets (read-only, a new array each time).</td>
+</tr>
+<tr>
+<td><code>alive</code></td>
+<td><code>false</code> once deleted (read-only). Any other use of a deleted widget throws.</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>&quot;Label&quot;</code>, <code>&quot;Button&quot;</code>, ... (read-only).</td>
+</tr>
+</tbody>
+</table></div>
+<p>Every property in the tables below is also a JavaScript property:
+<code>label.text = &quot;hi&quot;</code> is the same as <code>label.set({ text: &quot;hi&quot; })</code>. Properties
+marked <em>readable</em> return their current value; the others are write-only.</p>
+<h3 id="common-properties"><a class="anchor" href="#common-properties" aria-hidden="true" tabindex="-1">#</a>Common properties</h3>
+<p>Accepted by every widget.</p>
+<p><strong>Geometry and layout</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x</code>, <code>y</code></td>
+<td>size</td>
+<td>Position. Relative to the <code>align</code> point if set.</td>
+</tr>
+<tr>
+<td><code>width</code>, <code>height</code></td>
+<td>size</td>
+<td><em>Readable</em> (returns pixels).</td>
+</tr>
+<tr>
+<td><code>minWidth</code>, <code>maxWidth</code>, <code>minHeight</code>, <code>maxHeight</code></td>
+<td>size</td>
+<td></td>
+</tr>
+<tr>
+<td><code>grow</code></td>
+<td>number</td>
+<td>Flex grow factor inside a row/column parent.</td>
+</tr>
+<tr>
+<td><code>align</code></td>
+<td><code>&quot;default&quot;</code>, <code>&quot;center&quot;</code>, <code>&quot;top-left&quot;</code>, <code>&quot;top-mid&quot;</code>, <code>&quot;top-right&quot;</code>, <code>&quot;bottom-left&quot;</code>, <code>&quot;bottom-mid&quot;</code>, <code>&quot;bottom-right&quot;</code>, <code>&quot;left-mid&quot;</code>, <code>&quot;right-mid&quot;</code></td>
+<td>Position within the parent. Ignored when the parent has a layout.</td>
+</tr>
+<tr>
+<td><code>layout</code></td>
+<td><code>&quot;none&quot;</code>, <code>&quot;row&quot;</code>, <code>&quot;column&quot;</code>, <code>&quot;row-wrap&quot;</code>, <code>&quot;column-wrap&quot;</code></td>
+<td>How children are arranged.</td>
+</tr>
+<tr>
+<td><code>justify</code></td>
+<td><code>&quot;start&quot;</code>, <code>&quot;center&quot;</code>, <code>&quot;end&quot;</code>, <code>&quot;space-between&quot;</code>, <code>&quot;space-around&quot;</code>, <code>&quot;space-evenly&quot;</code></td>
+<td>Main-axis placement of children.</td>
+</tr>
+<tr>
+<td><code>alignItems</code></td>
+<td><code>&quot;start&quot;</code>, <code>&quot;center&quot;</code>, <code>&quot;end&quot;</code></td>
+<td>Cross-axis placement of children.</td>
+</tr>
+<tr>
+<td><code>gap</code></td>
+<td>number</td>
+<td>Space between children, px.</td>
+</tr>
+<tr>
+<td><code>padding</code></td>
+<td>number, <code>[v, h]</code> or <code>[top, right, bottom, left]</code></td>
+<td>Inner spacing, px.</td>
+</tr>
+</tbody>
+</table></div>
+<p>A <strong>size</strong> is a number of pixels, a percentage of the parent as a string
+(<code>&quot;50%&quot;</code>), or <code>&quot;content&quot;</code> (fit the children).</p>
+<p><strong>Appearance</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bg</code></td>
+<td>color</td>
+<td>Background color (makes the background opaque).</td>
+</tr>
+<tr>
+<td><code>color</code></td>
+<td>color</td>
+<td>Text color.</td>
+</tr>
+<tr>
+<td><code>font</code></td>
+<td>number</td>
+<td>Font size, one of <code>ui.fonts</code>.</td>
+</tr>
+<tr>
+<td><code>mono</code></td>
+<td>boolean</td>
+<td><em>Readable</em>. The monospaced font (JetBrains Mono), for addresses, keys, hex and code: 0/O and 1/l/I differ. Its sizes are <code>ui.monoFonts</code>; with <code>font</code> too, in any order, that size must be one of them, without it the size the widget would have (or the next smaller mono size). Same line height and baseline as the normal font of the same size, so the two mix on a row. Set on a container, its children inherit it.</td>
+</tr>
+<tr>
+<td><code>textAlign</code></td>
+<td><code>&quot;left&quot;</code>, <code>&quot;center&quot;</code>, <code>&quot;right&quot;</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>radius</code></td>
+<td>number</td>
+<td>Corner radius, px.</td>
+</tr>
+<tr>
+<td><code>borderWidth</code></td>
+<td>number</td>
+<td>px.</td>
+</tr>
+<tr>
+<td><code>borderColor</code></td>
+<td>color</td>
+<td></td>
+</tr>
+<tr>
+<td><code>opacity</code></td>
+<td>number 0..1</td>
+<td>Whole widget, including children.</td>
+</tr>
+</tbody>
+</table></div>
+<p>A <strong>color</strong> is <code>0xRRGGBB</code>, <code>&quot;#RRGGBB&quot;</code> or <code>&quot;#RGB&quot;</code>.</p>
+<p><strong>State</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>hidden</code></td>
+<td>boolean</td>
+<td><em>Readable</em>. Hidden widgets take no space in layouts.</td>
+</tr>
+<tr>
+<td><code>disabled</code></td>
+<td>boolean</td>
+<td><em>Readable</em>. Grayed out, ignores input.</td>
+</tr>
+<tr>
+<td><code>scrollable</code></td>
+<td>boolean</td>
+<td>Whether content overflowing the widget can be scrolled. Panels and the screen scroll by default, Containers only when set (<a href="#container">Container</a>).</td>
+</tr>
+<tr>
+<td><code>clickable</code></td>
+<td>boolean</td>
+<td>Whether the widget receives clicks.</td>
+</tr>
+<tr>
+<td><code>focusable</code></td>
+<td>boolean</td>
+<td><em>Readable</em>. Whether Tab stops at the widget. Buttons, text areas and other input widgets are focusable already; set it on a Container to make it a keyboard target (it gets the focus ring and is scrolled into view when focused).</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="events"><a class="anchor" href="#events" aria-hidden="true" tabindex="-1">#</a>Events</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Handler property</th>
+<th>Fired when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&quot;click&quot;</code></td>
+<td><code>onClick</code></td>
+<td>Clicked, or Enter/Space while focused.</td>
+</tr>
+<tr>
+<td><code>&quot;change&quot;</code></td>
+<td><code>onChange</code></td>
+<td>The value changed (by the person or by code).</td>
+</tr>
+<tr>
+<td><code>&quot;submit&quot;</code></td>
+<td><code>onSubmit</code></td>
+<td>Enter in a one-line TextArea.</td>
+</tr>
+<tr>
+<td><code>&quot;focus&quot;</code></td>
+<td><code>onFocus</code></td>
+<td>Received keyboard focus.</td>
+</tr>
+<tr>
+<td><code>&quot;blur&quot;</code></td>
+<td><code>onBlur</code></td>
+<td>Lost keyboard focus.</td>
+</tr>
+<tr>
+<td><code>&quot;longpress&quot;</code></td>
+<td><code>onLongPress</code></td>
+<td>Pressed and held.</td>
+</tr>
+<tr>
+<td><code>&quot;key&quot;</code></td>
+<td><code>onKey</code></td>
+<td>A key reached the focused widget (after <code>ui.onKey</code>).</td>
+</tr>
+<tr>
+<td><code>&quot;press&quot;</code></td>
+<td><code>onPress</code></td>
+<td>The mouse button went down on the widget, or Enter/Space while it is focused.</td>
+</tr>
+<tr>
+<td><code>&quot;drag&quot;</code></td>
+<td><code>onDrag</code></td>
+<td>The mouse moved while pressed on the widget (only when it actually moved).</td>
+</tr>
+<tr>
+<td><code>&quot;release&quot;</code></td>
+<td><code>onRelease</code></td>
+<td>The press ended.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Handlers receive one event object and are called with <code>this</code> set to the
+widget:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td>Event name.</td>
+</tr>
+<tr>
+<td><code>target</code></td>
+<td>The widget.</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>For value-carrying widgets: TextArea text, Checkbox/Switch <code>checked</code>, Slider/Bar <code>value</code>, Dropdown <code>selected</code>, TabView <code>active</code>.</td>
+</tr>
+<tr>
+<td><code>key</code></td>
+<td><code>&quot;key&quot;</code> events only: key name (see <a href="#key-names">key names</a>).</td>
+</tr>
+<tr>
+<td><code>pointer</code></td>
+<td><code>&quot;press&quot;</code>, <code>&quot;drag&quot;</code>, <code>&quot;release&quot;</code>: <code>true</code> if from the mouse, <code>false</code> if from the keyboard.</td>
+</tr>
+<tr>
+<td><code>x</code>, <code>y</code></td>
+<td>Same events, mouse only: position relative to the widget's top-left corner, px.</td>
+</tr>
+<tr>
+<td><code>time</code></td>
+<td>Same events: uptime in milliseconds, microsecond resolution (as <code>sys.uptime()</code>).</td>
+</tr>
+</tbody>
+</table></div>
+<p>A widget with a <code>&quot;drag&quot;</code> handler does not scroll its parents when dragged
+on, so drawing or entropy-collecting areas work inside scrollable pages.
+Holding Enter or Space does not repeat <code>&quot;click&quot;</code> or <code>&quot;press&quot;</code>: auto-repeat
+moves and types, but never activates.</p>
+<h3 id="widgets"><a class="anchor" href="#widgets" aria-hidden="true" tabindex="-1">#</a>Widgets</h3>
+<h4 id="container"><a class="anchor" href="#container" aria-hidden="true" tabindex="-1">#</a>Container</h4>
+<p>An invisible box for layout: no background, border or padding, sized to its
+content by default. Children's focus rings may draw outside it.</p>
+<p>A Container doesn't scroll unless you set <code>scrollable: true</code>. A scrollable
+Container clips its content (rows scrolled out of view must not draw over
+the rest of the screen) and, unless you set <code>padding</code>, gets 5 px of padding
+so the focus rings of the widgets at its edges stay whole. If you set your own
+padding on a scrollable Container, leave at least 5 px for the ring: it is
+3 px wide, 2 px away from the widget.</p>
+<h4 id="panel"><a class="anchor" href="#panel" aria-hidden="true" tabindex="-1">#</a>Panel</h4>
+<p>A box with the theme's &quot;card&quot; look: background, border, rounded corners,
+padding, scrollbars when content overflows.</p>
+<h4 id="label"><a class="anchor" href="#label" aria-hidden="true" tabindex="-1">#</a>Label</h4>
+<p>Text: one line or wrapped; with <code>markup: true</code>, in several styles.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>text</code></td>
+<td>string</td>
+<td><em>Readable</em>. May contain <code>\n</code> and <code>ui.symbols</code>. With <code>markup</code>, it is markup (below), and reads back as it was set.</td>
+</tr>
+<tr>
+<td><code>overflow</code></td>
+<td><code>&quot;wrap&quot;</code>, <code>&quot;clip&quot;</code>, <code>&quot;dots&quot;</code>, <code>&quot;scroll&quot;</code>, <code>&quot;scroll-circular&quot;</code></td>
+<td>What happens when text is wider than the label (set a <code>width</code> for this to matter). With <code>markup</code>: <code>&quot;wrap&quot;</code>, <code>&quot;clip&quot;</code> (the first line) or <code>&quot;dots&quot;</code> (set a <code>maxHeight</code> too).</td>
+</tr>
+<tr>
+<td><code>markup</code></td>
+<td>boolean</td>
+<td><em>Readable</em>. Set when the Label is created (<code>new ui.Label({ markup: true, text })</code>; changing it later throws). Then <code>text</code> is Pango-style markup: <code>&lt;b&gt;</code> and <code>&lt;i&gt;</code> (bold, italic, and both: at every size, drawn from outlines when first used), <code>&lt;tt&gt;</code> (the monospaced font, at the size or the next smaller), <code>&lt;big&gt;</code> and <code>&lt;small&gt;</code> (a step in <code>ui.fonts</code>), <code>&lt;u&gt;</code>, <code>&lt;s&gt;</code>, <code>&lt;span&gt;</code> with <code>color</code> (<code>&quot;#RRGGBB&quot;</code> or <code>&quot;#RGB&quot;</code>), <code>size</code> (one of <code>ui.fonts</code>), <code>font_family=&quot;monospace&quot;</code>, <code>weight=&quot;bold&quot;</code>, <code>style=&quot;italic&quot;</code>, <code>underline=&quot;single&quot;</code>, <code>strikethrough=&quot;true&quot;</code>; entities <code>&amp;lt; &amp;gt; &amp;amp; &amp;quot; &amp;apos; &amp;#N; &amp;#xN;</code>. Anything else throws a <code>TypeError</code> that says what and at which character: an unknown tag, bold or italic monospaced text (there is no such font), <code>bgcolor</code>, tags left open or crossed, a bad value, a <code>&amp;</code> that starts no entity. Escape data with <code>ui.escapeMarkup</code>, or build the text with <code>gk:i18n</code>'s <code>tm()</code>. <a href="apps.html#markup">Markup</a>.</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="button"><a class="anchor" href="#button" aria-hidden="true" tabindex="-1">#</a>Button</h4>
+<p>A button: clicked with the mouse, or Enter or Space while focused.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>text</code></td>
+<td>string</td>
+<td><em>Readable</em>. Creates a centered label inside the button.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Buttons can also contain arbitrary children (give them a <code>layout</code>).</p>
+<h4 id="textarea"><a class="anchor" href="#textarea" aria-hidden="true" tabindex="-1">#</a>TextArea</h4>
+<p>A text field, one line or several.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>text</code></td>
+<td>string</td>
+<td><em>Readable</em>.</td>
+</tr>
+<tr>
+<td><code>placeholder</code></td>
+<td>string</td>
+<td>Shown while empty.</td>
+</tr>
+<tr>
+<td><code>oneLine</code></td>
+<td>boolean</td>
+<td>Single line; Enter fires <code>submit</code>.</td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>boolean</td>
+<td>Show bullets instead of characters.</td>
+</tr>
+<tr>
+<td><code>maxLength</code></td>
+<td>number</td>
+<td>0 = unlimited.</td>
+</tr>
+<tr>
+<td><code>accept</code></td>
+<td>string or <code>null</code></td>
+<td>Only these characters can be typed.</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="checkbox"><a class="anchor" href="#checkbox" aria-hidden="true" tabindex="-1">#</a>Checkbox</h4>
+<p>A box to tick, with a label.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>text</code></td>
+<td>string</td>
+<td><em>Readable</em>. Label next to the box.</td>
+</tr>
+<tr>
+<td><code>checked</code></td>
+<td>boolean</td>
+<td><em>Readable</em>.</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="switch"><a class="anchor" href="#switch" aria-hidden="true" tabindex="-1">#</a>Switch</h4>
+<p>An on/off switch.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>checked</code></td>
+<td>boolean</td>
+<td><em>Readable</em>.</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="dropdown"><a class="anchor" href="#dropdown" aria-hidden="true" tabindex="-1">#</a>Dropdown</h4>
+<p>Picks one of several options from a list that opens.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>options</code></td>
+<td>string[]</td>
+<td></td>
+</tr>
+<tr>
+<td><code>selected</code></td>
+<td>number</td>
+<td><em>Readable</em>. Index of the selected option.</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="slider-bar"><a class="anchor" href="#slider-bar" aria-hidden="true" tabindex="-1">#</a>Slider, Bar</h4>
+<p>A Slider sets a number in a range; a Bar shows one.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>min</code>, <code>max</code></td>
+<td>number</td>
+<td><em>Readable</em>. Integer range (default 0..100).</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>number</td>
+<td><em>Readable</em>. Clamped to the range.</td>
+</tr>
+</tbody>
+</table></div>
+<p>A Slider can be changed by the person (arrow keys when focused); a Bar only
+displays a value.</p>
+<h4 id="table"><a class="anchor" href="#table" aria-hidden="true" tabindex="-1">#</a>Table</h4>
+<p>Rows and columns of text.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Property / method</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data</code></td>
+<td>string[][]</td>
+<td>Replaces all cells; rows may have different lengths.</td>
+</tr>
+<tr>
+<td><code>rows</code>, <code>cols</code></td>
+<td>number</td>
+<td><em>Readable</em>.</td>
+</tr>
+<tr>
+<td><code>setCell(row, col, text)</code></td>
+<td></td>
+<td>Grows the table if needed.</td>
+</tr>
+<tr>
+<td><code>getCell(row, col)</code></td>
+<td>→ string</td>
+<td><code>undefined</code> outside the table.</td>
+</tr>
+<tr>
+<td><code>setColumnWidth(col, px)</code></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="qrcode"><a class="anchor" href="#qrcode" aria-hidden="true" tabindex="-1">#</a>QRCode</h4>
+<p>A QR code, drawn from text or bytes.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data</code></td>
+<td>string or <code>Uint8Array</code></td>
+<td>Encoded content. Text uses the most compact single mode (numeric for digits only, alphanumeric for <code>0-9 A-Z $%*+-./:</code> and space, otherwise byte mode with UTF-8); a <code>Uint8Array</code> is encoded as raw bytes. Throws <code>RangeError</code> if it doesn't fit.</td>
+</tr>
+<tr>
+<td><code>ecc</code></td>
+<td><code>&quot;L&quot;</code>, <code>&quot;M&quot;</code>, <code>&quot;Q&quot;</code>, <code>&quot;H&quot;</code></td>
+<td>Error correction level (default <code>&quot;M&quot;</code>). Never raised automatically, so the symbol is exactly what was asked for.</td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td>number</td>
+<td>The smallest version to use, 1 to 40 (default 1): a larger one is used only if the data needs it. For a series of codes shown in turn, such as BBQr's, which should all be one version. <code>modules</code> gives the version used: (modules - 17) / 4.</td>
+</tr>
+<tr>
+<td><code>size</code></td>
+<td>number</td>
+<td>Side length in px (default 160), including a 4-module quiet zone. Modules are drawn at an integer scale.</td>
+</tr>
+<tr>
+<td><code>dark</code>, <code>light</code></td>
+<td>color</td>
+<td>Module colors (default black on white).</td>
+</tr>
+<tr>
+<td><code>modules</code></td>
+<td>number</td>
+<td><em>Read-only</em>. Modules per side of the current symbol (21 for version 1, +4 per version), 0 when empty.</td>
+</tr>
+</tbody>
+</table></div>
+<p>A rejected value (data too long, size too small) throws and leaves the code
+unchanged. For example, a 24-word SeedQR (96 digits at <code>ecc: &quot;L&quot;</code>) is 29×29,
+a Compact SeedQR (32 bytes at <code>&quot;L&quot;</code>) is 25×25.</p>
+<h4 id="image"><a class="anchor" href="#image" aria-hidden="true" tabindex="-1">#</a>Image</h4>
+<p>A picture from pixels the app supplies (GapKeep decodes no image formats).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src</code></td>
+<td><code>{ width, height, data }</code></td>
+<td><code>data</code>: a <code>Uint8Array</code> or <code>ArrayBuffer</code> of <code>width * height * 4</code> bytes, RGBA with straight alpha, rows top to bottom (as canvas <code>ImageData</code>). Up to 1024 px a side. Copied: the app may reuse its buffer. <code>sys.app.image</code> and the <code>image</code> of <code>apps.list()</code> entries are in this form.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The image shows at its own size. Give the widget a <code>width</code> and <code>height</code> to
+scale it to fit (keeping its aspect ratio); <code>radius</code> rounds its corners.</p>
+<pre><code class="language-js">new ui.Image({ src: sys.app.image, radius: 12 });
+</code></pre>
+<h4 id="scanner"><a class="anchor" href="#scanner" aria-hidden="true" tabindex="-1">#</a>Scanner</h4>
+<p>The camera's view, and what the kernel recognises in it: the detectors
+in <code>detect</code>. The app gets what was found (a QR code's contents), never
+the picture: the kernel draws the view and runs the detectors. Needs
+<code>&quot;permissions&quot;: [&quot;camera&quot;]</code> in the manifest (otherwise the constructor
+throws). See <a href="camera.html">CAMERA.md</a>.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Property / method</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detect</code></td>
+<td>list of detector names</td>
+<td><em>Readable</em>. Required. What to look for: <code>&quot;qr&quot;</code> (QR codes); <code>&quot;qr-color&quot;</code> (experimental: a colour QR code's colour layer, only with <code>experimental = yes</code> in the card's <code>gapkeep.txt</code>, otherwise an unknown name). An unknown name throws, listing those this system has. More detectors (e.g. ArUco markers) will come under new names, each with its own <code>&quot;detect&quot;</code> event fields. May be changed while scanning.</td>
+</tr>
+<tr>
+<td><code>field</code></td>
+<td><code>&quot;center&quot;</code>, <code>&quot;full&quot;</code></td>
+<td><em>Readable</em>. What part of the camera's view the scanner sees. <code>&quot;center&quot;</code> (the default): the middle, at full detail: about a 26° view on the Pi camera, best for a code at 30-60 cm or a phone at arm's length. <code>&quot;full&quot;</code>: all of the camera's view, with less detail per degree, so codes must be larger in the picture. Changing it restarts a running scanner.</td>
+</tr>
+<tr>
+<td><code>scanning</code></td>
+<td>boolean</td>
+<td><em>Read-only</em>. Whether the camera is on for this scanner.</td>
+</tr>
+<tr>
+<td><code>start()</code></td>
+<td></td>
+<td>Turns the camera on again after <code>stop()</code> or an error. Scanning starts by itself when the widget is created.</td>
+</tr>
+<tr>
+<td><code>stop()</code></td>
+<td></td>
+<td>Turns the camera off. Deleting the widget, or the app ending, does too.</td>
+</tr>
+<tr>
+<td><code>onDetect</code></td>
+<td>handler</td>
+<td>Event <code>&quot;detect&quot;</code>. Something was found; <code>kind</code> says what. <code>&quot;qr&quot;</code>: <code>bytes</code> (a <code>Uint8Array</code>) is the code's content, <code>text</code> the same as a string if it is valid UTF-8, else <code>null</code>; fired again only when the content changes, or when the same code comes back after 2 s out of sight, so each part of an animated code arrives once. <code>&quot;qr-color&quot;</code> (experimental): the same code's colour layer, in an event of its own: <code>bytes</code> and <code>text</code> as for <code>&quot;qr&quot;</code>, <code>status</code> <code>&quot;ok&quot;</code> with the colours' data in <code>colour</code>, or, after a second of trying, <code>&quot;plain&quot;</code> (no colour layer) or <code>&quot;unreadable&quot;</code>, with <code>colour</code> <code>null</code>; a later <code>&quot;ok&quot;</code> for the same code may still follow. With both detectors, a code gives a <code>&quot;qr&quot;</code> event and a <code>&quot;qr-color&quot;</code> one.</td>
+</tr>
+<tr>
+<td><code>onError</code></td>
+<td>handler</td>
+<td>Event <code>&quot;error&quot;</code>. The camera could not start or stopped working; <code>reason</code> says why (<code>&quot;no camera&quot;</code>, <code>&quot;the camera is in use by another scanner&quot;</code>, ...). Scanning has stopped; <code>start()</code> tries again.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The view is 320×240 unless you set <code>width</code> and <code>height</code>; the picture
+(640×480 for <code>&quot;center&quot;</code>) is scaled to fit, and a green outline marks what
+was just found. One scanner
+at a time can have the camera.</p>
+<pre><code class="language-js">new ui.Scanner({
+  detect: [&quot;qr&quot;],
+  onDetect: ({ kind, bytes, text }) =&gt; console.log(`${kind}: ${bytes.length} bytes`),
+  onError: ({ reason }) =&gt; (status.text = reason),
+});
+</code></pre>
+<h4 id="tabview"><a class="anchor" href="#tabview" aria-hidden="true" tabindex="-1">#</a>TabView</h4>
+<p>Tabs along the top, each with its own page.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Property / method</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>addTab(title)</code></td>
+<td>→ Container</td>
+<td>Adds a tab and returns its page. Put the tab's widgets in the page.</td>
+</tr>
+<tr>
+<td><code>active</code></td>
+<td>number</td>
+<td><em>Readable</em>. Index of the shown tab.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="uialert"><a class="anchor" href="#uialert" aria-hidden="true" tabindex="-1">#</a>ui.alert</h3>
+<pre><code class="language-js">const index = await ui.alert(message, { title, buttons });
+</code></pre>
+<p>Shows a modal dialog over the app. <code>buttons</code> is an array of labels (default
+<code>[&quot;OK&quot;]</code>). Resolves with the index of the button pressed, or -1 if the
+person pressed Escape. While an alert is open, Tab moves only between its
+buttons and <code>ui.onKey</code> handlers are not called. Alerts can be nested.</p>
+<h3 id="uionkey"><a class="anchor" href="#uionkey" aria-hidden="true" tabindex="-1">#</a>ui.onKey</h3>
+<pre><code class="language-js">ui.onKey((ev) =&gt; { ... return true; });   // or ui.onKey(null) to remove
+</code></pre>
+<p>Called for every key press before it reaches the focused widget. Return
+<code>true</code> to consume the key. The event has:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>key</code></td>
+<td>Key name (see below).</td>
+</tr>
+<tr>
+<td><code>shift</code>, <code>ctrl</code>, <code>alt</code></td>
+<td>Modifier state (booleans).</td>
+</tr>
+<tr>
+<td><code>repeat</code></td>
+<td><code>true</code> if the key is being held down and this press is an auto-repeat (after 400 ms, every 80 ms).</td>
+</tr>
+</tbody>
+</table></div>
+<p>With Ctrl or Alt held, keys are delivered to the handler only, not typed.</p>
+<h4 id="key-names"><a class="anchor" href="#key-names" aria-hidden="true" tabindex="-1">#</a>Key names</h4>
+<p>Printable characters are themselves (<code>&quot;a&quot;</code>, <code>&quot;A&quot;</code>, <code>&quot;7&quot;</code>, <code>&quot; &quot;</code>, <code>&quot;ç&quot;</code>), as
+the keyboard layout types them (<code>keyboard</code> in <code>gapkeep.txt</code>: <code>us</code> or
+<code>br-abnt2</code>); an accent typed with a dead key arrives once, composed with
+the letter (<code>&quot;á&quot;</code>). Others:
+<code>&quot;Enter&quot;</code>, <code>&quot;Escape&quot;</code>, <code>&quot;Backspace&quot;</code>, <code>&quot;Delete&quot;</code>, <code>&quot;Tab&quot;</code> (check <code>shift</code>
+for Shift+Tab), <code>&quot;ArrowUp&quot;</code>, <code>&quot;ArrowDown&quot;</code>, <code>&quot;ArrowLeft&quot;</code>, <code>&quot;ArrowRight&quot;</code>,
+<code>&quot;Home&quot;</code>, <code>&quot;End&quot;</code>, <code>&quot;PageUp&quot;</code>, <code>&quot;PageDown&quot;</code>, <code>&quot;Insert&quot;</code>, <code>&quot;F1&quot;</code>...<code>&quot;F9&quot;</code>.</p>
+<p>The Windows/Super key is reserved: it always returns to the launcher.
+Shift+PageUp and Shift+PageDown are the system's too: they scroll the
+focused widget's nearest scrollable ancestor by a page, as the mouse
+wheel scrolls what is under the pointer, and never reach <code>ui.onKey</code>.</p>
+<h3 id="uitheme"><a class="anchor" href="#uitheme" aria-hidden="true" tabindex="-1">#</a>ui.theme</h3>
+<pre><code class="language-js">ui.theme({ dark: true, primary: &quot;#009688&quot;, secondary: &quot;#ffc107&quot; });
+</code></pre>
+<p>Changes the theme for widgets created afterwards; call it before building
+the screen. The secondary color is also the focus ring. The system theme is
+restored when the app exits.</p>
+<h3 id="symbols"><a class="anchor" href="#symbols" aria-hidden="true" tabindex="-1">#</a>Symbols</h3>
+<p>Icon glyphs from the built-in font, usable inside any text: <code>audio</code>,
+<code>video</code>, <code>list</code>, <code>ok</code>, <code>close</code>, <code>power</code>, <code>settings</code>, <code>home</code>, <code>download</code>,
+<code>drive</code>, <code>refresh</code>, <code>mute</code>, <code>volume-mid</code>, <code>volume-max</code>, <code>image</code>, <code>tint</code>,
+<code>prev</code>, <code>play</code>, <code>pause</code>, <code>stop</code>, <code>next</code>, <code>eject</code>, <code>left</code>, <code>right</code>, <code>plus</code>,
+<code>minus</code>, <code>eye-open</code>, <code>eye-close</code>, <code>warning</code>, <code>shuffle</code>, <code>up</code>, <code>down</code>,
+<code>loop</code>, <code>directory</code>, <code>upload</code>, <code>call</code>, <code>cut</code>, <code>copy</code>, <code>save</code>, <code>bars</code>,
+<code>envelope</code>, <code>charge</code>, <code>paste</code>, <code>bell</code>, <code>keyboard</code>, <code>gps</code>, <code>file</code>, <code>wifi</code>,
+<code>battery-full</code>, <code>battery-3</code>, <code>battery-2</code>, <code>battery-1</code>, <code>battery-empty</code>,
+<code>usb</code>, <code>bluetooth</code>, <code>trash</code>, <code>edit</code>, <code>backspace</code>, <code>sd-card</code>, <code>new-line</code>.</p>
+<p>Names with dashes need bracket syntax: <code>ui.symbols[&quot;eye-open&quot;]</code>. The same
+names are valid for <code>icon</code> in <code>manifest.json</code>.</p>
+<hr />
+<h2 id="gksys"><a class="anchor" href="#gksys" aria-hidden="true" tabindex="-1">#</a>gk:sys</h2>
+<pre><code class="language-js">import * as sys from &quot;gk:sys&quot;;
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>kernel</code></td>
+<td>The running system: <code>{ hash, hashedBytes, build }</code>. <code>hash</code> is the SHA-256 of the kernel's code and constants as they are in memory, equal to the SHA-256 of the first <code>hashedBytes</code> bytes of <code>kernel.img</code>; <code>build</code> is <code>&quot;production&quot;</code>, <code>&quot;sealed&quot;</code> or <code>&quot;test&quot;</code> (<code>&quot;simulator&quot;</code> in the <a href="ide.html">simulator</a>, where <code>hash</code> is all zeros).</td>
+</tr>
+<tr>
+<td><code>app</code></td>
+<td>This app's manifest data and origin: <code>{ id, name, version, description, icon, image, permissions, source, hash, experimental, suite, data }</code>. <code>name</code> and <code>description</code> are in the language (the app's catalog, <a href="apps.html#languages">Languages</a>) as it was when the app started. <code>icon</code> is a <code>ui.symbols</code> glyph; <code>image</code> is the manifest's picture icon as a <code>ui.Image</code> <code>src</code>, or <code>null</code>. <code>source</code> is <code>&quot;builtin&quot;</code> or <code>&quot;sdcard&quot;</code>; <code>hash</code> is the app's SHA-256 (<a href="apps.html#app-hashes">App hashes</a>); <code>experimental</code> whether its manifest says so (<a href="experimental.html">EXPERIMENTAL.md</a>); <code>suite</code> the id of the <a href="apps.html#suites">suite</a> it belongs to, or <code>null</code>; <code>data</code> the manifest's <code>&quot;data&quot;</code>: the <a href="apps.html#data-files">data folders</a> it may read (<code>[]</code> if none).</td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td><code>{ gapkeep, quickjs, lvgl, circle }</code> version strings.</td>
+</tr>
+<tr>
+<td><code>log(...args)</code></td>
+<td>Same as <code>console.log</code>.</td>
+</tr>
+<tr>
+<td><code>uptime()</code></td>
+<td>Milliseconds since boot, as a float with microsecond resolution.</td>
+</tr>
+<tr>
+<td><code>memory()</code></td>
+<td><code>{ used, limit, objects, ui }</code>: this app's JS heap in bytes and its object count, and the bytes LVGL holds for everything on screen (widgets, their text and styles; the system's too, not only this app's).</td>
+</tr>
+<tr>
+<td><code>gc()</code></td>
+<td>Run the garbage collector now.</td>
+</tr>
+<tr>
+<td><code>exit()</code></td>
+<td>Leave the app and return to the launcher (after the current handler returns).</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="gkcrypto"><a class="anchor" href="#gkcrypto" aria-hidden="true" tabindex="-1">#</a>gk:crypto</h2>
+<pre><code class="language-js">import * as crypto from &quot;gk:crypto&quot;;
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sha1(data)</code></td>
+<td>SHA-1, a <code>Uint8Array(20)</code>. Broken for collisions: for HMAC-SHA1 (TOTP) and protocols that require it, not to identify data.</td>
+</tr>
+<tr>
+<td><code>sha256(data)</code></td>
+<td>SHA-256 of a typed array (its bytes), an <code>ArrayBuffer</code>, or a string (as UTF-8). Returns a <code>Uint8Array(32)</code>. Synchronous.</td>
+</tr>
+<tr>
+<td><code>sha512(data)</code></td>
+<td>SHA-512, a <code>Uint8Array(64)</code>.</td>
+</tr>
+<tr>
+<td><code>hmac(hash, key, data)</code></td>
+<td>HMAC (RFC 2104) of <code>data</code> under <code>key</code>, with the hash named as in WebCrypto: a <code>Uint8Array</code> of the hash's size. Keys of any length (longer than a block are hashed first, as the RFC says).</td>
+</tr>
+<tr>
+<td><code>ripemd160(data)</code></td>
+<td>RIPEMD-160, a <code>Uint8Array(20)</code>.</td>
+</tr>
+<tr>
+<td><code>hash160(data)</code></td>
+<td>RIPEMD-160 of SHA-256 (Bitcoin's HASH160: P2PKH and P2WPKH addresses, BIP-32 key identifiers; a fingerprint is its first 4 bytes), a <code>Uint8Array(20)</code>.</td>
+</tr>
+<tr>
+<td><code>pbkdf2(hash, password, salt, iterations, length)</code></td>
+<td>PBKDF2 (RFC 8018) with HMAC over <code>hash</code>: a <code>Uint8Array(length)</code>. <code>iterations</code> 1 to 10,000,000, <code>length</code> 1 to 1024. A BIP-39 seed is <code>pbkdf2(&quot;SHA-512&quot;, mnemonic, &quot;mnemonic&quot; + passphrase, 2048, 64)</code> (both NFKD-normalised first: <code>.normalize(&quot;NFKD&quot;)</code>), about 0.1 s on a Pi Zero. Blocks until done.</td>
+</tr>
+<tr>
+<td><code>isPrivateKey(key)</code></td>
+<td>Whether <code>key</code> is 32 bytes from 1 to n-1 (n: the curve's order).</td>
+</tr>
+<tr>
+<td><code>isPublicKey(key)</code></td>
+<td>Whether <code>key</code> is a point on the curve, SEC 1 encoded (33 or 65 bytes).</td>
+</tr>
+<tr>
+<td><code>publicKey(privateKey, compressed = true)</code></td>
+<td>The public key, 33 bytes (compressed) or 65.</td>
+</tr>
+<tr>
+<td><code>publicKeyConvert(publicKey, compressed = true)</code></td>
+<td>The same key, compressed or not. A <code>RangeError</code> if it isn't on the curve.</td>
+</tr>
+<tr>
+<td><code>privateKeyTweakAdd(privateKey, tweak)</code></td>
+<td>(privateKey + tweak) mod n: BIP-32's private child keys. A <code>RangeError</code> if <code>tweak</code> ≥ n or the result is 0 (BIP-32: skip to the next index).</td>
+</tr>
+<tr>
+<td><code>publicKeyTweakAdd(publicKey, tweak, compressed = true)</code></td>
+<td>publicKey + tweak·G: BIP-32's public child keys (from an xpub). A <code>RangeError</code> as above.</td>
+</tr>
+<tr>
+<td><code>ecdsaSign(hash, privateKey)</code></td>
+<td>ECDSA signature of a 32-byte hash, DER-encoded (at most 71 bytes; add the sighash byte yourself). Deterministic (RFC 6979), low S, and low R as Bitcoin Core's (retried with extra nonce data until R is below 2²⁵⁵).</td>
+</tr>
+<tr>
+<td><code>ecdsaVerify(signature, hash, publicKey)</code></td>
+<td>Checks a strict-DER signature (without the sighash byte). High-S signatures fail, as in Bitcoin's standard rules.</td>
+</tr>
+<tr>
+<td><code>xOnlyPublicKey(privateKey)</code></td>
+<td>The BIP-340 public key: the point's X, 32 bytes.</td>
+</tr>
+<tr>
+<td><code>schnorrSign(message, privateKey, aux)</code></td>
+<td>BIP-340 signature (64 bytes) of a 32-byte message. <code>aux</code>: 32 bytes of auxiliary randomness; by default fresh random bytes, as BIP-340 recommends (pass zeros for a reproducible signature).</td>
+</tr>
+<tr>
+<td><code>schnorrVerify(signature, message, publicKey)</code></td>
+<td>Checks a BIP-340 signature against an x-only public key; the message may have any length.</td>
+</tr>
+<tr>
+<td><code>taprootTweakPublicKey(publicKey, tweak)</code></td>
+<td>Taproot's output key Q = P + tweak·G for the x-only internal key P (BIP-341): <code>key</code> is Q's X, <code>parity</code> its Y's (a script path's control block needs it). The tweak is the app's: the <code>TapTweak</code> tagged hash of P (and the script tree's root, if any).</td>
+</tr>
+<tr>
+<td><code>taprootTweakPrivateKey(privateKey, tweak)</code></td>
+<td>The private key for that Q (BIP-341's <code>taproot_tweak_seckey</code>: negated if its point's Y is odd, then plus the tweak), to sign a key-path spend with <code>schnorrSign</code>.</td>
+</tr>
+<tr>
+<td><code>randomBytes(n)</code></td>
+<td><code>Uint8Array(n)</code> of random bytes, <code>n</code> ≤ 65536.</td>
+</tr>
+<tr>
+<td><code>getRandomValues(array)</code></td>
+<td>Fills a typed array in place and returns it, like WebCrypto's. ≤ 65536 bytes.</td>
+</tr>
+<tr>
+<td><code>rngStatus()</code></td>
+<td><code>{ healthy, failure, rawBytes }</code>.</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>data</code>, <code>key</code>, <code>password</code> and <code>salt</code> are typed arrays (their bytes: a
+<code>subarray</code> hashes just its part), <code>ArrayBuffer</code>s, or strings, taken as
+UTF-8. Hashes, HMAC and PBKDF2 run in the kernel (src/crypto, written from
+FIPS 180-4, the RIPEMD-160 paper, RFC 2104 and RFC 8018, checked against
+their test vectors): microseconds per block on a Pi Zero, where the same
+in JavaScript takes about a millisecond. The copies made of keys and data
+are overwritten after use.</p>
+<p><strong>secp256k1</strong> (Bitcoin's curve) is Bitcoin Core's
+<a href="https://github.com/bitcoin-core/secp256k1" rel="noopener">libsecp256k1</a> (MIT), whose
+arithmetic on secrets is constant-time. Its keys, hashes, tweaks and
+signatures are typed arrays or <code>ArrayBuffer</code>s, never strings: 32 bytes for
+private keys, hashes, messages to sign and tweaks; public keys SEC 1
+encoded (33 bytes compressed, 65 not) or, for BIP-340 and Taproot, x-only
+(32). Wrong types throw a <code>TypeError</code>, wrong sizes and keys that aren't
+keys a <code>RangeError</code>; the <code>verify</code> and <code>is</code> functions return <code>false</code>
+instead. BIP-32, addresses and transactions are the app's, in JavaScript
+on these: e.g. a child key is <code>privateKeyTweakAdd(k, I.slice(0, 32))</code> with
+<code>I = hmac(&quot;SHA-512&quot;, chainCode, data)</code>. On a Pi Zero, an ECDSA signature
+takes about 9 ms, a BIP-32 derivation step under 2 ms, a BIP-39 seed 93 ms.</p>
+<p>Each group (RIPEMD-160, PBKDF2, secp256k1) checks itself against known
+answers before its first use; if that fails, it throws an <code>InternalError</code>
+until reboot.</p>
+<p><strong>Where the randomness comes from.</strong> The BCM2835's hardware random number
+generator, treated as a noise source of unknown quality. Every raw byte
+passes NIST SP 800-90B's continuous health tests (Repetition Count and
+Adaptive Proportion, tuned for an assumed 1 bit of entropy per byte), 4096
+bytes are tested at boot, and each 32 output bytes are SHA-256 of 256 raw
+bytes. If a test ever fails, the generator shuts off until reboot:
+<code>randomBytes</code> and <code>getRandomValues</code> then throw an <code>InternalError</code>, and never
+return weak bytes.</p>
+<p>The hardware RNG is undocumented. Apps handling secrets should treat it as a
+supplement to entropy the person provides (dice, coins), not a replacement.
+(In the <a href="ide.html">simulator</a>, the bytes come from the host's random source.)</p>
+<p>To run code written for WebCrypto unchanged, give it a small adapter:</p>
+<pre><code class="language-js">import * as gkcrypto from &quot;gk:crypto&quot;;
+globalThis.crypto = {
+  getRandomValues: gkcrypto.getRandomValues,
+  subtle: { digest: async (alg, data) =&gt; ({ &quot;SHA-1&quot;: gkcrypto.sha1, &quot;SHA-256&quot;: gkcrypto.sha256,
+                                             &quot;SHA-512&quot;: gkcrypto.sha512 })[alg](data).buffer },
+};
+</code></pre>
+<hr />
+<h2 id="gkclock"><a class="anchor" href="#gkclock" aria-hidden="true" tabindex="-1">#</a>gk:clock</h2>
+<pre><code class="language-js">import * as clock from &quot;gk:clock&quot;;
+</code></pre>
+<p>The wall clock, kept by the system whatever app runs. A Pi Zero has no
+battery-backed clock, so the time is lost at power-off: until the clock
+app sets it, it counts from 1970-01-01 at boot (<code>status().set</code> is
+<code>false</code>). <code>Date.now()</code> and <code>new Date()</code> follow this clock, and local
+time (<code>getHours()</code>, ...) is UTC plus the clock's fixed offset (no daylight
+saving rules). Every app may read it; setting it needs
+<code>&quot;permissions&quot;: [&quot;rtc&quot;]</code> (the others throw a <code>TypeError</code>). See
+<a href="clock.html">CLOCK.md</a>.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>now()</code></td>
+<td>Milliseconds since 1970-01-01 UTC: the same as <code>Date.now()</code>.</td>
+</tr>
+<tr>
+<td><code>status()</code></td>
+<td><code>{ set, time, trimPpm, utcOffset, drift }</code>: whether the time was set since boot; the time (ms, as <code>now()</code>); the trim correcting the crystal, in parts per million (+ runs faster); local time's offset from UTC in minutes (-180 for UTC-03:00); and <code>drift</code>, <code>null</code> or what the last <code>set()</code> measured: <code>{ correction, over, trimPpm, uncertaintyPpm }</code>: the clock was <code>correction</code> seconds off (+: fast) after <code>over</code> seconds, so <code>trimPpm</code> would have kept it right, give or take <code>uncertaintyPpm</code> (half a second's error in each setting). Measured only when the sets are at least an hour apart.</td>
+</tr>
+<tr>
+<td><code>set(time)</code></td>
+<td><em>Needs &quot;rtc&quot;.</em> Sets the time (ms since 1970, or a <code>Date</code>; from 2000 to 2099) and returns <code>status()</code>, with the drift measured since the last <code>set()</code>.</td>
+</tr>
+<tr>
+<td><code>setTrim(ppm)</code></td>
+<td><em>Needs &quot;rtc&quot;.</em> The trim, -500 to 500 ppm. Takes effect from now, without changing the time. At boot it comes from <code>clock_trim_ppm</code> in the card's <code>gapkeep.txt</code>.</td>
+</tr>
+<tr>
+<td><code>setUtcOffset(minutes)</code></td>
+<td><em>Needs &quot;rtc&quot;.</em> Local time's offset, -720 to 840 minutes (UTC-12:00 to UTC+14:00). At boot it comes from <code>utc_offset</code> in <code>gapkeep.txt</code>.</td>
+</tr>
+<tr>
+<td><code>every(seconds, fn)</code></td>
+<td>Calls <code>fn</code> on the clock's marks: whenever the UTC time is a multiple of <code>seconds</code> (whole, 1 to 86400), e.g. at :00 and :30 for 30, and at once (<code>changed: true</code>) whenever the clock is set or its trim or offset change. <code>fn</code> gets <code>{ time, changed }</code>. Returns an id for <code>cancel</code>. Ends with the app.</td>
+</tr>
+<tr>
+<td><code>cancel(id)</code></td>
+<td>Stops an <code>every</code>.</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="gksession"><a class="anchor" href="#gksession" aria-hidden="true" tabindex="-1">#</a>gk:session</h2>
+<pre><code class="language-js">import * as session from &quot;gk:session&quot;;
+</code></pre>
+<p>Values an app keeps across its runs: leave it, use other apps, come back,
+and they are still there. <strong>Only until the device is switched off</strong>: the
+store is in the kernel's RAM, and nothing is ever written to the card. Each
+app has its own, which no other app can read, and neither can another
+version of the app: the store is filed under the app's id and its
+<a href="apps.html">hash</a>. Up to 64 KiB per app (keys and values), 1 MiB for all.</p>
+<pre><code class="language-js">const accounts = session.get(&quot;accounts&quot;) ?? [];
+// ... the person adds one ...
+session.set(&quot;accounts&quot;, accounts);
+</code></pre>
+<p>Values are copied in and out, as a structured clone: objects, arrays,
+strings, numbers, booleans, <code>null</code>, BigInts, <code>Date</code>s, <code>ArrayBuffer</code>s and
+typed arrays. Changing a value after <code>set</code> doesn't change what is stored:
+<code>set</code> it again. Not stored (a <code>TypeError</code>, and the store is left as it
+was): functions, <code>Map</code>, <code>Set</code>, getters, cycles. Objects come back as
+plain objects (not their class). A typed array is stored with its whole
+buffer: store <code>a.slice()</code> rather than a view into a larger buffer.</p>
+<p>What is removed, replaced or cleared is overwritten in memory before it is
+freed. Secrets kept here are still in RAM until power-off: give the person
+a way to forget them (<code>clear()</code>).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>set(key, value)</code></td>
+<td>Stores a copy of <code>value</code> under <code>key</code> (1 to 64 bytes of UTF-8), replacing what was there; <code>undefined</code> removes the key. A <code>RangeError</code> if the app's values would take over 64 KiB (or the store is full), and nothing changes.</td>
+</tr>
+<tr>
+<td><code>get(key)</code></td>
+<td>A fresh copy of the value, or <code>undefined</code>.</td>
+</tr>
+<tr>
+<td><code>remove(key)</code></td>
+<td>Removes the key; <code>false</code> if it wasn't there.</td>
+</tr>
+<tr>
+<td><code>keys()</code></td>
+<td>The app's keys, in the order they were first set.</td>
+</tr>
+<tr>
+<td><code>clear()</code></td>
+<td>Removes all of the app's values.</td>
+</tr>
+<tr>
+<td><code>usage()</code></td>
+<td>Bytes the app's keys and values take, and its limit (65536).</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="gki18n"><a class="anchor" href="#gki18n" aria-hidden="true" tabindex="-1">#</a>gk:i18n</h2>
+<pre><code class="language-js">import { t, plural } from &quot;gk:i18n&quot;;
+
+new ui.Label({ text: t(&quot;Sign this transaction?&quot;) });
+ui.alert(t(&quot;Signed {n} of {total} inputs.&quot;, { n, total }));
+label.text = plural(count, &quot;{n} code&quot;, &quot;{n} codes&quot;);
+</code></pre>
+<p>The app's text in the person's language. The English text is the key,
+written where it is used; the translations are the app's catalogs,
+<code>lang/&lt;language&gt;.json</code>, loaded and checked when the app starts (see
+<a href="apps.html#languages">Languages</a>). A key without a translation shows in
+English. Numbers, amounts and dates are written the same way on every
+build (QuickJS has no <code>Intl</code>).</p>
+<p>The language, the number marks and the keyboard layout come from
+<code>gapkeep.txt</code> at boot (<code>language = pt-BR</code>, <code>decimal_mark</code>, <code>group_mark</code>)
+and can be changed until power-off by an app with
+<code>&quot;permissions&quot;: [&quot;settings&quot;]</code> (the Settings app); without it the setters
+throw a <code>TypeError</code>. A new language applies to the apps started after
+the change, and at once to the app that made it, through
+<code>onLanguageChange</code>.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>t(text, params?)</code></td>
+<td>The translation of <code>text</code>, or <code>text</code> itself. <code>{name}</code> is replaced by <code>params.name</code>: numbers as <code>formatNumber</code> writes them, other values as strings; a BigInt throws a <code>TypeError</code> (format amounts first). A <code>{name}</code> not in <code>params</code> stays as written; <code>{{</code> and <code>}}</code> are braces. <code>$context</code> tells apart the same English in two meanings: <code>t(&quot;Open&quot;, { $context: &quot;verb&quot; })</code> is the catalog key <code>&quot;verb\u0004Open&quot;</code>. Keys should be string literals, so <code>tools/i18n.py</code> finds them.</td>
+</tr>
+<tr>
+<td><code>tm(text, params?)</code></td>
+<td>As <code>t</code>, for a Label with <code>markup: true</code>: every param is escaped (<code>ui.escapeMarkup</code>), so a name, an address or a scanned text never becomes a tag. If <code>text</code> has a tag or an entity it is markup (its translation keeps the same tags: checked on load), else plain text, escaped too.</td>
+</tr>
+<tr>
+<td><code>plural(n, one, other, params?)</code></td>
+<td><code>t(one)</code> or <code>t(other)</code> by the language's plural rule (English and Portuguese: one for 1, other otherwise, 0 too), with <code>n</code> added to <code>params</code>.</td>
+</tr>
+<tr>
+<td><code>language()</code></td>
+<td>The language, a BCP 47 tag: <code>&quot;en&quot;</code>, <code>&quot;pt-BR&quot;</code>, or <code>&quot;qps&quot;</code> (a pseudo-language for testing: every translated text accented, about 40% longer and in brackets).</td>
+</tr>
+<tr>
+<td><code>languages()</code></td>
+<td>The languages the system has (English and those the launcher has a catalog for), each named in itself: <code>[{ tag: &quot;en&quot;, name: &quot;English&quot; }, { tag: &quot;pt-BR&quot;, name: &quot;Português (Brasil)&quot; }]</code>.</td>
+</tr>
+<tr>
+<td><code>setLanguage(tag)</code></td>
+<td><em>Needs &quot;settings&quot;.</em> Changes the language until power-off. This app's catalog is loaded again at once and its <code>onLanguageChange</code> handlers run; other apps get it when they start. A <code>RangeError</code> for a language not in <code>languages()</code> (or <code>&quot;qps&quot;</code>).</td>
+</tr>
+<tr>
+<td><code>onLanguageChange(fn)</code></td>
+<td>Calls <code>fn</code> after the language or the marks change, to redraw. Returns a function that removes it.</td>
+</tr>
+<tr>
+<td><code>marks()</code></td>
+<td>The marks numbers are written with: <code>{ decimal: &quot;.&quot;, group: &quot;,&quot; }</code> in English, <code>{ decimal: &quot;,&quot;, group: &quot;.&quot; }</code> in Portuguese, unless set otherwise. <code>group</code> may be <code>&quot;&quot;</code> (no grouping). For apps that draw numbers themselves.</td>
+</tr>
+<tr>
+<td><code>setMarks(marks)</code></td>
+<td><em>Needs &quot;settings&quot;.</em> The marks, until power-off; <code>null</code> or a mark left out: the language's own. If only one is given and the language's other mark is the same, the other is the other one (<code>{ decimal: &quot;,&quot; }</code> in English: 1.234,5). A <code>RangeError</code> if both are given and the same.</td>
+</tr>
+<tr>
+<td><code>keyboard()</code></td>
+<td>The keyboard layout: <code>&quot;us&quot;</code> or <code>&quot;br-abnt2&quot;</code> (<code>keyboard</code> in <code>gapkeep.txt</code>).</td>
+</tr>
+<tr>
+<td><code>keyboards()</code></td>
+<td>The layouts there are: <code>[&quot;us&quot;, &quot;br-abnt2&quot;]</code>.</td>
+</tr>
+<tr>
+<td><code>setKeyboard(layout)</code></td>
+<td><em>Needs &quot;settings&quot;.</em> The layout, from <code>keyboards()</code>, at once for every app, until power-off. A dead key pending is dropped. <code>RangeError</code> for a layout not in <code>keyboards()</code>.</td>
+</tr>
+<tr>
+<td><code>formatNumber(x, { decimals }?)</code></td>
+<td>Thousands grouped, the language's decimal mark: <code>1,234,567.5</code> or <code>1.234.567,5</code>. <code>decimals</code> (0 to 20): exactly that many, rounded; otherwise as many as the number has. Never an exponent.</td>
+</tr>
+<tr>
+<td><code>formatSats(sats)</code></td>
+<td>Whole satoshis, grouped: <code>2,100,000</code>. A safe integer or a BigInt, else a <code>TypeError</code>.</td>
+</tr>
+<tr>
+<td><code>formatBtc(sats, { decimals = 8 }?)</code></td>
+<td>Satoshis as BTC, never through floating point: <code>1.23456789</code>, <code>20.999.999,97690000</code>. <code>decimals</code> (0 to 8) is the least shown: trailing zeros beyond it are left out, other digits never are (<code>formatBtc(120000000, { decimals: 0 })</code> is <code>1.2</code>). No unit: write <code>&quot;{amount} BTC&quot;</code> in the text, so a translation can move it.</td>
+</tr>
+<tr>
+<td><code>parseNumber(text)</code></td>
+<td>A number as typed, with a sign if any. What could be read two ways is refused (<code>&quot;1.000&quot;</code> in Portuguese, <code>&quot;1,000&quot;</code> in English: one or a thousand?); a lone mark that can't be a thousands separator (<code>0.001</code>, <code>1,5</code>) is the decimal mark in any language; several marks must be the language's thousands, properly grouped. Refusals are a <code>RangeError</code> whose message, translated, says what to type.</td>
+</tr>
+<tr>
+<td><code>parseBtc(text)</code></td>
+<td>An amount in BTC as typed, in whole satoshis (a Number: 21 million BTC fit exactly), with the rules of <code>parseNumber</code>; no sign, at most 8 decimals, at most 21,000,000 BTC.</td>
+</tr>
+<tr>
+<td><code>formatDateTime(seconds, { utc }?)</code></td>
+<td>ISO 8601 with a space, in every language: <code>2026-11-08 14:03:05</code>, in the clock's local time (<a href="#gkclock"><code>gk:clock</code></a>'s UTC offset); with <code>{ utc: true }</code>, in UTC and followed by <code> UTC</code>. <code>seconds</code> since 1970; fractions are dropped.</td>
+</tr>
+<tr>
+<td><code>formatDate(seconds, { utc }?)</code></td>
+<td><code>2026-11-08</code>, as <code>formatDateTime</code>.</td>
+</tr>
+<tr>
+<td><code>formatTime(seconds, { utc }?)</code></td>
+<td><code>14:03:05</code>, as <code>formatDateTime</code>.</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="gkdata"><a class="anchor" href="#gkdata" aria-hidden="true" tabindex="-1">#</a>gk:data</h2>
+<pre><code class="language-js">import * as data from &quot;gk:data&quot;;
+</code></pre>
+<p>Read-only files the person put on the SD card when preparing it, in
+<code>data/&lt;folder&gt;/...</code> beside <code>apps/</code>: public keys, address books, word
+lists. An app reads only the folders its manifest lists, <code>&quot;data&quot;: [&quot;pgp&quot;]</code>,
+and nothing can write them. Apps that list the same folder share it.
+Any kind of file: binary (an exported OpenPGP key) or text (<code>.asc</code>).
+<a href="apps.html#data-files">APPS.md, &quot;Data files&quot;</a> says how to lay them out and
+put them on a card.</p>
+<pre><code class="language-js">for (const { name, size } of data.list(&quot;pgp&quot;)) {
+  const key = data.read(&quot;pgp&quot;, name);          // Uint8Array
+  // ... parse it, show its fingerprint ...
+}
+</code></pre>
+<p><strong>The data is not part of the app's <a href="apps.html#app-hashes">hash</a>.</strong> The app
+hash names the code, and is the same on every card; the data is whatever
+the card holds, and whoever can change the card can change it. So show
+the person what matters before using it: for a key, its fingerprint,
+to be compared with one they trust; <code>hash(folder)</code> names the whole
+folder, as the launcher shows it.</p>
+<p>A folder is read on first use, all of it, and kept in memory until
+power-off: what the app reads is what was hashed. Limits: 4 MB per file,
+8 MB and 256 files per folder, 32 MB for all the folders read. A folder
+over them, or with a name that is not printable ASCII, can't be read:
+every call on it throws, saying why. Names starting with <code>.</code> (macOS's
+<code>._x</code>) are skipped.</p>
+<p>Every refusal is a <code>TypeError</code> that says what is wrong: a folder that
+is not in the manifest, a path that leaves the folder (<code>..</code>, <code>.</code>, a
+leading <code>/</code>, a <code>\</code>), a file that isn't there. A folder that is not on
+the card (and every folder, without a card or in a sealed build, which
+reads no card) has no files: <code>list()</code> returns <code>[]</code> and <code>hash()</code> <code>null</code>.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>list(folder)</code></td>
+<td>The folder's files, <code>{ name, size }</code>, sorted by name (byte order): <code>name</code> is the path inside the folder, with <code>/</code> between folders (<code>&quot;keys/alice.asc&quot;</code>), <code>size</code> in bytes. <code>[]</code> if the folder is not on the card.</td>
+</tr>
+<tr>
+<td><code>read(folder, name)</code></td>
+<td>The file's bytes, a fresh copy. <code>name</code> as <code>list()</code> gives it.</td>
+</tr>
+<tr>
+<td><code>readText(folder, name)</code></td>
+<td>The file as UTF-8 text. A <code>TypeError</code> if it isn't valid UTF-8 (or holds a NUL byte); <code>read()</code> gives its bytes.</td>
+</tr>
+<tr>
+<td><code>hash(folder)</code></td>
+<td>The SHA-256 of the folder's files, 64 hex digits, as the launcher shows it: the <a href="apps.html#app-hashes">app hash</a>'s scheme, so <code>tools/bundle_apps.py --data-hash &lt;folder&gt;</code> computes it on a computer. <code>null</code> if the folder is not on the card.</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="gkapps"><a class="anchor" href="#gkapps" aria-hidden="true" tabindex="-1">#</a>gk:apps</h2>
+<p>Requires <code>&quot;permissions&quot;: [&quot;apps&quot;]</code> in the manifest; importing it otherwise
+throws a <code>ReferenceError</code>. Used by the launcher.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>list()</code></td>
+<td>Array of <code>{ id, name, version, description, icon, image, permissions, source, hash, experimental, suite, data }</code> (as <code>sys.app</code>) (<code>name</code> and <code>description</code> in the language: each app's own catalog translates them) for every app not marked <code>hidden</code>, and not marked <code>experimental</code> unless the card's <code>gapkeep.txt</code> says <code>experimental = yes</code>: the built-in apps (sorted by id; test builds list their test-only apps last), then those from the SD card (sorted by folder; a <a href="apps.html#suites">suite</a>'s apps, in <code>apps/&lt;suite&gt;/&lt;id&gt;</code>, where the suite's folder sorts, each with <code>suite</code> set to the suite's id).</td>
+</tr>
+<tr>
+<td><code>suites()</code></td>
+<td>The <a href="apps.html#suites">suites</a> on the card (<code>apps/&lt;id&gt;/suite.json</code>), sorted by id: <code>{ id, name, description, icon, image }</code>, as for apps (<code>name</code> and <code>description</code> in the language, from the suite's own <code>lang/</code> catalogs). A suite whose apps were all refused is listed too; the launcher shows only suites with apps.</td>
+</tr>
+<tr>
+<td><code>dataHash(folder)</code></td>
+<td>The hash of the <a href="apps.html#data-files">data folder</a> <code>data/&lt;folder&gt;</code>, as <code>gk:data</code>'s <code>hash()</code> gives it, for any folder: the launcher shows those an app lists. <code>null</code> if it is not on the card; a <code>TypeError</code> if it can't be read (too big, a bad name).</td>
+</tr>
+<tr>
+<td><code>launch(id)</code></td>
+<td>Stop the current app and start <code>id</code> (after the current handler returns). Throws if there is no such app, or if it is experimental and experimental features are off.</td>
+</tr>
+<tr>
+<td><code>card()</code></td>
+<td>The SD card: <code>{ status, problems }</code>. <code>status</code> is <code>&quot;ok&quot;</code> (<code>/apps</code> was read), <code>&quot;none&quot;</code> (no card), <code>&quot;unreadable&quot;</code> (no FAT file system), <code>&quot;no-apps&quot;</code> (no <code>/apps</code> folder) or <code>&quot;disabled&quot;</code> (sealed build). <code>problems</code> lists the folders in <code>/apps</code> that were not loaded: <code>[{ folder, error }]</code>, at most 16.</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="globals"><a class="anchor" href="#globals" aria-hidden="true" tabindex="-1">#</a>Globals</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>console.log</code>, <code>info</code>, <code>warn</code>, <code>error</code>, <code>debug</code></td>
+<td>Write to the serial log as <code>app:&lt;id&gt;</code>. Strings are printed as-is, errors with their stack, other objects as JSON.</td>
+</tr>
+<tr>
+<td><code>setTimeout(fn, ms)</code>, <code>setInterval(fn, ms)</code></td>
+<td>Return a numeric id. Extra arguments are not passed on; use a closure. Interval minimum 1 ms.</td>
+</tr>
+<tr>
+<td><code>clearTimeout(id)</code>, <code>clearInterval(id)</code></td>
+<td>Unknown ids are ignored.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Not available: <code>fetch</code>, <code>XMLHttpRequest</code>, <code>WebSocket</code>, <code>localStorage</code> (see
+<a href="#gksession"><code>gk:session</code></a>),
+<code>require</code>, <code>process</code>, the DOM, and the global <code>crypto</code> object (use
+<a href="#gkcrypto"><code>gk:crypto</code></a>).</p>
+<hr />
+<h2 id="limits"><a class="anchor" href="#limits" aria-hidden="true" tabindex="-1">#</a>Limits</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Limit</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JS heap per app</td>
+<td>96 MB</td>
+</tr>
+<tr>
+<td>JS stack</td>
+<td>512 KB</td>
+</tr>
+<tr>
+<td>One handler, timer or job</td>
+<td>10 s, then interrupted (the app keeps running)</td>
+</tr>
+<tr>
+<td>Display</td>
+<td>Whatever the HDMI output negotiates (640×480 in QEMU and, by default, the simulator)</td>
+</tr>
+</tbody>
+</table></div>
+
+</div>
+<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/main/docs/API.md"><code>docs/API.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb/docs/API.md">3e6af247a0b7</a></p>
+</article>
+</div>
+</main>
+<footer class="foot">
+  <div class="foot-in">
+    <p class="foot-brand"><a href="/pt-br/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a><span>Um sistema operacional mínimo, bare-metal, para aplicativos air-gapped.</span></p>
+    <p class="foot-links"><a href="/pt-br/docs/">Documentação</a> · <a href="/pt-br/download.html">Baixar</a> · <a href="/ide/">IDE no navegador</a> · <a href="https://github.com/marcocarnut/GapKeep">Código no GitHub</a> · <a href="/pt-br/docs/security.html">Segurança</a> · <a href="/pt-br/docs/contributing.html">Como contribuir</a></p>
+    <p class="foot-privacy">Sem rastreadores, sem analytics, sem cookies, sem requisições a terceiros: este site não carrega nada de nenhum outro lugar, no espírito do GapKeep.</p>
+    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb"><code>3e6af247a0b7</code></a>.</p>
+  </div>
+</footer>
+</body>
+</html>

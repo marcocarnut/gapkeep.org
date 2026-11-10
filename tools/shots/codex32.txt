@@ -1,0 +1,20 @@
+# codex32: recombine shares (BIP-93 test vector 2), one with a typo first
+expect Keyboard attached 60
+expect launcher ready 60
+moveto 100% 100%
+tile codex32
+expect codex32 selftest: \d+ passed, 0 failed 30
+wait 0.5
+type MS12NAMEA320ZYXWVUTSRQPNMLKJHGFEDCAXRPP870HKKQRQ
+key ret
+expect codex32: box 1 refused: checksum, a fix suggested 5
+wait 0.5
+shot codex32-typo
+key backspace
+type M
+key ret
+type MS12 NAME CACD EFGH JKLM NPQR STUV WXYZ 023F TR2G DZMP Y6PN
+key ret
+expect codex32: recovered a 16-byte seed 5
+wait 0.5
+shot codex32-result
