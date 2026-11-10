@@ -1,8 +1,8 @@
 {
   "_comment": "The SD card images on the download page, from a release made by GapKeep's tools/make_release.sh. Per language: the image (gapkeep-<version>-<lang>.img.zip) and the card's files (gapkeep-<version>-<lang>.zip); for the release: SHA256SUMS and RELEASE.txt. Fill in each field when a release is published (sizes in bytes, sha256 in hex, date as YYYY-MM-DD, URLs of the files on the GitHub release); an image without file, sha256 and url is shown as coming soon. Then run tools/build.py.",
   "releases_url": "https://github.com/marcocarnut/GapKeep/releases",
-  "sums_url": null,
-  "release_txt_url": null,
+  "sums_url": "https://github.com/marcocarnut/GapKeep/releases/download/v0.1.0/SHA256SUMS",
+  "release_txt_url": "https://github.com/marcocarnut/GapKeep/releases/download/v0.1.0/RELEASE.txt",
   "images": [
     {
       "code": "EN",
@@ -14,16 +14,16 @@
         "en": "GapKeep, starting in English.",
         "pt-BR": "O GapKeep, iniciando em inglês."
       },
-      "file": null,
-      "size": null,
-      "sha256": null,
-      "version": null,
-      "commit": null,
-      "date": null,
-      "url": null,
-      "files_zip": null,
-      "files_zip_sha256": null,
-      "files_zip_url": null
+      "file": "gapkeep-0.1.0-en.img.zip",
+      "size": 3955937,
+      "sha256": "7d3988f271a31ef9b46d60fa8c2257ab2d6078a514d9fbcd978fb0939af5d80d",
+      "version": "0.1.0",
+      "commit": "553ff986996e7186d218dd4fd337354825bdb5a1",
+      "date": "2026-11-10",
+      "url": "https://github.com/marcocarnut/GapKeep/releases/download/v0.1.0/gapkeep-0.1.0-en.img.zip",
+      "files_zip": "gapkeep-0.1.0-en.zip",
+      "files_zip_sha256": "627ea389e29efc21f27ecadc79b76a9770dc0e8ca63818df70e09bab8edead04",
+      "files_zip_url": "https://github.com/marcocarnut/GapKeep/releases/download/v0.1.0/gapkeep-0.1.0-en.zip"
     },
     {
       "code": "PT-BR",
@@ -35,16 +35,16 @@
         "en": "GapKeep, starting in Brazilian Portuguese, with the Brazilian ABNT2 keyboard layout.",
         "pt-BR": "O GapKeep, iniciando em português do Brasil, com o teclado no layout ABNT2."
       },
-      "file": null,
-      "size": null,
-      "sha256": null,
-      "version": null,
-      "commit": null,
-      "date": null,
-      "url": null,
-      "files_zip": null,
-      "files_zip_sha256": null,
-      "files_zip_url": null
+      "file": "gapkeep-0.1.0-pt-BR.img.zip",
+      "size": 3955966,
+      "sha256": "4b66e93c50edb0d087610aeb6f3fa3a8aeae422d7a8702f6bbe971990c0fc1d1",
+      "version": "0.1.0",
+      "commit": "553ff986996e7186d218dd4fd337354825bdb5a1",
+      "date": "2026-11-10",
+      "url": "https://github.com/marcocarnut/GapKeep/releases/download/v0.1.0/gapkeep-0.1.0-pt-BR.img.zip",
+      "files_zip": "gapkeep-0.1.0-pt-BR.zip",
+      "files_zip_sha256": "a07eb71a2999c719071f76c506635bb850a122b5afcfc37864419298db08c86b",
+      "files_zip_url": "https://github.com/marcocarnut/GapKeep/releases/download/v0.1.0/gapkeep-0.1.0-pt-BR.zip"
     }
   ],
   "strings": {
