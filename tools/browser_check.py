@@ -88,6 +88,11 @@ async def run(args):
                 m, p = ev['method'], ev['params']
                 if m == 'Network.requestWillBeSent':
                     url = p['request']['url']
+                    # the /gapwallet/ pages forward to GapWallet's own site: a
+                    # navigation, not a request the page makes
+                    if p.get('type') == 'Document' and url.startswith('https://gapwallet.org/') \
+                            and path.endswith('/gapwallet/'):
+                        continue
                     if not (url.startswith(base) or url.startswith('data:') or url.startswith('blob:')):
                         problems.append('%s: request outside the site: %s' % (path, url))
                 elif m == 'Runtime.exceptionThrown':

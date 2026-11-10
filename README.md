@@ -86,18 +86,10 @@ python3 tools/build.py && python3 tools/check_links.py
 
 ## GapWallet
 
-GapWallet, the watch-only web wallet made for the Signer, will be hosted at
-`/gapwallet/`. Until it is imported, `tools/build.py` writes placeholder
-pages there and at `/pt-br/gapwallet/`. To import a build:
-
-```sh
-tools/import_gapwallet.sh ../gapwallet     # its dist/, or else its gapwallet.html (build it first)
-python3 tools/build.py                      # the placeholders give way; /pt-br/gapwallet/ forwards to /gapwallet/
-```
-
-The import copies the build unchanged (its own Content-Security-Policy
-names the servers it may connect to), with its licences, and records the
-commit and each file's SHA-256 in `site/gapwallet/SOURCE`.
+GapWallet, the watch-only web wallet made for the Signer, has its own site,
+<https://gapwallet.org/>, published from its own repository; this site
+links to it and doesn't host it. `/gapwallet/` and `/pt-br/gapwallet/`
+only forward there (a meta refresh and a link; `tools/build.py`).
 
 ## Downloads
 
