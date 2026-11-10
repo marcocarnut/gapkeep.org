@@ -35,7 +35,8 @@ SITE = os.path.join(os.path.dirname(HERE), 'site')
 DEBUG_PORT = 9347
 
 PAGES = ['/', '/pt-br/', '/download.html', '/pt-br/download.html', '/docs/', '/pt-br/docs/',
-         '/docs/architecture.html', '/pt-br/docs/apps/signer.html', '/logo-concepts.html', '/404.html']
+         '/docs/architecture.html', '/pt-br/docs/apps/signer.html', '/gapwallet/', '/pt-br/gapwallet/',
+         '/logo-concepts.html', '/404.html']
 
 
 class CDP:

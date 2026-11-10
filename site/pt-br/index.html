@@ -21,7 +21,7 @@
 <meta property="og:url" content="https://gapkeep.org/pt-br/">
 <script src="/js/lang.js?v=9238942da1"></script>
 <link rel="preload" href="/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/css/site.css?v=098a96c882">
+<link rel="stylesheet" href="/css/site.css?v=0aadc36ef7">
 
 <script src="/js/site.js?v=3497759309" defer></script>
 </head>
@@ -173,13 +173,13 @@
       <div class="gap-row">
         <div class="gap-node">
           <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="9" width="38" height="24" rx="3"/><path d="M17 41h14M24 33v8"/><path d="M14 18c3-4 7-4 10 0s7 4 10 0" stroke-linecap="round"/></svg>
-          <strong>Seu computador online</strong>
-          <span>uma carteira, um site: na rede</span>
+          <strong>GapWallet (online)</strong>
+          <span>uma carteira somente leitura, na rede</span>
         </div>
         <div class="gap-mid" aria-hidden="true">
           <div class="wall"></div>
-          <div class="lane in"><span class="lbl">QR code → câmera</span><i class="packet"></i></div>
-          <div class="lane out"><span class="lbl">tela → QR code</span><i class="packet"></i></div>
+          <div class="lane in"><span class="lbl">transação → QR code → câmera</span><i class="packet"></i></div>
+          <div class="lane out"><span class="lbl">assinada: tela → QR code</span><i class="packet"></i></div>
           <span class="wall-label">Lacuna Física (airgap)</span>
         </div>
         <div class="gap-node gk">
@@ -195,6 +195,48 @@
       </div>
       <figcaption id="gap-caption" class="sr">Os dados só chegam ao GapKeep como QR codes mostrados à câmera, ou digitados; e só saem como o que está na tela.</figcaption>
     </figure>
+
+    <div class="roundtrip reveal" id="gapwallet">
+      <div class="rt-head">
+        <p class="kicker">Ida e volta, com a GapWallet</p>
+        <h3>Uma carteira online sem chaves, um assinador offline sem rede.</h3>
+        <!-- To verify before launch: the description of GapWallet, from its README (github.com/marcocarnut/GapWallet). -->
+        <p>A <strong>GapWallet</strong> é a carteira web que acompanha o GapKeep, feita para o Assinador. Ela é somente leitura: guarda chaves públicas, nunca uma privada. Ela encontra suas moedas, monta a transação (uma PSBT) e a mostra em QR codes. O GapKeep lê, explica e assina; a GapWallet lê a transação assinada de volta pela webcam e a transmite. Cada lado promete uma coisa diferente, e a lacuna entre os dois deixa claro quem promete o quê.</p>
+      </div>
+      <div class="rt-cols">
+        <article class="rt-col">
+          <p class="rt-tag">Online · GapWallet</p>
+          <h4>Conhece seus endereços, não gasta</h4>
+          <ul>
+            <li>Vê seus endereços, saldo e histórico; monta transações; transmite.</li>
+            <li>Conversa com um servidor da blockchain (um servidor Esplora, público ou seu) e, só se você ligar, com um servidor de cotação, pra mostrar quanto vale o saldo.</li>
+            <li>Não guarda chave privada nenhuma: faça o que fizer, não consegue assinar.</li>
+          </ul>
+        </article>
+        <article class="rt-col mid">
+          <p class="rt-tag">A lacuna</p>
+          <h4>Só QR codes que você vê</h4>
+          <ul>
+            <li>A transação sem assinatura vai, a assinada volta. Mais nada atravessa.</li>
+            <li>Cada código está numa tela na sua frente, e qualquer celular também consegue ler.</li>
+          </ul>
+        </article>
+        <article class="rt-col gk">
+          <p class="rt-tag">Offline · GapKeep</p>
+          <h4>Guarda as chaves, mostra a verdade</h4>
+          <ul>
+            <!-- DRAFT: verify after security fixes -->
+            <li>As chaves nunca saem dele, e são esquecidas depois de assinar.</li>
+            <!-- DRAFT: verify after security fixes -->
+            <li>Mostra o que você está assinando de fato, lido da própria transação: valores, destinos, troco e taxa, diga a carteira o que disser.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="callout">
+        <p><strong>O que uma carteira ainda pode errar.</strong>Uma carteira web adulterada não consegue roubar através do Assinador: ela não muda o que você vê antes de assinar. Mas pode mostrar um endereço de recebimento errado, e o servidor com que ela conversa fica sabendo dos seus endereços, o que custa um pouco de privacidade (com um servidor seu, nada). <!-- DRAFT: verify what GapKeep can show today --> Antes de passar adiante um endereço de recebimento, confira no GapKeep.</p>
+      </div>
+      <p class="cta rt-cta"><a class="btn btn-teal" href="gapwallet/">Abrir a GapWallet</a><a class="btn" href="https://github.com/marcocarnut/GapWallet">Código-fonte</a></p>
+    </div>
 
     <div class="feature reveal">
       <div class="feature-text">
@@ -472,7 +514,7 @@
           <tr><th scope="row">Escopo</th><td data-h="SeedSigner">Assinatura de Bitcoin, focada e completa.</td><td data-h="GapKeep">Qualquer aplicativo isolado; Bitcoin primeiro, e já um autenticador e mais.</td></tr>
           <tr><th scope="row">Na mão</th><td data-h="SeedSigner">Uma telinha com joystick e botões, no próprio Pi: portátil.</td><td data-h="GapKeep">Uma tela HDMI e um teclado USB (e mouse): um computador de mesa.</td></tr>
           <tr><th scope="row">Software</th><td data-h="SeedSigner">Um aplicativo em Python.</td><td data-h="GapKeep">Direto no hardware, sem Linux; aplicativos em JavaScript, que qualquer um pode escrever.</td></tr>
-          <tr><th scope="row">Maturidade</th><td data-h="SeedSigner">Anos de uso, funciona com muitas carteiras.</td><td data-h="GapKeep">Novo. Electrum, por enquanto; procuram-se revisores.</td></tr>
+          <tr><th scope="row">Maturidade</th><td data-h="SeedSigner">Anos de uso, funciona com muitas carteiras.</td><td data-h="GapKeep">Novo. GapWallet e Electrum; procuram-se revisores.</td></tr>
         </tbody>
       </table>
     </div>
@@ -504,7 +546,7 @@
       </details>
       <details>
         <summary>Quais carteiras funcionam com o Assinador?</summary>
-        <div><p>O <a href="https://electrum.org">Electrum</a>, por enquanto: ele monta a transação e a mostra como QR code, e lê a transação assinada de volta da tela do GapKeep. Para transações grandes demais para um código só, o Assinador mostra QR codes animados no formato BBQr, o formato em várias partes que o Coldcard e o Sparrow usam (o Electrum não lê BBQr). Uma carteira web companheira, a GapWallet, vem aí. Detalhes na <a href="docs/apps/signer.html">documentação do Assinador</a> (em inglês).</p></div>
+        <div><p>A <a href="#gapwallet">GapWallet</a>, feita para ele: uma carteira web somente leitura que monta a transação, mostra em QR codes (um só, ou uma série animada BBQr) e lê a assinada de volta pela webcam. E o <a href="https://electrum.org">Electrum</a>: ele mostra a transação como QR code e lê a assinada de volta da tela do GapKeep; como não lê BBQr, transações muito grandes pedem a GapWallet. Detalhes na <a href="docs/apps/signer.html">documentação do Assinador</a> (em inglês).</p></div>
       </details>
       <details>
         <summary>Posso escrever o meu próprio aplicativo?</summary>
@@ -522,7 +564,7 @@
   <div class="wrap">
     <div class="section-head reveal">
       <p class="eyebrow"><span class="num">10</span>Agradecimentos</p>
-      <h2 id="giants-title">Estamos sobre ombros de gigantes.</h2>
+      <h2 id="giants-title">Nos ombros de gigantes.</h2>
       <p class="lede">O GapKeep é pequeno porque outros fizeram as coisas grandes, lindamente, e as deram de presente.</p>
     </div>
     <div class="giants reveal">
@@ -544,7 +586,7 @@
       <li><strong><a href="https://github.com/zxing-cpp/zxing-cpp">zxing-cpp</a></strong>, o decodificador de QR code que lê o que a câmera vê. <span class="lic"><a href="https://github.com/zxing-cpp/zxing-cpp/blob/390c4bda3e351f8a4b0f1c2baf7cd14cb6456c31/LICENSE">Apache 2.0</a></span></li>
       <li><strong><a href="https://github.com/bitcoin-core/secp256k1">libsecp256k1</a></strong>, a biblioteca do Bitcoin Core para as assinaturas e as chaves. <span class="lic"><a href="https://github.com/bitcoin-core/secp256k1/blob/6e2c8bc4ecdc6e71dbe7a368f360d8d453ce435d/COPYING">MIT</a></span></li>
       <li><strong><a href="https://elm-chan.org/fsw/ff/">FatFs</a></strong>, de ChaN, que lê o cartão SD (compilado só para leitura). <span class="lic"><a href="https://github.com/rsta2/circle/blob/7a81e1b480fe7d19fc1fc695b89bff0a0848f44b/addon/fatfs/LICENSE.txt">estilo BSD</a></span></li>
-      <li><strong><a href="https://www.anthropic.com/claude">Claude</a></strong>, da Anthropic, uma IA que escreveu e revisou boa parte do código e da documentação do GapKeep junto com o autor; os commits dão o crédito. <span class="lic">Anthropic</span></li>
+      <li><strong><a href="https://www.anthropic.com/claude">Claude</a></strong>, da Anthropic, uma IA que escreveu e revisou boa parte do código e da documentação do GapKeep junto com o autor; os commits dão o crédito.</li>
       <li><strong><a href="https://github.com/JulietaUla/Montserrat">Montserrat</a></strong>, a fonte do GapKeep e deste site. <span class="lic"><a href="https://github.com/marcocarnut/GapKeep/blob/dd359a45719cc36d5475402f7078fcfb4b68e155/src/runtime/fonts/LICENCE.montserrat">SIL OFL 1.1</a></span></li>
       <li><strong><a href="https://fontawesome.com">Font Awesome Free</a></strong>, os ícones dos aplicativos do GapKeep. <span class="lic"><a href="https://github.com/marcocarnut/GapKeep/blob/dd359a45719cc36d5475402f7078fcfb4b68e155/src/runtime/fonts/LICENCE.fontawesome">SIL OFL 1.1 (fontes)</a></span></li>
       <li><strong><a href="https://www.jetbrains.com/lp/mono/">JetBrains Mono</a></strong>, para códigos, chaves e hashes, no GapKeep e aqui. <span class="lic"><a href="https://github.com/marcocarnut/GapKeep/blob/dd359a45719cc36d5475402f7078fcfb4b68e155/src/runtime/fonts/LICENCE.jetbrainsmono">SIL OFL 1.1</a></span></li>
@@ -575,7 +617,7 @@
   <div class="foot-in">
     <p class="foot-brand"><a href="/pt-br/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>Um sistema operacional mínimo, bare-metal, para aplicativos air-gapped.</span></p>
     <p class="foot-links"><a href="/pt-br/docs/">Documentação</a> · <a href="/pt-br/download.html">Baixar</a> · <a href="/ide/web/index.html?lang=pt-BR">IDE no navegador</a> · <a href="https://github.com/marcocarnut/GapKeep">Código no GitHub</a> · <a href="/pt-br/docs/security.html">Segurança</a> · <a href="/pt-br/docs/contributing.html">Como contribuir</a></p>
-    <p class="foot-privacy">Sem rastreadores, sem analytics, sem cookies, sem requisições a terceiros: este site não carrega nada de nenhum outro lugar, no espírito do GapKeep.</p>
+    <p class="foot-privacy">Sem rastreadores, sem analytics, sem cookies, sem requisições a terceiros: este site não carrega nada de nenhum outro lugar, no espírito do GapKeep. (A GapWallet, quando você a usa, se conecta aos servidores que a página dela indica, e explica por quê.)</p>
     <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Este site: textos e imagens sob <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts sob <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/dd359a45719cc36d5475402f7078fcfb4b68e155"><code>dd359a45719c</code></a>.</p>
   </div>
 </footer>

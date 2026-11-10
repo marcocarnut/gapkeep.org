@@ -72,7 +72,8 @@ T = {
         'home': 'GapKeep home',
         'footer_tag': 'A tiny bare-metal OS for air-gapped apps.',
         'footer_privacy': 'No trackers, no analytics, no cookies, no third-party requests: this site '
-                          'loads nothing from anywhere else, in the spirit of GapKeep.',
+                          'loads nothing from anywhere else, in the spirit of GapKeep. (GapWallet, when you '
+                          'use it, connects to the servers its page names, and says why.)',
         'footer_licence': 'GapKeep is free software, under the GNU GPL version 3 or later.',
         'footer_site': 'This site: text and pictures under {cc}, scripts under {gpl}.',
         'footer_docs': 'Documentation mirrored from GapKeep commit',
@@ -102,7 +103,9 @@ T = {
         'home': 'Página inicial do GapKeep',
         'footer_tag': 'Um sistema operacional mínimo, bare-metal, para aplicativos air-gapped.',
         'footer_privacy': 'Sem rastreadores, sem analytics, sem cookies, sem requisições a terceiros: '
-                          'este site não carrega nada de nenhum outro lugar, no espírito do GapKeep.',
+                          'este site não carrega nada de nenhum outro lugar, no espírito do GapKeep. (A '
+                          'GapWallet, quando você a usa, se conecta aos servidores que a página dela indica, '
+                          'e explica por quê.)',
         'footer_licence': 'O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior.',
         'footer_site': 'Este site: textos e imagens sob {cc}, scripts sob {gpl}.',
         'footer_docs': 'Documentação espelhada do commit do GapKeep',
@@ -568,6 +571,54 @@ They are made by <code>tools/make_logos.py</code>; the one in use is its <code>U
     write('logo-concepts.html', page.replace('/pt-br/logo-concepts.html', '/pt-br/'))
 
 
+GAPWALLET = {
+    'en': ('GapWallet', 'GapWallet, the watch-only web wallet made for GapKeep\'s Signer: coming soon.',
+           'Coming soon',
+           'GapWallet, the watch-only web wallet made for GapKeep\'s Signer, will be hosted here. It holds no '
+           'private key: it builds transactions, shows them as QR codes for GapKeep to explain and sign, then '
+           'reads the signed transaction back with the webcam and broadcasts it.',
+           'When it is here, its page will say which servers it connects to, and why: a blockchain server '
+           '(Esplora) for your addresses and balance, and, only if you turn it on, a price server.',
+           'Source on GitHub', 'How it fits with GapKeep'),
+    'pt-BR': ('GapWallet', 'GapWallet, a carteira web somente leitura feita para o Assinador do GapKeep: em breve.',
+              'Em breve',
+              'A GapWallet, a carteira web somente leitura feita para o Assinador do GapKeep, vai ficar aqui. Ela '
+              'não guarda chave privada: monta as transações, mostra em QR codes para o GapKeep explicar e assinar, '
+              'e depois lê a transação assinada de volta pela webcam e a transmite.',
+              'Quando estiver aqui, a página dela vai dizer a quais servidores se conecta, e por quê: um servidor '
+              'da blockchain (Esplora) para seus endereços e saldo e, só se você ligar, um servidor de cotação.',
+              'Código-fonte no GitHub', 'Como ela se encaixa com o GapKeep'),
+}
+
+
+def gapwallet_pages():
+    # Placeholders until tools/import_gapwallet.sh puts the real GapWallet
+    # in site/gapwallet/ (with its SOURCE): then only the Portuguese address
+    # is ours, and it sends visitors there (GapWallet has its own language
+    # selector).
+    real = os.path.exists(os.path.join(SITE, 'gapwallet', 'SOURCE'))
+    for lang in LANGS:
+        prefix = LANGS[lang][1]
+        out = prefix.lstrip('/') + 'gapwallet/index.html'
+        if real:
+            if lang == 'en':
+                continue
+            write(out, '<!DOCTYPE html>\n<html lang="pt-BR"><head><meta charset="utf-8">'
+                  '<meta http-equiv="Content-Security-Policy" content="default-src \'none\'">'
+                  '<meta http-equiv="refresh" content="0; url=/gapwallet/"><title>GapWallet</title></head>'
+                  '<body><p><a href="/gapwallet/">GapWallet</a></p></body></html>\n')
+            continue
+        title, desc, soon, p1, p2, src, how = GAPWALLET[lang]
+        main = '''<div class="wrap page-head notfound">
+<p class="eyebrow">%s</p>
+<h1>%s</h1>
+<p class="lede">%s</p>
+<p>%s</p>
+<p class="cta"><a class="btn btn-teal" href="https://github.com/marcocarnut/GapWallet">%s</a><a class="btn" href="%s#gapwallet">%s</a></p>
+</div>''' % (esc(soon), esc(title), esc(p1), esc(p2), esc(src), prefix, esc(how))
+        write(out, layout(lang, 'gapwallet/', title, desc, main, 'page-gapwallet'))
+
+
 def not_found():
     for lang in LANGS:
         t = T[lang]
@@ -619,6 +670,7 @@ def main():
         content_page(lang, 'index.html', '', 'page-home')
         content_page(lang, 'download.html', 'download.html', 'page-download')
     build_docs()
+    gapwallet_pages()
     logo_concepts()
     not_found()
     sitemap()

@@ -575,3 +575,22 @@ html:not(.js) .scroll-btns { display: none; }
 .track .card .try a:hover { text-decoration: underline; }
 .fn { color: var(--amber-text); text-decoration: none; font-size: .5em; vertical-align: super; margin-left: .1em; }
 .facts .fn-note { margin: 0 auto; padding-top: .9rem; padding-bottom: 1rem; font-size: .82rem; color: var(--faint); }
+
+/* the round trip with GapWallet */
+.roundtrip { margin: 0 0 clamp(3rem, 8vw, 6rem); }
+.rt-head { max-width: 48rem; }
+.rt-head h3 { font-size: clamp(1.35rem, 1.1rem + 1vw, 1.8rem); font-weight: 800; letter-spacing: -.02em; }
+.rt-head p { color: var(--muted); }
+.rt-head .kicker { font: 600 .76rem/1.4 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--amber-text); margin-bottom: .7rem; }
+.rt-cols { display: grid; grid-template-columns: 1fr .8fr 1fr; gap: 1rem; margin: 1.6rem 0 0; }
+.rt-col { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.2rem 1.3rem; }
+.rt-col.mid { border-style: dashed; background: transparent; }
+.rt-col.gk { border-color: var(--teal); background: color-mix(in srgb, var(--teal) 10%, var(--panel)); }
+.rt-tag { font: 700 .72rem var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin-bottom: .4rem; }
+.rt-col.gk .rt-tag { color: var(--teal-text); }
+.rt-col h4 { font-size: 1.08rem; margin: 0 0 .6rem; }
+.rt-col ul { margin: 0; padding-left: 1.1rem; }
+.rt-col li { color: var(--muted); font-size: .94rem; margin-bottom: .4rem; }
+.roundtrip .callout { margin-top: 1rem; }
+.rt-cta { margin: 1.2rem 0 0; }
+@media (max-width: 900px) { .rt-cols { grid-template-columns: 1fr; } }
