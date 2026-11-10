@@ -1,18 +1,13 @@
 /* gapkeep.org. GapKeep's own colours: teal #00968c, amber #ffc300, on #1d1c23 / #292831.
-   Dark by default, as GapKeep is; light when the system asks for it. */
+   Dark by default, as GapKeep is; light when the system asks for it.
+   Italics are the browser's slant of Montserrat: an italic font file for a
+   handful of words is not worth 35 KB. */
 
 @font-face {
   font-family: "Montserrat";
   src: url("/fonts/montserrat-var.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Montserrat";
-  src: url("/fonts/montserrat-italic-var.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: italic;
   font-display: swap;
 }
 @font-face {
@@ -529,9 +524,6 @@ html:not(.js) .scroll-btns { display: none; }
   .doc-toc summary { display: block; cursor: pointer; padding: .7rem 0; font-weight: 700; }
   .concept-row, .concept-row.small { grid-template-columns: 1fr 1fr; }
 }
-@media (min-width: 901px) {
-  .doc-toc:not([open]) > :not(summary) { display: block; }
-}
 @media (max-width: 560px) {
   body { font-size: 1rem; }
   .gap-row { grid-template-columns: 1fr; }
@@ -569,3 +561,9 @@ html:not(.js) .scroll-btns { display: none; }
   .top, .foot, .scroll-btns, .ide-banner { display: none; }
   .js .reveal { opacity: 1; transform: none; }
 }
+
+/* download page spacing */
+.page-download .callout { margin-top: 0; }
+.dl-wrap { margin: 1.6rem 0 clamp(3rem, 7vw, 5rem); }
+.steps-doc h2 { color: var(--text); }
+.page-download .wrap:last-of-type { padding-bottom: 3rem; }

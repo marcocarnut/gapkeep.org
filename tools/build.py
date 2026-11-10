@@ -465,7 +465,7 @@ def build_docs():
             depth_side = sidebar.replace('data-page="%s"' % page, 'data-page="%s" aria-current="page"' % page)
             main = '''<div class="wrap docs-layout">
 <aside class="doc-side" aria-label="%s">
-<details class="doc-toc"><summary>%s</summary>
+<details class="doc-toc" open><summary>%s</summary>
 <p><a href="%sdocs/">%s</a></p>
 %s
 </details>
@@ -543,8 +543,9 @@ They are made by <code>tools/make_logos.py</code>; the one in use is its <code>U
 </div>''' % '\n'.join(blocks)
     page = layout('en', 'logo-concepts.html', 'Logo concepts', 'GapKeep logo concepts', main, 'page-logos',
                   head_extra='<meta name="robots" content="noindex">')
-    # only in English, and only at the root
-    write('logo-concepts.html', page)
+    # only in English, and only at the root: its PT link goes to the home page
+    page = re.sub(r'<link rel="alternate"[^>]*>\n', '', page)
+    write('logo-concepts.html', page.replace('/pt-br/logo-concepts.html', '/pt-br/'))
 
 
 def not_found():

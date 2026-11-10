@@ -21,9 +21,9 @@
 <meta property="og:url" content="https://gapkeep.org/docs/readme.html">
 <script src="/js/lang.js?v=9238942da1"></script>
 <link rel="preload" href="/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/css/site.css?v=050b20402d">
+<link rel="stylesheet" href="/css/site.css?v=6df6e25dd7">
 
-<script src="/js/site.js?v=00484c1c07" defer></script>
+<script src="/js/site.js?v=3497759309" defer></script>
 </head>
 <body class="page-doc">
 <a class="skip" href="#main">Skip to the content</a>
@@ -48,7 +48,7 @@
 <main id="main">
 <div class="wrap docs-layout">
 <aside class="doc-side" aria-label="All documents">
-<details class="doc-toc"><summary>All documents</summary>
+<details class="doc-toc" open><summary>All documents</summary>
 <p><a href="/docs/">Documentation</a></p>
 <h2>Start here</h2><ul><li><a href="/docs/readme.html" data-page="readme.html" aria-current="page">GapKeep</a></li><li><a href="/docs/apps.html" data-page="apps.html">Writing GapKeep apps</a></li><li><a href="/docs/agents.html" data-page="agents.html">Writing GapKeep apps: a guide for coding agents</a></li></ul>
 <h2>Guides</h2><ul><li><a href="/docs/simulator.html" data-page="simulator.html">The simulator</a></li><li><a href="/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/docs/camera.html" data-page="camera.html">The camera and QR codes</a></li><li><a href="/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/docs/rig.html" data-page="rig.html">The hardware test rig</a></li></ul>
@@ -70,8 +70,9 @@ with no radio). It boots in about two seconds into a graphical app launcher.
 Apps are written in JavaScript and run on <a href="https://bellard.org/quickjs/" rel="noopener">QuickJS</a>,
 with an <a href="https://lvgl.io" rel="noopener">LVGL</a> interface driven by a USB keyboard and mouse.
 There is no Linux, no network stack and no radio, and the SD card is only
-ever read: a computer for creating and handling secrets that have no way out
-except what you read off the screen.</p>
+ever read, once, at boot: after startup it can be taken out. A computer for
+creating and handling secrets that have no way out except what you read off
+the screen.</p>
 <p>GapKeep keeps nothing. It never writes to the SD card, and what an app holds
 is gone at power-off. Keys are not stored on the device: they live
 elsewhere, on paper, for example as <a href="https://github.com/bitcoin/bips/blob/master/bip-0093.mediawiki" rel="noopener">codex32</a>
@@ -220,7 +221,13 @@ everything the card needs in <code>sdcard-standalone/</code>: the Pi firmware,
 of a FAT32 card. Add or remove apps by changing <code>apps</code> on the card.
 <code>--sealed</code> makes <code>sdcard-sealed/</code> instead, with every app inside
 <code>kernel.img</code>. The settings file at the top of the card is <code>gapkeep.txt</code>
-(<a href="clock.html">docs/CLOCK.md</a>).
+(<a href="clock.html">docs/CLOCK.md</a>). <code>--data DIR</code> adds data folders (public
+keys, say) for the apps that read them: on the card, or with <code>--sealed</code>
+inside <code>kernel.img</code> (<a href="apps.html#data-files">docs/APPS.md</a>).</p>
+<p>The card must be in when the Pi is switched on (its firmware loads
+<code>kernel.img</code> from it). GapKeep reads everything it needs from it while
+booting; once the launcher is up, the card can be removed, and everything
+keeps working until power-off.
 Production builds leave the serial port (GPIO 14/15) alone: there is no log.
 Test builds (<code>tools/build.sh pi TEST=1</code>) log to it at 921600 baud.</p>
 <p>Keyboard and mouse connect to the Zero's &quot;USB&quot; port (not &quot;PWR&quot;), through an
@@ -299,7 +306,7 @@ activates, and the Windows (Super) key always returns to the launcher.</p>
 </table></div>
 
 </div>
-<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/main/README.md"><code>README.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb/README.md">3e6af247a0b7</a></p>
+<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/main/README.md"><code>README.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/383583513fbcce138c2f33bedd9eb4319b7abee2/README.md">383583513fbc</a></p>
 </article>
 </div>
 </main>
@@ -308,7 +315,7 @@ activates, and the Windows (Super) key always returns to the launcher.</p>
     <p class="foot-brand"><a href="/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a><span>A tiny bare-metal OS for air-gapped apps.</span></p>
     <p class="foot-links"><a href="/docs/">Documentation</a> · <a href="/download.html">Download</a> · <a href="/ide/">Browser IDE</a> · <a href="https://github.com/marcocarnut/GapKeep">Source on GitHub</a> · <a href="/docs/security.html">Security</a> · <a href="/docs/contributing.html">Contributing</a></p>
     <p class="foot-privacy">No trackers, no analytics, no cookies, no third-party requests: this site loads nothing from anywhere else, in the spirit of GapKeep.</p>
-    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb"><code>3e6af247a0b7</code></a>.</p>
+    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/383583513fbcce138c2f33bedd9eb4319b7abee2"><code>383583513fbc</code></a>.</p>
   </div>
 </footer>
 </body>

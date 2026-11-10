@@ -272,6 +272,7 @@ src/runtime/appstore.cpp
 src/runtime/appstore.h
 src/runtime/bundle.h
 src/runtime/camera.h
+src/runtime/cardfs.h
 src/runtime/clock.cpp
 src/runtime/clock.h
 src/runtime/cursor.c
@@ -378,6 +379,7 @@ tests/camcodes.txt
 tests/camcodes_mid.txt
 tests/camcolour.txt
 tests/camraw.txt
+tests/card_removal.txt
 tests/check_kernel_hash.sh
 tests/clock.txt
 tests/codex32.txt
@@ -473,6 +475,7 @@ tests/sdcard/data/testdata/alice@example.org key.asc
 tests/sdcard/data/testdata/key.bin
 tests/sdcard/data/testdata/notes/hello.txt
 tests/sdcard/gapkeep.txt
+tests/sealed_data.txt
 tests/serialshot.txt
 tests/session.txt
 tests/settings.txt

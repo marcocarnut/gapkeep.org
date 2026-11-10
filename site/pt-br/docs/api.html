@@ -21,9 +21,9 @@
 <meta property="og:url" content="https://gapkeep.org/pt-br/docs/api.html">
 <script src="/js/lang.js?v=9238942da1"></script>
 <link rel="preload" href="/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/css/site.css?v=050b20402d">
+<link rel="stylesheet" href="/css/site.css?v=6df6e25dd7">
 
-<script src="/js/site.js?v=00484c1c07" defer></script>
+<script src="/js/site.js?v=3497759309" defer></script>
 </head>
 <body class="page-doc">
 <a class="skip" href="#main">Pular para o conteúdo</a>
@@ -48,7 +48,7 @@
 <main id="main">
 <div class="wrap docs-layout">
 <aside class="doc-side" aria-label="Todos os documentos">
-<details class="doc-toc"><summary>Todos os documentos</summary>
+<details class="doc-toc" open><summary>Todos os documentos</summary>
 <p><a href="/pt-br/docs/">Documentação</a></p>
 <h2>Comece aqui</h2><ul><li><a href="/pt-br/docs/readme.html" data-page="readme.html">GapKeep</a></li><li><a href="/pt-br/docs/apps.html" data-page="apps.html">Writing GapKeep apps</a></li><li><a href="/pt-br/docs/agents.html" data-page="agents.html">Writing GapKeep apps: a guide for coding agents</a></li></ul>
 <h2>Guias</h2><ul><li><a href="/pt-br/docs/simulator.html" data-page="simulator.html">The simulator</a></li><li><a href="/pt-br/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/pt-br/docs/camera.html" data-page="camera.html">The camera and QR codes</a></li><li><a href="/pt-br/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/pt-br/docs/rig.html" data-page="rig.html">The hardware test rig</a></li></ul>
@@ -1402,7 +1402,7 @@ lists. An app reads only the folders its manifest lists, <code>&quot;data&quot;:
 and nothing can write them. Apps that list the same folder share it.
 Any kind of file: binary (an exported OpenPGP key) or text (<code>.asc</code>).
 <a href="apps.html#data-files">APPS.md, &quot;Data files&quot;</a> says how to lay them out and
-put them on a card.</p>
+put them on a card, or build them into a sealed kernel.</p>
 <pre><code class="language-js">for (const { name, size } of data.list(&quot;pgp&quot;)) {
   const key = data.read(&quot;pgp&quot;, name);          // Uint8Array
   // ... parse it, show its fingerprint ...
@@ -1414,17 +1414,21 @@ the card holds, and whoever can change the card can change it. So show
 the person what matters before using it: for a key, its fingerprint,
 to be compared with one they trust; <code>hash(folder)</code> names the whole
 folder, as the launcher shows it.</p>
-<p>A folder is read on first use, all of it, and kept in memory until
-power-off: what the app reads is what was hashed. Limits: 4 MB per file,
-8 MB and 256 files per folder, 32 MB for all the folders read. A folder
-over them, or with a name that is not printable ASCII, can't be read:
-every call on it throws, saying why. Names starting with <code>.</code> (macOS's
-<code>._x</code>) are skipped.</p>
+<p>Every folder some installed app lists is read at boot, all of it,
+hashed, and kept in memory until power-off; these functions never
+touch the card, which can be taken out once the launcher is up. What
+the app reads is what was hashed. Limits: 4 MB per file, 8 MB and 256
+files per folder, 32 folders and 32 MB in all. A folder over them, or
+with a name that is not printable ASCII, is refused at boot: every call
+on it throws, saying why. Names starting with <code>.</code> (macOS's <code>._x</code>) are
+skipped. A sealed build reads no card; its data folders, if any, are
+built into the kernel and served the same way.</p>
 <p>Every refusal is a <code>TypeError</code> that says what is wrong: a folder that
 is not in the manifest, a path that leaves the folder (<code>..</code>, <code>.</code>, a
-leading <code>/</code>, a <code>\</code>), a file that isn't there. A folder that is not on
-the card (and every folder, without a card or in a sealed build, which
-reads no card) has no files: <code>list()</code> returns <code>[]</code> and <code>hash()</code> <code>null</code>.</p>
+leading <code>/</code>, a <code>\</code>), a file that isn't there. A folder that isn't there
+(not on the card; every folder without a card, or in a sealed build
+without built-in data) has no files: <code>list()</code> returns <code>[]</code> and
+<code>hash()</code> <code>null</code>.</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -1435,7 +1439,7 @@ reads no card) has no files: <code>list()</code> returns <code>[]</code> and <co
 <tbody>
 <tr>
 <td><code>list(folder)</code></td>
-<td>The folder's files, <code>{ name, size }</code>, sorted by name (byte order): <code>name</code> is the path inside the folder, with <code>/</code> between folders (<code>&quot;keys/alice.asc&quot;</code>), <code>size</code> in bytes. <code>[]</code> if the folder is not on the card.</td>
+<td>The folder's files, <code>{ name, size }</code>, sorted by name (byte order): <code>name</code> is the path inside the folder, with <code>/</code> between folders (<code>&quot;keys/alice.asc&quot;</code>), <code>size</code> in bytes. <code>[]</code> if there is no such folder.</td>
 </tr>
 <tr>
 <td><code>read(folder, name)</code></td>
@@ -1447,7 +1451,7 @@ reads no card) has no files: <code>list()</code> returns <code>[]</code> and <co
 </tr>
 <tr>
 <td><code>hash(folder)</code></td>
-<td>The SHA-256 of the folder's files, 64 hex digits, as the launcher shows it: the <a href="apps.html#app-hashes">app hash</a>'s scheme, so <code>tools/bundle_apps.py --data-hash &lt;folder&gt;</code> computes it on a computer. <code>null</code> if the folder is not on the card.</td>
+<td>The SHA-256 of the folder's files, 64 hex digits, as the launcher shows it: the <a href="apps.html#app-hashes">app hash</a>'s scheme, so <code>tools/bundle_apps.py --data-hash &lt;folder&gt;</code> computes it on a computer. <code>null</code> if there is no such folder.</td>
 </tr>
 </tbody>
 </table></div>
@@ -1473,7 +1477,7 @@ throws a <code>ReferenceError</code>. Used by the launcher.</p>
 </tr>
 <tr>
 <td><code>dataHash(folder)</code></td>
-<td>The hash of the <a href="apps.html#data-files">data folder</a> <code>data/&lt;folder&gt;</code>, as <code>gk:data</code>'s <code>hash()</code> gives it, for any folder: the launcher shows those an app lists. <code>null</code> if it is not on the card; a <code>TypeError</code> if it can't be read (too big, a bad name).</td>
+<td>The hash of the <a href="apps.html#data-files">data folder</a> <code>data/&lt;folder&gt;</code>, as <code>gk:data</code>'s <code>hash()</code> gives it: the launcher shows those an app lists (only those are read, at boot). <code>null</code> if there is no such folder, or no app lists it; a <code>TypeError</code> if it was refused (too big, a bad name).</td>
 </tr>
 <tr>
 <td><code>launch(id)</code></td>
@@ -1543,7 +1547,7 @@ throws a <code>ReferenceError</code>. Used by the launcher.</p>
 </table></div>
 
 </div>
-<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/main/docs/API.md"><code>docs/API.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb/docs/API.md">3e6af247a0b7</a></p>
+<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/main/docs/API.md"><code>docs/API.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/383583513fbcce138c2f33bedd9eb4319b7abee2/docs/API.md">383583513fbc</a></p>
 </article>
 </div>
 </main>
@@ -1552,7 +1556,7 @@ throws a <code>ReferenceError</code>. Used by the launcher.</p>
     <p class="foot-brand"><a href="/pt-br/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a><span>Um sistema operacional mínimo, bare-metal, para aplicativos air-gapped.</span></p>
     <p class="foot-links"><a href="/pt-br/docs/">Documentação</a> · <a href="/pt-br/download.html">Baixar</a> · <a href="/ide/">IDE no navegador</a> · <a href="https://github.com/marcocarnut/GapKeep">Código no GitHub</a> · <a href="/pt-br/docs/security.html">Segurança</a> · <a href="/pt-br/docs/contributing.html">Como contribuir</a></p>
     <p class="foot-privacy">Sem rastreadores, sem analytics, sem cookies, sem requisições a terceiros: este site não carrega nada de nenhum outro lugar, no espírito do GapKeep.</p>
-    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb"><code>3e6af247a0b7</code></a>.</p>
+    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/383583513fbcce138c2f33bedd9eb4319b7abee2"><code>383583513fbc</code></a>.</p>
   </div>
 </footer>
 </body>

@@ -25,6 +25,10 @@
     });
   }
 
+  // The docs' list of documents: open beside the text, closed above it on small screens.
+  var toc = document.querySelector('.doc-toc');
+  if (toc && window.matchMedia && matchMedia('(max-width: 900px)').matches) toc.removeAttribute('open');
+
   // Sections rise into view as they are reached (not with reduced motion).
   var items = document.querySelectorAll('.reveal');
   if (!reduce && 'IntersectionObserver' in window) {

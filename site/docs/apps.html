@@ -21,9 +21,9 @@
 <meta property="og:url" content="https://gapkeep.org/docs/apps.html">
 <script src="/js/lang.js?v=9238942da1"></script>
 <link rel="preload" href="/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/css/site.css?v=050b20402d">
+<link rel="stylesheet" href="/css/site.css?v=6df6e25dd7">
 
-<script src="/js/site.js?v=00484c1c07" defer></script>
+<script src="/js/site.js?v=3497759309" defer></script>
 </head>
 <body class="page-doc">
 <a class="skip" href="#main">Skip to the content</a>
@@ -48,7 +48,7 @@
 <main id="main">
 <div class="wrap docs-layout">
 <aside class="doc-side" aria-label="All documents">
-<details class="doc-toc"><summary>All documents</summary>
+<details class="doc-toc" open><summary>All documents</summary>
 <p><a href="/docs/">Documentation</a></p>
 <h2>Start here</h2><ul><li><a href="/docs/readme.html" data-page="readme.html">GapKeep</a></li><li><a href="/docs/apps.html" data-page="apps.html" aria-current="page">Writing GapKeep apps</a></li><li><a href="/docs/agents.html" data-page="agents.html">Writing GapKeep apps: a guide for coding agents</a></li></ul>
 <h2>Guides</h2><ul><li><a href="/docs/simulator.html" data-page="simulator.html">The simulator</a></li><li><a href="/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/docs/camera.html" data-page="camera.html">The camera and QR codes</a></li><li><a href="/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/docs/rig.html" data-page="rig.html">The hardware test rig</a></li></ul>
@@ -77,7 +77,8 @@ buttons, text fields, tables, QR codes, tabs, alerts.</li>
 activated with Enter or Space.</li>
 <li><strong>No network, no files, no clock you can trust</strong>, and no way to reach
 other apps. (Apps are read from the card at boot, but an app itself cannot
-read or write files.) That is the point: an app sees only what the person types.</li>
+write files, and reads only the <a href="#data-files">data folders</a> its manifest
+lists, read at boot.) That is the point: an app sees only what the person types.</li>
 </ul>
 <h2 id="your-first-app"><a class="anchor" href="#your-first-app" aria-hidden="true" tabindex="-1">#</a>Your first app</h2>
 <p>Create a directory under <code>apps/</code> whose name is the app's id:</p>
@@ -224,12 +225,23 @@ after its id, laid out exactly like the repository's <code>apps/</code>:</p>
 <code>apps/</code>. GapKeep reads the apps once, at boot, into memory, and never writes
 to the card (its FAT driver is compiled read-only). To install or remove an
 app, change the card and restart.</p>
+<p><strong>After startup the card can go.</strong> The card must be in at power-on: the
+Pi's firmware loads <code>kernel.img</code> from it. GapKeep then reads everything it
+needs from it at boot (the apps, <code>gapkeep.txt</code>, and the <a href="#data-files">data
+folders</a> the apps list), unmounts it, and never reads it
+again: once the launcher is up, the card can be taken out and put away, and
+every app, the Settings app and the launcher keep working until power-off.
+This holds in every mode; a sealed system never reads it at all. (Should
+some part of GapKeep try to read it afterwards, that is a bug: the log
+says <code>... after boot: the card is read at boot only</code>, and
+<code>tests/card_removal.txt</code> takes the card out to make sure it doesn't.)</p>
 <p>The launcher lists the built-in apps first, then those from the card, each
 sorted by id. An app on the card cannot replace a built-in one: if its id is
 taken (the launcher's, for instance), it is refused.</p>
 <p>A <strong>sealed</strong> system (<code>tools/make_sdcard.sh --sealed</code>) has every app built
 into <code>kernel.img</code> and no SD card code at all: for a machine that should only
-ever run one set of apps.</p>
+ever run one set of apps. Its data folders, if it has any, are built in too
+(<a href="#data-files">Data files</a>).</p>
 <h2 id="app-hashes"><a class="anchor" href="#app-hashes" aria-hidden="true" tabindex="-1">#</a>App hashes</h2>
 <p>Whoever can change the card can change the apps on it, so the launcher shows
 the SHA-256 of the focused app below the tiles (as <code>sys.app.hash</code> and in
@@ -343,16 +355,24 @@ bytes; names starting with <code>.</code> are skipped (macOS's <code>._x</code> 
 folder share it; no other permission is needed. An app can't read a
 folder it doesn't list, or leave the folder (<code>..</code>, <code>.</code>, a leading <code>/</code> or a
 <code>\</code> in a name are refused).</li>
-<li>A folder is read on first use (when the app or the launcher first asks
-for it), all of it, checked and hashed, and kept in memory until
-power-off: what an app reads is exactly what was hashed. Limits: 4 MB per
-file, 8 MB and 256 files per folder, 8 levels of sub-folders, 32 MB for all
-the folders read since boot. A folder over a limit, or with a bad name in
-it, can't be read at all: <code>list()</code>, <code>read()</code> and <code>hash()</code> throw a
-<code>TypeError</code> saying which file and why, and the launcher shows it.</li>
-<li>A folder that isn't on the card is empty: <code>list()</code> returns <code>[]</code>,
-<code>hash()</code> <code>null</code>. So is every folder without a card, and in a <strong>sealed</strong>
-build, which reads no card.</li>
+<li>Every folder that some installed app lists (built in or on the card) is
+read <strong>at boot</strong>, with the apps: all of it, checked, hashed, and kept in
+memory until power-off. Folders no app lists are not read. <code>gk:data</code>
+never touches the card: what an app reads is exactly what was hashed, and
+the card can be taken out once the launcher is up (<a href="#installing-apps">Installing
+apps</a>).</li>
+<li>Limits: 4 MB per file, 8 MB and 256 files per folder, 8 levels of
+sub-folders, 32 folders and 32 MB in all. A folder over a limit, or with a
+bad name in it, is refused at boot: <code>list()</code>, <code>read()</code> and <code>hash()</code> throw
+a <code>TypeError</code> saying which file and why, and the launcher shows it.</li>
+<li>Reading costs boot time: a keyring of a few files (10 KB) adds well under
+a millisecond in the simulator and about 7 ms in QEMU; a folder near the
+limits (255 files, 7.8 MB) about 35 ms in the simulator and 3.2 s in
+QEMU, whose emulated SD card is slow. Keep data folders to what the apps
+need.</li>
+<li>A folder that isn't there is empty: <code>list()</code> returns <code>[]</code>, <code>hash()</code>
+<code>null</code>. So is every folder without a card, and in a <strong>sealed</strong> build
+without built-in data.</li>
 <li>The log shows each folder's file count, size and hash when it is read;
 never what the files hold. Don't log it from your app either.</li>
 </ul>
@@ -386,6 +406,20 @@ beside <code>apps/</code>. Write down the hashes it prints (or that
 launcher later. In the simulator, <code>tools/gksim --data ~/gapkeep-data/pgp apps/myapp</code> puts a folder on its card (a <code>data/</code> folder beside the app's
 folder, or beside the <code>apps/</code> folder holding it, goes too); in the browser
 IDE, <strong>Import</strong> a folder named <code>data</code> (<a href="ide.html">IDE.md</a>).</p>
+<h3 id="data-in-a-sealed-kernel"><a class="anchor" href="#data-in-a-sealed-kernel" aria-hidden="true" tabindex="-1">#</a>Data in a sealed kernel</h3>
+<p>A sealed system can carry data too: built into <code>kernel.img</code>, like its apps.</p>
+<pre><code class="language-sh">tools/make_sdcard.sh --sealed --data ~/gapkeep-data     # or: tools/build.sh pi SEALED=1 DATA=~/gapkeep-data
+</code></pre>
+<p>Every folder in <code>~/gapkeep-data</code> becomes a data folder, with the same names,
+rules and limits as on a card, and the same hash (<code>tools/bundle_apps.py --data-hash</code> prints it, and the launcher shows it). The build is
+reproducible: the same source and the same data give the same <code>kernel.img</code>,
+byte for byte. But <strong>the kernel's hash is then per person</strong>: it covers the
+data, so it can't be compared with a published one. Check it in two
+parts: build the same commit without data (<code>tools/make_sdcard.sh --sealed</code>)
+for the published hash of the code, if you need it, and check each data
+folder's hash, which the launcher shows beside the apps that read it, on
+its own: the keyring is whatever you put in, and only you can say whether
+it is right.</p>
 <h2 id="laying-out-a-screen"><a class="anchor" href="#laying-out-a-screen" aria-hidden="true" tabindex="-1">#</a>Laying out a screen</h2>
 <p>Widgets go on <code>ui.screen</code> unless you pass a parent first:</p>
 <pre><code class="language-js">const row = new ui.Container({ layout: &quot;row&quot;, gap: 8 });   // on the screen
@@ -630,7 +664,7 @@ and focus the first input when a screen appears (<code>widget.focus()</code>).</
 </ul>
 
 </div>
-<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/main/docs/APPS.md"><code>docs/APPS.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb/docs/APPS.md">3e6af247a0b7</a></p>
+<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/main/docs/APPS.md"><code>docs/APPS.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/383583513fbcce138c2f33bedd9eb4319b7abee2/docs/APPS.md">383583513fbc</a></p>
 </article>
 </div>
 </main>
@@ -639,7 +673,7 @@ and focus the first input when a screen appears (<code>widget.focus()</code>).</
     <p class="foot-brand"><a href="/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a><span>A tiny bare-metal OS for air-gapped apps.</span></p>
     <p class="foot-links"><a href="/docs/">Documentation</a> · <a href="/download.html">Download</a> · <a href="/ide/">Browser IDE</a> · <a href="https://github.com/marcocarnut/GapKeep">Source on GitHub</a> · <a href="/docs/security.html">Security</a> · <a href="/docs/contributing.html">Contributing</a></p>
     <p class="foot-privacy">No trackers, no analytics, no cookies, no third-party requests: this site loads nothing from anywhere else, in the spirit of GapKeep.</p>
-    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/3e6af247a0b7fa812127bc23d9efd3cf0cb7d7fb"><code>3e6af247a0b7</code></a>.</p>
+    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/383583513fbcce138c2f33bedd9eb4319b7abee2"><code>383583513fbc</code></a>.</p>
   </div>
 </footer>
 </body>

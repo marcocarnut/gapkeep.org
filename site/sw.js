@@ -2,7 +2,7 @@
 // visited. Pages and files come from the network first (so they are never
 // stale), from the cache when there is no network. Nothing but this
 // site's own files is ever fetched or kept. Written by tools/build.py.
-const VERSION = 'dcfec78c60bf';
+const VERSION = '401e0b72c908';
 const CACHE = 'gapkeep-' + VERSION;
 const CORE = [
  "/",
@@ -14,8 +14,8 @@ const CORE = [
  "/404.html",
  "/pt-br/404.html",
  "/favicon.svg",
- "/css/site.css?v=050b20402d",
- "/js/site.js?v=00484c1c07",
+ "/css/site.css?v=6df6e25dd7",
+ "/js/site.js?v=3497759309",
  "/js/lang.js?v=9238942da1",
  "/fonts/montserrat-var.woff2",
  "/fonts/jetbrainsmono-regular.woff2",

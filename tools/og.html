@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!-- The social card (site/img/og.png, 1200x630), made by tools/make_og.sh. -->
+<html><head><meta charset="utf-8"><style>
+@font-face { font-family: M; src: url("../site/fonts/montserrat-var.woff2"); font-weight: 100 900; }
+@font-face { font-family: J; src: url("../site/fonts/jetbrainsmono-regular.woff2"); }
+html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; background: #1d1c23; color: #ecebf2; font-family: M; }
+body { display: grid; grid-template-columns: 560px 1fr; align-items: center; padding: 0 60px; box-sizing: border-box;
+  background: radial-gradient(circle at 85% 30%, rgba(0,150,140,.3), transparent 55%), #1d1c23; }
+.lock { width: 330px; display: block; margin-bottom: 34px; }
+h1 { font-size: 46px; line-height: 1.12; font-weight: 800; letter-spacing: -.02em; margin: 0 0 22px; }
+h1 em { font-style: normal; color: #ffd34d; }
+p { font-size: 22px; color: #b0aec0; margin: 0; line-height: 1.45; }
+.tag { font-family: J; font-size: 18px; color: #3cc3b8; letter-spacing: .1em; margin-top: 30px; }
+.mon { background: #0d0d11; border-radius: 16px; padding: 14px; box-shadow: 0 30px 70px -20px #000, 0 0 0 1px #3a3844 inset; }
+.mon img { display: block; width: 100%; border-radius: 6px; }
+</style></head><body>
+<div>
+  <img class="lock" src="../site/img/logo/finder-lockup.svg" alt="">
+  <h1>A tiny bare-metal OS for <em>air&#8209;gapped</em> apps.</h1>
+  <p>A Raspberry Pi Zero that boots in about two seconds and keeps nothing.</p>
+  <div class="tag">GAPKEEP.ORG</div>
+</div>
+<div class="mon"><img src="../site/img/shots/en/launcher.png" alt=""></div>
+</body></html>

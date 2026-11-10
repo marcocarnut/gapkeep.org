@@ -23,12 +23,13 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(os.path.dirname(HERE), 'site', 'fonts')
 UNICODES = (list(range(0x20, 0x7F)) + list(range(0xA0, 0x100)) +
             [0x2010, 0x2011, 0x2013, 0x2014, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2026,
-             0x2032, 0x2033, 0x2192, 0x2190, 0x2191, 0x2193, 0x2212, 0x00D7, 0x2248, 0x2713, 0x20BF])
+             0x2032, 0x2033, 0x2192, 0x2190, 0x2191, 0x2193, 0x2212, 0x00D7, 0x2248, 0x2713, 0x20BF,
+             0x2016, 0x2039, 0x203A, 0x2075, 0x20AC, 0x2264, 0x2265, 0x010F, 0x0163] +
+            list(range(0x2500, 0x2580)))   # box drawing, for the docs' diagrams
 
 WANTED = {
     # zip member (suffix) -> output name
     'Montserrat-VariableFont_wght.ttf': 'montserrat-var.woff2',
-    'Montserrat-Italic-VariableFont_wght.ttf': 'montserrat-italic-var.woff2',
     'fonts/ttf/JetBrainsMono-Regular.ttf': 'jetbrainsmono-regular.woff2',
 }
 
