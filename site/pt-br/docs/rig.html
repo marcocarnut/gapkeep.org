@@ -21,7 +21,7 @@
 <meta property="og:url" content="https://gapkeep.org/pt-br/docs/rig.html">
 <script src="/js/lang.js?v=9238942da1"></script>
 <link rel="preload" href="/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/css/site.css?v=6df6e25dd7">
+<link rel="stylesheet" href="/css/site.css?v=098a96c882">
 
 <script src="/js/site.js?v=3497759309" defer></script>
 </head>
@@ -29,7 +29,7 @@
 <a class="skip" href="#main">Pular para o conteúdo</a>
 <header class="top" id="top">
   <div class="top-in">
-    <a class="brand" href="/pt-br/" aria-label="Página inicial do GapKeep"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a>
+    <a class="brand" href="/pt-br/" aria-label="Página inicial do GapKeep"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a>
     <nav class="nav" aria-label="Main">
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-list"><span class="bars" aria-hidden="true"></span><span class="sr">Menu</span></button>
       <ul id="nav-list">
@@ -220,19 +220,35 @@ up before it resets the Zero, so that the keyboard and mouse are found.</li>
 <li>Circle's mouse driver read uninitialized memory for report items a mouse
 doesn't have (a wheel, typically), which asserted on the first report.
 Fixed in <code>patches/circle/0001-usbmouse-zero-unused-report-items.patch</code>.</li>
+<li>Uploads sometimes fail several times in a row (<code>the bootloader refused the kernel: #ERR:checksum</code>, or no <code>IHEX-F</code> after <code>R</code>): bytes from the rig
+to the Zero get lost or garbled on the serial line, while the Zero's log
+comes through intact. Seen on 2026-11-10, for some minutes; then uploads
+went through again. Rerun.</li>
 </ul>
+<h2 id="a-hostile-keyboard"><a class="anchor" href="#a-hostile-keyboard" aria-hidden="true" tabindex="-1">#</a>A hostile keyboard</h2>
+<p>The gadget can play a misbehaving keyboard: configfs's <code>report_length</code> is
+also the interrupt endpoint's <code>wMaxPacketSize</code> (up to 1024 at high speed),
+and a write to <code>/dev/hidg0</code> of that many bytes goes out as one packet. With
+<code>report_length</code> 1024 on the keyboard, a kernel without
+<code>patches/circle/0008</code> had the USB controller write the whole packet, 1016
+bytes past the 8-byte report buffer, on every report (seen with a guard
+region after the buffer, 2026-11-10). With 0008 such a keyboard is refused
+(packets over 64 bytes), and, with that check taken out, the packets land in
+the bounce buffer and the guard stays intact. To repeat it, record the
+gadget's configuration first and bring it back afterwards (the rig's
+gadget service, <code>sudo systemctl restart ...-gadget</code>, rebuilds it).</p>
 
 </div>
-<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/main/docs/RIG.md"><code>docs/RIG.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/383583513fbcce138c2f33bedd9eb4319b7abee2/docs/RIG.md">383583513fbc</a></p>
+<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/dd359a45719cc36d5475402f7078fcfb4b68e155/docs/RIG.md"><code>docs/RIG.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/dd359a45719cc36d5475402f7078fcfb4b68e155/docs/RIG.md">dd359a45719c</a></p>
 </article>
 </div>
 </main>
 <footer class="foot">
   <div class="foot-in">
-    <p class="foot-brand"><a href="/pt-br/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M9 2h14q7 0 7 7v14q0 7 -7 7h-14q-7 0 -7 -7v-14q0 -7 7 -7Z M10 6.5h12q3.5 0 3.5 3.5v12q0 3.5 -3.5 3.5h-12q-3.5 0 -3.5 -3.5v-12q0 -3.5 3.5 -3.5Z" fill="#00968c" fill-rule="evenodd"/><path d="M13.5 11h5q2.5 0 2.5 2.5v5q0 2.5 -2.5 2.5h-5q-2.5 0 -2.5 -2.5v-5q0 -2.5 2.5 -2.5Z" fill="#ffc300"/></svg><span class="word">Gap<b>Keep</b></span></a><span>Um sistema operacional mínimo, bare-metal, para aplicativos air-gapped.</span></p>
-    <p class="foot-links"><a href="/pt-br/docs/">Documentação</a> · <a href="/pt-br/download.html">Baixar</a> · <a href="/ide/">IDE no navegador</a> · <a href="https://github.com/marcocarnut/GapKeep">Código no GitHub</a> · <a href="/pt-br/docs/security.html">Segurança</a> · <a href="/pt-br/docs/contributing.html">Como contribuir</a></p>
+    <p class="foot-brand"><a href="/pt-br/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>Um sistema operacional mínimo, bare-metal, para aplicativos air-gapped.</span></p>
+    <p class="foot-links"><a href="/pt-br/docs/">Documentação</a> · <a href="/pt-br/download.html">Baixar</a> · <a href="/ide/web/index.html?lang=pt-BR">IDE no navegador</a> · <a href="https://github.com/marcocarnut/GapKeep">Código no GitHub</a> · <a href="/pt-br/docs/security.html">Segurança</a> · <a href="/pt-br/docs/contributing.html">Como contribuir</a></p>
     <p class="foot-privacy">Sem rastreadores, sem analytics, sem cookies, sem requisições a terceiros: este site não carrega nada de nenhum outro lugar, no espírito do GapKeep.</p>
-    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/383583513fbcce138c2f33bedd9eb4319b7abee2"><code>383583513fbc</code></a>.</p>
+    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Este site: textos e imagens sob <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts sob <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/dd359a45719cc36d5475402f7078fcfb4b68e155"><code>dd359a45719c</code></a>.</p>
   </div>
 </footer>
 </body>

@@ -27,7 +27,7 @@ OUT = os.path.join(SITE, 'img', 'logo')
 
 TEAL = '#00968c'
 AMBER = '#ffc300'
-USE = 'finder'          # the concept used across the site, for now
+USE = 'tower'           # the concept used across the site (chosen 2026-11)
 
 
 def arc_band(cx, cy, r_out, r_in, a0, a1):
@@ -58,11 +58,11 @@ def mark_finder():
 
 
 def mark_tower():
-    # A keep (a castle's tower) split down the middle by a gap.
-    left = ('M5 4h4v4h2.5v-4h3.5v25h-10Z')
-    right = ('M17 4h3.5v4h2.5v-4h4v25h-10Z')
-    door = 'M12 29v-6a4 4 0 0 1 8 0v6Z'
-    return [(left, 'a', None), (right, 'a', None), (door, 'cut', None)]
+    # A keep (a castle's tower) split down the middle by a gap, with a door
+    # at its foot (an arch of radius 4 around (16, 23)), cut from both halves.
+    left = 'M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z'
+    right = 'M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z'
+    return [(left, 'a', None), (right, 'a', None)]
 
 
 def mark_shares():

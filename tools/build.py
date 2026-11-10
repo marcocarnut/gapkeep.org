@@ -24,6 +24,11 @@ Markers in content files:
     {{downloads}}            the download cards
     {{pizero}}               the Pi Zero drawing (an <svg>)
     {{logo}}                 the logo mark in use (an <svg>)
+    {{lic:NAME}}             the licence of a component, at the commit GapKeep
+                             pins it to (docs-src/PINS): quickjs, lvgl, circle,
+                             fatfs, zxing-cpp, secp256k1, montserrat,
+                             fontawesome, jetbrainsmono
+    {{gh:PATH}}              a GapKeep file on GitHub, at the recorded commit
 First line of a content file: <!--meta {"title": ..., "description": ...} -->
 
 Needs Python 3 and markdown-it-py (Debian: python3-markdown-it).
@@ -45,7 +50,7 @@ CONTENT = os.path.join(ROOT, 'content')
 DOCSRC = os.path.join(ROOT, 'docs-src')
 GITHUB = 'https://github.com/marcocarnut/GapKeep'
 DOMAIN = 'https://gapkeep.org'
-LOGO = 'finder'                       # tools/make_logos.py's USE
+LOGO = 'tower'                        # tools/make_logos.py's USE
 
 LANGS = {
     # code: (html lang, url prefix, content folder)
@@ -69,6 +74,7 @@ T = {
         'footer_privacy': 'No trackers, no analytics, no cookies, no third-party requests: this site '
                           'loads nothing from anywhere else, in the spirit of GapKeep.',
         'footer_licence': 'GapKeep is free software, under the GNU GPL version 3 or later.',
+        'footer_site': 'This site: text and pictures under {cc}, scripts under {gpl}.',
         'footer_docs': 'Documentation mirrored from GapKeep commit',
         'footer_links': [('docs/', 'Documentation'), ('download.html', 'Download'), ('ide/', 'Browser IDE'),
                          (GITHUB, 'Source on GitHub'), ('docs/security.html', 'Security'),
@@ -98,6 +104,7 @@ T = {
         'footer_privacy': 'Sem rastreadores, sem analytics, sem cookies, sem requisições a terceiros: '
                           'este site não carrega nada de nenhum outro lugar, no espírito do GapKeep.',
         'footer_licence': 'O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior.',
+        'footer_site': 'Este site: textos e imagens sob {cc}, scripts sob {gpl}.',
         'footer_docs': 'Documentação espelhada do commit do GapKeep',
         'footer_links': [('docs/', 'Documentação'), ('download.html', 'Baixar'), ('ide/', 'IDE no navegador'),
                          (GITHUB, 'Código no GitHub'), ('docs/security.html', 'Segurança'),
@@ -205,7 +212,7 @@ def layout(lang, path, title, description, main, body_class='', head_extra='', l
         if h.startswith('http'):
             return h
         if h == 'ide/':
-            return '/ide/'
+            return '/ide/web/index.html?lang=pt-BR' if lang == 'pt-BR' else '/ide/'
         return root + h
 
     nav = '\n'.join('<li><a href="%s">%s</a></li>' % (esc(nav_href(h)), esc(label)) for h, label in t['nav'])
@@ -271,7 +278,7 @@ def layout(lang, path, title, description, main, body_class='', head_extra='', l
     <p class="foot-brand"><a href="{root}">{mark}<span class="word">Gap<b>Keep</b></span></a><span>{esc(t['footer_tag'])}</span></p>
     <p class="foot-links">{flinks}</p>
     <p class="foot-privacy">{esc(t['footer_privacy'])}</p>
-    <p class="foot-small">{esc(t['footer_licence'])} {esc(t['footer_docs'])} <a href="{GITHUB}/tree/{commit}"><code>{commit[:12]}</code></a>.</p>
+    <p class="foot-small">{esc(t['footer_licence'])} {t['footer_site'].format(cc='<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>', gpl='<a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>')} {esc(t['footer_docs'])} <a href="{GITHUB}/tree/{commit}"><code>{commit[:12]}</code></a>.</p>
   </div>
 </footer>
 </body>
@@ -339,6 +346,19 @@ def fill(text, lang, extra=None):
     if '{{logo}}' in text:
         text = text.replace('{{logo}}', svg_inline('%s-mark.svg' % LOGO).replace(
             '<svg ', '<svg aria-hidden="true" focusable="false" ', 1))
+    pins = dict(l.split() for l in read(os.path.join(DOCSRC, 'PINS')).split('\n') if l)
+    lic = {
+        'quickjs': 'https://github.com/bellard/quickjs/blob/%s/LICENSE' % pins['third_party/quickjs'],
+        'lvgl': 'https://github.com/lvgl/lvgl/blob/%s/LICENCE.txt' % pins['circle/addon/lvgl/lvgl'],
+        'circle': 'https://github.com/rsta2/circle/blob/%s/LICENSE' % pins['circle'],
+        'fatfs': 'https://github.com/rsta2/circle/blob/%s/addon/fatfs/LICENSE.txt' % pins['circle'],
+        'zxing-cpp': 'https://github.com/zxing-cpp/zxing-cpp/blob/%s/LICENSE' % pins['third_party/zxing-cpp'],
+        'secp256k1': 'https://github.com/bitcoin-core/secp256k1/blob/%s/COPYING' % pins['third_party/secp256k1'],
+    }
+    for font in ('montserrat', 'fontawesome', 'jetbrainsmono'):
+        lic[font] = '%s/blob/%s/src/runtime/fonts/LICENCE.%s' % (GITHUB, src[1], font)
+    text = re.sub(r'\{\{lic:([a-z0-9-]+)\}\}', lambda m: lic[m.group(1)], text)
+    text = re.sub(r'\{\{gh:([^}]*)\}\}', lambda m: '%s/blob/%s/%s' % (GITHUB, src[1], m.group(1)), text)
     for k, v in (extra or {}).items():
         text = text.replace('{{%s}}' % k, v)
     left = re.findall(r'\{\{[^}]*\}\}', text)
@@ -460,7 +480,7 @@ def build_docs():
         write(prefix.lstrip('/') + 'docs/index.html',
               layout(lang, 'docs/', t['docs_title'], t['docs_title'] + ': GapKeep', main, 'page-docs'))
         for repo, (page, group, title, body) in rendered.items():
-            srcline = t['docs_source'].format(url='%s/blob/main/%s' % (GITHUB, repo), path=esc(repo),
+            srcline = t['docs_source'].format(url='%s/blob/%s/%s' % (GITHUB, commit, repo), path=esc(repo),
                                               commit_url='%s/blob/%s/%s' % (GITHUB, commit, repo), commit=commit[:12])
             depth_side = sidebar.replace('data-page="%s"' % page, 'data-page="%s" aria-current="page"' % page)
             main = '''<div class="wrap docs-layout">
@@ -496,11 +516,11 @@ def rewrite_link(href, here, repo, page, pages, files, dirs, commit):
         rel = os.path.relpath(pages[norm], os.path.dirname(page) or '.').replace(os.sep, '/')
         return rel + ('#' + frag if frag else '')
     if norm in files:
-        return '%s/blob/main/%s%s' % (GITHUB, norm, '#' + frag if frag else '')
+        return '%s/blob/%s/%s%s' % (GITHUB, commit, norm, '#' + frag if frag else '')
     if norm in dirs or norm == '.':
-        return '%s/tree/main/%s' % (GITHUB, '' if norm == '.' else norm)
+        return '%s/tree/%s/%s' % (GITHUB, commit, '' if norm == '.' else norm)
     warnings.append('docs: %s links to %s, which is not in GapKeep %s' % (repo, href, commit[:12]))
-    return '%s/blob/main/%s' % (GITHUB, norm)
+    return '%s/blob/%s/%s' % (GITHUB, commit, norm)
 
 
 # ---- the rest ------------------------------------------------------------

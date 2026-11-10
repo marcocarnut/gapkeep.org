@@ -4,7 +4,9 @@ Opens the site's pages in headless Chrome, over its DevTools protocol, and
 checks what a link checker can't: that no page asks for anything outside
 the site (fonts, scripts, images: no third-party requests at all), that
 nothing breaks the Content-Security-Policy, that there are no JavaScript
-errors, and that the IDE under /ide/ starts. It can also take the IDE's
+errors, that the IDE under /ide/ starts, and that a "Try it" link
+(?run=totp&lang=pt-BR) boots that app at phone size (its screenshot goes
+to screenshots/). It can also take the IDE's
 screenshot for the home page.
 
     python3 -m http.server 8047 --bind 127.0.0.1 --directory site &
@@ -135,6 +137,33 @@ async def run(args):
         for ev in cdp.events:
             if ev['method'] == 'Runtime.exceptionThrown':
                 problems.append('/ide/: exception: %s' % ev['params']['exceptionDetails'].get('text'))
+
+        # A "Try it" link of the Portuguese home page, on a phone: the IDE
+        # boots straight into the app, in Portuguese
+        cdp.events.clear()
+        await cdp.call('Emulation.setDeviceMetricsOverride', width=390, height=844, deviceScaleFactor=2, mobile=True)
+        link = '/ide/web/index.html?run=totp&lang=pt-BR'
+        await cdp.call('Page.navigate', url=base + link)
+        ok = False
+        for _ in range(60):
+            await asyncio.sleep(0.5)
+            if await cdp.js("/running totp/.test((document.getElementById('status') || {}).textContent || '')"):
+                ok = True
+                break
+        if not ok:
+            problems.append('%s: did not boot into totp (status: %s)' % (link, await cdp.js(
+                "(document.getElementById('status') || {}).textContent")))
+        else:
+            await asyncio.sleep(2)
+            shot = await cdp.call('Page.captureScreenshot', format='png')
+            path = os.path.join(os.path.dirname(SITE), 'screenshots', 'ide-try-totp-pt-BR-phone.png')
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            with open(path, 'wb') as f:
+                f.write(base64.b64decode(shot['data']))
+            print('ok   %s (phone; screenshot %s)' % (link, path))
+        for ev in cdp.events:
+            if ev['method'] == 'Runtime.exceptionThrown':
+                problems.append('%s: exception: %s' % (link, ev['params']['exceptionDetails'].get('text')))
         task.cancel()
     return problems
 

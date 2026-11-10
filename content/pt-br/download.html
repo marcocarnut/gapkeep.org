@@ -7,7 +7,7 @@
 
 <div class="wrap">
   <div class="callout">
-    <p><strong>Ainda não publicadas.</strong>As primeiras imagens serão anexadas a uma <a href="https://github.com/marcocarnut/GapKeep/releases">versão no GitHub</a>, com os seus hashes, e listadas aqui. Até lá, você pode <a href="docs/readme.html#running-on-a-pi-zero">montar um cartão a partir do código</a> (em inglês), ou <a href="/ide/">experimentar o GapKeep no navegador</a>.</p>
+    <p><strong>Ainda não publicadas.</strong>As primeiras imagens serão anexadas a uma <a href="https://github.com/marcocarnut/GapKeep/releases">versão no GitHub</a>, com os seus hashes, e listadas aqui. Até lá, você pode <a href="docs/readme.html#running-on-a-pi-zero">montar um cartão a partir do código</a> (em inglês), ou <a href="/ide/web/index.html?lang=pt-BR">experimentar o GapKeep no navegador</a>.</p>
   </div>
   <h2 class="sr">As imagens</h2>
   <div class="dl-wrap">
@@ -32,7 +32,7 @@
       <p>O jeito mais simples é o <a href="https://www.raspberrypi.com/software/">Raspberry Pi Imager</a>: escolha <strong>Use custom</strong> como sistema operacional, selecione a imagem e depois o cartão. Pule as opções de personalização: o GapKeep não usa Wi-Fi nem contas de usuário. Qualquer programa que grave imagens de disco serve (balenaEtcher, Discos do GNOME).</p>
       <p>No Linux ou no macOS, o <code>dd</code> também resolve. Antes, descubra o nome do dispositivo do cartão (<code>lsblk</code> no Linux, <code>diskutil list</code> no macOS): gravar no dispositivo errado destrói o que estiver nele.</p>
 <pre><code>sudo dd if=gapkeep-pt-BR.img of=/dev/sdX bs=4M conv=fsync status=progress</code></pre>
-      <p>Depois, coloque o cartão no Zero e ligue a tela, o teclado (porta <strong>USB</strong>) e a alimentação (porta <strong>PWR</strong>). O lançador aparece em uns dois segundos; a partir daí, o cartão pode ser retirado.</p>
+      <p>Depois, coloque o cartão no Zero e ligue a tela, o teclado (porta <strong>USB</strong>) e a alimentação (porta <strong>PWR</strong>). O lançador aparece em segundos (uns 12 desde que você liga, quase tudo do firmware do próprio Pi); a partir daí, o cartão pode ser retirado.</p>
     </li>
     <li>
       <h2>Confira o que roda</h2>

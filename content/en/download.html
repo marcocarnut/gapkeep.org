@@ -32,7 +32,7 @@
       <p>The simplest way is <a href="https://www.raspberrypi.com/software/">Raspberry Pi Imager</a>: choose <strong>Use custom</strong> as the operating system, pick the image, then the card. Skip its customisation settings: GapKeep has no use for Wi-Fi or user accounts. Any tool that writes disk images works (balenaEtcher, GNOME Disks).</p>
       <p>On Linux or macOS, <code>dd</code> does it too. Find the card's device name first (<code>lsblk</code> on Linux, <code>diskutil list</code> on macOS): writing to the wrong device destroys what is on it.</p>
 <pre><code>sudo dd if=gapkeep-en.img of=/dev/sdX bs=4M conv=fsync status=progress</code></pre>
-      <p>Then put the card in the Zero, connect the screen, the keyboard (port <strong>USB</strong>) and power (port <strong>PWR</strong>). The launcher is up in about two seconds; from then on, the card can be taken out.</p>
+      <p>Then put the card in the Zero, connect the screen, the keyboard (port <strong>USB</strong>) and power (port <strong>PWR</strong>). The launcher is up in seconds (about 12 from power-on, most of them the Pi's own firmware); from then on, the card can be taken out.</p>
     </li>
     <li>
       <h2>Check what runs</h2>

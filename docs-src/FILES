@@ -195,6 +195,9 @@ patches/circle/0004-pi1-kernel-w-xor-x-page-map.patch
 patches/circle/0005-keyboard-abnt2-and-keymap-switch.patch
 patches/circle/0006-lvgl-mouse-wheel.patch
 patches/circle/0007-keymap-shift-navigation-keys.patch
+patches/circle/0008-dwhci-in-transfers-whole-packets.patch
+patches/circle/0009-usbmouse-bounded-report-parser.patch
+patches/circle/0010-dwhci-bounded-control-waits.patch
 patches/zxing-cpp/0001-qrcode-decode-bit-stream-without-exceptions.patch
 patches/zxing-cpp/0002-build-without-exceptions-or-thread-local.patch
 patches/zxing-cpp/0003-qrdetector-no-alignment-search-outside-image.patch
@@ -405,6 +408,7 @@ tests/fuzz/colorqr/v30_a450_3_4.bin
 tests/fuzz/colorqr/v30_a450_3_4.png
 tests/fuzz/fuzz_colorqr.cpp
 tests/fuzz/fuzz_qr.cpp
+tests/fuzz/fuzz_usbmouse.cpp
 tests/i18n.txt
 tests/i18n/check_shot.py
 tests/i18n/check_tool.py
@@ -518,6 +522,7 @@ tools/fetch_monaco.sh
 tools/firmware.sha256
 tools/fuzz_colorqr.sh
 tools/fuzz_qr.sh
+tools/fuzz_usbmouse.sh
 tools/gen_api.py
 tools/gkide.sh
 tools/gksim

@@ -70,8 +70,11 @@ python3 tools/build.py && python3 tools/check_links.py
   (`DOCS`) and given their pages in `tools/build.py` (`DOCMAP`); the build
   warns about a document in one and not the other. Links between mirrored
   documents stay on the site; links to anything else in the repository go
-  to `github.com/marcocarnut/GapKeep/blob/main/...` (or `tree/` for a
-  folder). The docs are English only: the pt-BR pages show the English
+  to GitHub at the recorded commit (`github.com/marcocarnut/GapKeep/blob/<commit>/...`,
+  or `tree/` for a folder). The licence links on the home page are pinned
+  the same way: GapKeep's own files at that commit, and each submodule's at
+  the commit GapKeep pins it to (`docs-src/PINS`; `{{lic:...}}` in the
+  content). The docs are English only: the pt-BR pages show the English
   text under a note saying so.
 - **IDE**: copied as `tools/gkide.sh` assembles it (`sim/web` to
   `site/ide/web/`, the simulator and the example apps of its `EXAMPLES` to
@@ -116,6 +119,12 @@ it, with its `width`, `height` and an `alt` in each language.
 when `main` is pushed, once Pages is set to "GitHub Actions" in the
 repository's settings, with the custom domain gapkeep.org. Nothing is
 built there: commit the output of `tools/build.py`.
+
+## Licences
+
+The site's text and pictures are under CC BY-SA 4.0, its scripts and
+styles under GPL-3.0-or-later (`COPYING`); what it includes from
+elsewhere keeps its own licence. See `LICENSE.md`.
 
 ## Privacy and security
 

@@ -11,7 +11,7 @@
     {
       "code": "PT-BR",
       "name": {"en": "Brazilian Portuguese", "pt-BR": "Português (Brasil)"},
-      "about": {"en": "GapKeep, starting in Brazilian Portuguese.", "pt-BR": "O GapKeep, iniciando em português do Brasil."},
+      "about": {"en": "GapKeep, starting in Brazilian Portuguese, with the Brazilian ABNT2 keyboard layout.", "pt-BR": "O GapKeep, iniciando em português do Brasil, com o teclado no layout ABNT2."},
       "file": null, "size": null, "sha256": null, "version": null, "commit": null, "date": null, "url": null
     }
   ],

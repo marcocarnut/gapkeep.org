@@ -11,7 +11,8 @@ What is mirrored is in DOCS below: README, SECURITY, CONTRIBUTING, AGENTS,
 every docs/**/*.md and each app's README. Only files committed in the
 checkout are copied, as they are at its HEAD (git show), so the record in
 docs-src/SOURCE (the commit) says exactly what the pages hold.
-docs-src/FILES lists every file of that commit, so the build can tell a
+docs-src/PINS records the commits of its submodules (for licence links),
+and docs-src/FILES lists every file of that commit, so the build can tell a
 link to a file from a link to a folder, and a broken link from both.
 """
 
@@ -50,6 +51,17 @@ def main():
             n += 1
     with open(os.path.join(DEST, 'FILES'), 'w') as out:
         out.write('\n'.join(files) + '\n')
+    # the submodules' commits, for links to their licences as GapKeep uses them
+    pins = {}
+    for line in git(gk, 'ls-tree', commit, 'circle', 'third_party/quickjs', 'third_party/zxing-cpp',
+                    'third_party/secp256k1').decode().split('\n'):
+        if line:
+            meta, path = line.split('\t')
+            pins[path] = meta.split()[2]
+    lvgl = git(os.path.join(gk, 'circle'), 'ls-tree', pins['circle'], 'addon/lvgl/lvgl').decode().split()
+    pins['circle/addon/lvgl/lvgl'] = lvgl[2]
+    with open(os.path.join(DEST, 'PINS'), 'w') as out:
+        out.write(''.join('%s %s\n' % (k, v) for k, v in sorted(pins.items())))
     date = git(gk, 'show', '-s', '--format=%cI', commit).decode().strip()
     with open(os.path.join(DEST, 'SOURCE'), 'w') as out:
         out.write('commit %s\ndate %s\n' % (commit, date))
