@@ -84,7 +84,7 @@ hand, and forgotten afterwards. What leaves is only what is on the screen:
 text to read, and QR codes for another device's camera.</p>
 <p>Built on <a href="https://github.com/rsta2/circle" rel="noopener">Circle</a> (bare-metal C++ for the
 Pi, GPLv3). GapKeep is licensed under the GPLv3 or later
-(<a href="https://github.com/marcocarnut/GapKeep/blob/dd359a45719cc36d5475402f7078fcfb4b68e155/LICENSE" rel="noopener">LICENSE</a>; its sources say GPL-3.0-or-later), and the cards
+(<a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/LICENSE" rel="noopener">LICENSE</a>; its sources say GPL-3.0-or-later), and the cards
 <code>tools/make_sdcard.sh</code> makes carry each licence of what is on them, as
 <code>LICENCE.*</code> files: GapKeep's and Circle's (<code>LICENCE.gapkeep</code>,
 <code>LICENCE.circle</code>), and those named below.
@@ -118,7 +118,7 @@ new ui.Button({ text: &quot;Click&quot;, onClick: () =&gt; (label.text = &quot;C
 <ul>
 <li><a href="apps.html">Writing apps</a>: start here.</li>
 <li><a href="api.html">API reference</a>: <code>gk:ui</code>, <code>gk:sys</code>, <code>gk:crypto</code>, <code>gk:clock</code>, <code>gk:session</code>, <code>gk:i18n</code>, <code>gk:data</code>, <code>gk:apps</code>, globals.
-Generated from <a href="https://github.com/marcocarnut/GapKeep/blob/dd359a45719cc36d5475402f7078fcfb4b68e155/docs/api/gapkeep-api.yaml" rel="noopener">docs/api/gapkeep-api.yaml</a>, which a
+Generated from <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/docs/api/gapkeep-api.yaml" rel="noopener">docs/api/gapkeep-api.yaml</a>, which a
 test checks against the runtime.</li>
 <li><a href="simulator.html">Simulator</a>: run apps on your machine, in seconds.</li>
 <li><a href="ide.html">Browser IDE</a>: edit and run apps in the browser.</li>
@@ -240,6 +240,41 @@ The QEMU scenarios then run unchanged on real hardware; see
 <a href="rig.html">docs/RIG.md</a>.</p>
 <p><strong>Using it:</strong> Tab and Shift+Tab move between widgets, Enter or Space
 activates, and the Windows (Super) key always returns to the launcher.</p>
+<h2 id="releases"><a class="anchor" href="#releases" aria-hidden="true" tabindex="-1">#</a>Releases</h2>
+<p>A release is made from a clean checkout of its commit, tagged
+<code>v&lt;version&gt;</code> (the version is <code>GAPKEEP_VERSION</code> in
+<code>src/runtime/version.h</code>, which the launcher shows):</p>
+<pre><code class="language-sh">tools/toolchain.sh          # once: the pinned compiler
+tools/make_release.sh       # -&gt; release/ (-o DIR for another folder)
+tools/check_release.sh      # checks the images, and boots each in QEMU
+</code></pre>
+<p>For English (US keyboard) and Português (Brasil) (ABNT2 keyboard), it makes
+<code>gapkeep-&lt;version&gt;-&lt;lang&gt;.img.zip</code>, an SD card image for Raspberry Pi
+Imager or balenaEtcher (256 MiB, one FAT32 partition named GAPKEEP), and
+<code>gapkeep-&lt;version&gt;-&lt;lang&gt;.zip</code>, the same card as files: format a card
+FAT32, as cards come (one partition, MBR), and copy what is in the zip's
+folder to its root; the Pi's firmware needs nothing more. Each card is
+<code>tools/make_sdcard.sh --standalone</code> plus a <code>gapkeep.txt</code> that sets the
+language and keyboard (edit it to change them, or to add the clock's
+settings: <a href="clock.html">docs/CLOCK.md</a>). Then <code>RELEASE.txt</code>: the commit,
+and the hashes the launcher shows; and <code>SHA256SUMS</code> of it all. A tree with
+changes is refused; <code>--allow-dirty</code> builds anyway, with &quot;dirty&quot; in the
+names and &quot;NOT A RELEASE&quot; in <code>RELEASE.txt</code>. How to write the image to a
+card: on the website (coming soon).</p>
+<p><strong>Checking a release</strong>, from the least to the most work:</p>
+<ul>
+<li><code>sha256sum -c SHA256SUMS</code> next to the downloads; each card also carries
+a <code>SHA256SUMS</code> of its own files.</li>
+<li>On the device: the launcher's <code>i</code> shows the kernel's SHA-256, and below
+the tiles, the focused app's; <code>RELEASE.txt</code> lists them all (an app's is
+<code>python3 tools/bundle_apps.py --hash apps/&lt;app&gt;</code> from the source).</li>
+<li>Rebuild it: check out the tag, run <code>tools/toolchain.sh</code> and
+<code>tools/make_release.sh</code>, and compare <code>SHA256SUMS</code>: the same commit gives
+the same files, byte for byte (fixed timestamps, volume ID and file
+order; tested with dosfstools 4.2 and mtools 4.0.43).
+<code>tools/check_reproducible.sh --release</code> builds it twice, in two fresh
+checkouts, and compares.</li>
+</ul>
 <h2 id="status"><a class="anchor" href="#status" aria-hidden="true" tabindex="-1">#</a>Status</h2>
 <ul>
 <li>[x] Step 1: LVGL on the framebuffer, USB keyboard and mouse</li>
@@ -308,7 +343,7 @@ activates, and the Windows (Super) key always returns to the launcher.</p>
 </table></div>
 
 </div>
-<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/dd359a45719cc36d5475402f7078fcfb4b68e155/README.md"><code>README.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/dd359a45719cc36d5475402f7078fcfb4b68e155/README.md">dd359a45719c</a></p>
+<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/README.md"><code>README.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/README.md">553ff986996e</a></p>
 </article>
 </div>
 </main>
@@ -317,7 +352,7 @@ activates, and the Windows (Super) key always returns to the launcher.</p>
     <p class="foot-brand"><a href="/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>A tiny bare-metal OS for air-gapped apps.</span></p>
     <p class="foot-links"><a href="/docs/">Documentation</a> · <a href="/download.html">Download</a> · <a href="/ide/">Browser IDE</a> · <a href="https://github.com/marcocarnut/GapKeep">Source on GitHub</a> · <a href="/docs/security.html">Security</a> · <a href="/docs/contributing.html">Contributing</a></p>
     <p class="foot-privacy">No trackers, no analytics, no cookies, no third-party requests: this site loads nothing from anywhere else, in the spirit of GapKeep. (GapWallet has its own site, gapwallet.org, with its own storage; it says what it connects to, and why.)</p>
-    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/dd359a45719cc36d5475402f7078fcfb4b68e155"><code>dd359a45719c</code></a>.</p>
+    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/553ff986996e7186d218dd4fd337354825bdb5a1"><code>553ff986996e</code></a>.</p>
   </div>
 </footer>
 </body>

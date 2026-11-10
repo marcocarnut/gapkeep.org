@@ -249,7 +249,7 @@ for them to leave, other than what a person reads off the screen.</p>
 <tbody>
 <tr>
 <td>USB host controller + HID parsing (Circle)</td>
-<td>The only input from outside. Only the hub, keyboard (boot protocol) and mouse drivers are in the image; every other class driver is left out at build time (<code>EXCLUDE_USB_*</code> in <code>tools/build.sh</code>), including the generic-HID path and its report descriptor parser. The mouse driver keeps its own, smaller one: it uses the report protocol (for the wheel), so it parses the report descriptor the mouse sends. That parser is bounded, every length, index and offset checked, and a malformed descriptor gets the mouse refused (<code>patches/circle/0009</code>); it is fuzzed under AddressSanitizer and UBSan against random, mutated and crafted descriptors (<code>tools/fuzz_usbmouse.sh</code>). IN transfers receive whole packets into a bounce buffer, as Linux does, so that a device sending more than was asked for cannot have the controller write past the buffer (<code>0008</code>; on the rig, without it, a keyboard declaring 1024-byte packets had 1016 bytes written past its 8-byte report buffer, on every report); keyboards and mice declaring packets over 64 bytes are refused. Control transfers time out after 3 s (<code>0003</code>); a device whose control transfers time out twice gets no more until it is replugged, and long timeouts are budgeted across devices (3, then one a minute; beyond that 250 ms); keyboard LED requests get 100 ms, and none after a failure. So a device that never answers, or keeps reconnecting, cannot hang the system nor freeze it for long (<code>0010</code>).</td>
+<td>The only input from outside. Only the hub, keyboard (boot protocol; with Circle's variant for the 8BitDo Retro Keyboard, picked by its vendor and product ids) and mouse drivers are in the image; every other class driver is left out at build time (<code>EXCLUDE_USB_*</code> in <code>tools/build.sh</code>), including the generic-HID path and its report descriptor parser. The mouse driver keeps its own, smaller one: it uses the report protocol (for the wheel), so it parses the report descriptor the mouse sends. That parser is bounded, every length, index and offset checked, and a malformed descriptor gets the mouse refused (<code>patches/circle/0009</code>); it is fuzzed under AddressSanitizer and UBSan against random, mutated and crafted descriptors (<code>tools/fuzz_usbmouse.sh</code>). IN transfers receive whole packets into a bounce buffer, as Linux does, so that a device sending more than was asked for cannot have the controller write past the buffer (<code>0008</code>; on the rig, without it, a keyboard declaring 1024-byte packets had 1016 bytes written past its 8-byte report buffer, on every report); keyboards and mice declaring packets over 64 bytes are refused. Control transfers time out after 3 s (<code>0003</code>); a device whose control transfers time out twice gets no more until it is replugged, and long timeouts are budgeted across devices (3, then one a minute; beyond that 250 ms); keyboard LED requests get 100 ms, and none after a failure. So a device that never answers, or keeps reconnecting, cannot hang the system nor freeze it for long (<code>0010</code>).</td>
 </tr>
 <tr>
 <td>Camera (<a href="camera.html">CAMERA.md</a>)</td>
@@ -265,7 +265,11 @@ for them to leave, other than what a person reads off the screen.</p>
 </tr>
 <tr>
 <td>SD card</td>
-<td>Read by the firmware at power-on (<code>kernel.img</code> comes from it, so it must be in then), then by GapKeep, once, at boot: <code>/apps</code>, <code>gapkeep.txt</code>, and the data folders (<code>/data/&lt;name&gt;</code>) the apps list (FAT, read-only driver). Then unmounted; any later FatFs call is refused and logged as an error. Never written; removable once the launcher is up. Sealed builds don't contain the SD code (their data, if any, is built in).</td>
+<td>Read by the firmware at power-on (<code>kernel.img</code> comes from it, so it must be in then), then by GapKeep, once, at boot: <code>/apps</code>, <code>gapkeep.txt</code>, and the data folders (<code>/data/&lt;name&gt;</code>) the apps list (FAT, read-only driver). Then unmounted; any later FatFs call is refused and logged as an error. Never written; removable once the launcher is up. Sealed builds don't contain the SD code (their data, if any, is built in). A card can be tampered with while the kernel on it is still the genuine one (checked on another computer), so everything the genuine kernel parses from it must be memory-safe on any input: the FAT file system (FatFs), manifests, <code>suite.json</code> and catalogs (QuickJS's JSON parser, then GapKeep's checks), icons, <code>gapkeep.txt</code>. What it reads is capped: per file, per app, 64 MB for all the apps on a card and 48 MB for all data folders, refused ones included. Names, versions and descriptions shown by the launcher may not hold line breaks, control, bidi or invisible characters (<code>src/runtime/textcheck.h</code>); folder names from the card are shown with such characters as <code>?</code>.</td>
+</tr>
+<tr>
+<td>Boot files: <code>config.txt</code>, <code>cmdline.txt</code></td>
+<td>Read by the closed firmware, outside any hash GapKeep shows. <code>config.txt</code> decides what the firmware loads and how the screen is set up (it could even name another kernel file), so the defence against a changed one is the same as against a changed <code>kernel.img</code>: check the card's boot files on a trusted computer, against the <code>SHA256SUMS</code> <code>tools/make_sdcard.sh</code> printed when the card was made (not the copy on the card, which whoever changed the card could change too). The firmware passes <code>cmdline.txt</code> to the kernel as its command line; Circle would honour some of its options (<code>usbignore</code> turns a USB device off, <code>width</code> and <code>height</code> change the screen, <code>keymap</code>, <code>loglevel</code>, USB timing, CPU temperature limits), so GapKeep ignores it: Circle's options parser never reads it (<code>patches/circle/0013</code>), and every setting has its default. GapKeep's own settings are in <code>gapkeep.txt</code>.</td>
 </tr>
 <tr>
 <td>VideoCore firmware</td>
@@ -287,8 +291,9 @@ loading after boot, a clock you can trust, and any way for apps
 to reach each other (each app's session store is its own).</p>
 <p><strong>Apps on the card</strong> are as trustworthy as the card: whoever can write it
 can replace <code>kernel.img</code> too, so loading apps from it does not move the
-trust boundary. The launcher shows each app's SHA-256, to compare with a
-published one. A sealed build (<code>tools/build.sh pi SEALED=1</code>) removes the SD and FAT code
+trust boundary. The launcher shows each app's SHA-256, on a line of its
+own in the monospaced font that no app-chosen text precedes, to compare
+with a published one. A sealed build (<code>tools/build.sh pi SEALED=1</code>) removes the SD and FAT code
 from the trusted base.</p>
 <p><strong>Data folders and suites</strong>: code is inside the app hash, data
 (<code>data/&lt;name&gt;/</code>, read with <code>gk:data</code>) is outside it, on purpose: the hash
@@ -305,6 +310,15 @@ afterwards changes nothing. A sealed kernel can carry its data instead
 and the data folder's hash lets the keyring be checked on its own. Nothing in the data is executed; what parses it is FatFs and the
 apps' own JavaScript. Apps in a suite share data this way but never code,
 so each app's hash still covers every line it runs.</p>
+<p><strong>Runaway apps:</strong> QuickJS calls the app host's interrupt handler as it
+runs JavaScript, which stops a call after 10 seconds (the watchdog) or when
+the Windows key is pressed. Native work inside one call is not
+interrupted: a built-in like <code>Array.prototype.sort</code> on a large array,
+<code>JSON.parse</code> of a long text or BigInt arithmetic on huge numbers runs to
+its end (bounded by the 96 MB heap: seconds on a Pi Zero, not minutes),
+then the handler stops the app at its next check. GapKeep's own long
+native work asks too: <code>gk:crypto</code>'s <code>pbkdf2</code> checks every 256 iterations
+and throws the same uncatchable &quot;interrupted&quot; error.</p>
 <p><strong>Isolation between apps:</strong> each app has its own JS runtime, so apps cannot
 reach each other's objects. They share an address space (everything runs
 privileged, on one core), so this guards against mistakes and keeps app
@@ -325,21 +339,46 @@ overflow faults instead of running into the data below it.</li>
 boot (<code>src/runtime/stackguard.cpp</code>). A violation of any of these stops the
 system; <code>tests/memprotect.txt</code> makes each one happen on purpose
 (<code>src/testcrash.cpp</code>, test builds only) and checks that it does.</p>
-<p><strong>Secrets in memory:</strong> both heaps that hold app data zero every block when
-it is freed: the JS heap (<code>apphost.cpp</code>, which also makes <code>realloc</code> move so
-the old block can be zeroed) and LVGL's heap (<code>lv_mem_wipe.c</code>; labels and
-text areas keep copies of what they show). When an app exits, all its
-memory is freed, so seed words do not linger after the app is closed, and
-the screen is redrawn completely. Data still in use is of course in RAM; a
-Pi Zero has no memory encryption.</p>
+<p><strong>Secrets in memory:</strong> every heap zeroes every block when it is freed:
+the JS heap (<code>apphost.cpp</code>, which also makes <code>realloc</code> move so the old
+block can be zeroed), LVGL's heap (<code>lv_mem_wipe.c</code>; labels and text areas
+keep copies of what they show), and Circle's heap under them, which also
+holds the QR decoder's results, log messages and everything else the
+kernel allocates (<code>patches/circle/0011</code>). Buffers that held a secret, or a
+picture of a QR code, are also wiped explicitly before they go, with
+<code>gk_wipe()</code> (<code>src/crypto/wipe.h</code>), which the compiler cannot drop as a
+dead store (<code>tests/native/check_wipes.sh</code>): keys and digests in
+<code>src/crypto/</code>, the decoder's payloads and the scanner's last code, preview
+and camera frames when scanning stops. The log keeps nothing in builds
+without a serial port: Circle's logger would keep the last 16 KB of lines
+and 50 messages in RAM, so nothing is written to it there, and its message
+queue is emptied as it fills (<code>src/kernel.cpp</code>). LVGL's memory is capped
+(64 MB; an app's screen at 32 MB, past which gk:ui throws a <code>RangeError</code>).
+When an app exits, all its memory is freed, so seed words do not linger
+after the app is closed, and the screen is redrawn completely. Data still
+in use is of course in RAM; a Pi Zero has no memory encryption.</p>
 <p><strong>Trusted code</strong> is the image (Circle, LVGL, QuickJS, FatFs, <code>src/</code>, the
 built-in apps) and the apps on the card. Builds are reproducible: with the
 pinned compiler (<code>tools/toolchain.sh</code>), the same commit gives the same
 <code>kernel.img</code>, byte for byte, wherever it is built
-(<code>tools/check_reproducible.sh</code>). The running kernel shows the SHA-256 of
-its own code and constants (launcher, key <code>i</code>), which is the SHA-256 of the
-start of <code>kernel.img</code>, so what runs can be checked against a published
-build.</p>
+(<code>tools/check_reproducible.sh</code>); so do the release's SD card images and
+zips (<code>tools/make_release.sh</code>, <code>tools/check_reproducible.sh --release</code>;
+README.md, &quot;Releases&quot;).</p>
+<p><strong>The kernel's hash.</strong> The launcher's system info (key <code>i</code>) shows the
+SHA-256 the running kernel computed of its own image: its code and
+constants as they are in memory, and its data as the firmware loaded it
+(Circle hands a copy over before anything changes it,
+<code>patches/circle/0012</code>). It equals <code>sha256sum kernel.img</code>, for every build
+(<code>tests/check_kernel_hash.sh</code>). It identifies an honest kernel, and catches
+a wrong build or a bad copy on the card. It cannot catch a malicious
+kernel: that one can show any hash it likes. So against a card someone may
+have changed, the defence is to check the card itself on a trusted
+computer, with tools that compute the same hashes (<code>sha256sum</code> for
+<code>kernel.img</code> and the boot files, <code>tools/bundle_apps.py --hash</code> for the
+apps, <code>--data-hash</code> for data folders); or to use a sealed build you built
+or checked yourself. The app and data hashes the launcher shows are
+computed by the kernel, so they are as trustworthy as the kernel: with a
+genuine kernel they say exactly what code an app runs.</p>
 <h2 id="repository-layout"><a class="anchor" href="#repository-layout" aria-hidden="true" tabindex="-1">#</a>Repository layout</h2>
 <div class="table-wrap"><table>
 <thead>
@@ -421,7 +460,7 @@ build.</p>
 </table></div>
 
 </div>
-<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/dd359a45719cc36d5475402f7078fcfb4b68e155/docs/ARCHITECTURE.md"><code>docs/ARCHITECTURE.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/dd359a45719cc36d5475402f7078fcfb4b68e155/docs/ARCHITECTURE.md">dd359a45719c</a></p>
+<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/docs/ARCHITECTURE.md"><code>docs/ARCHITECTURE.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/docs/ARCHITECTURE.md">553ff986996e</a></p>
 </article>
 </div>
 </main>
@@ -430,7 +469,7 @@ build.</p>
     <p class="foot-brand"><a href="/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>A tiny bare-metal OS for air-gapped apps.</span></p>
     <p class="foot-links"><a href="/docs/">Documentation</a> · <a href="/download.html">Download</a> · <a href="/ide/">Browser IDE</a> · <a href="https://github.com/marcocarnut/GapKeep">Source on GitHub</a> · <a href="/docs/security.html">Security</a> · <a href="/docs/contributing.html">Contributing</a></p>
     <p class="foot-privacy">No trackers, no analytics, no cookies, no third-party requests: this site loads nothing from anywhere else, in the spirit of GapKeep. (GapWallet has its own site, gapwallet.org, with its own storage; it says what it connects to, and why.)</p>
-    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/dd359a45719cc36d5475402f7078fcfb4b68e155"><code>dd359a45719c</code></a>.</p>
+    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/553ff986996e7186d218dd4fd337354825bdb5a1"><code>553ff986996e</code></a>.</p>
   </div>
 </footer>
 </body>

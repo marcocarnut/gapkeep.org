@@ -97,6 +97,7 @@
    "lib/crypto.js",
    "lib/descriptor.js",
    "lib/keys.js",
+   "lib/memory.js",
    "lib/multisig.js",
    "lib/review.js",
    "lib/selftest.js",

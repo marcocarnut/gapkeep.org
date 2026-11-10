@@ -139,17 +139,17 @@ handlers and timers.</p>
 <tr>
 <td><code>name</code></td>
 <td>yes</td>
-<td>Shown in the launcher.</td>
+<td>Shown in the launcher. At most 64 bytes of text (below).</td>
 </tr>
 <tr>
 <td><code>version</code></td>
 <td>yes</td>
-<td>Free-form string, shown in logs.</td>
+<td>Shown in the launcher and logs, e.g. <code>&quot;1.0.0&quot;</code>: any text (below), at most 32 bytes.</td>
 </tr>
 <tr>
 <td><code>description</code></td>
 <td>no</td>
-<td>One line for the launcher tile.</td>
+<td>One line for the launcher tile, at most 256 bytes of text (below).</td>
 </tr>
 <tr>
 <td><code>icon</code></td>
@@ -183,9 +183,17 @@ handlers and timers.</p>
 </tr>
 </tbody>
 </table></div>
+<p><code>name</code>, <code>version</code> and <code>description</code> (an app's and a suite's, and their
+translations) are text on one line: no line break and no other control
+character (U+0000-U+001F, U+007F-U+009F), no bidi control or separator
+(U+061C, U+200E, U+200F, U+2028-U+202E, U+2066-U+2069), no invisible
+character (U+00AD soft hyphen, U+200B-U+200D, U+2060-U+2065, U+FEFF). They
+could otherwise change how the launcher's lines read: a name with a line
+break could draw a line of its own under it, such as a forged &quot;SHA-256&quot;
+(<a href="#app-hashes">App hashes</a>).</p>
 <p>GapKeep checks every manifest, and refuses an app with unknown keys, a bad
-id, an unknown or malformed icon, an unknown permission, or a missing entry
-module. The build does
+id, a name, version or description that is not such text, an unknown or
+malformed icon, an unknown permission, or a missing entry module. The build does
 it for built-in apps (<code>tools/bundle_apps.py</code>); for apps on the SD card the
 system does it at boot, and the launcher lists each refused app with the
 reason.</p>
@@ -245,7 +253,8 @@ ever run one set of apps. Its data folders, if it has any, are built in too
 <h2 id="app-hashes"><a class="anchor" href="#app-hashes" aria-hidden="true" tabindex="-1">#</a>App hashes</h2>
 <p>Whoever can change the card can change the apps on it, so the launcher shows
 the SHA-256 of the focused app below the tiles (as <code>sys.app.hash</code> and in
-<code>apps.list()</code>). Compare it with the hash published for the app before you
+<code>apps.list()</code>): on a line of its own, first, in the monospaced font, before
+the app's name and version, so nothing an app chose comes before it. Compare it with the hash published for the app before you
 open it. It covers exactly what GapKeep loads, so it is the same on any card
 and for the built-in copy:</p>
 <pre><code class="language-sh">python3 tools/bundle_apps.py --hash apps/dice39
@@ -623,8 +632,13 @@ widgets, timers, handlers and memory are freed.</p>
 <h2 id="when-things-go-wrong"><a class="anchor" href="#when-things-go-wrong" aria-hidden="true" tabindex="-1">#</a>When things go wrong</h2>
 <p>Uncaught exceptions and unhandled promise rejections show a red banner with
 the message and stack, and are written to the serial log. The app keeps
-running. Long-running code is stopped after 10 seconds, and each app may use
-up to 96 MB of memory.</p>
+running. Long-running code is stopped after 10 seconds, or when the
+Windows key is pressed; one built-in operation on a lot of data (sorting a
+million-element array, say) finishes first, and <code>gk:crypto</code>'s <code>pbkdf2</code> is
+stopped too. Each app may use up to 96 MB of memory for its JavaScript, and
+32 MB for what it shows (widgets, their text, pictures: a <code>RangeError</code>
+past it; <code>sys.memory().ui</code>). A <code>ui.Table</code> has at most 10,000 rows, 100
+columns and 100,000 cells. The apps on a card may hold 64 MB in all.</p>
 <p><code>console.log</code> (and <code>info</code>, <code>warn</code>, <code>error</code>, <code>debug</code>) write to the serial
 log, prefixed with <code>app:&lt;id&gt;</code>. Objects are printed as JSON.</p>
 <h2 id="trying-it-out"><a class="anchor" href="#trying-it-out" aria-hidden="true" tabindex="-1">#</a>Trying it out</h2>
@@ -664,7 +678,7 @@ and focus the first input when a screen appears (<code>widget.focus()</code>).</
 </ul>
 
 </div>
-<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/dd359a45719cc36d5475402f7078fcfb4b68e155/docs/APPS.md"><code>docs/APPS.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/dd359a45719cc36d5475402f7078fcfb4b68e155/docs/APPS.md">dd359a45719c</a></p>
+<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/docs/APPS.md"><code>docs/APPS.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/docs/APPS.md">553ff986996e</a></p>
 </article>
 </div>
 </main>
@@ -673,7 +687,7 @@ and focus the first input when a screen appears (<code>widget.focus()</code>).</
     <p class="foot-brand"><a href="/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>A tiny bare-metal OS for air-gapped apps.</span></p>
     <p class="foot-links"><a href="/docs/">Documentation</a> · <a href="/download.html">Download</a> · <a href="/ide/">Browser IDE</a> · <a href="https://github.com/marcocarnut/GapKeep">Source on GitHub</a> · <a href="/docs/security.html">Security</a> · <a href="/docs/contributing.html">Contributing</a></p>
     <p class="foot-privacy">No trackers, no analytics, no cookies, no third-party requests: this site loads nothing from anywhere else, in the spirit of GapKeep. (GapWallet has its own site, gapwallet.org, with its own storage; it says what it connects to, and why.)</p>
-    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/dd359a45719cc36d5475402f7078fcfb4b68e155"><code>dd359a45719c</code></a>.</p>
+    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/553ff986996e7186d218dd4fd337354825bdb5a1"><code>553ff986996e</code></a>.</p>
   </div>
 </footer>
 </body>

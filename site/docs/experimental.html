@@ -73,6 +73,18 @@ neither listed nor started.</p>
 <p>For apps, a manifest's <code>&quot;experimental&quot;: true</code> marks an app as one
 (<a href="apps.html">APPS.md</a>); <code>sys.app.experimental</code> and the <code>apps.list()</code> entries
 say it too.</p>
+<p><strong>The code is in every image.</strong> Experimental features are turned on per
+card, not per build: production and sealed kernels contain them too, the
+colour QR decoder included (<code>lib/colorqr</code>, about 37 KiB of code), so one
+kernel, with one published hash, serves cards with and without
+<code>experimental = yes</code>. Off, nothing reaches that code: the detector's name
+is unknown to <code>ui.Scanner</code>, so the camera makes no colour frames and the
+decoder is never called. It is still part
+of what the kernel's hash covers and of what must be correct: a bug in it
+matters only with experimental features on, but it is fuzzed like the QR
+decoder (<code>tools/fuzz_colorqr.sh</code>). Building it out of production images
+would give them a second hash and a second set of builds to check, for
+code that is dormant there.</p>
 <h2 id="colour-qr-codes"><a class="anchor" href="#colour-qr-codes" aria-hidden="true" tabindex="-1">#</a>Colour QR codes</h2>
 <p>A colour QR code is an ordinary QR code whose data modules are coloured so
 that any reader still sees their dark and light: a phone reads its text as
@@ -179,8 +191,9 @@ the Color QR app does.</li>
 </ul>
 <p>Like everything the camera sees, colour codes are untrusted input: the
 decoder is fuzzed (<code>tools/fuzz_colorqr.sh</code>, through the QR decoder as the
-scanner calls it), and the log gets lengths and the start of SHA-256s,
-never the contents.</p>
+scanner calls it), and the log gets lengths only, never the contents or
+their hashes (a test-only app, <code>tests/apps/scandigest</code>, logs hashes for the
+tests: <code>tests/scan_digest.txt</code>).</p>
 <h3 id="how-it-works"><a class="anchor" href="#how-it-works" aria-hidden="true" tabindex="-1">#</a>How it works</h3>
 <ul>
 <li><strong>Colour frames.</strong> The camera makes them only while a scanner asks for
@@ -207,7 +220,8 @@ the scanner stops.</li>
 <ul>
 <li><code>tests/colorqr.txt</code> (simulator and QEMU): the Color QR app reads colour
 codes made by the colorqr project (<code>tests/colorqr</code>, with their payloads),
-and a plain code.</li>
+and a plain code; <code>tests/scan_digest.txt</code> checks the payloads read are
+those.</li>
 <li><code>tests/colorqr_hw.txt</code> (the rig): the same on a Pi Zero, for its timing;
 test builds turn experimental features on with <code>#experimental on</code> on the
 serial line, as the rig's card never changes.</li>
@@ -222,7 +236,7 @@ module, was read at the first try every time).</li>
 </ul>
 
 </div>
-<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/dd359a45719cc36d5475402f7078fcfb4b68e155/docs/EXPERIMENTAL.md"><code>docs/EXPERIMENTAL.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/dd359a45719cc36d5475402f7078fcfb4b68e155/docs/EXPERIMENTAL.md">dd359a45719c</a></p>
+<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/docs/EXPERIMENTAL.md"><code>docs/EXPERIMENTAL.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/docs/EXPERIMENTAL.md">553ff986996e</a></p>
 </article>
 </div>
 </main>
@@ -231,7 +245,7 @@ module, was read at the first try every time).</li>
     <p class="foot-brand"><a href="/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>A tiny bare-metal OS for air-gapped apps.</span></p>
     <p class="foot-links"><a href="/docs/">Documentation</a> · <a href="/download.html">Download</a> · <a href="/ide/">Browser IDE</a> · <a href="https://github.com/marcocarnut/GapKeep">Source on GitHub</a> · <a href="/docs/security.html">Security</a> · <a href="/docs/contributing.html">Contributing</a></p>
     <p class="foot-privacy">No trackers, no analytics, no cookies, no third-party requests: this site loads nothing from anywhere else, in the spirit of GapKeep. (GapWallet has its own site, gapwallet.org, with its own storage; it says what it connects to, and why.)</p>
-    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/dd359a45719cc36d5475402f7078fcfb4b68e155"><code>dd359a45719c</code></a>.</p>
+    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/553ff986996e7186d218dd4fd337354825bdb5a1"><code>553ff986996e</code></a>.</p>
   </div>
 </footer>
 </body>

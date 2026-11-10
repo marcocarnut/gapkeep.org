@@ -94,6 +94,7 @@ apps/signer/lib/combine.js
 apps/signer/lib/crypto.js
 apps/signer/lib/descriptor.js
 apps/signer/lib/keys.js
+apps/signer/lib/memory.js
 apps/signer/lib/multisig.js
 apps/signer/lib/psbt/analyze.js
 apps/signer/lib/psbt/basen.js
@@ -198,6 +199,9 @@ patches/circle/0007-keymap-shift-navigation-keys.patch
 patches/circle/0008-dwhci-in-transfers-whole-packets.patch
 patches/circle/0009-usbmouse-bounded-report-parser.patch
 patches/circle/0010-dwhci-bounded-control-waits.patch
+patches/circle/0011-heap-zero-freed-blocks.patch
+patches/circle/0012-sysinit-data-as-loaded.patch
+patches/circle/0013-koptions-ignore-command-line.patch
 patches/zxing-cpp/0001-qrcode-decode-bit-stream-without-exceptions.patch
 patches/zxing-cpp/0002-build-without-exceptions-or-thread-local.patch
 patches/zxing-cpp/0003-qrdetector-no-alignment-search-outside-image.patch
@@ -264,6 +268,8 @@ src/crypto/sha256.c
 src/crypto/sha256.h
 src/crypto/sha512.c
 src/crypto/sha512.h
+src/crypto/wipe.c
+src/crypto/wipe.h
 src/kbdindev.cpp
 src/kbdindev.h
 src/kernel.cpp
@@ -318,6 +324,7 @@ src/runtime/js_ui.cpp
 src/runtime/keylayout.cpp
 src/runtime/keylayout.h
 src/runtime/libc_shim.c
+src/runtime/lv_mem_limit.h
 src/runtime/lv_mem_wipe.c
 src/runtime/markup.cpp
 src/runtime/markup.h
@@ -333,6 +340,7 @@ src/runtime/stackguard.cpp
 src/runtime/stackguard.h
 src/runtime/synthcam.cpp
 src/runtime/synthcam.h
+src/runtime/textcheck.h
 src/runtime/ttfstyles.cpp
 src/runtime/ttfstyles.h
 src/runtime/version.h
@@ -360,6 +368,8 @@ tests/apps/qjstests/main.js
 tests/apps/qjstests/manifest.json
 tests/apps/qrtest/main.js
 tests/apps/qrtest/manifest.json
+tests/apps/scandigest/main.js
+tests/apps/scandigest/manifest.json
 tests/apps/scantest/main.js
 tests/apps/scantest/manifest.json
 tests/apps/sessionpeer/main.js
@@ -421,6 +431,7 @@ tests/keyboard.txt
 tests/markup.txt
 tests/memprotect.txt
 tests/native/bip340-vectors.csv
+tests/native/check_wipes.sh
 tests/native/test_hmac.c
 tests/native/test_secp.c
 tests/native/test_sha256.c
@@ -438,9 +449,11 @@ tests/qjstests.txt
 tests/qrscan.txt
 tests/qrtest.txt
 tests/repl.txt
+tests/scan_digest.txt
 tests/scantest.txt
 tests/sdapps.txt
 tests/sdcard/README.md
+"tests/sdcard/apps/0bidi\342\200\256name/main.js"
 tests/sdcard/apps/BadName/main.js
 tests/sdcard/apps/BadName/manifest.json
 tests/sdcard/apps/badbase64/main.js
@@ -460,6 +473,10 @@ tests/sdcard/apps/sdhello/README.md
 tests/sdcard/apps/sdhello/lib/greet.js
 tests/sdcard/apps/sdhello/main.js
 tests/sdcard/apps/sdhello/manifest.json
+tests/sdcard/apps/spoofbidi/main.js
+tests/sdcard/apps/spoofbidi/manifest.json
+tests/sdcard/apps/spoofname/main.js
+tests/sdcard/apps/spoofname/manifest.json
 tests/sdcard/apps/testsuite/lang/pt-BR.json
 tests/sdcard/apps/testsuite/suite-peer/main.js
 tests/sdcard/apps/testsuite/suite-peer/manifest.json
@@ -513,6 +530,7 @@ tools/build.sh
 tools/bundle_apps.py
 tools/check_api.py
 tools/check_hashes.py
+tools/check_release.sh
 tools/check_reproducible.sh
 tools/check_secp.py
 tools/embed_js.py
@@ -531,6 +549,7 @@ tools/make_cursor.py
 tools/make_fonts.py
 tools/make_icon.py
 tools/make_qjstests.py
+tools/make_release.sh
 tools/make_sd_image.sh
 tools/make_sdcard.sh
 tools/make_test_pictures.py
@@ -545,4 +564,5 @@ tools/run_sim_tests.sh
 tools/run_tests.sh
 tools/serialshot.py
 tools/share_libs.py
+tools/textcheck.py
 tools/toolchain.sh

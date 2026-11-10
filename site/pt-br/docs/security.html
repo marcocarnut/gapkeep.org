@@ -79,7 +79,12 @@ come in a later release.</p>
 <li>The kernel (<code>src/</code>) and Circle as GapKeep configures and patches it
 (<code>patches/circle/</code>): USB, keyboard and mouse handling, memory protection.</li>
 <li>The runtime (<code>src/runtime/</code>): the app host, the <code>gk:*</code> modules, the app
-loader and the SD card reader, <code>gapkeep.txt</code>.</li>
+loader and the SD card reader, <code>gapkeep.txt</code>. A tampered card under a
+genuine kernel is in scope: everything the genuine kernel parses from
+the card (the FAT file system, manifests, <code>suite.json</code>, catalogs, icons,
+data folders, <code>gapkeep.txt</code>) must be memory-safe on any input, and must
+not be able to make the launcher show a forged hash (an app's name that
+draws a fake &quot;SHA-256&quot; line, say).</li>
 <li>The QR decoder (zxing-cpp as patched in <code>patches/zxing-cpp/</code>, and
 <code>src/runtime/qrdecode.cpp</code>) and the experimental colour QR decoder
 (<code>lib/colorqr</code>).</li>
@@ -97,9 +102,19 @@ design: that is how they are tested on QEMU and on real hardware. Never
 use a test build (<code>TEST=1</code>) with real secrets. Production builds have no
 serial driver and never read the serial port. (An app logging a secret,
 in any build, is a bug: please report it.)</li>
-<li>Whoever can write the SD card can replace <code>kernel.img</code> and every app on
-it; the launcher shows each app's hash, and the kernel its own, to be
-compared with published ones (<a href="architecture.html#security-model">docs/ARCHITECTURE.md</a>).</li>
+<li>Whoever can write the SD card can replace <code>kernel.img</code>, and a
+replaced kernel can show any hash it likes: the hashes the device shows
+(its own, the apps', the data folders') identify an honest kernel and
+catch build and copying mistakes, but cannot catch a malicious kernel.
+Against a card that may have been changed, the defence is to check the
+card itself on a trusted computer (<code>sha256sum kernel.img</code>; every file
+against the <code>SHA256SUMS</code> that <code>tools/make_sdcard.sh</code> printed when the
+card was made, not the copy on the card; <code>tools/bundle_apps.py --hash</code>
+for apps), or to use
+a sealed build you built or checked yourself
+(<a href="architecture.html#security-model">docs/ARCHITECTURE.md</a>). A
+genuine kernel that can be made to misbehave by what is on the card
+<em>is</em> a vulnerability (above).</li>
 <li>Physical attacks on a running device (probing its RAM, its bus or its
 power): a Pi Zero has no memory encryption.</li>
 <li>The closed VideoCore firmware, which every Pi system shares.</li>
@@ -108,7 +123,7 @@ for secrets.</li>
 </ul>
 
 </div>
-<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/dd359a45719cc36d5475402f7078fcfb4b68e155/SECURITY.md"><code>SECURITY.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/dd359a45719cc36d5475402f7078fcfb4b68e155/SECURITY.md">dd359a45719c</a></p>
+<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/SECURITY.md"><code>SECURITY.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/SECURITY.md">553ff986996e</a></p>
 </article>
 </div>
 </main>
@@ -117,7 +132,7 @@ for secrets.</li>
     <p class="foot-brand"><a href="/pt-br/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>Um sistema operacional mínimo, bare-metal, para aplicativos air-gapped.</span></p>
     <p class="foot-links"><a href="/pt-br/docs/">Documentação</a> · <a href="/pt-br/download.html">Baixar</a> · <a href="/ide/web/index.html?lang=pt-BR">IDE no navegador</a> · <a href="https://github.com/marcocarnut/GapKeep">Código no GitHub</a> · <a href="/pt-br/docs/security.html">Segurança</a> · <a href="/pt-br/docs/contributing.html">Como contribuir</a></p>
     <p class="foot-privacy">Sem rastreadores, sem analytics, sem cookies, sem requisições a terceiros: este site não carrega nada de nenhum outro lugar, no espírito do GapKeep. (A GapWallet tem o seu próprio site, gapwallet.org, com armazenamento separado; lá ela diz a quais servidores se conecta, e por quê.)</p>
-    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Este site: textos e imagens sob <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts sob <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/dd359a45719cc36d5475402f7078fcfb4b68e155"><code>dd359a45719c</code></a>.</p>
+    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Este site: textos e imagens sob <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts sob <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/553ff986996e7186d218dd4fd337354825bdb5a1"><code>553ff986996e</code></a>.</p>
   </div>
 </footer>
 </body>
