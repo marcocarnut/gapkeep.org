@@ -1,5 +1,5 @@
-GapKeep commit: 408b792d594790313f070ad9dc80b3e3ec183060
-Imported: 2026-11-11T02:44:24Z by tools/import_ide.sh
-Simulator: gksim.wasm sha256 97178ef6fe652cd8991bf037c068b2c5b8997ac937c1f5c3f51b7e7d28bacbc6
+GapKeep commit: 75c89197a610bcdbeb9e5dd09451bc5ee87cf0ba
+Imported: 2026-11-11T13:54:00Z by tools/import_ide.sh
+Simulator: gksim.wasm sha256 736091e5b06246df7ee55186c912ace064442522dc62b3b7d145cd79ad9ce361
 Monaco: 0.57.0
 Examples: launcher settings hello gallery dice39 qrscan clock totp codex32 signer repl colorqr sneakernet
