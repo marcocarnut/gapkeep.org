@@ -151,6 +151,14 @@ on stdin, one per line:</p>
 <td>Take the SD card out: its folder is no longer read (GapKeep must not need it after boot; <code>tests/card_removal.txt</code>).</td>
 </tr>
 <tr>
+<td><code>usbip attach &lt;host&gt;:&lt;port&gt; [&lt;busid&gt;]</code></td>
+<td>Plug in the USB device a USB/IP server offers: see <a href="#usb-devices">USB devices</a>.</td>
+</tr>
+<tr>
+<td><code>usbip detach [&lt;busid&gt;]</code></td>
+<td>Unplug it, for good (none given: every one).</td>
+</tr>
+<tr>
 <td><code>quit</code></td>
 <td>Exit.</td>
 </tr>
@@ -162,7 +170,7 @@ formatted as on the device's serial port (<code>00:00:01.23 app:hello: ...</code
 <code>DIR/apps</code>, data folders in <code>DIR/data</code>), <code>--builtin DIR</code> (below), <code>--app ID</code>, <code>--size WxH</code>, <code>--lang TAG</code> (the
 language, over the card's <code>gapkeep.txt</code>; <code>qps</code> is the pseudo-language of
 <a href="apps.html#languages">APPS.md</a>),
-<code>--for SECONDS</code> and <code>--shot FILE</code>.</p>
+<code>--usbip HOST:PORT[/BUSID]</code> (as <code>usbip attach</code>, from the start), <code>--for SECONDS</code> and <code>--shot FILE</code>.</p>
 <h2 id="the-camera"><a class="anchor" href="#the-camera" aria-hidden="true" tabindex="-1">#</a>The camera</h2>
 <p>The simulator has a camera that films what you tell it, for apps with
 <code>ui.Scanner</code> (<a href="camera.html">CAMERA.md</a>). The decoder is the real one.</p>
@@ -199,6 +207,37 @@ language, over the card's <code>gapkeep.txt</code>; <code>qps</code> is the pseu
 <p>The log says what changed (<code>camera: a QR code of 14 bytes</code>), never what a
 code holds. Scenarios use the same commands; test kernels in QEMU and on the
 rig take them too.</p>
+<h2 id="usb-devices"><a class="anchor" href="#usb-devices" aria-hidden="true" tabindex="-1">#</a>USB devices</h2>
+<p>Apps that use <a href="api.html#gkusb"><code>gk:usb</code></a> need a device. The simulator takes
+them over <a href="https://docs.kernel.org/usb/usbip_protocol.html" rel="noopener">USB/IP</a>, the
+protocol Linux uses to share USB devices over a network: it is a USB/IP
+client (<code>sim/src/usbip.cpp</code>), and a device a server offers is a device
+plugged in. Any server will do: Linux's <code>usbipd</code> sharing a real device, or
+a program that simulates one.</p>
+<pre><code class="language-sh">tools/gksim --usbip 127.0.0.1:3240 apps/myapp           # the first device it offers
+tools/gksim --usbip 127.0.0.1:3240/1-1.4 apps/myapp     # that one (its bus id)
+</code></pre>
+<p>or, while it runs, <code>usbip attach 127.0.0.1:3240 1-1.4</code> and <code>usbip detach</code>. It is claimed as on the Pi, if an app lists it (otherwise it
+stays imported, unused: the simulator has no other driver), and gk:usb
+reads its descriptors and serves the app's control transfers, with the
+same checks, limits and timeouts. Only control transfers on endpoint 0 go
+over USB/IP; the server has already set the device's address.</p>
+<p>An attachment is a cable that stays plugged in. When the server drops the
+device (it was unplugged, or it reset and enumerates again), the device is
+detached, and the import is tried again every 300 ms until it is offered
+again, maybe as another device under the same bus id; <code>usbip detach</code>
+pulls the cable.</p>
+<p>For tests, <code>tests/usb/usbip_stub.py</code> is a small USB/IP server with a fake
+device (1209:0001: a HID keyboard with a feature report, a vendor
+interface, requests that stall, never answer, or answer too much).
+Scenarios start it with <code>usbip stub</code>, and <code>usbip unplug</code> makes it drop the
+device (<code>tests/usb.txt</code>). <code>tests/usb_usbip_device.txt</code> probes a real or
+simulated DigiMacro (16c0:27db) at <code>GK_TEST_USBIP</code> (default
+<code>127.0.0.1:3241</code>); <code>tools/run_sim_tests.sh</code> skips it when nothing answers
+there.</p>
+<p>The browser IDE has no USB devices: a web page can't open TCP
+connections, so its build has no USB/IP client, and <code>gk:usb.list()</code> is
+always empty there.</p>
 <h2 id="working-on-the-launcher"><a class="anchor" href="#working-on-the-launcher" aria-hidden="true" tabindex="-1">#</a>Working on the launcher</h2>
 <p>The launcher is built in: the device refuses a card app with its id. The
 simulator can replace it without rebuilding: with <code>--builtin DIR</code>, a
@@ -237,7 +276,8 @@ before the first screen. The device logs the work too, without the estimate.</p>
 <li><strong>Speed</strong>, above.</li>
 <li><strong>No serial port</strong>: <code>send</code> in scenarios fails; test-build serial commands
 (<code>#shot</code>, <code>#crash</code>) are unavailable.</li>
-<li><strong>No USB events</strong>: the keyboard and mouse are always there.</li>
+<li><strong>USB</strong>: the keyboard and mouse are always there; other devices come
+over USB/IP (<a href="#usb-devices">USB devices</a>), with control transfers only.</li>
 <li><strong>The clock</strong> runs on the host's timer but otherwise as on the device:
 <code>Date</code> counts from 1970 until the Clock app sets it, and <code>gapkeep.txt</code> on
 the card is read at boot (<a href="clock.html">CLOCK.md</a>).</li>
@@ -260,7 +300,7 @@ simulated keyboard feeds it HID reports and the strings Circle's keymap
 makes, so key translation, auto-repeat and the Home key are the real code.</p>
 
 </div>
-<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/docs/SIMULATOR.md"><code>docs/SIMULATOR.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/docs/SIMULATOR.md">553ff986996e</a></p>
+<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/docs/SIMULATOR.md"><code>docs/SIMULATOR.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/docs/SIMULATOR.md">a0274664025e</a></p>
 </article>
 </div>
 </main>
@@ -269,7 +309,7 @@ makes, so key translation, auto-repeat and the Home key are the real code.</p>
     <p class="foot-brand"><a href="/pt-br/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>Um sistema operacional mínimo, bare-metal, para aplicativos air-gapped.</span></p>
     <p class="foot-links"><a href="/pt-br/docs/">Documentação</a> · <a href="/pt-br/download.html">Baixar</a> · <a href="/ide/web/index.html?lang=pt-BR">IDE no navegador</a> · <a href="https://github.com/marcocarnut/GapKeep">Código no GitHub</a> · <a href="/pt-br/docs/security.html">Segurança</a> · <a href="/pt-br/docs/contributing.html">Como contribuir</a></p>
     <p class="foot-privacy">Sem rastreadores, sem analytics, sem cookies, sem requisições a terceiros: este site não carrega nada de nenhum outro lugar, no espírito do GapKeep. (A GapWallet tem o seu próprio site, gapwallet.org, com armazenamento separado; lá ela diz a quais servidores se conecta, e por quê.)</p>
-    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Este site: textos e imagens sob <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts sob <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/553ff986996e7186d218dd4fd337354825bdb5a1"><code>553ff986996e</code></a>.</p>
+    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Este site: textos e imagens sob <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts sob <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/a0274664025ecf07fcd5ed39d5ad83512c7098c9"><code>a0274664025e</code></a>.</p>
   </div>
 </footer>
 </body>

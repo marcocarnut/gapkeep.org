@@ -69,10 +69,10 @@ manifest; it runs on QuickJS (ES2023) and draws with LVGL through the
 order you need it. The details are in:</p>
 <ul>
 <li><a href="api.html">API.md</a>: every module, widget, property and event. Generated
-from <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/docs/api/gapkeep-api.yaml" rel="noopener">api/gapkeep-api.yaml</a>, which a test checks
+from <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/docs/api/gapkeep-api.yaml" rel="noopener">api/gapkeep-api.yaml</a>, which a test checks
 against the runtime: what it says exists, exists.</li>
 <li><a href="apps.html">APPS.md</a>: the manifest, installing, hashes, layout, input.</li>
-<li><a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/sim/web/types/gapkeep.d.ts" rel="noopener"><code>sim/web/types/gapkeep.d.ts</code></a>: the same API
+<li><a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/sim/web/types/gapkeep.d.ts" rel="noopener"><code>sim/web/types/gapkeep.d.ts</code></a>: the same API
 as TypeScript declarations, if types help you.</li>
 </ul>
 <h2 id="the-loop-write-run-look"><a class="anchor" href="#the-loop-write-run-look" aria-hidden="true" tabindex="-1">#</a>The loop: write, run, look</h2>
@@ -209,6 +209,10 @@ create the new ones. Deleting a widget inside its own handler is safe.</li>
 <li><strong>QR codes come in through <code>ui.Scanner</code></strong> (<code>detect: [&quot;qr&quot;]</code>, permission
 <code>&quot;camera&quot;</code>): you get the decoded bytes, never pixels. Test with <code>camera qr &lt;text&gt;</code> in
 scenarios (<a href="camera.html">CAMERA.md</a>), and don't log what a code holds.</li>
+<li><strong>USB devices</strong> other than keyboards and mice: only those the manifest
+names, <code>&quot;usb&quot;: [&quot;vvvv:pppp&quot;]</code>, through <code>gk:usb</code> (control transfers, 64
+bytes at most); try them in the simulator over USB/IP
+(<a href="simulator.html#usb-devices">SIMULATOR.md</a>). Don't log what they send.</li>
 <li><strong>Images are raw RGBA</strong> (<code>{ width, height, data }</code>); there is no PNG or JPEG
 decoder.</li>
 </ul>
@@ -230,7 +234,7 @@ and verify what is typed. Keep secrets on screen only as long as needed,
 and offer a way to clear them. More in <a href="apps.html#guidelines-for-air-gapped-apps">APPS.md</a>.</p>
 
 </div>
-<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/docs/AGENTS.md"><code>docs/AGENTS.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/docs/AGENTS.md">553ff986996e</a></p>
+<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/docs/AGENTS.md"><code>docs/AGENTS.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/docs/AGENTS.md">a0274664025e</a></p>
 </article>
 </div>
 </main>
@@ -239,7 +243,7 @@ and offer a way to clear them. More in <a href="apps.html#guidelines-for-air-gap
     <p class="foot-brand"><a href="/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>A tiny bare-metal OS for air-gapped apps.</span></p>
     <p class="foot-links"><a href="/docs/">Documentation</a> · <a href="/download.html">Download</a> · <a href="/ide/">Browser IDE</a> · <a href="https://github.com/marcocarnut/GapKeep">Source on GitHub</a> · <a href="/docs/security.html">Security</a> · <a href="/docs/contributing.html">Contributing</a></p>
     <p class="foot-privacy">No trackers, no analytics, no cookies, no third-party requests: this site loads nothing from anywhere else, in the spirit of GapKeep. (GapWallet has its own site, gapwallet.org, with its own storage; it says what it connects to, and why.)</p>
-    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/553ff986996e7186d218dd4fd337354825bdb5a1"><code>553ff986996e</code></a>.</p>
+    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/a0274664025ecf07fcd5ed39d5ad83512c7098c9"><code>a0274664025e</code></a>.</p>
   </div>
 </footer>
 </body>

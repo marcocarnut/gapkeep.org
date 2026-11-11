@@ -181,6 +181,11 @@ handlers and timers.</p>
 <td>no</td>
 <td>The card's data folders the app reads with <code>gk:data</code>, e.g. <code>[&quot;pgp&quot;]</code>: at most 8 names, each <code>[a-z0-9-]</code>, at most 32. See <a href="#data-files">Data files</a>.</td>
 </tr>
+<tr>
+<td><code>usb</code></td>
+<td>no</td>
+<td>The USB devices the app talks to with <code>gk:usb</code>, by vendor and product id: <code>[&quot;16c0:27db&quot;]</code>, 1 to 8, four lowercase hex digits each. While the app is installed, such a device is the system's for apps alone: none of its interfaces is a keyboard or mouse. See <a href="#usb-devices">USB devices</a>.</td>
+</tr>
 </tbody>
 </table></div>
 <p><code>name</code>, <code>version</code> and <code>description</code> (an app's and a suite's, and their
@@ -429,6 +434,35 @@ for the published hash of the code, if you need it, and check each data
 folder's hash, which the launcher shows beside the apps that read it, on
 its own: the keyring is whatever you put in, and only you can say whether
 it is right.</p>
+<h2 id="usb-devices"><a class="anchor" href="#usb-devices" aria-hidden="true" tabindex="-1">#</a>USB devices</h2>
+<p>GapKeep's one way in from outside is its USB port, and it takes only
+keyboards, mice and hubs there. An app that must talk to a device (to
+configure a macro keyboard, say) names it in its manifest, by vendor and
+product id:</p>
+<pre><code class="language-json">&quot;usb&quot;: [&quot;16c0:27db&quot;]
+</code></pre>
+<p>and uses <a href="api.html#gkusb"><code>gk:usb</code></a>: control transfers on endpoint 0, at most
+64 bytes each, with HID feature reports as helpers. Nothing else: no
+interrupt, bulk or isochronous endpoints, and no standard requests but
+those that read (descriptors, status). What the device sends is data like
+anything typed: check it before using it, and don't log it.</p>
+<p><strong>A listed device is claimed whole.</strong> When it is plugged in (or is in at
+boot), and some available app's manifest lists it, the system gives it to
+apps and to nothing else: none of its interfaces gets a system driver.
+A keyboard among them (a macro keyboard is one) is ignored, so what it
+types never reaches the system or the app on screen; the person types on
+another keyboard. So the ids an app lists matter: an app listing a
+keyboard's ids takes that keyboard away. The launcher shows them in the
+app's details (&quot;USB devices it takes&quot;), and the log says when one is
+claimed. An app marked <code>experimental</code> claims its devices only when
+experimental features are on.</p>
+<p>The device is the app's while it runs, one app at a time; every app that
+lists it may use it. Transfers are promises, done one at a time between
+frames; a device that doesn't answer gets 1 s a stage, and after two
+timeouts none of its transfers are tried until it is plugged in again. Try
+it in the simulator with a device served over USB/IP
+(<a href="simulator.html#usb-devices">SIMULATOR.md</a>); <code>tests/apps/usbtest</code> and
+<code>tests/apps/usbprobe</code> are examples.</p>
 <h2 id="laying-out-a-screen"><a class="anchor" href="#laying-out-a-screen" aria-hidden="true" tabindex="-1">#</a>Laying out a screen</h2>
 <p>Widgets go on <code>ui.screen</code> unless you pass a parent first:</p>
 <pre><code class="language-js">const row = new ui.Container({ layout: &quot;row&quot;, gap: 8 });   // on the screen
@@ -678,7 +712,7 @@ and focus the first input when a screen appears (<code>widget.focus()</code>).</
 </ul>
 
 </div>
-<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/docs/APPS.md"><code>docs/APPS.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/docs/APPS.md">553ff986996e</a></p>
+<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/docs/APPS.md"><code>docs/APPS.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/docs/APPS.md">a0274664025e</a></p>
 </article>
 </div>
 </main>
@@ -687,7 +721,7 @@ and focus the first input when a screen appears (<code>widget.focus()</code>).</
     <p class="foot-brand"><a href="/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>A tiny bare-metal OS for air-gapped apps.</span></p>
     <p class="foot-links"><a href="/docs/">Documentation</a> · <a href="/download.html">Download</a> · <a href="/ide/">Browser IDE</a> · <a href="https://github.com/marcocarnut/GapKeep">Source on GitHub</a> · <a href="/docs/security.html">Security</a> · <a href="/docs/contributing.html">Contributing</a></p>
     <p class="foot-privacy">No trackers, no analytics, no cookies, no third-party requests: this site loads nothing from anywhere else, in the spirit of GapKeep. (GapWallet has its own site, gapwallet.org, with its own storage; it says what it connects to, and why.)</p>
-    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/553ff986996e7186d218dd4fd337354825bdb5a1"><code>553ff986996e</code></a>.</p>
+    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/a0274664025ecf07fcd5ed39d5ad83512c7098c9"><code>a0274664025e</code></a>.</p>
   </div>
 </footer>
 </body>

@@ -117,6 +117,12 @@ apps/signer/manifest.json
 apps/signer/vendor/codex32.js
 apps/signer/vendor/recover.js
 apps/signer/vendor/wordlist.js
+apps/sneakernet/lang/pt-BR.json
+apps/sneakernet/lib/board.js
+apps/sneakernet/lib/code.js
+apps/sneakernet/lib/level.js
+apps/sneakernet/main.js
+apps/sneakernet/manifest.json
 apps/totp/README.md
 apps/totp/lang/pt-BR.json
 apps/totp/lib/hotp.js
@@ -202,6 +208,9 @@ patches/circle/0010-dwhci-bounded-control-waits.patch
 patches/circle/0011-heap-zero-freed-blocks.patch
 patches/circle/0012-sysinit-data-as-loaded.patch
 patches/circle/0013-koptions-ignore-command-line.patch
+patches/circle/0014-usb-claim-whole-device-by-ids.patch
+patches/circle/0015-sysinit-data-end-without-tdata.patch
+patches/circle/0016-dwhci-no-wait-forever-on-a-port-that-went-down.patch
 patches/zxing-cpp/0001-qrcode-decode-bit-stream-without-exceptions.patch
 patches/zxing-cpp/0002-build-without-exceptions-or-thread-local.patch
 patches/zxing-cpp/0003-qrdetector-no-alignment-search-outside-image.patch
@@ -233,6 +242,7 @@ sim/src/platform.cpp
 sim/src/png.c
 sim/src/sim.cpp
 sim/src/sim.h
+sim/src/usbip.cpp
 sim/src/web.cpp
 sim/web/camera.js
 sim/web/gapkeep.js
@@ -321,6 +331,7 @@ src/runtime/js_data.cpp
 src/runtime/js_session.cpp
 src/runtime/js_sys.cpp
 src/runtime/js_ui.cpp
+src/runtime/js_usb.cpp
 src/runtime/keylayout.cpp
 src/runtime/keylayout.h
 src/runtime/libc_shim.c
@@ -343,6 +354,10 @@ src/runtime/synthcam.h
 src/runtime/textcheck.h
 src/runtime/ttfstyles.cpp
 src/runtime/ttfstyles.h
+src/runtime/usb.cpp
+src/runtime/usb.h
+src/runtime/usbdesc.c
+src/runtime/usbdesc.h
 src/runtime/version.h
 src/runtime/wheel.cpp
 src/runtime/wheel.h
@@ -351,6 +366,8 @@ src/testcrash.h
 src/testpictures.h
 src/testshot.cpp
 src/testshot.h
+src/usbclaim.cpp
+src/usbclaim.h
 tests/apps/apiinfo/main.js
 tests/apps/apiinfo/manifest.json
 tests/apps/clockset/main.js
@@ -380,6 +397,10 @@ tests/apps/ttftest/main.js
 tests/apps/ttftest/manifest.json
 tests/apps/typetest/main.js
 tests/apps/typetest/manifest.json
+tests/apps/usbprobe/main.js
+tests/apps/usbprobe/manifest.json
+tests/apps/usbtest/main.js
+tests/apps/usbtest/manifest.json
 tests/apps_gallery.txt
 tests/apps_widgets.txt
 tests/bbqr/README.md
@@ -418,6 +439,7 @@ tests/fuzz/colorqr/v30_a450_3_4.bin
 tests/fuzz/colorqr/v30_a450_3_4.png
 tests/fuzz/fuzz_colorqr.cpp
 tests/fuzz/fuzz_qr.cpp
+tests/fuzz/fuzz_usbdesc.cpp
 tests/fuzz/fuzz_usbmouse.cpp
 tests/i18n.txt
 tests/i18n/check_shot.py
@@ -462,6 +484,8 @@ tests/sdcard/apps/badicon/main.js
 tests/sdcard/apps/badicon/manifest.json
 tests/sdcard/apps/badjson/main.js
 tests/sdcard/apps/badjson/manifest.json
+tests/sdcard/apps/badusb/main.js
+tests/sdcard/apps/badusb/manifest.json
 tests/sdcard/apps/badutf8/main.js
 tests/sdcard/apps/badutf8/manifest.json
 tests/sdcard/apps/hello/main.js
@@ -514,11 +538,18 @@ tests/signer/run_node.mjs
 tests/signer/signer.txt.in
 tests/signer/vectors.json
 tests/signer_read.txt
+tests/sneakernet.txt
+tests/sneakernet/run_node.mjs
 tests/suites.txt
 tests/totp.txt
 tests/totp/make_migration.py
 tests/totp/run_node.mjs
 tests/ttf.txt
+tests/usb.txt
+tests/usb/usbip_stub.py
+tests/usb_hw.txt
+tests/usb_qemu.txt
+tests/usb_usbip_device.txt
 tests/web/ide_typing.py
 tests/web/textinput.mjs
 tests/wheel.txt
@@ -540,6 +571,7 @@ tools/fetch_monaco.sh
 tools/firmware.sha256
 tools/fuzz_colorqr.sh
 tools/fuzz_qr.sh
+tools/fuzz_usbdesc.sh
 tools/fuzz_usbmouse.sh
 tools/gen_api.py
 tools/gkide.sh

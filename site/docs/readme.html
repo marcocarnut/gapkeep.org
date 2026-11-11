@@ -84,7 +84,7 @@ hand, and forgotten afterwards. What leaves is only what is on the screen:
 text to read, and QR codes for another device's camera.</p>
 <p>Built on <a href="https://github.com/rsta2/circle" rel="noopener">Circle</a> (bare-metal C++ for the
 Pi, GPLv3). GapKeep is licensed under the GPLv3 or later
-(<a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/LICENSE" rel="noopener">LICENSE</a>; its sources say GPL-3.0-or-later), and the cards
+(<a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/LICENSE" rel="noopener">LICENSE</a>; its sources say GPL-3.0-or-later), and the cards
 <code>tools/make_sdcard.sh</code> makes carry each licence of what is on them, as
 <code>LICENCE.*</code> files: GapKeep's and Circle's (<code>LICENCE.gapkeep</code>,
 <code>LICENCE.circle</code>), and those named below.
@@ -118,7 +118,7 @@ new ui.Button({ text: &quot;Click&quot;, onClick: () =&gt; (label.text = &quot;C
 <ul>
 <li><a href="apps.html">Writing apps</a>: start here.</li>
 <li><a href="api.html">API reference</a>: <code>gk:ui</code>, <code>gk:sys</code>, <code>gk:crypto</code>, <code>gk:clock</code>, <code>gk:session</code>, <code>gk:i18n</code>, <code>gk:data</code>, <code>gk:apps</code>, globals.
-Generated from <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/docs/api/gapkeep-api.yaml" rel="noopener">docs/api/gapkeep-api.yaml</a>, which a
+Generated from <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/docs/api/gapkeep-api.yaml" rel="noopener">docs/api/gapkeep-api.yaml</a>, which a
 test checks against the runtime.</li>
 <li><a href="simulator.html">Simulator</a>: run apps on your machine, in seconds.</li>
 <li><a href="ide.html">Browser IDE</a>: edit and run apps in the browser.</li>
@@ -305,7 +305,7 @@ checkouts, and compares.</li>
 <tbody>
 <tr>
 <td><code>apps/</code></td>
-<td>The apps: <code>launcher</code> (built in), <code>dice39</code>, <code>codex32</code> (recombines codex32 shares, as dice39 makes them), <code>hello</code>, <code>gallery</code> (all widgets plus a runtime self-test), <code>qrscan</code>, <code>settings</code> (language, number marks and keyboard, until power-off), <code>clock</code>, <code>totp</code> (Authenticator), <code>repl</code> (type JavaScript and see what it does, widgets included), <code>signer</code> (shows what a transaction does, then signs it with keys from codex32 shares, seed words, an xprv or a WIF), <code>colorqr</code> (experimental: colour QR codes, <a href="experimental.html">docs/EXPERIMENTAL.md</a>). Apps that build on another's library carry a copy, made by <code>tools/share_libs.py</code>.</td>
+<td>The apps: <code>launcher</code> (built in), <code>dice39</code>, <code>codex32</code> (recombines codex32 shares, as dice39 makes them), <code>hello</code>, <code>gallery</code> (all widgets plus a runtime self-test), <code>qrscan</code>, <code>settings</code> (language, number marks and keyboard, until power-off), <code>clock</code>, <code>totp</code> (Authenticator), <code>repl</code> (type JavaScript and see what it does, widgets included), <code>signer</code> (shows what a transaction does, then signs it with keys from codex32 shares, seed words, an xprv or a WIF), <code>colorqr</code> (experimental: colour QR codes, <a href="experimental.html">docs/EXPERIMENTAL.md</a>), <code>sneakernet</code> (a game: carry k of n shares of a secret to the vault before the Wi-Fi radio leaks them; a small example of an app that moves). Apps that build on another's library carry a copy, made by <code>tools/share_libs.py</code>.</td>
 </tr>
 <tr>
 <td><code>src/</code></td>
@@ -343,7 +343,7 @@ checkouts, and compares.</li>
 </table></div>
 
 </div>
-<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/README.md"><code>README.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/README.md">553ff986996e</a></p>
+<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/README.md"><code>README.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/README.md">a0274664025e</a></p>
 </article>
 </div>
 </main>
@@ -352,7 +352,7 @@ checkouts, and compares.</li>
     <p class="foot-brand"><a href="/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>A tiny bare-metal OS for air-gapped apps.</span></p>
     <p class="foot-links"><a href="/docs/">Documentation</a> · <a href="/download.html">Download</a> · <a href="/ide/">Browser IDE</a> · <a href="https://github.com/marcocarnut/GapKeep">Source on GitHub</a> · <a href="/docs/security.html">Security</a> · <a href="/docs/contributing.html">Contributing</a></p>
     <p class="foot-privacy">No trackers, no analytics, no cookies, no third-party requests: this site loads nothing from anywhere else, in the spirit of GapKeep. (GapWallet has its own site, gapwallet.org, with its own storage; it says what it connects to, and why.)</p>
-    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/553ff986996e7186d218dd4fd337354825bdb5a1"><code>553ff986996e</code></a>.</p>
+    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/a0274664025ecf07fcd5ed39d5ad83512c7098c9"><code>a0274664025e</code></a>.</p>
   </div>
 </footer>
 </body>

@@ -219,24 +219,29 @@ edits.</p>
 <p>Under the screen, <strong>Camera</strong> sets what GapKeep's camera films, for apps
 with <code>ui.Scanner</code> (<a href="camera.html">CAMERA.md</a>):</p>
 <ul>
-<li><strong>Empty scene</strong>: nothing in particular.</li>
+<li><strong>Webcam</strong> (the default): your computer's camera, 15 frames a second, at
+up to 1920×1080. Hold a code up to it. The IDE asks the browser for it
+only when an app opens the camera (a <code>ui.Scanner</code> starts), and lets it go
+a few seconds after the app closes it: opening the IDE asks for nothing,
+and the camera's light is off while no app films. With several cameras
+(a phone's front and back), a second list picks one; the front one by
+default. As on the Pi, the scanner sees the middle 640×480 at full
+detail by default (a narrow view: hold the code in the middle), or the
+whole picture with <code>field: &quot;full&quot;</code>. Without a webcam, or if the browser
+refuses, the console says so and the camera films an empty scene.</li>
 <li><strong>QR code</strong>: a code of the text you type. With <strong>one per line</strong>, each line
 is a code, shown in turn twice a second: an animated code, for apps that
 read data in parts.</li>
-<li><strong>Webcam</strong>: your computer's camera (the browser asks first), 15 frames a
-second, at up to 1920×1080. Hold a code up to it. As on the Pi, the
-scanner sees the middle 640×480 at full detail by default (a narrow
-view: hold the code in the middle), or the whole picture with
-<code>field: &quot;full&quot;</code>.</li>
 <li><strong>Picture...</strong>: an image file, in any format the browser reads.</li>
+<li><strong>Empty scene</strong>: nothing in particular.</li>
 <li><strong>No camera</strong>: as a Pi without one.</li>
 </ul>
 <p>Example apps you already have in the IDE stay as they were when it first
 added them: to get a newer version of one (say <code>qrscan</code>, which now has a
 <strong>Wide view</strong> button), delete it and click <strong>Examples</strong>.</p>
-<p>The setting stays across reboots and reloads (the webcam and the picture
-are asked for again). GapKeep decodes the codes itself, with the decoder it
-has on the Pi; the IDE only supplies pictures.</p>
+<p>The setting, and the camera chosen, stay across reboots and reloads (a
+picture is asked for again). GapKeep decodes the codes itself, with the
+decoder it has on the Pi; the IDE only supplies pictures.</p>
 <h2 id="changing-the-launcher"><a class="anchor" href="#changing-the-launcher" aria-hidden="true" tabindex="-1">#</a>Changing the launcher</h2>
 <p>The launcher is an app too (<code>apps/launcher</code> in the repository), but built
 into GapKeep rather than read from the card: the device refuses a card app
@@ -307,7 +312,7 @@ kernel.img). The main loop runs every 4 ms, so timers fire no faster.</li>
 </ul>
 
 </div>
-<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/docs/IDE.md"><code>docs/IDE.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/docs/IDE.md">553ff986996e</a></p>
+<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/docs/IDE.md"><code>docs/IDE.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/docs/IDE.md">a0274664025e</a></p>
 </article>
 </div>
 </main>
@@ -316,7 +321,7 @@ kernel.img). The main loop runs every 4 ms, so timers fire no faster.</li>
     <p class="foot-brand"><a href="/pt-br/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>Um sistema operacional mínimo, bare-metal, para aplicativos air-gapped.</span></p>
     <p class="foot-links"><a href="/pt-br/docs/">Documentação</a> · <a href="/pt-br/download.html">Baixar</a> · <a href="/ide/web/index.html?lang=pt-BR">IDE no navegador</a> · <a href="https://github.com/marcocarnut/GapKeep">Código no GitHub</a> · <a href="/pt-br/docs/security.html">Segurança</a> · <a href="/pt-br/docs/contributing.html">Como contribuir</a></p>
     <p class="foot-privacy">Sem rastreadores, sem analytics, sem cookies, sem requisições a terceiros: este site não carrega nada de nenhum outro lugar, no espírito do GapKeep. (A GapWallet tem o seu próprio site, gapwallet.org, com armazenamento separado; lá ela diz a quais servidores se conecta, e por quê.)</p>
-    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Este site: textos e imagens sob <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts sob <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/553ff986996e7186d218dd4fd337354825bdb5a1"><code>553ff986996e</code></a>.</p>
+    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Este site: textos e imagens sob <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts sob <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/a0274664025ecf07fcd5ed39d5ad83512c7098c9"><code>a0274664025e</code></a>.</p>
   </div>
 </footer>
 </body>

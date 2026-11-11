@@ -103,11 +103,43 @@ to it and take test commands from it, by design, so tests can drive real
 hardware; no app logs a secret, since a test build's log leaves the
 device.</li>
 <li><strong>No network, no radio.</strong> The plain Pi Zero has none, and GapKeep has no
-network stack. The USB drivers are cut down to hubs, keyboards and mice.</li>
+network stack. The USB drivers are cut down to hubs, keyboards and mice,
+and the devices apps name (below).</li>
 </ul>
 <p><strong>Why:</strong> an air gap is only as good as its narrowest channel. Everything
 that leaves the device does so on the screen, as text a person reads or as
 QR codes another device's camera reads, where the person can see it go.</p>
+<h2 id="usb-devices-for-apps"><a class="anchor" href="#usb-devices-for-apps" aria-hidden="true" tabindex="-1">#</a>USB devices for apps</h2>
+<p>Some apps must talk to a device: configuring a macro keyboard is the first.
+They get it through <code>gk:usb</code> (<a href="apps.html#usb-devices">APPS.md</a>), narrowly:</p>
+<ul>
+<li><strong>The app names the device</strong>, by vendor and product id in its manifest,
+which its hash covers. Nothing else is reachable: no class of devices, no
+&quot;any device&quot;.</li>
+<li><strong>A named device is claimed whole</strong>, from the moment it is plugged in,
+while an available app names it: none of its interfaces gets a system
+driver. Such devices are often keyboards themselves; the alternatives,
+letting its keyboard type while the app configures it, or binding its
+keyboard and taking the rest, would let the device type into the system
+that is setting it up. Ignoring it costs nothing: the person types on
+their keyboard. The price is that an app naming a keyboard's ids takes
+that keyboard away, so the launcher shows the ids an app takes.</li>
+<li><strong>Control transfers on endpoint 0, at most 64 bytes, and nothing
+else.</strong> That covers HID feature reports and vendor requests, how such
+devices are configured, with the least new code: no endpoint is opened,
+and the system parses nothing a device sends but its descriptors, which
+are fuzzed. Standard requests that would change how the system talks to
+the device are the system's.</li>
+<li><strong>Promises, done one at a time between frames.</strong> On the Zero's host
+controller a control transfer is waited for (Circle's can't be
+asynchronous), so a transfer blocks the main loop, at most 1 s a stage
+and only twice per device before it is given up on until replugged. An
+asynchronous API costs nothing more now, keeps the screen drawn between
+transfers, and lets apps be written as for WebUSB and WebHID, whose
+pages they often port.</li>
+<li><strong>USB/IP in the simulator.</strong> Any device a USB/IP server offers, real or
+simulated, can be tried with an app, without the hardware.</li>
+</ul>
 <h2 id="apps"><a class="anchor" href="#apps" aria-hidden="true" tabindex="-1">#</a>Apps</h2>
 <h3 id="one-app-at-a-time-each-in-its-own-runtime"><a class="anchor" href="#one-app-at-a-time-each-in-its-own-runtime" aria-hidden="true" tabindex="-1">#</a>One app at a time, each in its own runtime</h3>
 <p>Each app runs in a QuickJS runtime of its own, and only one runs at a time.
@@ -243,7 +275,7 @@ every input's amount.</li>
 </ul>
 
 </div>
-<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/docs/DESIGN.md"><code>docs/DESIGN.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/docs/DESIGN.md">553ff986996e</a></p>
+<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/docs/DESIGN.md"><code>docs/DESIGN.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/docs/DESIGN.md">a0274664025e</a></p>
 </article>
 </div>
 </main>
@@ -252,7 +284,7 @@ every input's amount.</li>
     <p class="foot-brand"><a href="/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>A tiny bare-metal OS for air-gapped apps.</span></p>
     <p class="foot-links"><a href="/docs/">Documentation</a> · <a href="/download.html">Download</a> · <a href="/ide/">Browser IDE</a> · <a href="https://github.com/marcocarnut/GapKeep">Source on GitHub</a> · <a href="/docs/security.html">Security</a> · <a href="/docs/contributing.html">Contributing</a></p>
     <p class="foot-privacy">No trackers, no analytics, no cookies, no third-party requests: this site loads nothing from anywhere else, in the spirit of GapKeep. (GapWallet has its own site, gapwallet.org, with its own storage; it says what it connects to, and why.)</p>
-    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/553ff986996e7186d218dd4fd337354825bdb5a1"><code>553ff986996e</code></a>.</p>
+    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/a0274664025ecf07fcd5ed39d5ad83512c7098c9"><code>a0274664025e</code></a>.</p>
   </div>
 </footer>
 </body>

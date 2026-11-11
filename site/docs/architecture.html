@@ -90,21 +90,23 @@ depends on them.</li>
 (GapKeep) to 0x8000 on the ARM core.</li>
 <li>Circle's startup code sets up the stack (1 MB), MMU and caches, and calls
 <code>main()</code> → <code>CKernel</code> (<code>src/kernel.cpp</code>).</li>
-<li>The kernel brings up the screen, the serial log, interrupts, the timer and
-USB (keyboard and mouse are found by plug-and-play), reads the apps,
-<code>gapkeep.txt</code> and the data folders the apps list from the SD card
-(<code>CAppStore</code>) and unmounts it, then brings up LVGL, the keyboard input
-device and the app host.</li>
+<li>The kernel brings up the screen, the serial log, interrupts and the
+timer, reads the apps, <code>gapkeep.txt</code> and the data folders the apps list
+from the SD card (<code>CAppStore</code>) and unmounts it, brings up USB (keyboard
+and mouse are found by plug-and-play; after the apps, so that devices
+they list are claimed for them from the start), then LVGL, the keyboard
+input device and the app host.</li>
 <li>The app host starts the launcher.</li>
 </ol>
 <h2 id="main-loop"><a class="anchor" href="#main-loop" aria-hidden="true" tabindex="-1">#</a>Main loop</h2>
 <p>Everything runs in one loop on one core; there are no threads:</p>
 <pre><code>loop:
-    USB plug-and-play     (new keyboard or mouse?)
+    USB plug-and-play     (new keyboard, mouse, or device claimed for apps?)
     keyboard LEDs
     LVGL                  (read input, run timers, redraw)
       └─ input events and JS timers call into the running app's JS
-    app host              (promise jobs, deferred widget deletion, app switch)
+    app host              (USB devices' events and one control transfer (gk:usb),
+                           promise jobs, deferred widget deletion, app switch)
 </code></pre>
 <p>USB interrupts only queue key presses (<code>CKeyboardIndev</code>) and set the Home
 flag; all JavaScript runs from the main loop.</p>
@@ -178,6 +180,13 @@ itself is JavaScript, <code>src/runtime/i18n.js</code>, embedded by
 <code>tools/embed_js.py</code> and compiled when an app imports it; its native half,
 <code>gk:i18n-native</code>, can be imported by it alone. The launcher's catalogs are
 the system's: they translate the module's own messages.</p>
+<p>USB devices claimed for apps (<code>usb.cpp</code>, <code>gk:usb</code> in <code>js_usb.cpp</code>): a
+device whose ids an available app's manifest lists is taken whole by
+<code>src/usbclaim.cpp</code> (on the Pi) when it turns up; <code>usb.cpp</code> reads its
+descriptors (<code>usbdesc.c</code>), keeps the devices plugged in, and does an app's
+control transfers, one per pass of the main loop, each waiting for the
+device as Circle's control transfers do (they can't be asynchronous on the
+Zero's host controller) and settling a promise. See <a href="api.html#gkusb">API.md</a>.</p>
 <p><code>ui.Scanner</code> is driven by <code>scanner.cpp</code> (camera frames, decoding with
 <code>qrdecode.cpp</code>, the preview), polled by an LVGL timer; the camera is an
 interface (<code>camera.h</code>) with a synthetic implementation (<code>synthcam.cpp</code>) for
@@ -250,6 +259,10 @@ for them to leave, other than what a person reads off the screen.</p>
 <tr>
 <td>USB host controller + HID parsing (Circle)</td>
 <td>The only input from outside. Only the hub, keyboard (boot protocol; with Circle's variant for the 8BitDo Retro Keyboard, picked by its vendor and product ids) and mouse drivers are in the image; every other class driver is left out at build time (<code>EXCLUDE_USB_*</code> in <code>tools/build.sh</code>), including the generic-HID path and its report descriptor parser. The mouse driver keeps its own, smaller one: it uses the report protocol (for the wheel), so it parses the report descriptor the mouse sends. That parser is bounded, every length, index and offset checked, and a malformed descriptor gets the mouse refused (<code>patches/circle/0009</code>); it is fuzzed under AddressSanitizer and UBSan against random, mutated and crafted descriptors (<code>tools/fuzz_usbmouse.sh</code>). IN transfers receive whole packets into a bounce buffer, as Linux does, so that a device sending more than was asked for cannot have the controller write past the buffer (<code>0008</code>; on the rig, without it, a keyboard declaring 1024-byte packets had 1016 bytes written past its 8-byte report buffer, on every report); keyboards and mice declaring packets over 64 bytes are refused. Control transfers time out after 3 s (<code>0003</code>); a device whose control transfers time out twice gets no more until it is replugged, and long timeouts are budgeted across devices (3, then one a minute; beyond that 250 ms); keyboard LED requests get 100 ms, and none after a failure. So a device that never answers, or keeps reconnecting, cannot hang the system nor freeze it for long (<code>0010</code>).</td>
+</tr>
+<tr>
+<td>USB devices claimed for apps (<code>gk:usb</code>)</td>
+<td>One more path, for the devices an app lists by vendor and product id in its manifest (<code>&quot;usb&quot;</code>), and only while an available app lists them: <a href="apps.html#usb-devices">APPS.md</a>. Circle's device factory asks GapKeep first about each new device (<code>patches/circle/0014</code>); a listed one is <strong>claimed whole</strong> by <code>src/usbclaim.cpp</code>, and none of its interfaces gets another driver, so a keyboard or mouse in it is ignored and can't type into the system. What is reached: endpoint 0 only, by control transfers of at most 64 bytes, through Circle's (bounded by <code>0003</code>, <code>0008</code>, <code>0010</code>: what a device sends beyond what was asked for stays in the bounce buffer); no interrupt, bulk or isochronous endpoint is opened. Apps may send class and vendor requests, to the device or one of its interfaces, and standard requests that only read (GET_STATUS, GET_DESCRIPTOR, GET_CONFIGURATION, GET_INTERFACE); never SET_ADDRESS, SET_CONFIGURATION, SET_INTERFACE or SET_FEATURE. Each stage gets 1 s; after two timeouts a device gets no more transfers until replugged; at most 4 devices and 16 waiting transfers an app. What GapKeep parses of what the device sends is its device, configuration and string descriptors (<code>src/runtime/usbdesc.c</code>: every length checked, names turned to text that may be shown, without control, bidi or invisible characters), fuzzed under AddressSanitizer and UBSan (<code>tools/fuzz_usbdesc.sh</code>); everything else goes to the app as bytes, unparsed. The log has ids, names, lengths and request numbers, never the data. The simulator reaches devices over USB/IP instead (<code>sim/src/usbip.cpp</code>), with the same code above the port (<code>src/runtime/usb.cpp</code>).</td>
 </tr>
 <tr>
 <td>Camera (<a href="camera.html">CAMERA.md</a>)</td>
@@ -460,7 +473,7 @@ genuine kernel they say exactly what code an app runs.</p>
 </table></div>
 
 </div>
-<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/docs/ARCHITECTURE.md"><code>docs/ARCHITECTURE.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/553ff986996e7186d218dd4fd337354825bdb5a1/docs/ARCHITECTURE.md">553ff986996e</a></p>
+<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/docs/ARCHITECTURE.md"><code>docs/ARCHITECTURE.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/docs/ARCHITECTURE.md">a0274664025e</a></p>
 </article>
 </div>
 </main>
@@ -469,7 +482,7 @@ genuine kernel they say exactly what code an app runs.</p>
     <p class="foot-brand"><a href="/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>A tiny bare-metal OS for air-gapped apps.</span></p>
     <p class="foot-links"><a href="/docs/">Documentation</a> · <a href="/download.html">Download</a> · <a href="/ide/">Browser IDE</a> · <a href="https://github.com/marcocarnut/GapKeep">Source on GitHub</a> · <a href="/docs/security.html">Security</a> · <a href="/docs/contributing.html">Contributing</a></p>
     <p class="foot-privacy">No trackers, no analytics, no cookies, no third-party requests: this site loads nothing from anywhere else, in the spirit of GapKeep. (GapWallet has its own site, gapwallet.org, with its own storage; it says what it connects to, and why.)</p>
-    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/553ff986996e7186d218dd4fd337354825bdb5a1"><code>553ff986996e</code></a>.</p>
+    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/a0274664025ecf07fcd5ed39d5ad83512c7098c9"><code>a0274664025e</code></a>.</p>
   </div>
 </footer>
 </body>
