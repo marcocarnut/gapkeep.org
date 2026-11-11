@@ -25,7 +25,7 @@ import tempfile
 HERE = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(HERE)
 OUT = os.path.join(SITE, 'site', 'img', 'shots')
-APPS = ['clock', 'codex32', 'dice39', 'gallery', 'qrscan', 'repl', 'settings', 'signer', 'totp']
+APPS = ['clock', 'codex32', 'dice39', 'gallery', 'qrscan', 'repl', 'settings', 'signer', 'totp', 'sneakernet']
 LANGS = ['en', 'pt-BR']
 
 

@@ -1,0 +1,19 @@
+# Sneakernet: level 1 of the code 0800-21YS, two shares in hand, the radio spreading
+expect Keyboard attached 60
+expect launcher ready 60
+moveto 100% 100%
+tile sneakernet
+expect sneakernet: ready
+key down
+key ret
+type 0800-21ys
+key ret
+expect sneakernet: level 1 start, code 0800-21YS, 2 of 3 shares, 1 access points
+key ret
+wait 0.5
+key right right right right up up right right down down right right right right up up left left up up up up right right right right right right up up
+expect sneakernet: share picked up, carrying 1, 2 needed
+key down down right right right right down down right right right right
+expect sneakernet: share picked up, carrying 2, 2 needed
+wait 8
+shot sneakernet
