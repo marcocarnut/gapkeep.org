@@ -138,6 +138,7 @@ DOCMAP = [
     ('docs/SIMULATOR.md', 'simulator.html', 'guides'),
     ('docs/IDE.md', 'ide.html', 'guides'),
     ('docs/CAMERA.md', 'camera.html', 'guides'),
+    ('docs/EPAPER.md', 'epaper.html', 'guides'),
     ('docs/CLOCK.md', 'clock.html', 'guides'),
     ('docs/RIG.md', 'rig.html', 'guides'),
     ('docs/API.md', 'api.html', 'reference'),
@@ -446,6 +447,9 @@ def build_docs():
                         if href.startswith('http') and not href.startswith(DOMAIN):
                             c.attrSet('rel', 'noopener')
         body = md.renderer.render(tokens, md.options, {})
+        # the one piece of HTML the docs use (raw HTML is off): an empty
+        # anchor, <a id="name"></a>, to link to a paragraph that has no heading
+        body = re.sub(r'&lt;a id=&quot;([A-Za-z0-9_-]+)&quot;&gt;&lt;/a&gt;', r'<a id="\1"></a>', body)
         # heading anchors, for linking to a section
         body = re.sub(r'<(h[2-4]) id="([^"]+)">(.*?)</\1>',
                       lambda m: '<%s id="%s"><a class="anchor" href="#%s" aria-hidden="true" tabindex="-1">#</a>%s</%s>'

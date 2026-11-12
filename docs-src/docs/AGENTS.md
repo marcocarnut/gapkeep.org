@@ -93,11 +93,15 @@ Time of day: `Date` works, but the clock is only right once the Clock app
 has set it after boot: check `status().set` from `gk:clock`, and use its
 `every(seconds, fn)` for things on the clock's marks. Random bytes:
 `import * as crypto from "gk:crypto"` (`randomBytes`, `getRandomValues`),
-hashing: `crypto.sha1`, `sha256`, `sha512`, `ripemd160`, `hash160`,
-`hmac(hash, key, data)`, `pbkdf2`, and secp256k1 (`publicKey`, `ecdsaSign`,
-`schnorrSign`, the BIP-32 and Taproot tweaks...), all native: don't write
-hashes or curve arithmetic in JavaScript, and don't vendor JS crypto
-libraries. To keep data while the person uses
+hashing: `crypto.sha1`, `sha224`, `sha256`, `sha384`, `sha512` (or in pieces:
+`createHash`), `ripemd160`, `hash160`, `hmac(hash, key, data)`, `pbkdf2`,
+secp256k1 (`publicKey`, `ecdsaSign`, `schnorrSign`, the BIP-32 and Taproot
+tweaks...), and OpenPGP's primitives (`ed25519PrivateKey`, `ed25519Verify`,
+`x25519PrivateKey`, `rsaPrivateKey`, `rsaVerify`, `aesCfbEncrypt`/`Decrypt`,
+`aesKeyWrap`/`Unwrap`, `openpgpS2k`, `seipdV1Decrypt`; the slow ones return
+promises), all
+native: don't write hashes, ciphers or curve and bignum arithmetic in
+JavaScript, and don't vendor JS crypto libraries. To keep data while the person uses
 other apps (until power-off; never on the card): `gk:session`'s
 `set(key, value)` and `get(key)`. Code written for WebCrypto needs the adapter in
 [API.md](API.md#gkcrypto). Don't add npm dependencies; vendor plain ES
@@ -179,6 +183,10 @@ in through `tm()` or `ui.escapeMarkup`, never pasted into markup
   names, `"usb": ["vvvv:pppp"]`, through `gk:usb` (control transfers, 64
   bytes at most); try them in the simulator over USB/IP
   ([SIMULATOR.md](SIMULATOR.md#usb-devices)). Don't log what they send.
+- **An e-paper panel** (a share to unplug and keep): `ui.epaper.open()`
+  with `"permissions": ["epaper"]`, the same widgets on it, then `await
+  panel.refresh()`; try it with `tools/gksim --epaper weact-2.9-bwr`
+  ([EPAPER.md](EPAPER.md)).
 - **Images are raw RGBA** (`{ width, height, data }`); there is no PNG or JPEG
   decoder.
 

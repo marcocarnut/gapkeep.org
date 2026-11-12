@@ -51,7 +51,7 @@
 <details class="doc-toc" open><summary>All documents</summary>
 <p><a href="/docs/">Documentation</a></p>
 <h2>Start here</h2><ul><li><a href="/docs/readme.html" data-page="readme.html">GapKeep</a></li><li><a href="/docs/apps.html" data-page="apps.html">Writing GapKeep apps</a></li><li><a href="/docs/agents.html" data-page="agents.html">Writing GapKeep apps: a guide for coding agents</a></li></ul>
-<h2>Guides</h2><ul><li><a href="/docs/simulator.html" data-page="simulator.html">The simulator</a></li><li><a href="/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/docs/camera.html" data-page="camera.html">The camera and QR codes</a></li><li><a href="/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/docs/rig.html" data-page="rig.html">The hardware test rig</a></li></ul>
+<h2>Guides</h2><ul><li><a href="/docs/simulator.html" data-page="simulator.html">The simulator</a></li><li><a href="/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/docs/camera.html" data-page="camera.html">The camera and QR codes</a></li><li><a href="/docs/epaper.html" data-page="epaper.html">E-paper panels</a></li><li><a href="/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/docs/rig.html" data-page="rig.html">The hardware test rig</a></li></ul>
 <h2>Reference and design</h2><ul><li><a href="/docs/api.html" data-page="api.html">GapKeep JavaScript API reference</a></li><li><a href="/docs/architecture.html" data-page="architecture.html" aria-current="page">GapKeep architecture</a></li><li><a href="/docs/design.html" data-page="design.html">GapKeep&#x27;s design decisions</a></li><li><a href="/docs/experimental.html" data-page="experimental.html">Experimental features</a></li></ul>
 <h2>Apps</h2><ul><li><a href="/docs/apps/signer.html" data-page="apps/signer.html">Signer</a></li><li><a href="/docs/apps/dice39.html" data-page="apps/dice39.html">dice39 on GapKeep</a></li><li><a href="/docs/apps/codex32.html" data-page="apps/codex32.html">codex32</a></li><li><a href="/docs/apps/totp.html" data-page="apps/totp.html">Authenticator</a></li></ul>
 <h2>The project</h2><ul><li><a href="/docs/security.html" data-page="security.html">Security</a></li><li><a href="/docs/contributing.html" data-page="contributing.html">Contributing to GapKeep</a></li><li><a href="/docs/agents-gapkeep.html" data-page="agents-gapkeep.html">Notes for coding agents</a></li></ul>
@@ -187,6 +187,12 @@ descriptors (<code>usbdesc.c</code>), keeps the devices plugged in, and does an 
 control transfers, one per pass of the main loop, each waiting for the
 device as Circle's control transfers do (they can't be asynchronous on the
 Zero's host controller) and settling a promise. See <a href="api.html#gkusb">API.md</a>.</p>
+<p><code>ui.epaper</code> (<code>epaper.cpp</code>) is a second LVGL display, off screen, the size
+of the e-paper panel <code>gapkeep.txt</code> configures: the app's widgets go on its
+screen, and a refresh renders it, turns it into the panel's planes and
+hands them to the driver (<code>epd.cpp</code>) as a job (below). The driver uses
+Circle's SPI master and GPIO pins; in the simulator they lead to a
+simulated panel, so the same code runs in both. See <a href="epaper.html">EPAPER.md</a>.</p>
 <p><code>ui.Scanner</code> is driven by <code>scanner.cpp</code> (camera frames, decoding with
 <code>qrdecode.cpp</code>, the preview), polled by an LVGL timer; the camera is an
 interface (<code>camera.h</code>) with a synthetic implementation (<code>synthcam.cpp</code>) for
@@ -199,8 +205,10 @@ frames and automatic exposure). See <a href="camera.html">CAMERA.md</a>.</p>
 also builds on the development machine: <code>tests/native/test_sha256.c</code>, and
 <code>tools/check_hashes.py</code>, which runs every self-test and compares thousands
 of random inputs with Python's <code>hashlib</code>. SHA-256's self-test runs at boot;
-HMAC's test vectors (RFC 2202, RFC 4231, which also check SHA-1 and
-SHA-512) run before their first use, and disable them if they fail. Every
+HMAC's test vectors (RFC 2202, RFC 4231, which also check SHA-1, SHA-224,
+SHA-384 and SHA-512; SHA-224 and SHA-384 are SHA-256 and SHA-512 with
+other starting values) run before their first use, and disable them if
+they fail. Every
 context and buffer that held key material is overwritten after use. The
 hardware RNG wrapper (<code>hwrng.*</code>) applies NIST SP 800-90B health tests to
 every raw byte and conditions output through SHA-256; see <code>gk:crypto</code> in
@@ -224,6 +232,76 @@ built as for the Zero (32-bit arithmetic); that suite also passes compiled
 for ARMv6 under <code>qemu-arm</code>. RIPEMD-160, PBKDF2 and secp256k1 run their
 self-tests before their first use. BIP-32, addresses and transactions are
 left to apps, in JavaScript on these primitives.</p>
+<p>OpenPGP's primitives: Ed25519 (<code>ed25519.*</code>) is Monocypher's
+(<code>third_party/monocypher</code>, 4.0.3, its optional RFC 8032 code with
+SHA-512), with a stricter point decoding (RFC 8032, 5.1.3, step 4) and each
+signature verified before it is returned. RSA PKCS #1 v1.5 signatures
+(<code>rsa.*</code>) and AES-CFB (<code>aes.*</code>) run on a crypto-only subset of Mbed TLS
+3.6 LTS (<code>third_party/mbedtls</code>: only the files <code>lib/mbedtls/mbedtls.mk</code>
+builds, configured by <code>lib/mbedtls/gk_mbedtls_config.h</code>; its wipes are
+<code>gk_wipe</code>): its constant-time bignum, and its private operation's steps
+(base and exponent blinding, the CRT, its check against glitches),
+run one by one by <code>rsa.c</code> (<code>gk_rsa_sign_step</code>: Mbed TLS's
+<code>mbedtls_rsa_private</code> does them in one call, too long for the main loop)
+on the context's own numbers; then the signature is checked again against
+the public key. <code>rsa.c</code> also does the PKCS #1 encoding (DigestInfo), and
+verifies (1024 to 4096 bits; signing keys from 2048) by encoding and
+comparing. Imported keys are checked for consistency (n = pq,
+de = 1 mod p-1 and q-1, OpenPGP's u) and their CRT values derived, in
+memory from Circle's heap (zeroed when freed), at most 64 at a time.
+Decryption: RSAES-PKCS1-v1_5 (<code>gk_rsa_decrypt*</code>) is the same private
+operation, then the padding is checked with implicit rejection
+(draft-irtf-cfrg-rsa-guidance-10, 7.2, as written: on bad padding a
+message derived from d and the ciphertext, every check made and both
+candidates read, so nothing tells them apart; checked against the draft's
+vectors). X25519 (<code>x25519.*</code>) is Monocypher's, refusing an all-zero
+shared secret. AES key wrap (RFC 3394) is written in <code>aes.c</code> over Mbed
+TLS's AES block. SEIPD v1 (<code>seipd.*</code>, RFC 9580, 5.13.1) decrypts a copy
+of the message in steps, hashing as it goes, and gives the plaintext only
+if the MDC matches, the prefix's quick-check bytes ignored; there is no
+code for the old unprotected packet.
+OpenPGP's AEAD packets (<code>aead.*</code>: RFC 9580's SEIPD v2, and GnuPG 2.4's
+own OCB packet, tag 20, from LibrePGP) are decrypted in steps with
+HKDF-SHA256 (<code>hmac.*</code>) and one of three modes behind one interface (a
+table in <code>aead.c</code>), each written here over Mbed TLS's AES block and
+streaming: OCB (<code>ocb.*</code>, RFC 7253), EAX (<code>eax.*</code>, the EAX paper: CTR and
+CMAC) and GCM (<code>gcm.*</code>, SP 800-38D, its GHASH multiplying bit by bit
+without tables: constant-time, slower). SEIPD v2 takes all three; tag 20
+OCB and EAX, as LibrePGP allows (no GCM). Every chunk's tag and the
+final tag (over the total length) are checked before the plaintext,
+decrypted in place in a copy of the message, is given. The same modes encrypt and decrypt one small
+message at once (<code>gk_aead_encrypt</code>, <code>gk_aead_decrypt</code>: an AEAD-protected
+secret key, RFC 9580, 5.5.3), synchronously, up to 256 KiB. Decompression (<code>runtime/inflate.*</code>, gk:zlib) is
+zlib's inflate (<code>third_party/zlib</code>, decompression only, no gzip, the
+caller's allocator, which wipes), in steps, its output limited as it
+grows; <code>tools/fuzz_inflate.sh</code> fuzzes it with sanitizers.
+OpenPGP's S2K (<code>s2k.*</code>, RFC 9580) is written here, over <code>gk_hash_t</code>, and
+hashes the repeated salt and passphrase from a 1 KiB buffer, in steps (a
+job, below). Argon2id (<code>argon2.*</code>, RFC 9106; S2K type 4) is Monocypher's
+<code>crypto_argon2</code>, restructured to stop and resume at any block (pass,
+slice, lane, block), the lanes done one after the other in the RFC's
+order; its work area, up to a quarter of the board's memory (from its
+revision, at boot: 128 MiB on a 512 MB Pi Zero), comes from Circle's heap (outside
+the JS heap) as a job starts, one step per slice (wiping what a stopped
+job left, freeing a smaller area, allocating), is kept for the app's next
+call, wiped as each job ends, and wiped and freed when the app stops.
+Circle's heap never reused a freed block over 512 KiB and panicked when a
+large one could not be had; <code>patches/circle/0017</code> reuses them (best fit,
+at most twice the size) and has a request of 1 MiB or more that does not
+fit return 0, so a second large Argon2 run, or a big inflate after one,
+works, and running out is an error, not a halt. Both
+libraries are vendored unchanged, pinned to a release (source and SHA-256
+in their <code>.mk</code>). <code>tools/check_pgp.py</code> builds these files for the host and
+compares them with Python's cryptography (OpenSSL) on random keys and
+inputs, runs Wycheproof's Ed25519, RSA, X25519, key wrap, AES-GCM and
+AES-EAX vectors, NIST CAVP's CFB128 files, RFC 9580's S2K examples and
+sample AEAD packets (A.9 to A.11), Argon2 against the reference
+implementation (<code>--argon2-ref</code>, and RFC 9580 A.12.1's 2 GiB with <code>--a12</code>)
+(<code>tests/native</code>), and the negative cases;
+<code>tests/apps/pgpcrypto</code> runs known answers through the JavaScript API on
+every target, and <code>tests/pgp/run_gpg_interop.sh</code> has GnuPG verify
+signatures the simulator made with keys GnuPG exported. The libraries add
+about 150 KB to the kernel (no <code>--gc-sections</code>).</p>
 <h3 id="c-runtime"><a class="anchor" href="#c-runtime" aria-hidden="true" tabindex="-1">#</a>C runtime</h3>
 <p>QuickJS is a hosted C program. GapKeep provides only what it needs:</p>
 <ul>
@@ -269,8 +347,16 @@ for them to leave, other than what a person reads off the screen.</p>
 <td>Input only: pictures of QR codes, from the Pi Camera (IMX219, <code>src/camera/</code>) or, in test builds and the simulator, a synthetic camera. Decoded in the kernel by zxing-cpp's QR code reader (C++20, about 195 KiB, <code>patches/zxing-cpp/</code>), built without exceptions: malformed codes are not read, and what zxing-cpp would throw on an internal error stops the system (a fatal error, as a failed assertion). Fuzzed under AddressSanitizer and UBSan with damaged and crafted codes that reach the payload decoder (<a href="camera.html#the-qr-decoder">CAMERA.md</a>). Apps get the decoded bytes, never pixels, and only with the <code>&quot;camera&quot;</code> permission.</td>
 </tr>
 <tr>
+<td>Fonts</td>
+<td>Not a surface: fonts are a known attack vector (their parsers and hinting interpreters), so apps cannot supply any. Text is drawn from GapKeep's own fonts only: bitmap fonts compiled into the image, and TrueType outlines also compiled in (<code>src/runtime/fonts/gk_ttf_*.c</code>, made by <code>tools/make_fonts.py</code> from pinned, hashed font packages) that LVGL's TinyTTF (stb_truetype) rasterizes for other sizes and styles (<code>src/runtime/fontcache.cpp</code>). Its file loading is compiled out (<code>LV_TINY_TTF_FILE_SUPPORT 0</code>), <code>gk:ui</code> takes sizes and styles, never font data, and nothing an app, the card or a device sends reaches the TrueType parser. What rasterized glyphs may hold in memory is capped (4 MB for all fonts, freed when the app exits).</td>
+</tr>
+<tr>
 <td>HDMI output</td>
 <td>Output only. CEC is ignored (<code>hdmi_ignore_cec</code> in <code>config.txt</code>).</td>
+</tr>
+<tr>
+<td>E-paper panel (SPI0 and three GPIOs, <a href="epaper.html">EPAPER.md</a>)</td>
+<td>Output, to a panel <code>gapkeep.txt</code> names, only when an app with the <code>&quot;epaper&quot;</code> permission asks for a refresh (<code>ui.epaper</code>); boot and opening a panel send nothing, and between refreshes every line is an input. What comes back is one bit, BUSY, read for timing (a missing panel, a refresh done). The driver (<code>src/runtime/epd.cpp</code>, from EPDPages) runs in slices of the main loop, as a job; there is no GPIO or SPI access for apps. What a panel shows is never logged; its buffers are wiped.</td>
 </tr>
 <tr>
 <td>Serial port (GPIO 14/15)</td>
@@ -320,7 +406,10 @@ are read whole, hashed and kept in memory at boot (<code>appstore.cpp</code>), s
 what an app reads is what was hashed, and swapping or removing the card
 afterwards changes nothing. A sealed kernel can carry its data instead
 (<code>SEALED=1 DATA=dir</code>): then the kernel's hash covers it and is per person,
-and the data folder's hash lets the keyring be checked on its own. Nothing in the data is executed; what parses it is FatFs and the
+and the data folder's hash lets the keyring be checked on its own. Its e-paper panel, if it
+has one, is built in the same way (<code>SEALED=1 EPAPER=weact-2.9-bwr</code>, with
+the wiring's keys: <a href="epaper.html#sealed-kernels">EPAPER.md</a>), covered by the
+kernel's hash too. Nothing in the data is executed; what parses it is FatFs and the
 apps' own JavaScript. Apps in a suite share data this way but never code,
 so each app's hash still covers every line it runs.</p>
 <p><strong>Runaway apps:</strong> QuickJS calls the app host's interrupt handler as it
@@ -331,7 +420,33 @@ interrupted: a built-in like <code>Array.prototype.sort</code> on a large array,
 its end (bounded by the 96 MB heap: seconds on a Pi Zero, not minutes),
 then the handler stops the app at its next check. GapKeep's own long
 native work asks too: <code>gk:crypto</code>'s <code>pbkdf2</code> checks every 256 iterations
-and throws the same uncatchable &quot;interrupted&quot; error.</p>
+and the AES-CFB functions every 64 KiB, and throw the same uncatchable
+&quot;interrupted&quot; error.</p>
+<p><strong>Long native work</strong> (<code>runtime/jobs.*</code>): what can take more than a quarter
+of a second on a Pi Zero is a <em>job</em>, and its call returns a promise
+(S2K, Argon2id, PBKDF2, RSA signatures and decryption, SEIPD v1 and AEAD
+decryption, decompression). A job is native
+state with a step function: the app host's <code>Update()</code> gives the first job
+of the running app one slice of about 20 ms per pass of the main loop,
+after LVGL has read input and drawn, so the screen and the keyboard stay
+alive. Jobs run one at a time, in order (16 may wait per app); the promise
+is settled from the main loop, as gk:usb's transfers are, and progress is
+reported between slices (<code>onProgress</code>). When the app stops, its jobs are
+dropped (wiped, never settled); when the watchdog stops one of its scripts,
+they are rejected. An app cancels one with an <code>AbortSignal</code> (<code>{ signal }</code>;
+<code>AbortController</code> is a small global written in JavaScript in
+<code>js_sys.cpp</code>, as QuickJS has none): the job adds an &quot;abort&quot; listener, a
+native function, so the abort is noticed when JavaScript calls
+<code>abort()</code>, between slices, and no JavaScript runs from the main loop to
+poll for it; a waiting job is dropped, a running one too unless it has an
+Abort op (Argon2id: its next slices wipe its memory), and the promise is
+rejected with the signal's reason as a promise job, after the running
+script. A slice ends at its deadline, overrunning it by at most
+one unit of the job's work: 64 KiB of hashing for S2K (a slice lasts 22 ms
+on a Pi Zero), one modular exponentiation of the CRT for RSA (220 ms with
+4096 bits: <code>crypto/rsa.c</code> runs the steps of Mbed TLS's private operation
+one by one, blinding and checks included). The same code runs in the
+simulator, natively and in WebAssembly.</p>
 <p><strong>Isolation between apps:</strong> each app has its own JS runtime, so apps cannot
 reach each other's objects. They share an address space (everything runs
 privileged, on one core), so this guards against mistakes and keeps app
@@ -422,6 +537,14 @@ genuine kernel they say exactly what code an app runs.</p>
 <td>Bitcoin Core's libsecp256k1 (submodule, unmodified).</td>
 </tr>
 <tr>
+<td><code>third_party/mbedtls/</code>, <code>third_party/monocypher/</code></td>
+<td>A crypto-only subset of Mbed TLS (bignum, RSA, AES) and Monocypher (Ed25519), vendored unmodified from their releases.</td>
+</tr>
+<tr>
+<td><code>third_party/zlib/</code></td>
+<td>zlib's inflate (decompression only), vendored unmodified from its signed release.</td>
+</tr>
+<tr>
 <td><code>lib/lvgl/</code></td>
 <td>Builds LVGL with <code>gk_lv_conf.h</code>.</td>
 </tr>
@@ -434,8 +557,8 @@ genuine kernel they say exactly what code an app runs.</p>
 <td>Builds Circle's FatFs read-only (<code>ffconf.h</code>).</td>
 </tr>
 <tr>
-<td><code>lib/zxing/</code>, <code>lib/secp256k1/</code></td>
-<td>Build the QR decoder and libsecp256k1 for the kernel.</td>
+<td><code>lib/zxing/</code>, <code>lib/secp256k1/</code>, <code>lib/mbedtls/</code>, <code>lib/monocypher/</code>, <code>lib/zlib/</code></td>
+<td>Build the QR decoder, the crypto libraries and zlib's inflate for the kernel.</td>
 </tr>
 <tr>
 <td><code>lib/colorqr/</code></td>
@@ -473,7 +596,7 @@ genuine kernel they say exactly what code an app runs.</p>
 </table></div>
 
 </div>
-<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/docs/ARCHITECTURE.md"><code>docs/ARCHITECTURE.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/docs/ARCHITECTURE.md">a0274664025e</a></p>
+<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/7751fd44e8393a8e3bb05edfda7dc28817d17231/docs/ARCHITECTURE.md"><code>docs/ARCHITECTURE.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/7751fd44e8393a8e3bb05edfda7dc28817d17231/docs/ARCHITECTURE.md">7751fd44e839</a></p>
 </article>
 </div>
 </main>
@@ -482,7 +605,7 @@ genuine kernel they say exactly what code an app runs.</p>
     <p class="foot-brand"><a href="/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>A tiny bare-metal OS for air-gapped apps.</span></p>
     <p class="foot-links"><a href="/docs/">Documentation</a> · <a href="/download.html">Download</a> · <a href="/ide/">Browser IDE</a> · <a href="https://github.com/marcocarnut/GapKeep">Source on GitHub</a> · <a href="/docs/security.html">Security</a> · <a href="/docs/contributing.html">Contributing</a></p>
     <p class="foot-privacy">No trackers, no analytics, no cookies, no third-party requests: this site loads nothing from anywhere else, in the spirit of GapKeep. (GapWallet has its own site, gapwallet.org, with its own storage; it says what it connects to, and why.)</p>
-    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/a0274664025ecf07fcd5ed39d5ad83512c7098c9"><code>a0274664025e</code></a>.</p>
+    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/7751fd44e8393a8e3bb05edfda7dc28817d17231"><code>7751fd44e839</code></a>.</p>
   </div>
 </footer>
 </body>

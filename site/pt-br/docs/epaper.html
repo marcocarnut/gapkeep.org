@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="same-origin">
+<title>E-paper panels · GapKeep</title>
+<meta name="description" content="E-paper panels: GapKeep documentation">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1d1c23">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="canonical" href="https://gapkeep.org/pt-br/docs/epaper.html">
+<link rel="alternate" hreflang="en" href="https://gapkeep.org/docs/epaper.html">
+<link rel="alternate" hreflang="pt-BR" href="https://gapkeep.org/pt-br/docs/epaper.html">
+<link rel="alternate" hreflang="x-default" href="https://gapkeep.org/docs/epaper.html">
+<meta property="og:title" content="E-paper panels · GapKeep">
+<meta property="og:description" content="E-paper panels: GapKeep documentation">
+<meta property="og:image" content="https://gapkeep.org/img/og.png">
+<meta property="og:url" content="https://gapkeep.org/pt-br/docs/epaper.html">
+<script src="/js/lang.js?v=9238942da1"></script>
+<link rel="preload" href="/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/site.css?v=b4ff85f628">
+
+<script src="/js/site.js?v=3497759309" defer></script>
+</head>
+<body class="page-doc">
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="top" id="top">
+  <div class="top-in">
+    <a class="brand" href="/pt-br/" aria-label="Página inicial do GapKeep"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a>
+    <nav class="nav" aria-label="Main">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-list"><span class="bars" aria-hidden="true"></span><span class="sr">Menu</span></button>
+      <ul id="nav-list">
+<li><a href="/pt-br/#why">Por quê</a></li>
+<li><a href="/pt-br/#verify">Veja</a></li>
+<li><a href="/pt-br/#apps">Aplicativos</a></li>
+<li><a href="/pt-br/#hardware">Hardware</a></li>
+<li><a href="/pt-br/#developers">Desenvolvedores</a></li>
+<li><a href="/pt-br/docs/">Documentação</a></li>
+<li><a href="/pt-br/download.html">Baixar</a></li>
+      </ul>
+    </nav>
+    <div class="langs" role="group" aria-label="Idioma"><a href="/docs/epaper.html" hreflang="en" lang="en" data-lang="en" title="English"><span aria-hidden="true">EN</span><span class="sr">English</span></a><a href="/pt-br/docs/epaper.html" hreflang="pt-BR" lang="pt-BR" data-lang="pt-BR" title="Português (Brasil)" aria-current="true"><span aria-hidden="true">PT</span><span class="sr">Português (Brasil)</span></a></div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap docs-layout">
+<aside class="doc-side" aria-label="Todos os documentos">
+<details class="doc-toc" open><summary>Todos os documentos</summary>
+<p><a href="/pt-br/docs/">Documentação</a></p>
+<h2>Comece aqui</h2><ul><li><a href="/pt-br/docs/readme.html" data-page="readme.html">GapKeep</a></li><li><a href="/pt-br/docs/apps.html" data-page="apps.html">Writing GapKeep apps</a></li><li><a href="/pt-br/docs/agents.html" data-page="agents.html">Writing GapKeep apps: a guide for coding agents</a></li></ul>
+<h2>Guias</h2><ul><li><a href="/pt-br/docs/simulator.html" data-page="simulator.html">The simulator</a></li><li><a href="/pt-br/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/pt-br/docs/camera.html" data-page="camera.html">The camera and QR codes</a></li><li><a href="/pt-br/docs/epaper.html" data-page="epaper.html" aria-current="page">E-paper panels</a></li><li><a href="/pt-br/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/pt-br/docs/rig.html" data-page="rig.html">The hardware test rig</a></li></ul>
+<h2>Referência e projeto</h2><ul><li><a href="/pt-br/docs/api.html" data-page="api.html">GapKeep JavaScript API reference</a></li><li><a href="/pt-br/docs/architecture.html" data-page="architecture.html">GapKeep architecture</a></li><li><a href="/pt-br/docs/design.html" data-page="design.html">GapKeep&#x27;s design decisions</a></li><li><a href="/pt-br/docs/experimental.html" data-page="experimental.html">Experimental features</a></li></ul>
+<h2>Aplicativos</h2><ul><li><a href="/pt-br/docs/apps/signer.html" data-page="apps/signer.html">Signer</a></li><li><a href="/pt-br/docs/apps/dice39.html" data-page="apps/dice39.html">dice39 on GapKeep</a></li><li><a href="/pt-br/docs/apps/codex32.html" data-page="apps/codex32.html">codex32</a></li><li><a href="/pt-br/docs/apps/totp.html" data-page="apps/totp.html">Authenticator</a></li></ul>
+<h2>O projeto</h2><ul><li><a href="/pt-br/docs/security.html" data-page="security.html">Security</a></li><li><a href="/pt-br/docs/contributing.html" data-page="contributing.html">Contributing to GapKeep</a></li><li><a href="/pt-br/docs/agents-gapkeep.html" data-page="agents-gapkeep.html">Notes for coding agents</a></li></ul>
+<h2>Mais</h2><ul><li><a href="/pt-br/docs/camera/spec.html" data-page="camera/spec.html">Pi Camera Module v2.1 (IMX219) on the Pi Zero v1.3: functional specification</a></li><li><a href="/pt-br/docs/camera/implementation.html" data-page="camera/implementation.html">Pi Camera driver: implementation record</a></li><li><a href="/pt-br/docs/camera/provenance.html" data-page="camera/provenance.html">Provenance of docs/camera/SPEC.md (clean-room record)</a></li><li><a href="/pt-br/docs/i18n/pt-br.html" data-page="i18n/pt-br.html">Glossary: Brazilian Portuguese (pt-BR)</a></li><li><a href="/pt-br/docs/lib-js.html" data-page="lib-js.html">JavaScript libraries for apps</a></li></ul>
+</details>
+</aside>
+<article class="doc" lang="en">
+<p class="doc-note" lang="pt-BR">Por enquanto, a documentação existe só em inglês. O texto abaixo é o original; traduções são bem-vindas.</p>
+<div class="doc-body">
+<h1 id="e-paper-panels">E-paper panels</h1>
+<p>An e-paper panel keeps its picture without power, for years. Wired to the
+Pi Zero's GPIO header, it lets an app write something a person must keep,
+a secret share above all, onto a thing that is then unplugged and put
+away: the share never goes near a phone's camera or a printer, and each
+panel holds one share. Apps draw on the panel with the same <code>gk:ui</code>
+widgets as on the screen (<a href="api.html#uiepaper">API.md, ui.epaper</a>); the
+kernel turns that into the panel's black, white and red pixels, and drives
+the panel.</p>
+<p>Only the kernel talks to the panel, through a driver for the panels below,
+and only apps with the <code>&quot;epaper&quot;</code> permission may ask it to. There is no
+general GPIO or SPI access for apps: on an air-gapped machine that would be
+a way out for data (a blinking pin, a radio made of a wire).</p>
+<h2 id="panels"><a class="anchor" href="#panels" aria-hidden="true" tabindex="-1">#</a>Panels</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th><code>epaper =</code></th>
+<th>Module</th>
+<th>Controller</th>
+<th>Pixels</th>
+<th>Colours</th>
+<th>Refresh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>weact-2.9-bwr</code></td>
+<td>WeAct 2.9&quot; B/W/R</td>
+<td>SSD1680</td>
+<td>296 × 128</td>
+<td>black, white, red</td>
+<td>about 18 s</td>
+</tr>
+<tr>
+<td><code>weact-2.13-bw</code></td>
+<td>WeAct 2.13&quot; B/W</td>
+<td>SSD1680</td>
+<td>250 × 122</td>
+<td>black, white</td>
+<td>about 3 s</td>
+</tr>
+<tr>
+<td><code>weact-4.2-bw</code></td>
+<td>WeAct 4.2&quot; B/W</td>
+<td>SSD1683</td>
+<td>400 × 300</td>
+<td>black, white</td>
+<td>about 3 s</td>
+</tr>
+</tbody>
+</table></div>
+<p>(Pixels as an app gets them by default, landscape; <code>portrait</code> turns them.)
+The 2.9&quot; B/W/R is the one GapKeep is developed with. The driver
+(<code>src/runtime/epd.cpp</code>) comes from EPDPages' firmware (the same author's e-paper project),
+where it is proven on these three modules; the 4.2&quot; here has not
+yet been tried on the device. Other panels of the SSD1680 family are a
+table row; other controllers (a UC8176, a 384 × 640 B/W/R panel) a few
+functions (below).</p>
+<h2 id="wiring"><a class="anchor" href="#wiring" aria-hidden="true" tabindex="-1">#</a>Wiring</h2>
+<p>The Waveshare convention, which is also GapKeep's default: SPI0 with its
+first chip select, and three more GPIOs. The WeAct modules' 8-pin header
+(J2), its jumper (BS) on &quot;4-line SPI&quot;:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Module (J2)</th>
+<th>Pi Zero header</th>
+<th>GPIO</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 BUSY</td>
+<td>pin 18</td>
+<td>GPIO 24</td>
+</tr>
+<tr>
+<td>2 RES</td>
+<td>pin 11</td>
+<td>GPIO 17</td>
+</tr>
+<tr>
+<td>3 D/C</td>
+<td>pin 22</td>
+<td>GPIO 25</td>
+</tr>
+<tr>
+<td>4 CS</td>
+<td>pin 24</td>
+<td>GPIO 8 (SPI0 CE0)</td>
+</tr>
+<tr>
+<td>5 SCL</td>
+<td>pin 23</td>
+<td>GPIO 11 (SPI0 SCLK)</td>
+</tr>
+<tr>
+<td>6 SDA</td>
+<td>pin 19</td>
+<td>GPIO 10 (SPI0 MOSI)</td>
+</tr>
+<tr>
+<td>7 GND</td>
+<td>pin 20 (or 25, 9)</td>
+<td></td>
+</tr>
+<tr>
+<td>8 VCC</td>
+<td>pin 17 (or 1): <strong>3.3 V</strong>, never 5 V</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>Pins 17 to 24 sit together on the header (pin 11 is a little apart), so a
+2 × 4 or 2 × 5 connector on the Zero's side holds all but RES. None of these
+are the test rig's (GND on pin 6, GPIO 14 and 15, the RUN pad, 5 V:
+<a href="rig.html">RIG.md</a>).</p>
+<p><strong>Plugging in and out while GapKeep runs</strong> is the normal way of working
+(one panel per share), on a live 3.3 V rail. GapKeep drives none of the
+panel's lines between refreshes: SPI0's pins and DC, RST and BUSY are all
+inputs then, so a panel half plugged in gets no current through its signal
+pins into an unpowered controller. Still:</p>
+<ul>
+<li>Connect <strong>GND first</strong> and take it away last: a connector whose ground
+pin is longer than the others (or a separate ground wire, clipped on
+first), or plug in the ground row of a 2-row connector before the rest.</li>
+<li><strong>Series resistors</strong> of 100 to 330 Ω in SCL, SDA, CS, D/C and RES, at the
+Zero's side, limit the current through a pin's protection diodes if a
+line touches before power does, and calm the edges on long wires. At
+4 MHz they don't matter to the signal. BUSY needs none.</li>
+<li>Plugging in a module charges its capacitors from the 3.3 V rail: a short
+dip, which a Zero with a good supply rides through. If it ever resets
+the Zero, add 10 to 47 µF across 3.3 V and GND at the connector, or power
+the panel through a switch (a P-MOSFET a GPIO turns on) so that it is
+only powered during a refresh: that is a later improvement.</li>
+<li>Never unplug a panel while it refreshes (the app says when it may be
+unplugged): a refresh cut short leaves the panel's pigments part way.</li>
+</ul>
+<h2 id="text-on-a-panel"><a class="anchor" href="#text-on-a-panel" aria-hidden="true" tabindex="-1">#</a>Text on a panel</h2>
+<p>A panel's pixels are black, white or red, nothing between: anti-aliased
+text loses its grey edges, which leaves the smaller sizes thin and ragged.
+gk:ui's pixel fonts are drawn for it: <code>family: &quot;epdmono&quot;</code>, one bit a
+pixel, each size a design of its own (<code>ui.epdmonoFonts</code>): 10 is X11's
+misc-fixed 6x10 (public domain, EPDPages' font), 14, 16, 20, 24 and 32 are
+Terminus Font's bold (8x14 to 16x32, SIL Open Font License,
+<code>src/runtime/fonts/LICENCE.terminus</code>). Basic Latin and Latin-1, so the
+codex32 and bech32 alphabets; 0 (slashed) and O, 1, l and I, 5 and S, 8
+and B differ.</p>
+<pre><code class="language-js">new ui.Label(panel, { text: &quot;MS12 NAME A320&quot;, family: &quot;epdmono&quot;, font: 20 });
+</code></pre>
+<p>On the 2.9&quot; (296 x 128) a codex32 share in groups of four fits beside its
+QR code at 20 (three groups, 14 characters, 140 pixels, a line): dice39
+writes its shares so, one panel each, and both dice39 and codex32 the
+seed's QR codes with the numbered words (<strong>Write to e-paper</strong>, and <strong>Panel
+only</strong> to keep the secret off the screen: apps/dice39/README.md). Their
+layout (<code>apps/dice39/lib/epaperlayout.js</code>) picks landscape or portrait
+and the sizes for each panel: the QR code's modules at 3 px where they
+fit (2 at least), then the largest epdmono text; a 24-word share takes
+16 on the 2.9&quot; and the 2.13&quot;, 32 on the 4.2&quot;. Chosen on
+the rig's panel, photographed: Terminus bold, two-pixel strokes from 20
+up, reads clearly at every size; Terminus regular (one-pixel strokes)
+came out faint, misc-fixed's 9x18 too; the 6x10 doubled and tripled (the
+first epdmono 20 and 30) read, but blocky. The anti-aliased fonts work
+too, from 14 up (<code>mono: true</code> at 16 reads well), at any size of
+<code>ui.fontRange</code>; epdmono, a bitmap font, has only its own sizes, never
+drawn from outlines. <code>tools/make_epdmono.py</code>
+makes the fonts from the PCF and PSF files, whose SHA-256s it checks: the
+six sizes add about 40 KB to the kernel.</p>
+<h2 id="gapkeeptxt"><a class="anchor" href="#gapkeeptxt" aria-hidden="true" tabindex="-1">#</a>gapkeep.txt</h2>
+<p>The card's <code>gapkeep.txt</code> (read at boot, <a href="architecture.html">ARCHITECTURE.md</a>)
+says which panel is wired, and where; without <code>epaper</code> there is none.</p>
+<pre><code>epaper = weact-2.9-bwr     # the model, or none
+epaper_cs = ce0            # SPI0's chip select: ce0 (GPIO 8) or ce1 (GPIO 7)
+epaper_dc = 25             # GPIOs: 2 to 27, not 7 to 11 (SPI0) nor 14, 15 (serial)
+epaper_rst = 17
+epaper_busy = 24
+epaper_spi_khz = 4000      # the SPI clock: 100 to 20000 kHz
+epaper_rotate = 0          # how it is mounted: 0, 90, 180 or 270
+</code></pre>
+<p>The values shown are the defaults: only <code>epaper</code> is needed for the wiring
+above. What is refused is logged (<code>gapkeep.txt:12: epaper_dc: a GPIO number expected...</code>), and a panel whose DC, RST and BUSY aren't three
+different GPIOs is dropped. The boot log says what was configured:
+<code>epaper: WeAct 2.9&quot; B/W/R (128x296, red) on SPI0 CE0 (GPIO 8), DC GPIO 25, RST GPIO 17, BUSY GPIO 24, 4000 kHz, mounted turned 0 degrees clockwise</code>.
+Sealed kernels read no card: their panel is built in (below).</p>
+<h3 id="mounting-epaper_rotate"><a class="anchor" href="#mounting-epaper_rotate" aria-hidden="true" tabindex="-1">#</a>Mounting: epaper_rotate</h3>
+<p>How the panel is mounted is the installation's, not an app's: apps ask for
+<code>landscape</code> or <code>portrait</code> as the person looking at the panel sees it, and
+GapKeep turns their picture to the panel as mounted. <code>epaper_rotate</code> is the
+panel's turn from its native position, <strong>clockwise, as seen from its
+front</strong> (by the person reading it). Native is the controller's: its
+first row (gate 0) at the top. The WeAct 2.9&quot; and 2.13&quot; stand taller than
+wide then; on the 2.9&quot; the first row is at the end with the 8-pin header
+(J2), the panel's flat cable at the other (as the rig's camera shows it).
+The 4.2&quot; is wider than tall.</p>
+<pre><code> epaper_rotate = 0        90             180          270
+   +--------+     +--------------+    +--------+    +--------------+
+   |  TOP   |     |            T |    |        |    | P            |
+   |        |     |            O |    |        |    | O            |
+   |        |     |            P |    |        |    | T            |
+   |        |     +--------------+    |  POT   |    +--------------+
+   +--------+                         +--------+
+   (a 2.9&quot;: its native top row, &quot;TOP&quot;, where the viewer sees it)
+</code></pre>
+<p>So <code>90</code> hangs a 2.9&quot; wider than tall, its native top on the right; <code>180</code>
+stands it upside down. Then:</p>
+<ul>
+<li><code>ui.epaper.info()</code> and <code>panel.width</code>, <code>panel.height</code> are as mounted:
+<code>landscape</code> is wider than tall for the viewer.</li>
+<li>An app's page is upright for the viewer when its orientation is the
+panel's as mounted (<code>landscape</code> on a panel mounted wider than tall).
+Otherwise it is turned a quarter turn counter-clockwise (the viewer
+turns the panel a quarter turn clockwise to read it, as a 2.9&quot; mounted
+at 0 is read in landscape). <code>flip: true</code> adds a half turn.</li>
+<li><code>tests/epaper_rotate.txt</code> checks the 16 cases in the simulator, whose
+pictures show the panel as its viewer sees it, mounted.</li>
+</ul>
+<h3 id="sealed-kernels"><a class="anchor" href="#sealed-kernels" aria-hidden="true" tabindex="-1">#</a>Sealed kernels</h3>
+<p>A sealed kernel (<code>SEALED=1</code>, <a href="architecture.html">ARCHITECTURE.md</a>) reads no
+card, so its panel is part of the build, with the same keys in capitals:</p>
+<pre><code class="language-sh">tools/build.sh pi SEALED=1 EPAPER=weact-2.9-bwr                     # Waveshare's pins
+tools/build.sh pi SEALED=1 EPAPER=weact-2.9-bwr EPAPER_BUSY=23 EPAPER_CS=ce1
+</code></pre>
+<p>(<code>EPAPER_CS</code>, <code>EPAPER_DC</code>, <code>EPAPER_RST</code>, <code>EPAPER_BUSY</code>, <code>EPAPER_SPI_KHZ</code>,
+<code>EPAPER_ROTATE</code>.)
+The build checks them with gapkeep.txt's rules (<code>tools/epaper_config.py</code>)
+and stops on a bad one, saying why (<code>EPAPER: EPAPER_DC=9: a GPIO number expected...</code>). They are compiled into the kernel, so the kernel's hash
+covers them, as it covers built-in apps and data: two sealed kernels for
+different wiring have different hashes. At boot the log says <code>epaper: the panel is built in (EPAPER=weact-2.9-bwr)</code> and the configuration line
+above. <code>EPAPER</code> is refused for other builds: they read <code>gapkeep.txt</code>.</p>
+<p>Were a kernel to have both (the simulator can: <code>make -C sim EPAPER=...</code>, <code>tests/epaper_builtin.txt</code>), the built-in panel wins and the
+card's <code>epaper</code> keys are ignored, each with a warning in the log; a
+sealed kernel has no card, so only its own configuration ever applies.</p>
+<p>The keys have the device's name as their prefix so that more SPI devices
+can come, each on its own chip select (a second panel, an SPI screen):
+<code>epaper2</code>, <code>lcd</code>... with the same <code>_cs</code>, <code>_dc</code> keys.</p>
+<h2 id="what-a-refresh-does"><a class="anchor" href="#what-a-refresh-does" aria-hidden="true" tabindex="-1">#</a>What a refresh does</h2>
+<p><code>panel.refresh()</code> takes the picture the panel's widgets make, turns it
+into the panel's planes (1 bit, and red), in the panel's own orientation,
+and runs as a <a href="api.html#long-operations">long operation</a>: in slices of the
+main loop, the screen and keyboard alive.</p>
+<ol>
+<li><strong>A hardware reset, always</strong> (RST low, then high): the panel may be
+another one than last time, and one in deep sleep hears nothing else.
+GapKeep never counts on a panel keeping any state.</li>
+<li>Then BUSY must go low within a second. BUSY is pulled up at the Zero,
+so <strong>without a panel it stays high</strong>: the promise rejects with <em>&quot;no
+panel answers: is one plugged in?&quot;</em>. A soft reset (0x12), the same
+wait, then the controller's set-up (WeAct's sequence, from EPDPages):
+the gate lines, the RAM's addressing, the border, the temperature
+sensor on B/W panels.</li>
+<li>Both planes, about 9.5 KB on the 2.9&quot; (19 ms at 4 MHz).</li>
+<li><strong>A full refresh with the panel's own waveform</strong>, from its OTP memory:
+the maker's DC-balanced waveform, the one meant for a picture that
+must last. No partial refresh, no fast or custom waveform: the panel
+flashes, shows the picture, and on the B/W/R the red comes last (about
+18 s). BUSY must go high, and then low within 40 s (20 s for B/W);
+otherwise the refresh failed (<em>&quot;the panel did not finish its refresh:
+was it unplugged?&quot;</em>), and a BUSY that never goes high is no panel
+either.</li>
+<li><strong>Deep sleep</strong>, then the lines are let go. Only then does the promise
+resolve: the app can say &quot;you can unplug the panel now&quot;.</li>
+</ol>
+<p>Nothing is sent to a panel unless an app asked: opening a panel, or
+drawing on it, sends nothing; boot sends nothing. When the app stops
+during a refresh, the job is dropped (its planes wiped); the panel finishes
+the waveform on its own, and the next refresh resets it anyway.</p>
+<p>QEMU has no SPI controller: there, <code>ui.epaper.info()</code> is <code>null</code> and
+<code>ui.epaper.open()</code> throws, whatever <code>gapkeep.txt</code> says (<code>src/spiprobe.cpp</code>
+looks for SPI0 before anything uses it, since Circle's SPI driver would
+wait for QEMU's forever).</p>
+<p>What the panel shows is never logged, and the buffers that held it (the
+off-screen display's, the planes) are wiped when freed.</p>
+<h2 id="keeping-a-panel"><a class="anchor" href="#keeping-a-panel" aria-hidden="true" tabindex="-1">#</a>Keeping a panel</h2>
+<p>E-paper holds its picture with no power, as pigment particles that stay
+where they were driven. But no maker promises that for decades, and the
+pigments age: heat, light (UV), humidity and pressure speed it up, and a
+red pigment is the one to watch first.
+For a share kept on a panel:</p>
+<ul>
+<li><strong>Keep it dark, cool and dry</strong>: in an envelope or a box, away from
+sunlight and heat (well under 30 °C; never a car or a window sill), in a
+bag with a desiccant where it is damp. Don't bend it, and don't press on
+the glass.</li>
+<li><strong>Check it once a year</strong>, by looking at it: no power is needed. If it has
+faded or blurred where you can read the text and scan the QR code only
+with effort, write it again on a fresh panel, while you still can.</li>
+<li><strong>For decades, copy the share to metal</strong> (stamped or engraved steel
+plates, as for seed words): the panel is the convenient copy, metal the
+lasting one.</li>
+<li>A panel that held a secret holds it still: store it as you would the
+share on paper, and wipe it (write a blank picture, a few times) before
+giving it away. Don't reuse a panel for another person's secret.</li>
+</ul>
+<h2 id="trying-it-without-a-panel-the-simulator"><a class="anchor" href="#trying-it-without-a-panel-the-simulator" aria-hidden="true" tabindex="-1">#</a>Trying it without a panel: the simulator</h2>
+<p>The simulator has the panels, at the other end of its SPI and GPIO
+stand-ins (<code>sim/include/circle/spimaster.h</code>, <code>gpiopin.h</code>): the same driver
+sends its bytes to EPDPages' model of the SSD1680 (<code>sim/src/epd/</code>), which
+keeps its RAM, plays the refresh and holds BUSY as the real controller
+does, and ignores everything after deep sleep until a reset, so a driver
+that forgot the reset shows up in the tests. The 2.9&quot; B/W/R has its
+pigments' physics too (<code>sim/src/epd/epbwr.c</code>, fitted to film of the real
+panel): the flashing, the red coming up.</p>
+<ul>
+<li><code>tools/gksim --epaper weact-2.9-bwr apps/myapp</code> configures the panel
+(over the card's <code>gapkeep.txt</code>), with panel &quot;1&quot; plugged in; <code>--epaper-ms 1500</code> makes a refresh hold BUSY 1.5 s instead of the waveform's 18 s.</li>
+<li>Scenarios (<code>tools/qemu_harness.py --sim</code>): <code>epaper plug &lt;name&gt; [&lt;model&gt;]</code> plugs in a panel by name (a new one is white; one plugged in
+before still shows what it showed), <code>epaper unplug</code>, <code>epaper shot &lt;name&gt;</code> saves what the plugged-in panel shows as <code>&lt;name&gt;.png</code> (landscape,
+in the module's colours, with an 8-pixel white margin for QR readers),
+<code>epaper refresh-ms &lt;ms&gt;</code>. <code>tests/epaper.txt</code> writes two shares on two
+panels and checks the pictures (<code>tests/epaper/check_panel.py</code> decodes
+their QR codes with zbarimg).</li>
+<li>The browser IDE's <strong>E-paper</strong> bar: pick a model (the IDE's card then
+says so in <code>gapkeep.txt</code>), and the panel shows under the screen as its
+pigments look, the refresh as it happens; Unplug, Plug in and New panel
+as above.</li>
+</ul>
+<h2 id="adding-a-panel"><a class="anchor" href="#adding-a-panel" aria-hidden="true" tabindex="-1">#</a>Adding a panel</h2>
+<p>A model of the SSD1680 family (another size, B/W or B/W/R): a row in
+<code>Models[]</code> in <code>src/runtime/epd.cpp</code> (EPDPages' <code>panels[]</code> has the numbers:
+size, the RAM X start, the landscape rotation), and in the simulator
+<code>sim/src/epd/panels.c</code> and a <code>panel_model_t</code> in <code>panel_ssd1680.c</code>. Another
+controller (the UC8176 of the Waveshare 4.2&quot;, a 384 × 640 B/W/R panel's): its
+init sequence, RAM commands and BUSY polarity in <code>CGkEPD</code> (a family, as
+<code>GkEPDSSD1683</code> is), and its model from EPDPages' <code>sim/panel_*.c</code>. Keep the
+full refresh with the panel's OTP waveform, the reset before and deep
+sleep after.</p>
+<h2 id="checking-it-on-the-device"><a class="anchor" href="#checking-it-on-the-device" aria-hidden="true" tabindex="-1">#</a>Checking it on the device</h2>
+<p>The rig's Zero has a WeAct 2.9&quot; B/W/R wired as above, and its Pi Camera
+looks at it. <code>tests/epaper_hw.txt</code> (rig only) configures the panel over the
+serial line (<code>#epaper weact-2.9-bwr</code>, test builds: the rig's card never
+changes), starts <code>tests/apps/epapertest</code> and drives it with <code>#launch</code> and
+<code>#key</code> (no USB keyboard needed), writes two shares in turn and has the app
+read each one back with the camera (<code>ui.Scanner</code>, the whole field: the log
+says which share it saw, never what it says), then a page of text sizes,
+photographed with <code>serialraw</code> (<code>tools/rig/raw2png.py</code> turns the raw frame
+into a PNG).</p>
+<p>The rig's panel is mounted turned 180 degrees (<code>#epaper weact-2.9-bwr rotate=180</code>): its native top, the J2 end, is at the top of the camera's
+picture, so a page reads upright for someone at the panel's flat-cable end,
+the bottom of the camera's picture (<code>tests/epaper_rotate_hw.txt</code>
+photographs a portrait and a landscape page, and one as if mounted at 90,
+then writes the landscape page again, so the panel is left upright).
+<code>tests/epaper_shares_hw.txt</code> has dice39 write two codex32 shares of a test
+phrase on it, each read back with the camera by the app.</p>
+<p>Measured on the rig (2026-11-12), the same at each of three refreshes:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BUSY after the hardware reset</td>
+<td>already low when first read (10 ms after RST went high)</td>
+</tr>
+<tr>
+<td>BUSY after the soft reset (0x12)</td>
+<td>low when first read, 5 ms after (never seen high)</td>
+</tr>
+<tr>
+<td>Both planes sent (9.5 KB at 4 MHz)</td>
+<td>19.1 ms, in one slice</td>
+</tr>
+<tr>
+<td>BUSY high after 0x20 (refresh)</td>
+<td>3.2 ms</td>
+</tr>
+<tr>
+<td>The waveform (BUSY high)</td>
+<td>18.40 s</td>
+</tr>
+<tr>
+<td>From the reset to deep sleep</td>
+<td>18.45 to 18.52 s</td>
+</tr>
+<tr>
+<td>The job's longest slice</td>
+<td>21 ms</td>
+</tr>
+<tr>
+<td>The longest gap of a 5 ms JavaScript timer during a write</td>
+<td>27 ms (98 ms when the camera was being stopped as the write began)</td>
+</tr>
+<tr>
+<td>The job's own time (slices) during a refresh</td>
+<td>under 100 ms since BUSY is read every 5 ms (it was 2.6 s, in 4 million slices, when it was read on every pass of the main loop)</td>
+</tr>
+</tbody>
+</table></div>
+<p>The QR codes were read back from the panel by GapKeep's own scanner within
+2 s, the second write's (another share) as the second share. In the
+camera's picture the text at 16 and 20 px (monospaced) reads clearly, 14
+px reads, 12 px barely, but there the camera is the limit: the panel spans
+about 200 of its pixels for 296 of the panel's.</p>
+
+</div>
+<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/7751fd44e8393a8e3bb05edfda7dc28817d17231/docs/EPAPER.md"><code>docs/EPAPER.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/7751fd44e8393a8e3bb05edfda7dc28817d17231/docs/EPAPER.md">7751fd44e839</a></p>
+</article>
+</div>
+</main>
+<footer class="foot">
+  <div class="foot-in">
+    <p class="foot-brand"><a href="/pt-br/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>Um sistema operacional mínimo, bare-metal, para aplicativos air-gapped.</span></p>
+    <p class="foot-links"><a href="/pt-br/docs/">Documentação</a> · <a href="/pt-br/download.html">Baixar</a> · <a href="/ide/web/index.html?lang=pt-BR">IDE no navegador</a> · <a href="https://github.com/marcocarnut/GapKeep">Código no GitHub</a> · <a href="/pt-br/docs/security.html">Segurança</a> · <a href="/pt-br/docs/contributing.html">Como contribuir</a></p>
+    <p class="foot-privacy">Sem rastreadores, sem analytics, sem cookies, sem requisições a terceiros: este site não carrega nada de nenhum outro lugar, no espírito do GapKeep. (A GapWallet tem o seu próprio site, gapwallet.org, com armazenamento separado; lá ela diz a quais servidores se conecta, e por quê.)</p>
+    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Este site: textos e imagens sob <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts sob <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/7751fd44e8393a8e3bb05edfda7dc28817d17231"><code>7751fd44e839</code></a>.</p>
+  </div>
+</footer>
+</body>
+</html>

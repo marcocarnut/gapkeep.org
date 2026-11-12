@@ -51,7 +51,7 @@
 <details class="doc-toc" open><summary>Todos os documentos</summary>
 <p><a href="/pt-br/docs/">Documentação</a></p>
 <h2>Comece aqui</h2><ul><li><a href="/pt-br/docs/readme.html" data-page="readme.html">GapKeep</a></li><li><a href="/pt-br/docs/apps.html" data-page="apps.html">Writing GapKeep apps</a></li><li><a href="/pt-br/docs/agents.html" data-page="agents.html">Writing GapKeep apps: a guide for coding agents</a></li></ul>
-<h2>Guias</h2><ul><li><a href="/pt-br/docs/simulator.html" data-page="simulator.html">The simulator</a></li><li><a href="/pt-br/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/pt-br/docs/camera.html" data-page="camera.html">The camera and QR codes</a></li><li><a href="/pt-br/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/pt-br/docs/rig.html" data-page="rig.html">The hardware test rig</a></li></ul>
+<h2>Guias</h2><ul><li><a href="/pt-br/docs/simulator.html" data-page="simulator.html">The simulator</a></li><li><a href="/pt-br/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/pt-br/docs/camera.html" data-page="camera.html">The camera and QR codes</a></li><li><a href="/pt-br/docs/epaper.html" data-page="epaper.html">E-paper panels</a></li><li><a href="/pt-br/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/pt-br/docs/rig.html" data-page="rig.html">The hardware test rig</a></li></ul>
 <h2>Referência e projeto</h2><ul><li><a href="/pt-br/docs/api.html" data-page="api.html" aria-current="page">GapKeep JavaScript API reference</a></li><li><a href="/pt-br/docs/architecture.html" data-page="architecture.html">GapKeep architecture</a></li><li><a href="/pt-br/docs/design.html" data-page="design.html">GapKeep&#x27;s design decisions</a></li><li><a href="/pt-br/docs/experimental.html" data-page="experimental.html">Experimental features</a></li></ul>
 <h2>Aplicativos</h2><ul><li><a href="/pt-br/docs/apps/signer.html" data-page="apps/signer.html">Signer</a></li><li><a href="/pt-br/docs/apps/dice39.html" data-page="apps/dice39.html">dice39 on GapKeep</a></li><li><a href="/pt-br/docs/apps/codex32.html" data-page="apps/codex32.html">codex32</a></li><li><a href="/pt-br/docs/apps/totp.html" data-page="apps/totp.html">Authenticator</a></li></ul>
 <h2>O projeto</h2><ul><li><a href="/pt-br/docs/security.html" data-page="security.html">Security</a></li><li><a href="/pt-br/docs/contributing.html" data-page="contributing.html">Contributing to GapKeep</a></li><li><a href="/pt-br/docs/agents-gapkeep.html" data-page="agents-gapkeep.html">Notes for coding agents</a></li></ul>
@@ -76,8 +76,8 @@ modules below, imported by name:</p>
 <tbody>
 <tr>
 <td><a href="#gkui"><code>gk:ui</code></a></td>
-<td>every app</td>
-<td>Widgets, layout, input, alerts</td>
+<td>every app (the e-paper panel: <code>&quot;epaper&quot;</code>)</td>
+<td>Widgets, layout, input, alerts; an e-paper panel</td>
 </tr>
 <tr>
 <td><a href="#gksys"><code>gk:sys</code></a></td>
@@ -87,7 +87,7 @@ modules below, imported by name:</p>
 <tr>
 <td><a href="#gkcrypto"><code>gk:crypto</code></a></td>
 <td>every app</td>
-<td>Hashes, HMAC, PBKDF2, secp256k1 (ECDSA, Schnorr, BIP-32 and Taproot tweaks), hardware random bytes</td>
+<td>Hashes, HMAC, PBKDF2, secp256k1 (ECDSA, Schnorr, BIP-32 and Taproot tweaks), OpenPGP's Ed25519, X25519, RSA signatures and decryption, AES-CFB, key wrap, S2K and message decryption, hardware random bytes</td>
 </tr>
 <tr>
 <td><a href="#gkclock"><code>gk:clock</code></a></td>
@@ -113,6 +113,11 @@ modules below, imported by name:</p>
 <td><a href="#gkusb"><code>gk:usb</code></a></td>
 <td>apps that list devices in <code>&quot;usb&quot;</code> (only those)</td>
 <td>Control transfers to USB devices claimed for them</td>
+</tr>
+<tr>
+<td><a href="#gkzlib"><code>gk:zlib</code></a></td>
+<td>every app</td>
+<td>Decompression (DEFLATE, zlib), with a limit on the output</td>
 </tr>
 <tr>
 <td><a href="#gkapps"><code>gk:apps</code></a></td>
@@ -163,12 +168,22 @@ Paths are resolved inside the app's directory; <code>..</code> cannot leave it.<
 <tr>
 <td><code>fonts</code></td>
 <td>number[]</td>
-<td>Available font sizes: 12, 14, 16, 18, 20, 22, 24, 28, 32, 40. Every size has Montserrat's Basic Latin, Latin-1 and Latin Extended-A letters, the dashes, quotes, bullet and ellipsis (– — ‘ ’ “ ” • …), € and ₿, and the <code>ui.symbols</code> icons. Other characters are drawn as an empty box.</td>
+<td>The fastest font sizes: 12, 14, 16, 18, 20, 22, 24, 28, 32, 40, built in as bitmaps. Any other size of <code>ui.fontRange</code> works too, drawn from the font's outlines when first used (<a href="apps.html#font-sizes">Font sizes</a>). Every size has Montserrat's Basic Latin, Latin-1 and Latin Extended-A letters, the dashes, quotes, bullet and ellipsis (– — ‘ ’ “ ” • …), € and ₿, and the <code>ui.symbols</code> icons. Other characters are drawn as an empty box.</td>
 </tr>
 <tr>
 <td><code>monoFonts</code></td>
 <td>number[]</td>
-<td>Sizes of the monospaced font (<code>mono: true</code>): 12, 14, 16, 18, 20, 24, 28. Basic Latin and Latin-1 in JetBrains Mono; other characters (icons, Latin Extended-A, € and ₿) from the normal font of the same size.</td>
+<td>The fastest sizes of the monospaced font (<code>mono: true</code>): 12, 14, 16, 18, 20, 24, 28, built in as bitmaps; any other size of <code>ui.fontRange</code> is drawn from outlines. Basic Latin and Latin-1 in JetBrains Mono; other characters (icons, Latin Extended-A, € and ₿) from the normal font of the same size.</td>
+</tr>
+<tr>
+<td><code>fontRange</code></td>
+<td>{ min: number; max: number }</td>
+<td><code>{ min: 8, max: 120 }</code>: the sizes <code>font</code> and markup's <code>&lt;span size&gt;</code> take, in whole pixels, for the normal and the monospaced font (not for <code>family: &quot;epdmono&quot;</code>, a pixel font with its own sizes). Sizes not in <code>ui.fonts</code> (or <code>ui.monoFonts</code>) are drawn from outlines, each glyph when first drawn: a little slower the first time, and soft under about 12 px. <a href="apps.html#font-sizes">Font sizes</a>.</td>
+</tr>
+<tr>
+<td><code>epdmonoFonts</code></td>
+<td>number[]</td>
+<td>Sizes of the pixel font (<code>family: &quot;epdmono&quot;</code>): 10 (X11's misc-fixed 6x10), 14, 16, 20, 24 and 32 (Terminus Font's bold, 8x14 to 16x32). One bit a pixel, Basic Latin and Latin-1, for e-paper panels (<a href="epaper.html#text-on-a-panel">EPAPER.md</a>).</td>
 </tr>
 <tr>
 <td><code>symbols</code></td>
@@ -194,6 +209,11 @@ Paths are resolved inside the app's directory; <code>..</code> cannot leave it.<
 <td><code>escapeMarkup(text)</code></td>
 <td>function</td>
 <td>The text, for a Label with <code>markup: true</code>, shown as it is: <code>&amp;</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&quot;</code> and <code>'</code> as entities. Use it for anything not written by the app (a name, an address, a scanned code), or use <code>gk:i18n</code>'s <code>tm()</code>.</td>
+</tr>
+<tr>
+<td><code>epaper</code></td>
+<td>object</td>
+<td>An e-paper panel on the GPIO header, as a second, off-screen display: <code>open()</code>, <code>info()</code>. Needs <code>&quot;permissions&quot;: [&quot;epaper&quot;]</code>. <a href="#uiepaper">Details</a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -359,12 +379,17 @@ marked <em>readable</em> return their current value; the others are write-only.<
 <tr>
 <td><code>font</code></td>
 <td>number</td>
-<td>Font size, one of <code>ui.fonts</code>.</td>
+<td>Font size in pixels, a whole number of <code>ui.fontRange</code> (8 to 120; <code>ui.fonts</code> are the fastest); else a <code>RangeError</code>. With <code>family: &quot;epdmono&quot;</code>, one of <code>ui.epdmonoFonts</code>.</td>
 </tr>
 <tr>
 <td><code>mono</code></td>
 <td>boolean</td>
-<td><em>Readable</em>. The monospaced font (JetBrains Mono), for addresses, keys, hex and code: 0/O and 1/l/I differ. Its sizes are <code>ui.monoFonts</code>; with <code>font</code> too, in any order, that size must be one of them, without it the size the widget would have (or the next smaller mono size). Same line height and baseline as the normal font of the same size, so the two mix on a row. Set on a container, its children inherit it.</td>
+<td><em>Readable</em>. The monospaced font (JetBrains Mono), for addresses, keys, hex and code: 0/O and 1/l/I differ. At the size of <code>font</code>, or, without it, the size the widget would have: any of <code>ui.fontRange</code> (<code>ui.monoFonts</code> are the fastest). Same line height and baseline as the normal font of the same size, so the two mix on a row. There is no bold or italic monospaced font. Set on a container, its children inherit it.</td>
+</tr>
+<tr>
+<td><code>family</code></td>
+<td><code>&quot;default&quot;</code>, <code>&quot;epdmono&quot;</code></td>
+<td><em>Readable</em>. <code>&quot;epdmono&quot;</code>: the pixel font, one bit a pixel (misc-fixed 6x10 at 10, Terminus Font's bold above), for e-paper panels, where anti-aliased text loses its grey edges; <code>font</code> is then one of <code>ui.epdmonoFonts</code> (10, 14, 16, 20, 24, 32; 20 if not given), whatever the order of the two. <code>&quot;default&quot;</code> (the default): the fonts above, at any size of <code>ui.fontRange</code>. epdmono is a bitmap font: it has only its own sizes, never drawn from outlines. Set on a container, its children inherit it.</td>
 </tr>
 <tr>
 <td><code>textAlign</code></td>
@@ -574,7 +599,7 @@ padding, scrollbars when content overflows.</p>
 <tr>
 <td><code>markup</code></td>
 <td>boolean</td>
-<td><em>Readable</em>. Set when the Label is created (<code>new ui.Label({ markup: true, text })</code>; changing it later throws). Then <code>text</code> is Pango-style markup: <code>&lt;b&gt;</code> and <code>&lt;i&gt;</code> (bold, italic, and both: at every size, drawn from outlines when first used), <code>&lt;tt&gt;</code> (the monospaced font, at the size or the next smaller), <code>&lt;big&gt;</code> and <code>&lt;small&gt;</code> (a step in <code>ui.fonts</code>), <code>&lt;u&gt;</code>, <code>&lt;s&gt;</code>, <code>&lt;span&gt;</code> with <code>color</code> (<code>&quot;#RRGGBB&quot;</code> or <code>&quot;#RGB&quot;</code>), <code>size</code> (one of <code>ui.fonts</code>), <code>font_family=&quot;monospace&quot;</code>, <code>weight=&quot;bold&quot;</code>, <code>style=&quot;italic&quot;</code>, <code>underline=&quot;single&quot;</code>, <code>strikethrough=&quot;true&quot;</code>; entities <code>&amp;lt; &amp;gt; &amp;amp; &amp;quot; &amp;apos; &amp;#N; &amp;#xN;</code>. Anything else throws a <code>TypeError</code> that says what and at which character: an unknown tag, bold or italic monospaced text (there is no such font), <code>bgcolor</code>, tags left open or crossed, a bad value, a <code>&amp;</code> that starts no entity. Escape data with <code>ui.escapeMarkup</code>, or build the text with <code>gk:i18n</code>'s <code>tm()</code>. <a href="apps.html#markup">Markup</a>.</td>
+<td><em>Readable</em>. Set when the Label is created (<code>new ui.Label({ markup: true, text })</code>; changing it later throws). Then <code>text</code> is Pango-style markup: <code>&lt;b&gt;</code> and <code>&lt;i&gt;</code> (bold, italic, and both: at every size, drawn from outlines when first used), <code>&lt;tt&gt;</code> (the monospaced font, at the same size), <code>&lt;big&gt;</code> and <code>&lt;small&gt;</code> (the next size of <code>ui.fonts</code> up or down), <code>&lt;u&gt;</code>, <code>&lt;s&gt;</code>, <code>&lt;span&gt;</code> with <code>color</code> (<code>&quot;#RRGGBB&quot;</code> or <code>&quot;#RGB&quot;</code>), <code>size</code> (whole pixels, 8 to 120: <code>ui.fontRange</code>), <code>font_family=&quot;monospace&quot;</code>, <code>weight=&quot;bold&quot;</code>, <code>style=&quot;italic&quot;</code>, <code>underline=&quot;single&quot;</code>, <code>strikethrough=&quot;true&quot;</code>; entities <code>&amp;lt; &amp;gt; &amp;amp; &amp;quot; &amp;apos; &amp;#N; &amp;#xN;</code>. Anything else throws a <code>TypeError</code> that says what and at which character: an unknown tag, bold or italic monospaced text (there is no such font), <code>bgcolor</code>, tags left open or crossed, a bad value, a <code>&amp;</code> that starts no entity. Escape data with <code>ui.escapeMarkup</code>, or build the text with <code>gk:i18n</code>'s <code>tm()</code>. <a href="apps.html#markup">Markup</a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -967,6 +992,67 @@ for Shift+Tab), <code>&quot;ArrowUp&quot;</code>, <code>&quot;ArrowDown&quot;</c
 Shift+PageUp and Shift+PageDown are the system's too: they scroll the
 focused widget's nearest scrollable ancestor by a page, as the mouse
 wheel scrolls what is under the pointer, and never reach <code>ui.onKey</code>.</p>
+<h3 id="uiepaper"><a class="anchor" href="#uiepaper" aria-hidden="true" tabindex="-1">#</a>ui.epaper</h3>
+<p>An e-paper panel wired to the GPIO header (a WeAct 2.9&quot; black, white
+and red one, say), which keeps its picture without power, for years:
+a secret share written on it can be unplugged and put away, never
+photographed. The panel is a second display, off screen: build what
+it shows with the same widgets as the screen, then <code>refresh()</code> writes
+it. Needs <code>&quot;permissions&quot;: [&quot;epaper&quot;]</code> in the manifest (otherwise both
+functions throw a <code>TypeError</code>). The card's <code>gapkeep.txt</code> says which
+panel is there and on which pins (<a href="epaper.html">EPAPER.md</a>).</p>
+<pre><code class="language-js">const panel = ui.epaper.open();             // landscape; throws if there is none
+new ui.Label(panel, { text: &quot;Share A&quot;, font: 20, color: 0xff0000 });
+new ui.QRCode(panel, { data: share, size: panel.height - 8 });
+await panel.refresh({ onProgress: (f) =&gt; (bar.value = f * 100) });
+status.text = &quot;Done: you can unplug the panel.&quot;;
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ui.epaper.info()</code></td>
+<td>The configured panel, <code>{ model, width, height, colors }</code> (landscape), or <code>null</code> if there is none (none in <code>gapkeep.txt</code>, or no SPI controller, as on QEMU).</td>
+</tr>
+<tr>
+<td><code>ui.epaper.open(options?)</code></td>
+<td>Opens it: an <strong>EPaperPanel</strong>. <code>options</code>: <code>orientation</code> <code>&quot;landscape&quot;</code> (the default: wider than tall) or <code>&quot;portrait&quot;</code>, as the person looking at the panel sees it, mounted (<code>gapkeep.txt</code>'s <code>epaper_rotate</code>: an app needn't know how it is mounted); <code>flip: true</code> (a half turn more). Throws an <code>Error</code> if there is no panel, a <code>TypeError</code> if it is open already. Opening sends nothing to the panel.</td>
+</tr>
+<tr>
+<td><code>panel</code></td>
+<td>A <code>Container</code>, the panel's whole area (<code>width</code>, <code>height</code> readable), white, a column with 4 px padding and gap: put widgets on it as on <code>ui.screen</code>. They are not keyboard targets.</td>
+</tr>
+<tr>
+<td><code>panel.colors</code></td>
+<td><code>[&quot;black&quot;, &quot;white&quot;]</code>, or with <code>&quot;red&quot;</code>.</td>
+</tr>
+<tr>
+<td><code>panel.model</code></td>
+<td>The module, for people: <code>&quot;WeAct 2.9\&quot; B/W/R&quot;</code>.</td>
+</tr>
+<tr>
+<td><code>panel.refresh(options?)</code></td>
+<td>Writes what the widgets show onto the panel: a promise, a <a href="#long-operations">long operation</a> (<code>onProgress</code>). Every refresh resets the panel and sets it up again (it may be another panel than last time), writes the picture, plays the panel's own full waveform (18 s on the 2.9&quot; B/W/R: it flashes, then shows the picture, red last) and puts it into deep sleep; then it resolves, and the panel may be unplugged. It rejects with an <code>Error</code> if no panel answers (unplugged), or one stops answering. The picture is taken when <code>refresh()</code> is called. <code>options.signal</code>, an <code>AbortSignal</code>, cancels it: already aborted, the promise rejects at once and nothing is sent; aborted before the refresh command (during the reset, the set-up or the planes), the panel is put into deep sleep (or given a reset, if it was busy) with its picture untouched, and the promise rejects with the signal's reason; aborted after it, the waveform can't be stopped without leaving the pigments part way and its DC balance broken, so it runs to its end and deep sleep, and then the promise rejects.</td>
+</tr>
+<tr>
+<td><code>panel.close()</code></td>
+<td>Deletes the panel's widgets and gives the panel back (<code>delete()</code> does the same); what the panel shows stays. A refresh asked for goes on. The panel is closed when the app stops, too.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The panel's widgets are drawn in black on white. Colours become
+the panel's: red (<code>0xff0000</code>, and colours near it: red at least
+128, green and blue under 96) where the panel has red, black where
+it hasn't; other colours black if darker than a middle grey, white
+if lighter. Text is drawn without its grey edges: prefer sizes of 16
+and up, and the monospaced font for codes.</p>
+<p>GapKeep never refreshes or clears a panel unless an app asks. What
+a panel shows is never logged.</p>
 <h3 id="uitheme"><a class="anchor" href="#uitheme" aria-hidden="true" tabindex="-1">#</a>ui.theme</h3>
 <pre><code class="language-js">ui.theme({ dark: true, primary: &quot;#009688&quot;, secondary: &quot;#ffc107&quot; });
 </code></pre>
@@ -1056,8 +1142,20 @@ names are valid for <code>icon</code> in <code>manifest.json</code>.</p>
 <td>SHA-512, a <code>Uint8Array(64)</code>.</td>
 </tr>
 <tr>
+<td><code>sha224(data)</code></td>
+<td>SHA-224, a <code>Uint8Array(28)</code>.</td>
+</tr>
+<tr>
+<td><code>sha384(data)</code></td>
+<td>SHA-384, a <code>Uint8Array(48)</code>.</td>
+</tr>
+<tr>
+<td><code>createHash(hash)</code></td>
+<td>A hash to feed in pieces: <code>update(data)</code> (returns the hash, so calls chain), <code>digest()</code> (the result; the hash is then finished, and using it again throws a <code>TypeError</code>), <code>copy()</code> (a new hash in the same state: hash what is common once, then each copy's own end), <code>destroy()</code> (wipes the state now, rather than when the object is collected) and <code>algorithm</code> (its name). <code>hash</code> as for <code>hmac</code>. For data too big for one array, or that arrives in parts. Like the one-shot hashes, each <code>update</code> blocks while it hashes (<a href="#hashing-big-data">how long</a>).</td>
+</tr>
+<tr>
 <td><code>hmac(hash, key, data)</code></td>
-<td>HMAC (RFC 2104) of <code>data</code> under <code>key</code>, with the hash named as in WebCrypto: a <code>Uint8Array</code> of the hash's size. Keys of any length (longer than a block are hashed first, as the RFC says).</td>
+<td>HMAC (RFC 2104) of <code>data</code> under <code>key</code>, with the hash named as in WebCrypto (<code>&quot;SHA-1&quot;</code>, <code>&quot;SHA-224&quot;</code>, <code>&quot;SHA-256&quot;</code>, <code>&quot;SHA-384&quot;</code> or <code>&quot;SHA-512&quot;</code>): a <code>Uint8Array</code> of the hash's size. Keys of any length (longer than a block are hashed first, as the RFC says).</td>
 </tr>
 <tr>
 <td><code>ripemd160(data)</code></td>
@@ -1069,7 +1167,11 @@ names are valid for <code>icon</code> in <code>manifest.json</code>.</p>
 </tr>
 <tr>
 <td><code>pbkdf2(hash, password, salt, iterations, length)</code></td>
-<td>PBKDF2 (RFC 8018) with HMAC over <code>hash</code>: a <code>Uint8Array(length)</code>. <code>iterations</code> 1 to 10,000,000, <code>length</code> 1 to 1024. A BIP-39 seed is <code>pbkdf2(&quot;SHA-512&quot;, mnemonic, &quot;mnemonic&quot; + passphrase, 2048, 64)</code> (both NFKD-normalised first: <code>.normalize(&quot;NFKD&quot;)</code>), about 0.1 s on a Pi Zero. Blocks until done, but, like JavaScript, is stopped by the watchdog (10 s) and the Windows key: millions of iterations take minutes.</td>
+<td>PBKDF2 (RFC 8018) with HMAC over <code>hash</code>: a <code>Uint8Array(length)</code>. <code>iterations</code> 1 to 10,000,000, <code>length</code> 1 to 1024. A BIP-39 seed is <code>pbkdf2(&quot;SHA-512&quot;, mnemonic, &quot;mnemonic&quot; + passphrase, 2048, 64)</code> (both NFKD-normalised first: <code>.normalize(&quot;NFKD&quot;)</code>), about 0.1 s on a Pi Zero. Blocks until done, but, like JavaScript, is stopped by the watchdog (10 s) and the Windows key: millions of iterations take minutes. Over a few thousand iterations, use <code>pbkdf2Async</code>.</td>
+</tr>
+<tr>
+<td><code>pbkdf2Async(hash, password, salt, iterations, length, options?)</code></td>
+<td>The same as a <a href="#long-operations">long operation</a>: a promise, the work done in slices while the screen keeps being drawn (about 30,000 SHA-512 iterations a second on a Pi Zero). Arguments as <code>pbkdf2</code>'s, checked at once.</td>
 </tr>
 <tr>
 <td><code>isPrivateKey(key)</code></td>
@@ -1124,6 +1226,82 @@ names are valid for <code>icon</code> in <code>manifest.json</code>.</p>
 <td>The private key for that Q (BIP-341's <code>taproot_tweak_seckey</code>: negated if its point's Y is odd, then plus the tweak), to sign a key-path spend with <code>schnorrSign</code>.</td>
 </tr>
 <tr>
+<td><code>ed25519PrivateKey(seed)</code></td>
+<td>An Ed25519 signing key (RFC 8032) from its 32-byte private key (the seed), held natively: <code>publicKey</code> (the <code>Uint8Array(32)</code> public key), <code>sign(message)</code> and <code>destroy()</code>. <code>sign</code> returns the 64-byte signature of <code>message</code>, any length, as it is: pure Ed25519, not Ed25519ph; for OpenPGP, the message is the signature's digest. Ed25519 hashes the message itself (SHA-512, twice when signing), at about 9 MB/s on a Pi Zero: a digest takes no time, a big message would block (sign a digest). Deterministic (the same message gives the same signature), and checked against the public key before it is returned. <code>destroy()</code> wipes the key (<code>publicKey</code> stays); <code>sign</code> then throws a <code>TypeError</code>.</td>
+</tr>
+<tr>
+<td><code>ed25519Verify(signature, message, publicKey)</code></td>
+<td>Checks an Ed25519 signature (64 bytes) of <code>message</code> against a 32-byte public key. Refuses non-canonical encodings and S not below the group order (RFC 8032, 5.1.7); accepts small-order keys, as RFC 8032 does. Hashes the message (SHA-512, about 9 MB/s on a Pi Zero).</td>
+</tr>
+<tr>
+<td><code>rsaPrivateKey({ n, e, d, p, q, u })</code></td>
+<td>An RSA signing key from its numbers, unsigned big-endian bytes (an OpenPGP MPI's, without the bit count; leading zeros allowed): the modulus <code>n</code> (2048 to 4096 bits, else a <code>RangeError</code>), <code>e</code>, <code>d</code>, the primes <code>p</code> and <code>q</code>, and optionally <code>u</code>, which is OpenPGP's p⁻¹ mod q (RFC 9580, 5.5.5.1; not PKCS #1's q⁻¹ mod p). The numbers must be one key: n = pq, de ≡ 1 mod p−1 and q−1, u if given; else a <code>RangeError</code> (p and q are not tested for being prime). The CRT values are derived natively. At most 64 keys at a time: <code>destroy()</code> those done with. Returns <code>{ bits, publicKey: { n, e }, sign(hash, digest, options?), decrypt(ciphertext, options?), destroy() }</code>. <code>sign</code> returns a promise of the RSASSA-PKCS1-v1_5 signature (RFC 8017) of a digest made with <code>hash</code> (SHA-224 to SHA-512; SHA-1 throws a <code>TypeError</code>), as many bytes as <code>n</code>: a <a href="#long-operations">long operation</a>, about 90 ms with 2048 bits on a Pi Zero, 460 ms with 4096. Wrong arguments throw at once; a fault caught by the checks rejects with an <code>InternalError</code>, and <code>destroy()</code> before the signature is made rejects it with a <code>TypeError</code>. <code>decrypt</code> returns a promise of the message in an RSAES-PKCS1-v1_5 ciphertext (RFC 8017, 7.2.2), a long operation like <code>sign</code> (460 ms with 4096 bits): <code>ciphertext</code> exactly as long as <code>n</code> (pad an OpenPGP MPI with zeros on the left) and below <code>n</code>, else a <code>RangeError</code> at once. <strong>Bad padding is not an error</strong>: with <em>implicit rejection</em> (draft-irtf-cfrg-rsa-guidance, 7.2, as written), it decrypts to a message derived from the key and the ciphertext, the same each time, unpredictable without the key, 0 to <code>n</code>'s length − 11 bytes, so neither the app nor an attacker can tell. Check what comes out: for OpenPGP, the session key's algorithm, length and checksum, and then the message's integrity, will fail. <code>destroy()</code> wipes the key; <code>sign</code> and <code>decrypt</code> then throw a <code>TypeError</code>.</td>
+</tr>
+<tr>
+<td><code>rsaVerify(signature, hash, digest, publicKey)</code></td>
+<td>Checks an RSASSA-PKCS1-v1_5 signature (RFC 8017) of a digest made with <code>hash</code> (SHA-1 too, for old signatures), under <code>{ n, e }</code>: 1024 to 4096 bits, else <code>false</code>. <strong>Keys under 2048 bits are weak</strong> (1024-bit RSA is within reach of a well-funded attacker): they verify for old signatures only, and the app should say so (the size is that of <code>n</code>, which the app has); they can't be imported to sign. <code>signature</code> is exactly as long as <code>n</code>: pad an OpenPGP MPI with zeros on the left. The expected encoding is built and compared, never parsed from the signature (DigestInfo with its NULL parameters, as RFC 9580 lists it). A <code>RangeError</code> if <code>digest</code> is not the hash's size.</td>
+</tr>
+<tr>
+<td><code>aesCfbEncrypt(key, iv, data)</code></td>
+<td>AES in CFB mode with 128-bit feedback (NIST SP 800-38A; OpenPGP's, RFC 9580, for protected secret keys and its encrypted data): <code>key</code> 16, 24 or 32 bytes (AES-128, -192, -256), <code>iv</code> 16 bytes, <code>data</code> any length up to 2 MiB (about 0.2 s on a Pi Zero), no padding. Returns as many bytes. To go on in another call, cut on whole blocks and pass the last 16 bytes of ciphertext as the next <code>iv</code>. Not authenticated: what it decrypts may have been changed. For OpenPGP's encrypted messages, use <code>seipdV1Decrypt</code>, which checks them, and has no such limit.</td>
+</tr>
+<tr>
+<td><code>aesCfbDecrypt(key, iv, data)</code></td>
+<td>The other way, as <code>aesCfbEncrypt</code>.</td>
+</tr>
+<tr>
+<td><code>openpgpS2k(type, hash, passphrase, salt, count, length, options?)</code></td>
+<td>OpenPGP's string-to-key (RFC 9580, 3.7.1): a promise of the <code>length</code>-byte key (1 to 64) a passphrase (at most 64 KiB) gives. <code>type</code> 0 (simple: <code>salt</code> and <code>count</code> <code>null</code>), 1 (salted: <code>salt</code> 8 bytes, <code>count</code> <code>null</code>) or 3 (iterated and salted: <code>salt</code>, and <code>count</code> the coded count octet as the packet has it, 0 to 255, which hashes (16 + (c &amp; 15)) &lt;&lt; ((c &gt;&gt; 4) + 6) bytes: 1024 to 65,011,712). A key longer than the hash runs more hashes, preloaded with zeros, as the RFC says. Not PBKDF2. A <a href="#long-operations">long operation</a>, every type (one API): on a Pi Zero, the largest count takes 3.8 s with SHA-256 and 3.6 s with SHA-1 (what GnuPG exports keys with), twice that when the key is longer than the hash (AES-256 from SHA-1). The passphrase is copied when the call is made. Wrong arguments throw at once.</td>
+</tr>
+<tr>
+<td><code>aeadEncrypt(mode, key, nonce, associatedData, plaintext)</code></td>
+<td>One AEAD message all at once, for keys and small blobs: the ciphertext followed by the 16-byte tag. AES-128, -192 or -256 (<code>key</code> 16, 24 or 32 bytes); <code>nonce</code> as long as RFC 9580 has it for the mode (OCB 15, EAX 16, GCM 12 bytes), else a <code>RangeError</code>; <code>associatedData</code> any bytes (empty: <code>new Uint8Array(0)</code>), up to 64 KiB. For an AEAD-protected secret key (RFC 9580, 5.5.3: S2K usage 253): the key from <code>hkdf(&quot;SHA-256&quot;, s2kOutput, null, [packetTag, version, cipher, mode], keyLength)</code>, a random nonce stored in the packet, the associated data the packet tag octet (0xC5 or 0xC7) and the public key packet's body. Synchronous, at most 256 KiB (about 0.15 s with GCM, the slowest, on a Pi Zero); <strong>messages</strong> go through <code>seipdV2Decrypt</code> and <code>ocbedDecrypt</code>, which are long operations. Never use a nonce twice with the same key.</td>
+</tr>
+<tr>
+<td><code>aeadDecrypt(mode, key, nonce, associatedData, data)</code></td>
+<td>The other way: <code>data</code> is the ciphertext followed by the tag; the plaintext is returned <strong>only if the tag matches</strong>, checked before anything is given. Otherwise it throws an <code>Error</code>, the same one whatever went wrong (a wrong key, nonce or associated data, changed or cut data). Arguments as <code>aeadEncrypt</code>'s.</td>
+</tr>
+<tr>
+<td><code>hkdf(hash, ikm, salt, info, length)</code></td>
+<td>HKDF (RFC 5869) with HMAC over <code>hash</code>: <code>length</code> bytes (at most 255 digests) from the input keying material, a salt (<code>null</code>: none, which is zeros) and info. What RFC 9580 uses for SEIPD v2 and for AEAD-protected keys.</td>
+</tr>
+<tr>
+<td><code>argon2id(password, salt, { passes, lanes, memoryKiB, length, onProgress?, signal? })</code></td>
+<td>Argon2id (RFC 9106, version 1.3), without a secret or associated data: a promise of the <code>length</code>-byte tag (4 to 1024). <code>passes</code> (t) 1 to 255, <code>lanes</code> (p) 1 to 255, <code>memoryKiB</code> (m) at least 8 per lane and <strong>at most a quarter of the board's memory</strong> (128 MiB on a 512 MB Pi Zero; <code>limits().argon2MemoryKiB</code> says how much): more is a <code>RangeError</code>, never quietly less. <code>password</code> at most 64 KiB, <code>salt</code> 8 to 1024 bytes (16 random ones are usual). A <a href="#long-operations">long operation</a>: the lanes are computed one after the other, a segment at a time in RFC 9106's order, in slices of about 20 ms, so the screen keeps being drawn (the longest wait between updates on a Pi Zero: 30 ms; longer once, when a larger area replaces a smaller one, as the kernel zeroes the old one). On a Pi Zero: 5.4 s for 64 MiB with t = 3, p = 4; 3.8 s for 128 MiB with t = 1. The memory is taken outside the JavaScript heap, when the operation starts (its first slices), and kept for the next call; it is wiped when an operation ends, and wiped and given back when the app stops. If the kernel cannot give it then, the promise rejects with a <code>RangeError</code>. Checks itself (RFC 9106's sample and an S2K one) in the slices of its first call. Arguments are checked, and the password and salt copied, when the call is made.</td>
+</tr>
+<tr>
+<td><code>openpgpS2kArgon2(passphrase, salt, passes, parallelism, memoryExponent, length, options?)</code></td>
+<td>OpenPGP's Argon2 S2K (type 4, RFC 9580, 3.7.1.4), the four fields as the packet has them: <code>salt</code> 16 bytes, <code>passes</code> and <code>parallelism</code> 1 to 255, <code>memoryExponent</code> the encoded m (the memory is 2^m KiB) from 3 + ⌈log2 p⌉ to 31, <code>length</code> the session or key-encryption key's (4 to 64). Argon2id as <code>argon2id</code>, with its limit: <strong>more than <code>argon2id</code> may use (a quarter of the board's memory: an exponent above 17 on a 512 MB Pi Zero) is a <code>RangeError</code></strong>, so RFC 9580's first recommended option (2 GiB) cannot be opened on GapKeep; its second (t = 3, p = 4, m = 16: 64 MiB) can, in 5.4 s on a Pi Zero. A <a href="#long-operations">long operation</a>.</td>
+</tr>
+<tr>
+<td><code>x25519PrivateKey(secret)</code></td>
+<td>An X25519 key (RFC 7748) from its 32-byte secret, held natively: <code>publicKey</code> (32 bytes), <code>sharedSecret(peerPublic)</code> (the 32-byte shared secret with a peer's 32-byte public key) and <code>destroy()</code> (wipes the secret; <code>publicKey</code> stays, <code>sharedSecret</code> then throws a <code>TypeError</code>). Byte order and clamping are RFC 7748's: the secret and public keys are little-endian, the secret is clamped where it is used (any 32 bytes are a secret), a public key's top bit is ignored. <strong>An all-zero shared secret is refused</strong> (a <code>RangeError</code>: the peer's key is of small order). OpenPGP's legacy Curve25519 keys (ECDH, RFC 9580, 5.5.5.6) store the secret as a big-endian MPI: reverse its 32 bytes; their public key and ephemeral key have a 0x40 byte in front: drop it. RFC 9580's X25519 keys (algorithm 25) are native: as they are. The KDF (RFC 6637's, or RFC 9580's HKDF) is the app's, with the hashes here; then <code>aesKeyUnwrap</code>. About 2 ms on a Pi Zero.</td>
+</tr>
+<tr>
+<td><code>aesKeyWrap(kek, key)</code></td>
+<td>AES key wrap (RFC 3394, its default IV): <code>kek</code> 16, 24 or 32 bytes, <code>key</code> a multiple of 8 bytes, 16 to 4096; returns 8 bytes more.</td>
+</tr>
+<tr>
+<td><code>aesKeyUnwrap(kek, wrapped)</code></td>
+<td>The other way (RFC 3394), for OpenPGP's ECDH (RFC 9580, 11.5): <code>wrapped</code> a multiple of 8 bytes, 24 to 4096; returns 8 bytes fewer. Its integrity check is compared without a shortcut; if it fails (a wrong key, or changed data), an <code>Error</code> (not a <code>TypeError</code> or <code>RangeError</code>) and nothing else.</td>
+</tr>
+<tr>
+<td><code>seipdV1Decrypt(sessionKey, data, options?)</code></td>
+<td>Decrypts OpenPGP's Symmetrically Encrypted Integrity Protected Data, version 1 (RFC 9580, 5.13.1; GnuPG's usual encryption): <code>data</code> is the packet's body after its version octet (1), at least 40 bytes and at most 8 MiB, <code>sessionKey</code> 16, 24 or 32 bytes (AES-128, -192, -256: the session key's algorithm 7, 8 or 9). AES-CFB with a zero IV over the random prefix, the plaintext and the MDC packet (0xD3 0x14 and SHA-1 of everything before it); a promise of the plaintext (the packets inside: literal data, compressed data, signatures...) <strong>only if the MDC matches</strong>. Otherwise the promise rejects with an <code>Error</code>, the same one whatever went wrong (a wrong key, a changed or cut message): nothing decrypted reaches JavaScript, and the prefix's repeated bytes (the &quot;quick check&quot;) play no part. A <a href="#long-operations">long operation</a>: about 6.5 MB/s on a Pi Zero (1 MiB in 0.16 s, in slices of at most 28 ms). The data is copied when the call is made. There is no function for the old Symmetrically Encrypted Data packet (tag 9, no integrity): refuse it. For AEAD packets: <code>seipdV2Decrypt</code>, <code>ocbedDecrypt</code>.</td>
+</tr>
+<tr>
+<td><code>seipdV2Decrypt(sessionKey, data, options?)</code></td>
+<td>Decrypts a version 2 SEIPD packet (RFC 9580, 5.13.2: OpenPGP's AEAD, what RFC 9580 implementations write): <code>data</code> is the packet's body after its version octet (2): cipher, AEAD mode, chunk size octet (0 to 16), 32-byte salt, the chunks with their tags, the final tag; at most 8 MiB. <code>sessionKey</code> as long as the cipher's key (AES-128, -192, -256: 16, 24, 32 bytes; else a <code>RangeError</code>). The message key and IV come from HKDF-SHA256; each chunk is decrypted and its tag checked, and then the final tag, over the total length, so a message cut after a chunk fails too: a promise of the plaintext <strong>only if every tag matched</strong>, else an <code>Error</code>, the same one whatever went wrong. AEAD modes: EAX (1), OCB (2) and GCM (3), all three in GapKeep's code over the AES block (another mode is a <code>RangeError</code>). A <a href="#long-operations">long operation</a>: on a Pi Zero, about 6 MB/s with OCB, 6 with EAX and 2 with GCM (whose GHASH multiplies bit by bit, constant-time). The data is copied when the call is made.</td>
+</tr>
+<tr>
+<td><code>ocbedDecrypt(sessionKey, data, options?)</code></td>
+<td>Decrypts GnuPG's OCB Encrypted Data packet (tag 20, version 1: LibrePGP, draft-koch-librepgp, 5.16): <strong>what GnuPG 2.4 writes by default</strong> (to its own keys, which announce AEAD). Not RFC 9580's: the session key is the key itself (no HKDF), a chunk's nonce is the packet's IV xor the chunk's index, and its associated data has the index too. AEAD mode OCB (2, a 15-byte IV: what GnuPG writes) or EAX (1, a 16-byte IV, which LibrePGP allows to be read); LibrePGP has no GCM there (a <code>RangeError</code>). <code>data</code> is the body after its version octet (1); otherwise as <code>seipdV2Decrypt</code>: every chunk's tag and the final tag checked before anything is given, one <code>Error</code> for every failure, at most 8 MiB. About 6 MB/s on a Pi Zero.</td>
+</tr>
+<tr>
+<td><code>limits()</code></td>
+<td>What this board allows: <code>argon2MemoryKiB</code>, the most memory <code>argon2id</code> and <code>openpgpS2kArgon2</code> may use, a quarter of the board's memory (131,072 on a 512 MB Pi Zero, 65,536 on a 256 MB board), for apps to explain a refusal.</td>
+</tr>
+<tr>
 <td><code>randomBytes(n)</code></td>
 <td><code>Uint8Array(n)</code> of random bytes, <code>n</code> ≤ 65536.</td>
 </tr>
@@ -1137,10 +1315,11 @@ names are valid for <code>icon</code> in <code>manifest.json</code>.</p>
 </tr>
 </tbody>
 </table></div>
-<p><code>data</code>, <code>key</code>, <code>password</code> and <code>salt</code> are typed arrays (their bytes: a
-<code>subarray</code> hashes just its part), <code>ArrayBuffer</code>s, or strings, taken as
-UTF-8. Hashes, HMAC and PBKDF2 run in the kernel (src/crypto, written from
-FIPS 180-4, the RIPEMD-160 paper, RFC 2104 and RFC 8018, checked against
+<p>The hashes' <code>data</code>, and <code>hmac</code>'s and <code>pbkdf2</code>'s <code>key</code>, <code>password</code> and
+<code>salt</code>, are typed arrays (their bytes: a <code>subarray</code> hashes just its
+part), <code>ArrayBuffer</code>s, or strings, taken as UTF-8. Hashes, HMAC, PBKDF2
+and OpenPGP's S2K run in the kernel (src/crypto, written from FIPS 180-4,
+the RIPEMD-160 paper, RFC 2104, RFC 8018 and RFC 9580, checked against
 their test vectors): microseconds per block on a Pi Zero, where the same
 in JavaScript takes about a millisecond. The copies made of keys and data
 are overwritten after use.</p>
@@ -1156,9 +1335,115 @@ instead. BIP-32, addresses and transactions are the app's, in JavaScript
 on these: e.g. a child key is <code>privateKeyTweakAdd(k, I.slice(0, 32))</code> with
 <code>I = hmac(&quot;SHA-512&quot;, chainCode, data)</code>. On a Pi Zero, an ECDSA signature
 takes about 9 ms, a BIP-32 derivation step under 2 ms, a BIP-39 seed 93 ms.</p>
-<p>Each group (RIPEMD-160, PBKDF2, secp256k1) checks itself against known
-answers before its first use; if that fails, it throws an <code>InternalError</code>
-until reboot.</p>
+<p><strong>OpenPGP's primitives</strong>: what an OpenPGP app needs natively to make
+signatures with imported Ed25519 and RSA keys and to unlock protected
+secret keys; packets, armor, keyrings and the signed data's digest are
+the app's, in JavaScript. Ed25519 is
+<a href="https://monocypher.org" rel="noopener">Monocypher</a>'s (4.0.3, CC0 or BSD-2-Clause,
+constant-time); RSA and AES are <a href="https://www.trustedfirmware.org/projects/mbed-tls/" rel="noopener">Mbed TLS</a>'s
+(3.6 LTS, Apache-2.0: its constant-time bignum, with the private
+operation blinded and its result checked). Keys, digests, signatures,
+salts and IVs are typed arrays or <code>ArrayBuffer</code>s, never strings (a
+passphrase may be one, as UTF-8). Wrong types throw a <code>TypeError</code>,
+wrong sizes and numbers that aren't keys a <code>RangeError</code>, unknown hash
+names a <code>TypeError</code>; the <code>verify</code> functions return <code>false</code> for
+signatures and public keys that don't check out.</p>
+<p>Private keys are objects (<code>Ed25519PrivateKey</code>, <code>RsaPrivateKey</code>) that
+keep the key in native memory, out of reach of JavaScript, until
+<code>destroy()</code> wipes it; else it is wiped when the object is collected,
+and at the latest when the app exits. <strong>The key's bytes do pass through
+JavaScript once</strong>, to make the object (the app decrypts and parses its
+secret-key packet itself): overwrite those arrays (<code>.fill(0)</code>) once the
+key is made. Copies JavaScript made on the way (a <code>slice</code>, a string)
+stay in memory until the collector frees them (the heap is wiped as it
+frees), so handle key material in as few arrays as you can.</p>
+<p>Signing checks its own result: an RSA signature against the public key
+(twice: Mbed TLS, then GapKeep), an Ed25519 one by verifying it. A
+wrong result, which a hardware fault could cause and which could reveal
+the key, is never returned: <code>sign</code> throws an <code>InternalError</code>.</p>
+<p>AES runs from lookup tables, which is not constant-time against code
+sharing the processor's cache; on GapKeep, one app runs at a time, and
+the key is the app's. On a Pi Zero: an Ed25519 signature takes about
+4 ms, its verification 3 ms; an RSA signature 90 ms with 2048 bits, 220
+ms with 3072 and 460 ms with 4096 (checks included; the first with a
+key up to 170 ms more, as its blinding values are made), a
+verification under 20 ms; importing an RSA key 30 to 90 ms; AES-CFB about 10 MB/s,
+SHA-256 16 MB/s.</p>
+<p><a id="long-operations"></a><strong>Long operations.</strong> What can take more
+than a quarter of a second on a Pi Zero returns a promise:
+<code>openpgpS2k</code>, <code>openpgpS2kArgon2</code>, <code>argon2id</code>, <code>pbkdf2Async</code>,
+<code>seipdV1Decrypt</code>, <code>seipdV2Decrypt</code>, <code>ocbedDecrypt</code>, an RSA key's
+<code>sign</code> and <code>decrypt</code>, and
+<a href="#gkzlib"><code>gk:zlib</code></a>'s <code>inflate</code>. The work is done natively in
+slices of about 20 ms, one each time round the main loop, between the
+screen being drawn and keys being read: the app stays responsive (it
+can show a progress bar, from <code>onProgress</code>; the longest wait between
+screen updates was 30 ms during the largest S2K and 220 ms
+during an RSA-4096 signature, whose two halves are one slice each).
+They run one at a time, in the order they were asked for; at most 16
+may wait (a 17th throws a <code>RangeError</code>). Arguments are checked when the
+call is made (errors are thrown, not rejected). When the app stops (it
+exits, or the Windows key takes the person home) its operations are
+dropped and wiped, their promises never settled; when the watchdog
+stops one of its scripts, they are rejected with an <code>InternalError</code>.
+The last argument may be <code>{ onProgress, signal }</code>. <code>onProgress</code>: a
+function called after each slice that moved the work on, with a
+fraction (more than 0, at most 1). <code>signal</code>: an <code>AbortSignal</code>, to cancel
+it as on the web (<code>const ac = new AbortController(); crypto.argon2id(..., { signal: ac.signal }); ac.abort();</code>): an operation still waiting is
+dropped, a running one stops at the end of its slice (Argon2id wipes
+its memory first, over its next slices), and its state is wiped; the
+promise rejects with <code>signal.reason</code>, an <code>Error</code> named <code>&quot;AbortError&quot;</code>
+unless <code>abort(reason)</code> gave another. A signal aborted already rejects
+at once, nothing started; aborting after the promise settled does
+nothing. (An e-paper panel's <code>refresh()</code> takes a signal too, but
+once the panel's waveform has begun it runs to its end, and only then
+does the promise reject: <code>panel.refresh</code>, above.)
+<code>pbkdf2</code> stays synchronous, and so do Ed25519, X25519, verification,
+key wrap, AES-CFB (at most 2 MiB a call) and importing keys, which are
+fast at the sizes apps use; and the hashes (below).</p>
+<p><a id="hashing-big-data"></a><strong>Hashing big data.</strong> The hashes
+(<code>sha256(data)</code>, ..., <code>hmac</code>, and each <code>update</code> of <code>createHash</code>) take
+any amount, and block while they hash: on a Pi Zero, about 16 MB/s
+with SHA-1 and SHA-256, 9 MB/s with SHA-384 and SHA-512 (a 4 MB file:
+a quarter and half a second). For more than a megabyte or two, feed a
+hash in pieces of 1 to 2 MiB and let the main loop run between them,
+so the screen stays alive and the watchdog (10 s per call) is never
+near:</p>
+<pre><code class="language-js">async function sha256Of(bytes, onProgress) {
+  const h = crypto.createHash(&quot;SHA-256&quot;), piece = 1 &lt;&lt; 20;
+  for (let at = 0; at &lt; bytes.length; at += piece) {
+    h.update(bytes.subarray(at, at + piece));
+    onProgress?.(Math.min(1, (at + piece) / bytes.length));
+    await new Promise((resolve) =&gt; setTimeout(resolve, 0));	// let the screen be drawn
+  }
+  return h.digest();
+}
+</code></pre>
+<p><strong>Decrypting OpenPGP messages</strong> (RFC 9580; what GnuPG makes with its
+usual settings): the app parses the packets; the public-key encrypted
+session key packet gives the session key, with an RSA key's <code>decrypt</code>
+(implicit rejection: always some bytes) or, for ECDH, with
+<code>x25519PrivateKey</code>, the KDF and <code>aesKeyUnwrap</code>; the app checks the
+session key's algorithm and checksum, then <code>seipdV1Decrypt</code>,
+<code>seipdV2Decrypt</code> or <code>ocbedDecrypt</code> (by the packet) decrypts the message
+and checks its integrity before anything of it is given; a compressed
+data packet inside goes to <a href="#gkzlib"><code>gk:zlib</code></a>.
+<strong>The session key does pass through JavaScript</strong> (the app reads its
+algorithm octet and checksum), as the private key does on import:
+wipe it (<code>.fill(0)</code>) once used. Keeping it native would need the
+session key packet parsed natively too (its RSA and ECDH forms,
+the KDF, the checksum), returning a handle that <code>seipdV1Decrypt</code>
+takes instead of bytes. GnuPG 2.4 writes its own OCB packet (tag 20,
+<code>ocbedDecrypt</code>) to keys that announce AEAD, as its own new keys do,
+and SEIPD v1 to others; RFC 9580 implementations write SEIPD v2
+(EAX, OCB or GCM). A passphrase-protected message or key may use
+Argon2 (S2K type 4): <code>openpgpS2kArgon2</code>, up to a quarter of the board's
+memory (128 MiB on a Pi Zero).</p>
+<p>Each group (RIPEMD-160, PBKDF2, secp256k1, Ed25519, X25519, RSA, AES,
+S2K, SEIPD, OCB, EAX, GCM, AEAD packets, Argon2id) checks itself
+against known answers before its first use (RSA's and Argon2id's, in
+the slices of their first long operation, not at import); if that
+fails, it throws an <code>InternalError</code> until reboot.</p>
 <p><strong>Where the randomness comes from.</strong> The BCM2835's hardware random number
 generator, treated as a noise source of unknown quality. Every raw byte
 passes NIST SP 800-90B's continuous health tests (Repetition Count and
@@ -1175,6 +1460,7 @@ supplement to entropy the person provides (dice, coins), not a replacement.
 globalThis.crypto = {
   getRandomValues: gkcrypto.getRandomValues,
   subtle: { digest: async (alg, data) =&gt; ({ &quot;SHA-1&quot;: gkcrypto.sha1, &quot;SHA-256&quot;: gkcrypto.sha256,
+                                             &quot;SHA-384&quot;: gkcrypto.sha384,
                                              &quot;SHA-512&quot;: gkcrypto.sha512 })[alg](data).buffer },
 };
 </code></pre>
@@ -1562,6 +1848,39 @@ has none.</p>
 </tbody>
 </table></div>
 <hr />
+<h2 id="gkzlib"><a class="anchor" href="#gkzlib" aria-hidden="true" tabindex="-1">#</a>gk:zlib</h2>
+<pre><code class="language-js">import * as zlib from &quot;gk:zlib&quot;;
+</code></pre>
+<p>Decompression of DEFLATE data (RFC 1951), raw or in zlib's format (RFC
+1950): what OpenPGP's compressed data packets hold (their algorithm 1,
+ZIP, is raw DEFLATE; 2, ZLIB, zlib's format; BZip2, 3, isn't here), and
+what other formats use. zlib's own inflate (<a href="https://zlib.net" rel="noopener">zlib</a>
+1.3.2, zlib License), checked against known answers before its first
+use and fuzzed (tools/fuzz_inflate.sh).</p>
+<p><strong>You must say how big the result may be</strong> (<code>maxOutput</code>, at most 32
+MiB): a few hundred bytes can decompress to gigabytes, and the limit
+is checked as the output grows, so such data is refused (a
+<code>RangeError</code>) with nothing more allocated than the limit allows.
+Decompression is a <a href="#long-operations">long operation</a> (gk:crypto's): a
+promise, the work done in slices while the screen keeps being drawn,
+about 1 MiB in 0.1 s on a Pi Zero. Data that isn't valid in the
+format, is cut short, or has more after its end rejects with an
+<code>Error</code>. What it decompresses is wiped from native memory when done.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>inflate(data, { format, maxOutput, onProgress, signal })</code></td>
+<td>A promise of <code>data</code> (at most 8 MiB, copied when the call is made) decompressed: <code>format</code> <code>&quot;raw&quot;</code> (DEFLATE) or <code>&quot;zlib&quot;</code>, <code>maxOutput</code> the most bytes it may decompress to, 1 to 33,554,432 (32 MiB). Missing or wrong options throw at once (a <code>TypeError</code> or <code>RangeError</code>).</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
 <h2 id="gkapps"><a class="anchor" href="#gkapps" aria-hidden="true" tabindex="-1">#</a>gk:apps</h2>
 <p>Requires <code>&quot;permissions&quot;: [&quot;apps&quot;]</code> in the manifest; importing it otherwise
 throws a <code>ReferenceError</code>. Used by the launcher.</p>
@@ -1617,6 +1936,10 @@ throws a <code>ReferenceError</code>. Used by the launcher.</p>
 <td><code>clearTimeout(id)</code>, <code>clearInterval(id)</code></td>
 <td>Unknown ids are ignored.</td>
 </tr>
+<tr>
+<td><code>AbortController</code>, <code>AbortSignal</code></td>
+<td>As on the web, a subset: <code>new AbortController()</code>, its <code>signal</code> and <code>abort(reason?)</code>; a signal's <code>aborted</code>, <code>reason</code>, <code>onabort</code>, <code>throwIfAborted()</code>, <code>addEventListener(&quot;abort&quot;, fn)</code> and <code>removeEventListener</code>; <code>AbortSignal.abort(reason?)</code> and <code>AbortSignal.timeout(ms)</code>. To cancel <a href="#long-operations">long operations</a>.</td>
+</tr>
 </tbody>
 </table></div>
 <p>Not available: <code>fetch</code>, <code>XMLHttpRequest</code>, <code>WebSocket</code>, <code>localStorage</code> (see
@@ -1653,7 +1976,7 @@ throws a <code>ReferenceError</code>. Used by the launcher.</p>
 </table></div>
 
 </div>
-<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/docs/API.md"><code>docs/API.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/docs/API.md">a0274664025e</a></p>
+<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/7751fd44e8393a8e3bb05edfda7dc28817d17231/docs/API.md"><code>docs/API.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/7751fd44e8393a8e3bb05edfda7dc28817d17231/docs/API.md">7751fd44e839</a></p>
 </article>
 </div>
 </main>
@@ -1662,7 +1985,7 @@ throws a <code>ReferenceError</code>. Used by the launcher.</p>
     <p class="foot-brand"><a href="/pt-br/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>Um sistema operacional mínimo, bare-metal, para aplicativos air-gapped.</span></p>
     <p class="foot-links"><a href="/pt-br/docs/">Documentação</a> · <a href="/pt-br/download.html">Baixar</a> · <a href="/ide/web/index.html?lang=pt-BR">IDE no navegador</a> · <a href="https://github.com/marcocarnut/GapKeep">Código no GitHub</a> · <a href="/pt-br/docs/security.html">Segurança</a> · <a href="/pt-br/docs/contributing.html">Como contribuir</a></p>
     <p class="foot-privacy">Sem rastreadores, sem analytics, sem cookies, sem requisições a terceiros: este site não carrega nada de nenhum outro lugar, no espírito do GapKeep. (A GapWallet tem o seu próprio site, gapwallet.org, com armazenamento separado; lá ela diz a quais servidores se conecta, e por quê.)</p>
-    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Este site: textos e imagens sob <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts sob <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/a0274664025ecf07fcd5ed39d5ad83512c7098c9"><code>a0274664025e</code></a>.</p>
+    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Este site: textos e imagens sob <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts sob <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/7751fd44e8393a8e3bb05edfda7dc28817d17231"><code>7751fd44e839</code></a>.</p>
   </div>
 </footer>
 </body>

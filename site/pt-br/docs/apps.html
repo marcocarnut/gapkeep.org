@@ -51,7 +51,7 @@
 <details class="doc-toc" open><summary>Todos os documentos</summary>
 <p><a href="/pt-br/docs/">Documentação</a></p>
 <h2>Comece aqui</h2><ul><li><a href="/pt-br/docs/readme.html" data-page="readme.html">GapKeep</a></li><li><a href="/pt-br/docs/apps.html" data-page="apps.html" aria-current="page">Writing GapKeep apps</a></li><li><a href="/pt-br/docs/agents.html" data-page="agents.html">Writing GapKeep apps: a guide for coding agents</a></li></ul>
-<h2>Guias</h2><ul><li><a href="/pt-br/docs/simulator.html" data-page="simulator.html">The simulator</a></li><li><a href="/pt-br/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/pt-br/docs/camera.html" data-page="camera.html">The camera and QR codes</a></li><li><a href="/pt-br/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/pt-br/docs/rig.html" data-page="rig.html">The hardware test rig</a></li></ul>
+<h2>Guias</h2><ul><li><a href="/pt-br/docs/simulator.html" data-page="simulator.html">The simulator</a></li><li><a href="/pt-br/docs/ide.html" data-page="ide.html">The browser IDE</a></li><li><a href="/pt-br/docs/camera.html" data-page="camera.html">The camera and QR codes</a></li><li><a href="/pt-br/docs/epaper.html" data-page="epaper.html">E-paper panels</a></li><li><a href="/pt-br/docs/clock.html" data-page="clock.html">The clock</a></li><li><a href="/pt-br/docs/rig.html" data-page="rig.html">The hardware test rig</a></li></ul>
 <h2>Referência e projeto</h2><ul><li><a href="/pt-br/docs/api.html" data-page="api.html">GapKeep JavaScript API reference</a></li><li><a href="/pt-br/docs/architecture.html" data-page="architecture.html">GapKeep architecture</a></li><li><a href="/pt-br/docs/design.html" data-page="design.html">GapKeep&#x27;s design decisions</a></li><li><a href="/pt-br/docs/experimental.html" data-page="experimental.html">Experimental features</a></li></ul>
 <h2>Aplicativos</h2><ul><li><a href="/pt-br/docs/apps/signer.html" data-page="apps/signer.html">Signer</a></li><li><a href="/pt-br/docs/apps/dice39.html" data-page="apps/dice39.html">dice39 on GapKeep</a></li><li><a href="/pt-br/docs/apps/codex32.html" data-page="apps/codex32.html">codex32</a></li><li><a href="/pt-br/docs/apps/totp.html" data-page="apps/totp.html">Authenticator</a></li></ul>
 <h2>O projeto</h2><ul><li><a href="/pt-br/docs/security.html" data-page="security.html">Security</a></li><li><a href="/pt-br/docs/contributing.html" data-page="contributing.html">Contributing to GapKeep</a></li><li><a href="/pt-br/docs/agents-gapkeep.html" data-page="agents-gapkeep.html">Notes for coding agents</a></li></ul>
@@ -164,7 +164,7 @@ handlers and timers.</p>
 <tr>
 <td><code>permissions</code></td>
 <td>no</td>
-<td>Extra rights: <code>&quot;apps&quot;</code> (import <code>gk:apps</code>: list and start apps), <code>&quot;camera&quot;</code> (<code>ui.Scanner</code>, <a href="camera.html">CAMERA.md</a>), <code>&quot;rtc&quot;</code> (setting the clock, <a href="clock.html">CLOCK.md</a>), <code>&quot;settings&quot;</code> (changing the language, number marks and keyboard: <a href="#languages">Languages</a>). E.g. <code>[&quot;camera&quot;]</code>.</td>
+<td>Extra rights: <code>&quot;apps&quot;</code> (import <code>gk:apps</code>: list and start apps), <code>&quot;camera&quot;</code> (<code>ui.Scanner</code>, <a href="camera.html">CAMERA.md</a>), <code>&quot;rtc&quot;</code> (setting the clock, <a href="clock.html">CLOCK.md</a>), <code>&quot;settings&quot;</code> (changing the language, number marks and keyboard: <a href="#languages">Languages</a>), <code>&quot;epaper&quot;</code> (writing to an e-paper panel, <code>ui.epaper</code>: <a href="epaper.html">EPAPER.md</a>). E.g. <code>[&quot;camera&quot;]</code>.</td>
 </tr>
 <tr>
 <td><code>hidden</code></td>
@@ -476,6 +476,59 @@ suits most simple apps. Layout uses flexbox semantics: <code>layout</code> (<cod
 parent (<code>&quot;50%&quot;</code>) or <code>&quot;content&quot;</code>.</p>
 <p>Use <strong>Container</strong> for invisible layout boxes and <strong>Panel</strong> for the &quot;card&quot;
 look (background, border, padding).</p>
+<h2 id="font-sizes"><a class="anchor" href="#font-sizes" aria-hidden="true" tabindex="-1">#</a>Font sizes</h2>
+<p><code>font</code> takes any whole number of pixels from 8 to 120 (<code>ui.fontRange</code>),
+for the normal font and the monospaced one (<code>mono: true</code>) alike; so does
+markup's <code>&lt;span size&gt;</code>. Anything else is a <code>RangeError</code> (a fraction, 7,
+121), or a <code>TypeError</code> if it isn't a number.</p>
+<ul>
+<li><strong><code>ui.fonts</code> and <code>ui.monoFonts</code> are the fastest sizes</strong>: 12 to 40 and 12
+to 28, built into the system as bitmaps, drawn as they are. Prefer them
+when any size near would do.</li>
+<li><strong>Every other size is drawn from the fonts' outlines</strong> (LVGL's TinyTTF),
+as bold and italic always are: the first label to use a size makes its
+font (logged as <code>fonts: regular 50 px: made</code>), and each glyph is
+rasterized the first time it is drawn, then kept. The same characters
+as the bitmap fonts: Latin-1 and Latin Extended-A, the dashes and quotes,
+€ and ₿, and the <code>ui.symbols</code> icons (drawn from Font Awesome's own
+outlines, as the bitmaps were made from); monospaced text takes what
+JetBrains Mono lacks from the normal font of its size, and every size
+has the line height and baseline the bitmap fonts' rule gives, so sizes
+and styles mix on a line.</li>
+<li><strong>What a glyph costs the first time, on a Pi Zero</strong>: about 0.1 ms at 12
+px, 0.13 ms at 24, 0.23 ms at 48, 0.5 ms at 96 and 0.7 ms at 120. A
+screenful of text at 50 px first drew in 23 ms against 15 ms once its
+glyphs were kept; at 120 px, 29 ms against 12 ms (640x480). Glyphs are
+rasterized one by one as they are drawn, never a whole font at once, so
+the worst first draw is bounded by the glyphs a font keeps (96): about
+65 ms for a font at 120 px, a third of a second for a large screen
+showing 96 different characters in each of five styles at 120 px.</li>
+<li><strong>Under about 12 px, text from outlines is soft</strong>: the rasterizer has no
+hinting, so stems spread over two pixels. The bitmap sizes are sharper
+there, and so is a pixel font, which also suits e-paper panels (whose
+pixels have no greys to smooth edges with): see <code>family</code> in
+<a href="api.html">API.md</a> and <a href="epaper.html#text-on-a-panel">EPAPER.md</a>. At the
+bitmap fonts' own sizes the two differ little (a pixel here and there,
+stems slightly lighter from outlines), but the bitmaps are always used
+there.</li>
+<li><strong>Memory is bounded.</strong> The glyphs kept by all the fonts made from
+outlines are capped together at 4 MB: past it, those of the fonts drawn
+longest ago are dropped, and rasterized again if they are drawn again.
+A font itself, without glyphs, takes about 400 bytes. All of them are
+freed when the app exits, and none counts against the app's screen
+(<code>sys.memory().ui</code> includes them). The cap was set from glyph memory
+measured on the Zero: kept glyphs take about 270 bytes each at 12 px,
+450 at 24, 1.1 KB at 48 and 2.5 to 3.3 KB at 96 to 120 px, so a font
+with its 96 glyphs takes 25 KB at 12 px and about 300 KB at 120 px; 4 MB
+keeps a dozen fonts at the largest size, or a hundred at common ones,
+while an app that cycles through all 113 sizes in all five styles
+(tests/fontsizes.txt) stays under 4.4 MB, instead of 15 MB without the
+cap.</li>
+<li><code>family: &quot;epdmono&quot;</code> is a bitmap font with its own sizes only
+(<code>ui.epdmonoFonts</code>): it is never drawn from outlines.</li>
+<li>Apps can't bring fonts of their own: text is drawn only from GapKeep's
+built-in fonts.</li>
+</ul>
 <h2 id="markup"><a class="anchor" href="#markup" aria-hidden="true" tabindex="-1">#</a>Markup</h2>
 <p>A Label made with <code>markup: true</code> takes Pango-style markup, for a few
 words in another style:</p>
@@ -489,23 +542,26 @@ new ui.Label({
 });
 </code></pre>
 <p>Tags: <code>&lt;b&gt;</code> (bold), <code>&lt;i&gt;</code> (italic), both for bold italic, <code>&lt;tt&gt;</code>
-(monospaced), <code>&lt;big&gt;</code>, <code>&lt;small&gt;</code>, <code>&lt;u&gt;</code>, <code>&lt;s&gt;</code>, and <code>&lt;span&gt;</code> with <code>color</code>,
-<code>size</code> (one of <code>ui.fonts</code>), <code>font_family=&quot;monospace&quot;</code>, <code>weight=&quot;bold&quot;</code>,
-<code>style=&quot;italic&quot;</code>, <code>underline=&quot;single&quot;</code>, <code>strikethrough=&quot;true&quot;</code>. Entities:
-<code>&amp;lt; &amp;gt; &amp;amp; &amp;quot; &amp;apos; &amp;#N; &amp;#xN;</code>. Bold and italic come at every
-size of <code>ui.fonts</code>, on the same line and baseline as the normal text; there
-is no bold or italic monospaced font, so <code>&lt;b&gt;</code> inside <code>&lt;tt&gt;</code> (or in a
-<code>mono</code> label, or <code>&lt;tt&gt;</code> inside <code>&lt;b&gt;</code>) is an error. Anything the parser
+(monospaced, at the same size), <code>&lt;big&gt;</code> and <code>&lt;small&gt;</code> (the next size of
+<code>ui.fonts</code> up or down, or the same if there is none), <code>&lt;u&gt;</code>, <code>&lt;s&gt;</code>, and
+<code>&lt;span&gt;</code> with <code>color</code>, <code>size</code> (whole pixels, 8 to 120: any of
+<code>ui.fontRange</code>, see <a href="#font-sizes">Font sizes</a>), <code>font_family=&quot;monospace&quot;</code>,
+<code>weight=&quot;bold&quot;</code>, <code>style=&quot;italic&quot;</code>, <code>underline=&quot;single&quot;</code>,
+<code>strikethrough=&quot;true&quot;</code>. Entities: <code>&amp;lt; &amp;gt; &amp;amp; &amp;quot; &amp;apos; &amp;#N; &amp;#xN;</code>. Bold and italic come at every size, on the same line and baseline
+as the normal text; there is no bold or italic monospaced font, so <code>&lt;b&gt;</code>
+inside <code>&lt;tt&gt;</code> (or in a <code>mono</code> label, or <code>&lt;tt&gt;</code> inside <code>&lt;b&gt;</code>) is an
+error. Anything the parser
 doesn't know throws a <code>TypeError</code> naming the problem and the character
 where it is: markup is never shown half-parsed.</p>
 <p>Bold and italic are drawn from TrueType outlines (LVGL's TinyTTF), not
-from bitmaps: the first label to use a style at a size makes its font
-(logged as <code>fonts: bold 16 px: made</code>), and each glyph is rasterized the
-first time it is drawn and then kept (up to 96 per style and size, about
-25 KB at 16 px). So a style costs nothing until it is used, and its first
-screen is slower than the next: on QEMU, about 10 ms more for a paragraph
-in bold. They lack the bitmap fonts' hinting: at 12
-and 14 px they look a little softer.</p>
+from bitmaps, as sizes outside <code>ui.fonts</code> are (<a href="#font-sizes">Font sizes</a>):
+the first label to use a style at a size makes its font (logged as
+<code>fonts: bold 16 px: made</code>), and each glyph is rasterized the first time it
+is drawn and then kept (up to 96 a font, about 25 KB at 16 px, under the
+cap for all fonts). So a style costs nothing until it is used, and its
+first screen is slower than the next: on a Pi Zero, about 8 ms more for a
+paragraph in bold at 16 px. They lack the bitmap fonts' hinting: at 12 and
+14 px they look a little softer.</p>
 <p><strong>Data is never markup.</strong> A name, an address or a scanned text could hold
 <code>&lt;</code> or <code>&amp;</code>: put it in with <code>ui.escapeMarkup(s)</code>, or through <code>tm()</code> (as <code>t()</code>,
 but every param is escaped). A translation of a key with tags must keep the
@@ -712,7 +768,7 @@ and focus the first input when a screen appears (<code>widget.focus()</code>).</
 </ul>
 
 </div>
-<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/docs/APPS.md"><code>docs/APPS.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/docs/APPS.md">a0274664025e</a></p>
+<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/7751fd44e8393a8e3bb05edfda7dc28817d17231/docs/APPS.md"><code>docs/APPS.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/7751fd44e8393a8e3bb05edfda7dc28817d17231/docs/APPS.md">7751fd44e839</a></p>
 </article>
 </div>
 </main>
@@ -721,7 +777,7 @@ and focus the first input when a screen appears (<code>widget.focus()</code>).</
     <p class="foot-brand"><a href="/pt-br/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>Um sistema operacional mínimo, bare-metal, para aplicativos air-gapped.</span></p>
     <p class="foot-links"><a href="/pt-br/docs/">Documentação</a> · <a href="/pt-br/download.html">Baixar</a> · <a href="/ide/web/index.html?lang=pt-BR">IDE no navegador</a> · <a href="https://github.com/marcocarnut/GapKeep">Código no GitHub</a> · <a href="/pt-br/docs/security.html">Segurança</a> · <a href="/pt-br/docs/contributing.html">Como contribuir</a></p>
     <p class="foot-privacy">Sem rastreadores, sem analytics, sem cookies, sem requisições a terceiros: este site não carrega nada de nenhum outro lugar, no espírito do GapKeep. (A GapWallet tem o seu próprio site, gapwallet.org, com armazenamento separado; lá ela diz a quais servidores se conecta, e por quê.)</p>
-    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Este site: textos e imagens sob <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts sob <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/a0274664025ecf07fcd5ed39d5ad83512c7098c9"><code>a0274664025e</code></a>.</p>
+    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Este site: textos e imagens sob <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts sob <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/7751fd44e8393a8e3bb05edfda7dc28817d17231"><code>7751fd44e839</code></a>.</p>
   </div>
 </footer>
 </body>

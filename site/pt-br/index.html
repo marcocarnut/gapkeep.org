@@ -412,6 +412,7 @@
           <li><b>PWR</b>Só alimentação: uma fonte micro-USB.</li>
           <li><b>CAMERA</b>O Camera Module v2.1, com o cabo mais estreito do Zero.</li>
           <li><b>MICRO SD</b>O cartão do GapKeep: lido ao ligar, depois pode sair.</li>
+          <li><b>GPIO</b>Opcional: um painel de e-paper, com oito fios jumper.</li>
         </ul>
         <figcaption class="sr">Desenho de um Raspberry Pi Zero v1.3: as portas mini-HDMI, USB e PWR numa borda comprida, o encaixe do microSD numa ponta e o conector da câmera na outra.</figcaption>
       </figure>
@@ -429,11 +430,18 @@
           <li class="opt"><span class="n">+</span><div><strong>Raspberry Pi Camera Module v2.1, com um cabo de câmera para o Zero</strong><span>Altamente recomendado: para os QR codes que entram e saem. O conector de câmera do Zero é mais estreito que o dos outros Pis, então ele precisa do cabo flat próprio do Zero, não do cabo padrão que vem com o módulo. Outros módulos de câmera (1, 3, HQ) e câmeras USB não são suportados por enquanto.</span></div></li>
           <li class="opt"><span class="n">+</span><div><strong>Um mouse com fio, e um pequeno hub USB</strong><span>O mouse dá conforto, mas não é necessário: todo aplicativo funciona só com o teclado. Um hub liga os dois na única porta USB.</span></div></li>
         </ul>
+        <p class="hw-sub">Opcional</p>
+        <ul class="hw-list">
+          <li class="opt"><span class="n">+</span><div><strong>Um painel de e-paper</strong><span>Um módulo WeAct Studio de 2,9" (preto, branco e vermelho), 2,13" ou 4,2", ligado com oito fios jumper ao conector GPIO do Zero (solde um, se o seu Zero não tiver). O dice39 e o codex32 gravam cada partição codex32, ou o SeedQR da semente, num painel só para ela. <a href="docs/epaper.html">Ligação e configuração</a> (em inglês).</span></div></li>
+        </ul>
         <div class="callout red">
           <p><strong>Use teclado e mouse com fio.</strong>Um teclado sem fio põe um rádio de volta no canal mais sensível que existe: tudo o que você digita. Não adianta o computador não ter rádio se o teclado conversa pelo ar.</p>
         </div>
         <div class="callout teal">
           <p><strong>Por que o Pi Zero simples?</strong>Ele não tem hardware de Wi-Fi nem de Bluetooth: o isolamento está no hardware, não numa configuração que alguém possa religar. O GapKeep é feito para o Pi Zero v1.3 com 512 MB, e testado nele.</p>
+        </div>
+        <div class="callout teal">
+          <p><strong>Por que e-paper?</strong>O painel mantém a imagem sem energia nenhuma, então uma partição vira um objeto que você desliga e guarda, gravado pelo próprio aparelho: sem copiar 48 caracteres à mão, sem impressora, sem celular. Com "só no painel", a partição nunca aparece na tela HDMI, então nem o monitor nem nada que o esteja gravando chega a vê-la. A câmera lê cada painel de volta para conferir, e os painéis são baratos o bastante para cada partição ter o seu. Mas são de vidro e plástico: para um backup que precisa sobreviver a fogo ou água, copie a partição também em metal.</p>
         </div>
       </div>
     </div>
@@ -568,9 +576,9 @@
       <li><strong><a href="https://github.com/bitcoin-core/secp256k1">libsecp256k1</a></strong>, a biblioteca do Bitcoin Core para as assinaturas e as chaves. <span class="lic"><a href="https://github.com/bitcoin-core/secp256k1/blob/6e2c8bc4ecdc6e71dbe7a368f360d8d453ce435d/COPYING">MIT</a></span></li>
       <li><strong><a href="https://elm-chan.org/fsw/ff/">FatFs</a></strong>, de ChaN, que lê o cartão SD (compilado só para leitura). <span class="lic"><a href="https://github.com/rsta2/circle/blob/7a81e1b480fe7d19fc1fc695b89bff0a0848f44b/addon/fatfs/LICENSE.txt">estilo BSD</a></span></li>
       <li><strong><a href="https://www.anthropic.com/claude">Claude</a></strong>, da Anthropic, uma IA que escreveu e revisou boa parte do código e da documentação do GapKeep junto com o autor; os commits dão o crédito.</li>
-      <li><strong><a href="https://github.com/JulietaUla/Montserrat">Montserrat</a></strong>, a fonte do GapKeep e deste site. <span class="lic"><a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/src/runtime/fonts/LICENCE.montserrat">SIL OFL 1.1</a></span></li>
-      <li><strong><a href="https://fontawesome.com">Font Awesome Free</a></strong>, os ícones dos aplicativos do GapKeep. <span class="lic"><a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/src/runtime/fonts/LICENCE.fontawesome">SIL OFL 1.1 (fontes)</a></span></li>
-      <li><strong><a href="https://www.jetbrains.com/lp/mono/">JetBrains Mono</a></strong>, para códigos, chaves e hashes, no GapKeep e aqui. <span class="lic"><a href="https://github.com/marcocarnut/GapKeep/blob/a0274664025ecf07fcd5ed39d5ad83512c7098c9/src/runtime/fonts/LICENCE.jetbrainsmono">SIL OFL 1.1</a></span></li>
+      <li><strong><a href="https://github.com/JulietaUla/Montserrat">Montserrat</a></strong>, a fonte do GapKeep e deste site. <span class="lic"><a href="https://github.com/marcocarnut/GapKeep/blob/7751fd44e8393a8e3bb05edfda7dc28817d17231/src/runtime/fonts/LICENCE.montserrat">SIL OFL 1.1</a></span></li>
+      <li><strong><a href="https://fontawesome.com">Font Awesome Free</a></strong>, os ícones dos aplicativos do GapKeep. <span class="lic"><a href="https://github.com/marcocarnut/GapKeep/blob/7751fd44e8393a8e3bb05edfda7dc28817d17231/src/runtime/fonts/LICENCE.fontawesome">SIL OFL 1.1 (fontes)</a></span></li>
+      <li><strong><a href="https://www.jetbrains.com/lp/mono/">JetBrains Mono</a></strong>, para códigos, chaves e hashes, no GapKeep e aqui. <span class="lic"><a href="https://github.com/marcocarnut/GapKeep/blob/7751fd44e8393a8e3bb05edfda7dc28817d17231/src/runtime/fonts/LICENCE.jetbrainsmono">SIL OFL 1.1</a></span></li>
     </ul>
   </div>
 </section>
@@ -599,7 +607,7 @@
     <p class="foot-brand"><a href="/pt-br/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>Um sistema operacional mínimo, bare-metal, para aplicativos air-gapped.</span></p>
     <p class="foot-links"><a href="/pt-br/docs/">Documentação</a> · <a href="/pt-br/download.html">Baixar</a> · <a href="/ide/web/index.html?lang=pt-BR">IDE no navegador</a> · <a href="https://github.com/marcocarnut/GapKeep">Código no GitHub</a> · <a href="/pt-br/docs/security.html">Segurança</a> · <a href="/pt-br/docs/contributing.html">Como contribuir</a></p>
     <p class="foot-privacy">Sem rastreadores, sem analytics, sem cookies, sem requisições a terceiros: este site não carrega nada de nenhum outro lugar, no espírito do GapKeep. (A GapWallet tem o seu próprio site, gapwallet.org, com armazenamento separado; lá ela diz a quais servidores se conecta, e por quê.)</p>
-    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Este site: textos e imagens sob <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts sob <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/a0274664025ecf07fcd5ed39d5ad83512c7098c9"><code>a0274664025e</code></a>.</p>
+    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Este site: textos e imagens sob <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts sob <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/7751fd44e8393a8e3bb05edfda7dc28817d17231"><code>7751fd44e839</code></a>.</p>
   </div>
 </footer>
 </body>
