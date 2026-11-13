@@ -69,10 +69,10 @@ manifest; it runs on QuickJS (ES2023) and draws with LVGL through the
 order you need it. The details are in:</p>
 <ul>
 <li><a href="api.html">API.md</a>: every module, widget, property and event. Generated
-from <a href="https://github.com/marcocarnut/GapKeep/blob/7751fd44e8393a8e3bb05edfda7dc28817d17231/docs/api/gapkeep-api.yaml" rel="noopener">api/gapkeep-api.yaml</a>, which a test checks
+from <a href="https://github.com/marcocarnut/GapKeep/blob/19eaea1872c1212648916ac018284b6709510cce/docs/api/gapkeep-api.yaml" rel="noopener">api/gapkeep-api.yaml</a>, which a test checks
 against the runtime: what it says exists, exists.</li>
 <li><a href="apps.html">APPS.md</a>: the manifest, installing, hashes, layout, input.</li>
-<li><a href="https://github.com/marcocarnut/GapKeep/blob/7751fd44e8393a8e3bb05edfda7dc28817d17231/sim/web/types/gapkeep.d.ts" rel="noopener"><code>sim/web/types/gapkeep.d.ts</code></a>: the same API
+<li><a href="https://github.com/marcocarnut/GapKeep/blob/19eaea1872c1212648916ac018284b6709510cce/sim/web/types/gapkeep.d.ts" rel="noopener"><code>sim/web/types/gapkeep.d.ts</code></a>: the same API
 as TypeScript declarations, if types help you.</li>
 </ul>
 <h2 id="the-loop-write-run-look"><a class="anchor" href="#the-loop-write-run-look" aria-hidden="true" tabindex="-1">#</a>The loop: write, run, look</h2>
@@ -196,7 +196,9 @@ Build the screen, log &quot;ready&quot;, then start long work, and split it with
 reports the work an app does as &quot;about N ms of JavaScript on a Pi Zero&quot;;
 the Zero is 10 to 50 times slower than your machine.</li>
 <li><strong>A handler may run 10 s at most</strong>, then it is interrupted (the app keeps
-running).</li>
+running). Ctrl+C interrupts it sooner, once it has run half a second
+(<code>key ctrl-c</code> in scenarios); a Ctrl+C while nothing runs that long is an
+ordinary key, the app's.</li>
 <li><strong>Containers don't scroll</strong> unless <code>scrollable: true</code>. The screen and
 Panels do. A scrollable Container clips its content and needs 5 px of
 padding for focus rings (it gets that by default). The mouse wheel
@@ -241,7 +243,7 @@ and verify what is typed. Keep secrets on screen only as long as needed,
 and offer a way to clear them. More in <a href="apps.html#guidelines-for-air-gapped-apps">APPS.md</a>.</p>
 
 </div>
-<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/7751fd44e8393a8e3bb05edfda7dc28817d17231/docs/AGENTS.md"><code>docs/AGENTS.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/7751fd44e8393a8e3bb05edfda7dc28817d17231/docs/AGENTS.md">7751fd44e839</a></p>
+<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/19eaea1872c1212648916ac018284b6709510cce/docs/AGENTS.md"><code>docs/AGENTS.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/19eaea1872c1212648916ac018284b6709510cce/docs/AGENTS.md">19eaea1872c1</a></p>
 </article>
 </div>
 </main>
@@ -250,7 +252,7 @@ and offer a way to clear them. More in <a href="apps.html#guidelines-for-air-gap
     <p class="foot-brand"><a href="/pt-br/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>Um sistema operacional mínimo, bare-metal, para aplicativos air-gapped.</span></p>
     <p class="foot-links"><a href="/pt-br/docs/">Documentação</a> · <a href="/pt-br/download.html">Baixar</a> · <a href="/ide/web/index.html?lang=pt-BR">IDE no navegador</a> · <a href="https://github.com/marcocarnut/GapKeep">Código no GitHub</a> · <a href="/pt-br/docs/security.html">Segurança</a> · <a href="/pt-br/docs/contributing.html">Como contribuir</a></p>
     <p class="foot-privacy">Sem rastreadores, sem analytics, sem cookies, sem requisições a terceiros: este site não carrega nada de nenhum outro lugar, no espírito do GapKeep. (A GapWallet tem o seu próprio site, gapwallet.org, com armazenamento separado; lá ela diz a quais servidores se conecta, e por quê.)</p>
-    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Este site: textos e imagens sob <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts sob <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/7751fd44e8393a8e3bb05edfda7dc28817d17231"><code>7751fd44e839</code></a>.</p>
+    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Este site: textos e imagens sob <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts sob <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/19eaea1872c1212648916ac018284b6709510cce"><code>19eaea1872c1</code></a>.</p>
   </div>
 </footer>
 </body>

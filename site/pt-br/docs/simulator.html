@@ -116,7 +116,7 @@ on stdin, one per line:</p>
 </tr>
 <tr>
 <td><code>keydown &lt;name&gt;</code>, <code>keyup</code></td>
-<td>Hold a key (it auto-repeats after 400 ms, every 80 ms, as on the device), release it.</td>
+<td>Hold a key (it auto-repeats after 400 ms, every 80 ms, as on the device), release it. Key commands are taken even while a script runs, as the device's keyboard interrupt takes keys: <code>key ctrl-c</code> stops a script that has run half a second. Other commands wait for it to end.</td>
 </tr>
 <tr>
 <td><code>pointer &lt;x&gt; &lt;y&gt; &lt;0|1&gt;</code></td>
@@ -278,6 +278,10 @@ before the first screen. The device logs the work too, without the estimate.</p>
 <h2 id="differences-from-the-device"><a class="anchor" href="#differences-from-the-device" aria-hidden="true" tabindex="-1">#</a>Differences from the device</h2>
 <ul>
 <li><strong>Speed</strong>, above.</li>
+<li><strong>Ctrl+C in the browser</strong>: a script that runs on blocks the page (the
+browser delivers no keys until it returns), so in the IDE only the 10 s
+watchdog stops it. The command-line simulator takes keys meanwhile, as
+the device does.</li>
 <li><strong>No serial port</strong>: <code>send</code> in scenarios fails; test-build serial commands
 (<code>#shot</code>, <code>#crash</code>) are unavailable.</li>
 <li><strong>USB</strong>: the keyboard and mouse are always there; other devices come
@@ -306,7 +310,7 @@ simulated keyboard feeds it HID reports and the strings Circle's keymap
 makes, so key translation, auto-repeat and the Home key are the real code.</p>
 
 </div>
-<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/7751fd44e8393a8e3bb05edfda7dc28817d17231/docs/SIMULATOR.md"><code>docs/SIMULATOR.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/7751fd44e8393a8e3bb05edfda7dc28817d17231/docs/SIMULATOR.md">7751fd44e839</a></p>
+<p class="doc-src">Fonte: <a href="https://github.com/marcocarnut/GapKeep/blob/19eaea1872c1212648916ac018284b6709510cce/docs/SIMULATOR.md"><code>docs/SIMULATOR.md</code></a> no commit <a href="https://github.com/marcocarnut/GapKeep/blob/19eaea1872c1212648916ac018284b6709510cce/docs/SIMULATOR.md">19eaea1872c1</a></p>
 </article>
 </div>
 </main>
@@ -315,7 +319,7 @@ makes, so key translation, auto-repeat and the Home key are the real code.</p>
     <p class="foot-brand"><a href="/pt-br/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>Um sistema operacional mínimo, bare-metal, para aplicativos air-gapped.</span></p>
     <p class="foot-links"><a href="/pt-br/docs/">Documentação</a> · <a href="/pt-br/download.html">Baixar</a> · <a href="/ide/web/index.html?lang=pt-BR">IDE no navegador</a> · <a href="https://github.com/marcocarnut/GapKeep">Código no GitHub</a> · <a href="/pt-br/docs/security.html">Segurança</a> · <a href="/pt-br/docs/contributing.html">Como contribuir</a></p>
     <p class="foot-privacy">Sem rastreadores, sem analytics, sem cookies, sem requisições a terceiros: este site não carrega nada de nenhum outro lugar, no espírito do GapKeep. (A GapWallet tem o seu próprio site, gapwallet.org, com armazenamento separado; lá ela diz a quais servidores se conecta, e por quê.)</p>
-    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Este site: textos e imagens sob <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts sob <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/7751fd44e8393a8e3bb05edfda7dc28817d17231"><code>7751fd44e839</code></a>.</p>
+    <p class="foot-small">O GapKeep é software livre, sob a GNU GPL versão 3 ou posterior. Este site: textos e imagens sob <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts sob <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentação espelhada do commit do GapKeep <a href="https://github.com/marcocarnut/GapKeep/tree/19eaea1872c1212648916ac018284b6709510cce"><code>19eaea1872c1</code></a>.</p>
   </div>
 </footer>
 </body>

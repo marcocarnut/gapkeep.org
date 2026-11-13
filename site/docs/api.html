@@ -707,7 +707,7 @@ padding, scrollbars when content overflows.</p>
 </tbody>
 </table></div>
 <h4 id="dropdown"><a class="anchor" href="#dropdown" aria-hidden="true" tabindex="-1">#</a>Dropdown</h4>
-<p>Picks one of several options from a list that opens.</p>
+<p>Picks one of several options from a list that opens below the control (above it if there is more room there). The list is as wide as its longest option and stays on the screen: near the right edge it lines up with the control's right side; a list too tall to fit scrolls, with a scrollbar.</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -1167,7 +1167,7 @@ names are valid for <code>icon</code> in <code>manifest.json</code>.</p>
 </tr>
 <tr>
 <td><code>pbkdf2(hash, password, salt, iterations, length)</code></td>
-<td>PBKDF2 (RFC 8018) with HMAC over <code>hash</code>: a <code>Uint8Array(length)</code>. <code>iterations</code> 1 to 10,000,000, <code>length</code> 1 to 1024. A BIP-39 seed is <code>pbkdf2(&quot;SHA-512&quot;, mnemonic, &quot;mnemonic&quot; + passphrase, 2048, 64)</code> (both NFKD-normalised first: <code>.normalize(&quot;NFKD&quot;)</code>), about 0.1 s on a Pi Zero. Blocks until done, but, like JavaScript, is stopped by the watchdog (10 s) and the Windows key: millions of iterations take minutes. Over a few thousand iterations, use <code>pbkdf2Async</code>.</td>
+<td>PBKDF2 (RFC 8018) with HMAC over <code>hash</code>: a <code>Uint8Array(length)</code>. <code>iterations</code> 1 to 10,000,000, <code>length</code> 1 to 1024. A BIP-39 seed is <code>pbkdf2(&quot;SHA-512&quot;, mnemonic, &quot;mnemonic&quot; + passphrase, 2048, 64)</code> (both NFKD-normalised first: <code>.normalize(&quot;NFKD&quot;)</code>), about 0.1 s on a Pi Zero. Blocks until done, but, like JavaScript, is stopped by the watchdog (10 s), Ctrl+C and the Windows key: millions of iterations take minutes. Over a few thousand iterations, use <code>pbkdf2Async</code>.</td>
 </tr>
 <tr>
 <td><code>pbkdf2Async(hash, password, salt, iterations, length, options?)</code></td>
@@ -1385,7 +1385,7 @@ may wait (a 17th throws a <code>RangeError</code>). Arguments are checked when t
 call is made (errors are thrown, not rejected). When the app stops (it
 exits, or the Windows key takes the person home) its operations are
 dropped and wiped, their promises never settled; when the watchdog
-stops one of its scripts, they are rejected with an <code>InternalError</code>.
+(or Ctrl+C) stops one of its scripts, they are rejected with an <code>InternalError</code>.
 The last argument may be <code>{ onProgress, signal }</code>. <code>onProgress</code>: a
 function called after each slice that moved the work on, with a
 fraction (more than 0, at most 1). <code>signal</code>: an <code>AbortSignal</code>, to cancel
@@ -1966,7 +1966,7 @@ throws a <code>ReferenceError</code>. Used by the launcher.</p>
 </tr>
 <tr>
 <td>One handler, timer or job</td>
-<td>10 s, then interrupted (the app keeps running)</td>
+<td>10 s, then interrupted (the app keeps running); Ctrl+C interrupts it after 0.5 s</td>
 </tr>
 <tr>
 <td>Display</td>
@@ -1976,7 +1976,7 @@ throws a <code>ReferenceError</code>. Used by the launcher.</p>
 </table></div>
 
 </div>
-<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/7751fd44e8393a8e3bb05edfda7dc28817d17231/docs/API.md"><code>docs/API.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/7751fd44e8393a8e3bb05edfda7dc28817d17231/docs/API.md">7751fd44e839</a></p>
+<p class="doc-src">Source: <a href="https://github.com/marcocarnut/GapKeep/blob/19eaea1872c1212648916ac018284b6709510cce/docs/API.md"><code>docs/API.md</code></a> at <a href="https://github.com/marcocarnut/GapKeep/blob/19eaea1872c1212648916ac018284b6709510cce/docs/API.md">19eaea1872c1</a></p>
 </article>
 </div>
 </main>
@@ -1985,7 +1985,7 @@ throws a <code>ReferenceError</code>. Used by the launcher.</p>
     <p class="foot-brand"><a href="/"><svg class="mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M5 4h4v4h2.5v-4h3.5V19.13A4 4 0 0 0 12 23V29H5Z" fill="#00968c"/><path d="M17 4h3.5v4h2.5v-4h4v25h-7V23A4 4 0 0 0 17 19.13Z" fill="#00968c"/></svg><span class="word">Gap<b>Keep</b></span></a><span>A tiny bare-metal OS for air-gapped apps.</span></p>
     <p class="foot-links"><a href="/docs/">Documentation</a> · <a href="/download.html">Download</a> · <a href="/ide/">Browser IDE</a> · <a href="https://github.com/marcocarnut/GapKeep">Source on GitHub</a> · <a href="/docs/security.html">Security</a> · <a href="/docs/contributing.html">Contributing</a></p>
     <p class="foot-privacy">No trackers, no analytics, no cookies, no third-party requests: this site loads nothing from anywhere else, in the spirit of GapKeep. (GapWallet has its own site, gapwallet.org, with its own storage; it says what it connects to, and why.)</p>
-    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/7751fd44e8393a8e3bb05edfda7dc28817d17231"><code>7751fd44e839</code></a>.</p>
+    <p class="foot-small">GapKeep is free software, under the GNU GPL version 3 or later. This site: text and pictures under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, scripts under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0-or-later</a>. Documentation mirrored from GapKeep commit <a href="https://github.com/marcocarnut/GapKeep/tree/19eaea1872c1212648916ac018284b6709510cce"><code>19eaea1872c1</code></a>.</p>
   </div>
 </footer>
 </body>
