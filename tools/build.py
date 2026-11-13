@@ -13,6 +13,7 @@ Sources:
     data/downloads.json      the SD card images (empty fields: coming soon)
     site/css, site/js, site/fonts, site/img    static, edited by hand
     site/ide/                the browser IDE, from tools/import_ide.sh
+    site/dice39/             dice39's dice tables (PDF), from tools/dice39_pdfs.py
 
 Everything else in site/ (the .html files, sitemap.xml, sw.js's list) is
 written by this script: edit the sources, not the output.
@@ -658,6 +659,7 @@ def main():
     for lang in LANGS:
         content_page(lang, 'index.html', '', 'page-home')
         content_page(lang, 'download.html', 'download.html', 'page-download')
+        content_page(lang, 'dice39.html', 'dice39.html', 'page-dice39')
     build_docs()
     gapwallet_pages()
     logo_concepts()

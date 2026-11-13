@@ -18,6 +18,7 @@ browser IDE. Static files, no framework, nothing loaded from anywhere else.
 | `site/css/`, `site/js/`, `site/img/logo/`, `site/fonts/` | Static assets | hand, or the scripts below |
 | `site/img/shots/` | App screenshots, `en/` and `pt-BR/`, with `SOURCE` | `tools/screenshots.py` |
 | `site/ide/` | The browser IDE, with `SOURCE` | `tools/import_ide.sh` only |
+| `site/dice39/` | dice39's dice tables, PDF, with `dice39-tables.json` (the source's SHA-256) | `tools/dice39_pdfs.py ../dice39/bip39_generator.html site/dice39` |
 | `site/**/*.html`, `site/sw.js`, `site/sitemap.xml` | Generated pages | `tools/build.py` only |
 | `screenshots/` | Screenshots of the site itself, for review | `tools/screenshot_site.sh` |
 

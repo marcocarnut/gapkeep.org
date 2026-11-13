@@ -1,0 +1,10 @@
+{
+ "source": "bip39_generator.html",
+ "sha256": "2761011a95e7b961bfe3a6001df7e6ec4d49106134c19453e49e1364c67357dd",
+ "files": [
+  "dice39-tables-en-a4.pdf",
+  "dice39-tables-en-letter.pdf",
+  "dice39-tables-pt-br-a4.pdf",
+  "dice39-tables-pt-br-letter.pdf"
+ ]
+}
