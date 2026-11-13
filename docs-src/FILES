@@ -38,6 +38,7 @@ apps/dice39/lib/descriptor.js
 apps/dice39/lib/entropypad.js
 apps/dice39/lib/epaper.js
 apps/dice39/lib/epaperlayout.js
+apps/dice39/lib/fullphrase.js
 apps/dice39/lib/psbt/basen.js
 apps/dice39/lib/psbt/bytes.js
 apps/dice39/lib/psbt/hashes.js
@@ -501,12 +502,16 @@ tests/colorqr/v5_q433_3_4.bin
 tests/colorqr/v5_q433_3_4.png
 tests/colorqr_hw.txt
 tests/crash.txt
+tests/ctrlc.txt
 tests/dice39.txt
 tests/dice39/check_qr.py
 tests/dice39/check_zpub.py
 tests/dice39/run_node.mjs
+tests/dice39_allwords.txt
 tests/dice39_import.txt
 tests/dice39_sizes.txt
+tests/dropdown.txt
+tests/dropdown/check_list.py
 tests/epaper.txt
 tests/epaper/check_panel.py
 tests/epaper/check_rotation.py
